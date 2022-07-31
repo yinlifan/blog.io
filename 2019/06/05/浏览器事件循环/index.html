@@ -265,7 +265,7 @@
 <li><p>每一个宏任务会从头到尾执行完毕，不会执行其他</p>
 <blockquote>
 <p>浏览器为了能够使js内部宏任务与dom任务有序的执行，会在一个宏任务执行结束后，在下一个宏任务执行开始前，对页面进行重新渲染。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 宏任务--&gt;渲染--&gt;宏任务--&gt;渲染--&gt;渲染．．</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight brainfuck"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 宏任务</span><span class="literal">--</span>&gt;<span class="comment">渲染</span><span class="literal">--</span>&gt;<span class="comment">宏任务</span><span class="literal">--</span>&gt;<span class="comment">渲染</span><span class="literal">--</span>&gt;<span class="comment">渲染．．</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 </blockquote>
 <ul>
 <li>js代码</li>

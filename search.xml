@@ -1,6 +1,840 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Vue3与Vue2API的区别</title>
+    <url>/2021/09/02/Vue3%E4%B8%8EVue2API%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
+    <content><![CDATA[<h4 id="Vue3-0-所采用的-Composition-Api-与-Vue2-x-使用的-Options-Api-有什么不同？"><a href="#Vue3-0-所采用的-Composition-Api-与-Vue2-x-使用的-Options-Api-有什么不同？" class="headerlink" title="Vue3.0 所采用的 Composition Api 与 Vue2.x 使用的 Options Api 有什么不同？"></a>Vue3.0 所采用的 Composition Api 与 Vue2.x 使用的 Options Api 有什么不同？</h4><ol>
+<li><p>options API:</p>
+<p>即选项式API，通过定义methods，data，computed，watch等属性与方法，共同处理页面逻辑。</p>
+<p>一个功能的实现，需要不同的vue配置项，定义属相和方法比较分散。大项目可能包含多个方法，这可能会导致组件难以阅读和理解。</p>
+</li>
+</ol>
+<span id="more"></span>
+<p>   如图：</p>
+<p>   <a href="http://zslin.xyz/2021/06/09/vue3/vue3%E5%92%8Cvue2-API%E7%9A%84%E5%8C%BA%E5%88%AB/tt.png"><img src="http://zslin.xyz/2021/06/09/vue3/vue3%E5%92%8Cvue2-API%E7%9A%84%E5%8C%BA%E5%88%AB/tt.png" alt="img"></a></p>
+<ol start="2">
+<li><p>composition API:</p>
+<p>一个功能的所有api都会放在一起，实现了高内聚，低耦合。方便找到功能所对应的方法及属性。</p>
+<p>根据逻辑相关性组织代码，提高可读性和可维护性，基于函数组合的API。</p>
+<p>如图：</p>
+<p><a href="http://zslin.xyz/2021/06/09/vue3/vue3%E5%92%8Cvue2-API%E7%9A%84%E5%8C%BA%E5%88%AB/cc.png"><img src="http://zslin.xyz/2021/06/09/vue3/vue3%E5%92%8Cvue2-API%E7%9A%84%E5%8C%BA%E5%88%AB/cc.png" alt="img"></a></p>
+<h4 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h4><hr>
+<blockquote>
+<ul>
+<li><a href="https://vue3js.cn/interview/vue3/composition.html#%E6%AD%A3%E6%96%87">https://vue3js.cn/interview/vue3/composition.html#%E6%AD%A3%E6%96%87</a></li>
+</ul>
+</blockquote>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Vue3</category>
+      </categories>
+      <tags>
+        <tag>Vue3</tag>
+        <tag>Vue</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Vue3响应式改进</title>
+    <url>/2021/09/25/Vue3%E5%93%8D%E5%BA%94%E5%BC%8F%E6%94%B9%E8%BF%9B/</url>
+    <content><![CDATA[<h4 id="Vue3-0里为什么要用-Proxy-API-替代-defineProperty-API-？"><a href="#Vue3-0里为什么要用-Proxy-API-替代-defineProperty-API-？" class="headerlink" title="Vue3.0里为什么要用 Proxy API 替代 defineProperty API ？"></a>Vue3.0里为什么要用 Proxy API 替代 defineProperty API ？</h4><hr>
+<p>proxy的性能本来比defindproerty好，proxy可以拦截属性的访问，赋值，删除等操作，不需要初始化的时候遍历所有属性。另外如果是多层嵌套的对象，只有访问某个属性的时候，才会递归处理下一级的属性。</p>
+<span id="more"></span>
+<p>object.defineproperty():</p>
+<ul>
+<li>检测不到对象属性的添加和删除 在这里可以使用set，delete方法。</li>
+<li>不能根据数组索引来修改值</li>
+<li>需要遍历每个属性进行遍历监听，如果是嵌套对象的话，就需要深层监听，造成性能问题。</li>
+</ul>
+<p>proxy：</p>
+<ul>
+<li>可以直接监听整个对象</li>
+<li>可以直接监听数组的变化（push，shift，splice）</li>
+<li>有多达13种拦截方法，不限于apply，has等等，是defindproerty不具备的</li>
+<li>返回一个新的对象，只操作新的对象就能达到目的。</li>
+</ul>
+<h4 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h4><hr>
+<blockquote>
+<ul>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty">https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty</a></li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li><a href="https://vue3js.cn/interview/vue3/proxy.html#%E4%B8%80%E3%80%81object-defineproperty">https://vue3js.cn/interview/vue3/proxy.html#%E4%B8%80%E3%80%81object-defineproperty</a></li>
+</ul>
+</blockquote>
+]]></content>
+      <categories>
+        <category>Vue3</category>
+      </categories>
+      <tags>
+        <tag>Vue3</tag>
+        <tag>Vue</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Vue3性能提升</title>
+    <url>/2021/09/21/Vue3%E6%80%A7%E8%83%BD%E6%8F%90%E5%8D%87/</url>
+    <content><![CDATA[<h4 id="Vue3-0性能提升主要是通过哪几方面体现的？"><a href="#Vue3-0性能提升主要是通过哪几方面体现的？" class="headerlink" title="Vue3.0性能提升主要是通过哪几方面体现的？"></a>Vue3.0性能提升主要是通过哪几方面体现的？</h4><p><a href="http://zslin.xyz/2021/04/27/vue3/vue3%E6%80%A7%E8%83%BD%E6%8F%90%E5%8D%87/tt.png"><img src="http://zslin.xyz/2021/04/27/vue3/vue3%E6%80%A7%E8%83%BD%E6%8F%90%E5%8D%87/tt.png" alt="img"></a></p>
+<h5 id="编译阶段"><a href="#编译阶段" class="headerlink" title="编译阶段"></a>编译阶段</h5><ul>
+<li><p>diff算法优化</p>
+<ul>
+<li><p>vue3在diff算法中相比vue2增加了静态标记。作用：为了会发生变化的地方添加一个flag标记，下次发生变化的时候直接找该地方进行比较即可。</p>
+<p>下图这里，已经标记静态节点的p标签在diff过程中则不会比较，把性能进一步提高。</p>
+<p><a href="http://zslin.xyz/2021/04/27/vue3/vue3%E6%80%A7%E8%83%BD%E6%8F%90%E5%8D%87/cc.png"><img src="http://zslin.xyz/2021/04/27/vue3/vue3%E6%80%A7%E8%83%BD%E6%8F%90%E5%8D%87/cc.png" alt="img"></a></p>
+</li>
+</ul>
+</li>
+<li><p>静态提升</p>
+<ul>
+<li>vue3中对不参与更新的元素，会做静态提升，只会被创建一次，在渲染时直接复用。</li>
+</ul>
+</li>
+<li><p>事件监听缓存</p>
+</li>
+<li><p>SSR优化</p>
+<ul>
+<li>当静态内容达到一定量度时，会使用服务端渲染。</li>
+</ul>
+</li>
+</ul>
+<span id="more"></span>
+<h5 id="源码体积"><a href="#源码体积" class="headerlink" title="源码体积"></a>源码体积</h5><ul>
+<li><p>相比vue2，vue3整体体积变小了，除了移除一些不常用的API，在重要的是<code>Tree shanking</code>(树摇)。比如任何一个函数（ref，reactived，computed）等，仅用到的时候才打包，没用到的模块都被摇掉，打包的整体体积变小。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; computed, defineComponent, ref &#125; <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span>;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">defineComponent</span>(&#123;</span><br><span class="line">    <span class="title function_">setup</span>(<span class="params">props, context</span>) &#123;</span><br><span class="line">        <span class="keyword">const</span> age = <span class="title function_">ref</span>(<span class="number">18</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> state = <span class="title function_">reactive</span>(&#123;</span><br><span class="line">            <span class="attr">name</span>: <span class="string">&#x27;test&#x27;</span></span><br><span class="line">        &#125;)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">const</span> readOnlyAge = <span class="title function_">computed</span>(<span class="function">() =&gt;</span> age.<span class="property">value</span>++) <span class="comment">// 19</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">            age,</span><br><span class="line">            state,</span><br><span class="line">            readOnlyAge</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h5 id="响应式系统"><a href="#响应式系统" class="headerlink" title="响应式系统"></a>响应式系统</h5><ul>
+<li>vue2中采用defineProerty来劫持整个对象，然后进行深度遍历所有属性，给每个属性添加getter和setter，实现响应式。</li>
+<li>vue3采用proxy代理对象，因为proxy可以对整个对象进行监听，所以不需要深度遍历。<ul>
+<li>可以监听整个对象的修改和添加</li>
+<li>可以监听数组的索引和数组length属性。</li>
+</ul>
+</li>
+</ul>
+<h4 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h4><hr>
+<blockquote>
+<ul>
+<li><a href="https://juejin.cn/post/6903171037211557895">https://juejin.cn/post/6903171037211557895</a></li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li><a href="https://vue3js.cn/interview/vue3/performance.html#%E4%B8%80%E3%80%81%E7%BC%96%E8%AF%91%E9%98%B6%E6%AE%B5">https://vue3js.cn/interview/vue3/performance.html#%E4%B8%80%E3%80%81%E7%BC%96%E8%AF%91%E9%98%B6%E6%AE%B5</a></li>
+</ul>
+</blockquote>
+]]></content>
+      <categories>
+        <category>Vue3</category>
+      </categories>
+      <tags>
+        <tag>Vue3</tag>
+        <tag>Vue</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Vue3中Treeshaking</title>
+    <url>/2021/07/27/Vue3%E4%B8%ADTreeshaking/</url>
+    <content><![CDATA[<h4 id="说说Vue-3-0中Treeshaking特性？举例说明一下？"><a href="#说说Vue-3-0中Treeshaking特性？举例说明一下？" class="headerlink" title="说说Vue 3.0中Treeshaking特性？举例说明一下？"></a>说说Vue 3.0中Treeshaking特性？举例说明一下？</h4><p><a href="http://zslin.xyz/2021/07/27/vue3/vue3%E4%B8%ADTreeshaking%E7%89%B9%E6%80%A7/tt.png"><img src="http://zslin.xyz/2021/07/27/vue3/vue3%E4%B8%ADTreeshaking%E7%89%B9%E6%80%A7/tt.png" alt="img"></a></p>
+<h5 id="是什么？"><a href="#是什么？" class="headerlink" title="是什么？"></a>是什么？</h5><p>Tree shaking是一种术语，在打包时将不打包没有用到的代码清除掉，这些代码会成为dead code（死代码）。也就是说，treeshaking在打包时所留下的，是我们用到的代码。</p>
+<ul>
+<li>在vue2中，无论我们使用什么功能，它们最终都会出现在打包后的文件中。因为vue2在项目中是单例的，无法检测到哪些代码在项目中是被用到的。</li>
+<li>vue3引入了treeshaking特性，将全局api进行分块。如果没有使用到某个功能，他们将不会包含在你打包后的文件中。</li>
+</ul>
+<h5 id="如何做？"><a href="#如何做？" class="headerlink" title="如何做？"></a>如何做？</h5><p>Tree shaking是基于es6的模板语法import，exports静态编辑思想确定模块依赖关系的。</p>
+<ul>
+<li>treeshaking在编译阶段会判断模块的加载状态。</li>
+<li>判断未使用的相关变量，进行移除。</li>
+</ul>
+<p>举个例子：<br>如果，新创建的项目中，data中的变量1，和变量2被使用了，但是变量3，并没有被使用，那么变量3，会在打包的时候被移除<br>在比如，可以对比一下项目在使用treeShaking打包之后和未使用的情况下进行打包后的大小，<br>data中的数据都被正常使用，methods的方法也被正常使用，component方法和watch方法未使用，然后进行打包<br>答案显而易见，在使用treeShaking后进行打包只会将data和methods这种使用的方法进行打包，而不是打包所有</p>
+<h5 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h5><ul>
+<li>减少程序体积（更小）</li>
+<li>减少程序执行时间（更快）</li>
+<li>便于维护优化项目框架</li>
+</ul>
+<h5 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h5><hr>
+<blockquote>
+<ul>
+<li><a href="https://segmentfault.com/a/1190000038962700">https://segmentfault.com/a/1190000038962700</a></li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li><a href="https://vue3js.cn/interview/vue3/treeshaking.html#%E4%B8%80%E3%80%81%E6%98%AF%E4%BB%80%E4%B9%88">https://vue3js.cn/interview/vue3/treeshaking.html#%E4%B8%80%E3%80%81%E6%98%AF%E4%BB%80%E4%B9%88</a></li>
+</ul>
+</blockquote>
+]]></content>
+      <categories>
+        <category>Vue3</category>
+      </categories>
+      <tags>
+        <tag>Vue3</tag>
+        <tag>Vue</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Vue3系列面试</title>
+    <url>/2021/08/19/Vue3%E7%B3%BB%E5%88%97%E9%9D%A2%E8%AF%95/</url>
+    <content><![CDATA[<h4 id="Vue3-0的设计目标是什么？做了哪些优化？"><a href="#Vue3-0的设计目标是什么？做了哪些优化？" class="headerlink" title="Vue3.0的设计目标是什么？做了哪些优化？"></a>Vue3.0的设计目标是什么？做了哪些优化？</h4><h5 id="设计目标"><a href="#设计目标" class="headerlink" title="设计目标"></a>设计目标</h5><ul>
+<li>体积更小：<ul>
+<li>vue3移除一些不常用的API，引入tree shaking，将一些无用的模块“剪辑掉”。仅打包需要的模块。使打包体积变小了。</li>
+</ul>
+</li>
+<li>更快：<ul>
+<li>diff算法优化：</li>
+<li>静态提升</li>
+<li>事件缓存机制</li>
+<li>ssr优化</li>
+</ul>
+</li>
+<li>更友好：<ul>
+<li>vue3推出了composition API，大大增加了代码的组织能力和复用能力。</li>
+</ul>
+</li>
+</ul>
+<h5 id="优化方案"><a href="#优化方案" class="headerlink" title="优化方案"></a>优化方案</h5><ul>
+<li>源码<ul>
+<li>源码管理，体积更小</li>
+<li>使用ts，提供类型检查</li>
+</ul>
+</li>
+<li>性能<ul>
+<li>体积优化</li>
+<li>编译优化</li>
+<li>数据劫持优化</li>
+</ul>
+</li>
+<li>语法API<ul>
+<li>组合式API，主要提高了代码的组织和复用能力<span id="more"></span></li>
+</ul>
+</li>
+</ul>
+<h4 id="Vue3-0性能提升主要是通过哪几方面体现的？"><a href="#Vue3-0性能提升主要是通过哪几方面体现的？" class="headerlink" title="Vue3.0性能提升主要是通过哪几方面体现的？"></a>Vue3.0性能提升主要是通过哪几方面体现的？</h4><ul>
+<li>编译阶段<ul>
+<li>diff算法优化：比vue2增加了静态标记，在发生改变的地方做一个flag标记，下次发生改变可以直接找到该地方进行比较。</li>
+<li>静态提升： vue3对不参与更新的元素，会做静态提升，只创建一次，可以复用渲染。免去重复创建节点，优化了运行时的内存。</li>
+<li>事件缓存机制</li>
+<li>SSR优化： 当内容达到一定量的时候，采用服务端渲染。</li>
+</ul>
+</li>
+<li>源码体积<ul>
+<li>相对于vue2来说体积变小了，去除一些不常用API。使用树摇（tree shaking），只打包需要的模块，打包体积变小了</li>
+</ul>
+</li>
+<li>响应式系统<ul>
+<li>vue2采用object.proerty（）劫持整个对象，深度遍历每个属性，给每个属性添加getter，setter，来实现响应式。</li>
+<li>vue3使用了vue3代理对象，可以对整个对象进行监听，不需要深度遍历。</li>
+<li>可以监听整个对象以及属性的修改和删除，可以监听数组的索引和lenght属性。</li>
+</ul>
+</li>
+</ul>
+<h4 id="Vue3-0里为什么要用-Proxy-API-替代-defineProperty-API-？"><a href="#Vue3-0里为什么要用-Proxy-API-替代-defineProperty-API-？" class="headerlink" title="Vue3.0里为什么要用 Proxy API 替代 defineProperty API ？"></a>Vue3.0里为什么要用 Proxy API 替代 defineProperty API ？</h4><ul>
+<li>defineProerty API：<ul>
+<li>检测不到对象属性的添加和删除， 提供了set，和delete方法。</li>
+<li>数组的方法 无法监听到（push，shift）</li>
+<li>需要对每个属性进行监听，如果是嵌套对象的话，需使用深度监听，可能会造成性能问题。</li>
+</ul>
+</li>
+<li>Proxy：<ul>
+<li>object.definproerty 只能遍历对象属性进行劫持，proxy直接监听整个对象。</li>
+<li>返回一个新对象，只需操作新对象就能达到目的。</li>
+<li>proxy有多达13种监听方法，不限于apply，has等，这是object.defineproerty（）不具备的</li>
+<li>可以直接监听数组的变化（push，shift，splice）</li>
+</ul>
+</li>
+</ul>
+<h4 id="Vue3-0-所采用的-Composition-Api-与-Vue2-x-使用的-Options-Api-有什么不同？"><a href="#Vue3-0-所采用的-Composition-Api-与-Vue2-x-使用的-Options-Api-有什么不同？" class="headerlink" title="Vue3.0 所采用的 Composition Api 与 Vue2.x 使用的 Options Api 有什么不同？"></a>Vue3.0 所采用的 Composition Api 与 Vue2.x 使用的 Options Api 有什么不同？</h4><ul>
+<li>Options API:<ul>
+<li>通过定义data，methods，computed等方法和属性，来共同处理页面逻辑，一个功能的实现，需要不同的位置的方法和属性，比较分散。可能会造成组件的难以理解和维护。</li>
+</ul>
+</li>
+<li>Composition API:<ul>
+<li>所有方法和功能都写在setup当中，将一个功能的所有方法，属性放在一起。（高内聚，低耦合）。根据相关逻辑来组织代码，提高代码的可读性和维护性。（当功能增多时，还可使用hook来封装出去）</li>
+<li>组合式API中见不到this的使用，减少this指向不明的问题。</li>
+<li>组合式API几乎都是函数，会有很好的类型判断。</li>
+</ul>
+</li>
+</ul>
+<h4 id="说说Vue-3-0中Treeshaking特性？举例说明一下？"><a href="#说说Vue-3-0中Treeshaking特性？举例说明一下？" class="headerlink" title="说说Vue 3.0中Treeshaking特性？举例说明一下？"></a>说说Vue 3.0中Treeshaking特性？举例说明一下？</h4><h5 id="是什么？"><a href="#是什么？" class="headerlink" title="是什么？"></a>是什么？</h5><p>Tree shaking是一种术语，在打包时不打包没有用到的模块，减小了打包体积。</p>
+<h5 id="如何做？"><a href="#如何做？" class="headerlink" title="如何做？"></a>如何做？</h5><p>Tree shaking是基于es6的 <code>import</code> 和 <code>exports</code> 静态编程思想来确定模块的依赖关系。</p>
+<ul>
+<li>tree shaking会在编译阶段判断模块的加载状态</li>
+<li>判断未使用的变量，进行移除。</li>
+</ul>
+<h5 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h5><ul>
+<li>减小打包体积</li>
+<li>减少程序打包的时间</li>
+<li>便于维护优化项目框架</li>
+</ul>
+<h4 id="用Vue3-0-写过组件吗？如果想实现一个-Modal你会怎么设计？"><a href="#用Vue3-0-写过组件吗？如果想实现一个-Modal你会怎么设计？" class="headerlink" title="用Vue3.0 写过组件吗？如果想实现一个 Modal你会怎么设计？"></a>用Vue3.0 写过组件吗？如果想实现一个 Modal你会怎么设计？</h4><p>首先要考虑，大致实现的思路，根据ui设计图，确定好主体的内容，布局样式，做的那些交互操作，删除，修改等等。定义API方法来进行开发。</p>
+]]></content>
+      <categories>
+        <category>前端面试</category>
+      </categories>
+      <tags>
+        <tag>Vue3</tag>
+        <tag>Vue</tag>
+        <tag>前端面试</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Vue3设计目标及优化</title>
+    <url>/2021/09/06/Vue3%E8%AE%BE%E8%AE%A1%E7%9B%AE%E6%A0%87%E5%8F%8A%E4%BC%98%E5%8C%96/</url>
+    <content><![CDATA[<h4 id="vue3-0的设计目标是什么？做了那些优化？"><a href="#vue3-0的设计目标是什么？做了那些优化？" class="headerlink" title="vue3.0的设计目标是什么？做了那些优化？"></a>vue3.0的设计目标是什么？做了那些优化？</h4><hr>
+<p>设计目标：</p>
+<ul>
+<li><p>打包体积更小： vue3移除一些不常用的API，将无用的模块“剪辑”掉，仅打包需要的，使打包体积更小了。</p>
+</li>
+<li><p>速度更快： diff算法优化，静态提升。</p>
+</li>
+<li><p>更灵活的代码组织能力： 推出composition API，大大增加了代码的逻辑组织能力和代码复用能力。</p>
+<span id="more"></span>
+<p>优化方案：</p>
+</li>
+<li><p>源码</p>
+<ul>
+<li>使用ts语法，源码的优化。</li>
+</ul>
+</li>
+<li><p>性能</p>
+<ul>
+<li>体积，编译，数据劫持优化。</li>
+</ul>
+</li>
+<li><p>语法 API</p>
+<ul>
+<li><p>组合式API，根据相关逻辑组织代码。</p>
+<p><a href="http://zslin.xyz/2021/06/06/vue3/vue3-0%E7%9A%84%E8%AE%BE%E8%AE%A1%E5%8F%8A%E4%BC%98%E5%8C%96/tt.png"><img src="http://zslin.xyz/2021/06/06/vue3/vue3-0%E7%9A%84%E8%AE%BE%E8%AE%A1%E5%8F%8A%E4%BC%98%E5%8C%96/tt.png" alt="img"></a></p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献:"></a>参考文献:</h4><hr>
+<blockquote>
+<ul>
+<li><a href="https://juejin.cn/post/6850418112878575629#heading-5">https://juejin.cn/post/6850418112878575629#heading-5</a></li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li><a href="https://vue3js.cn/docs/zh">https://vue3js.cn/docs/zh</a></li>
+</ul>
+</blockquote>
+]]></content>
+      <categories>
+        <category>Vue3</category>
+      </categories>
+      <tags>
+        <tag>Vue3</tag>
+        <tag>Vue</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Vue响应式原理</title>
+    <url>/2020/12/29/Vue%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/</url>
+    <content><![CDATA[<p><a href="http://zslin.xyz/2019/05/27/vue2/vue2%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/15.png"><img src="http://zslin.xyz/2019/05/27/vue2/vue2%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/15.png" alt="img"></a></p>
+<p>Vue2.x响应式原理：</p>
+<p>vue创建一个实例时，首先会遍历data属性。采用数据劫持结合发布者订阅者的方式。使用es5的object.defindeproperty 方法将他们转化成getter，setter，并在内部追踪相关依赖。在属性被访问和修改时通知变化。也就是observer使用object.defindproerty来监听数据的读写。读取数据时，调用get方法通知dep去收集订阅者（watcher）。添加到道dep的一个属性subs数理。 dep有很多属性，其中就有一个subsadd添加订阅者的方法。修改1数据时，调用set方法，通知dep数据发生了改变。使用dep.notify方法遍历subs数组里面的每个watcher。调用watcher的update（）方法。创建出一个新的dom树，与原来旧的dom树作对比，根据差异性，从而更新视图。</p>
+<p><a href="http://zslin.xyz/2019/05/27/vue2/vue2%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/vue.jpeg"><img src="http://zslin.xyz/2019/05/27/vue2/vue2%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/vue.jpeg" alt="img"></a></p>
+<p>**Object.defineProperty()**，那么它的用法是什么，以及优缺点是什么呢？</p>
+<ul>
+<li>可以检测对象中数据发生的修改</li>
+<li>对于复杂的对象，层级很深的话，是不友好的，需要经行深度监听，这样子就需要递归到底，这也是它的缺点。</li>
+<li>对于一个对象中，如果你新增加属性，删除属性，**Object.defineProperty()**是不能观测到的，那么应该如何解决呢？可以通过<code>Vue.set()</code>和<code>Vue.delete()</code>来实现。</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 模拟 Vue 中的 data 选项 </span></span><br><span class="line"><span class="keyword">let</span> data = &#123;</span><br><span class="line">    <span class="attr">msg</span>: <span class="string">&#x27;hello&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 模拟 Vue 的实例 </span></span><br><span class="line"><span class="keyword">let</span> vm = &#123;&#125;</span><br><span class="line"><span class="comment">// 数据劫持:当访问或者设置 vm 中的成员的时候，做一些干预操作</span></span><br><span class="line"><span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(vm, <span class="string">&#x27;msg&#x27;</span>, &#123;</span><br><span class="line">  <span class="comment">// 可枚举(可遍历)</span></span><br><span class="line">  <span class="attr">enumerable</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="comment">// 可配置(可以使用 delete 删除，可以通过 defineProperty 重新定义) </span></span><br><span class="line">  <span class="attr">configurable</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="comment">// 当获取值的时候执行 </span></span><br><span class="line">  get () &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;get: &#x27;</span>, data.<span class="property">msg</span>)</span><br><span class="line">    <span class="keyword">return</span> data.<span class="property">msg</span> </span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// 当设置值的时候执行 </span></span><br><span class="line">  set (newValue) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;set: &#x27;</span>, newValue) </span><br><span class="line">    <span class="keyword">if</span> (newValue === data.<span class="property">msg</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    data.<span class="property">msg</span> = newValue</span><br><span class="line">    <span class="comment">// 数据更改，更新 DOM 的值 </span></span><br><span class="line">    <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;#app&#x27;</span>).<span class="property">textContent</span> = data.<span class="property">msg</span></span><br><span class="line">  &#125; </span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 测试</span></span><br><span class="line">vm.<span class="property">msg</span> = <span class="string">&#x27;Hello World&#x27;</span> </span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(vm.<span class="property">msg</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>Vue3.响应式原理：</p>
+<p><code>Vue3.x</code>改用<code>Proxy</code>替代<code>Object.defineProperty</code>。因为<code>Proxy</code>可以直接监听<code>对象和数组</code>的变化，并且有多达13种拦截方法。</p>
+<p>代理，顾名思义，就是在要访问的对象之前增加⼀个中间层，这样就不直接访问对象，⽽是通过中间层做⼀个中转，通过操作代理对象，来实现修改目标对象。</p>
+<p><strong>监测数组的时候可能触发多次get&#x2F;set，那么如何防止触发多次呢？</strong></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 模拟 Vue 中的 data 选项 </span></span><br><span class="line"><span class="keyword">let</span> data = &#123;</span><br><span class="line">  <span class="attr">msg</span>: <span class="string">&#x27;hello&#x27;</span>,</span><br><span class="line">  <span class="attr">count</span>: <span class="number">0</span> </span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 模拟 Vue 实例</span></span><br><span class="line"><span class="keyword">let</span> vm = <span class="keyword">new</span> <span class="title class_">Proxy</span>(data, &#123;</span><br><span class="line">  <span class="comment">// 当访问 vm 的成员会执行</span></span><br><span class="line">  get (target, key) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;get, key: &#x27;</span>, key, target[key])</span><br><span class="line">    <span class="keyword">return</span> target[key]</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// 当设置 vm 的成员会执行</span></span><br><span class="line">  set (target, key, newValue) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;set, key: &#x27;</span>, key, newValue)</span><br><span class="line">    <span class="keyword">if</span> (target[key] === newValue) &#123;</span><br><span class="line">      <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    target[key] = newValue</span><br><span class="line">    <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;#app&#x27;</span>).<span class="property">textContent</span> = target[key]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 测试</span></span><br><span class="line">vm.<span class="property">msg</span> = <span class="string">&#x27;Hello World&#x27;</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(vm.<span class="property">msg</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>总结：</p>
+<ul>
+<li>Vue<ul>
+<li>记录传入的选项，设置 <code>$data/$el</code></li>
+<li>把 <code>data</code> 的成员注入到 <code>Vue</code> 实例</li>
+<li>负责调用 <code>Observer</code> 实现数据响应式处理(数据劫持)</li>
+<li>负责调用 <code>Compiler</code> 编译指令&#x2F;插值表达式等</li>
+</ul>
+</li>
+<li>Observer<ul>
+<li>数据劫持<ul>
+<li>负责把 <code>data</code> 中的成员转换成 <code>getter/setter</code></li>
+<li>负责把多层属性转换成 <code>getter/setter</code></li>
+<li>如果给属性赋值为新对象，把新对象的成员设置为 <code>getter/setter</code></li>
+</ul>
+</li>
+<li>添加 <code>Dep</code> 和 <code>Watcher</code> 的依赖关系</li>
+<li>数据变化发送通知</li>
+</ul>
+</li>
+<li>Compiler<ul>
+<li>负责编译模板，解析指令&#x2F;插值表达式</li>
+<li>负责页面的首次渲染过程</li>
+<li>当数据变化后重新渲染</li>
+</ul>
+</li>
+<li>Dep<ul>
+<li>收集依赖，添加订阅者(<code>watcher</code>)</li>
+<li>通知所有订阅者</li>
+</ul>
+</li>
+<li>Watcher<ul>
+<li>自身实例化的时候往<code>dep</code>对象中添加自己</li>
+<li>当数据变化<code>dep</code>通知所有的 <code>Watcher</code> 实例更新视图</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Vue</category>
+      </categories>
+      <tags>
+        <tag>Vue3</tag>
+        <tag>Vue</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Vue生命周期的理解</title>
+    <url>/2019/03/28/Vue%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E7%9A%84%E7%90%86%E8%A7%A3/</url>
+    <content><![CDATA[<h4 id="vue生命周期的理解"><a href="#vue生命周期的理解" class="headerlink" title="vue生命周期的理解"></a><strong>vue生命周期的理解</strong></h4><p>vue生命周期主要分为8个阶段：创建前&#x2F;后，载入前&#x2F;后，更新前&#x2F;后，销毁前&#x2F;后。</p>
+<p>vue实例有一个完整的生命周期，也就是从开始创建，初始化数据，编译模板，挂载Dom &#x3D;》 渲染，更新 &#x3D;》渲染，卸载这个过程。</p>
+<table>
+<thead>
+<tr>
+<th align="left">beforeCreate</th>
+<th>组件实例被创建之初，组件的属性生效之前</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">created</td>
+<td>组件实例已经完全创建，属性也绑定，但真实dom还没有生成，$el还不可用</td>
+</tr>
+<tr>
+<td align="left">beforeMount</td>
+<td>在挂载开始之前被调用：相关的 render 函数首次被调用</td>
+</tr>
+<tr>
+<td align="left">mounted</td>
+<td>el 被新创建的 vm.$el 替换，并挂载到实例上去之后调用该钩子</td>
+</tr>
+<tr>
+<td align="left">beforeUpdate</td>
+<td>组件数据更新之前调用，发生在虚拟 DOM 打补丁之前</td>
+</tr>
+<tr>
+<td align="left">update</td>
+<td>组件数据更新之后</td>
+</tr>
+<tr>
+<td align="left">activated</td>
+<td>keep-alive专属，组件被激活时调用</td>
+</tr>
+<tr>
+<td align="left">deactivated</td>
+<td>keep-alive专属，组件被销毁时调用</td>
+</tr>
+<tr>
+<td align="left">beforeDestroy</td>
+<td>组件销毁前调用</td>
+</tr>
+<tr>
+<td align="left">destroyed</td>
+<td>组件销毁后调用</td>
+</tr>
+</tbody></table>
+<p><a href="http://zslin.xyz/2019/06/27/vue2/vue%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E7%9A%84%E7%90%86%E8%A7%A3/61.png"><img src="http://zslin.xyz/2019/06/27/vue2/vue%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E7%9A%84%E7%90%86%E8%A7%A3/61.png" alt="img"></a></p>
+<p><strong>什么是vue生命周期？</strong></p>
+<ul>
+<li>答： Vue 实例从创建到销毁的过程，就是生命周期。从开始创建、初始化数据、编译模板、挂载Dom→渲染、更新→渲染、销毁等一系列过程，称之为 Vue 的生命周期。</li>
+</ul>
+<p><strong>vue生命周期的作用是什么？</strong></p>
+<ul>
+<li>答：它的生命周期中有多个事件钩子，让我们在控制整个Vue实例的过程时更容易形成好的逻辑。</li>
+</ul>
+<p><strong>vue生命周期总共有几个阶段？</strong></p>
+<ul>
+<li>答：它可以总共分为<code>8</code>个阶段：创建前&#x2F;后、载入前&#x2F;后、更新前&#x2F;后、销毁前&#x2F;销毁后。</li>
+</ul>
+<p><strong>第一次页面加载会触发哪几个钩子？</strong></p>
+<ul>
+<li>答：会触发下面这几个<code>beforeCreate</code>、<code>created</code>、<code>beforeMount</code>、<code>mounted</code> 。</li>
+</ul>
+<p><strong>DOM 渲染在哪个周期中就已经完成？</strong></p>
+<ul>
+<li>答：<code>DOM</code> 渲染在 <code>mounted</code> 中就已经完成了</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Vue</category>
+      </categories>
+      <tags>
+        <tag>Vue</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Vue路由原理</title>
+    <url>/2019/11/12/Vue%E8%B7%AF%E7%94%B1%E5%8E%9F%E7%90%86/</url>
+    <content><![CDATA[<h4 id="vue路由原理"><a href="#vue路由原理" class="headerlink" title="vue路由原理"></a>vue路由原理</h4><ul>
+<li>hash模式：浏ener器中符号<code>#</code>，后面的字符称之为<code>hash</code>。<ul>
+<li>其中对象中的<code>location.hash</code>储存的是路由的地址，可以赋值改变其URL的地址。而这会触发<code>hashchange</code>事件，通过<code>window.addEventListn</code>监听hash值然后去匹配对应的路由，从而渲染页面的组件。</li>
+</ul>
+</li>
+<li>history：<ul>
+<li>history采用HTML5的新特性，通过<code>pushState</code>和<code>replaceState</code>两个方法来实现url的变化。可以通过<code>popstagte</code>事件监听url的变化，从而对页面进行跳转（渲染）</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Vue</category>
+      </categories>
+      <tags>
+        <tag>Vue</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>css3新增特性</title>
+    <url>/2020/07/01/css3%E6%96%B0%E5%A2%9E%E7%89%B9%E6%80%A7/</url>
+    <content><![CDATA[<h4 id="css3新增那些新特性？"><a href="#css3新增那些新特性？" class="headerlink" title="css3新增那些新特性？"></a>css3新增那些新特性？</h4><h5 id="选择器："><a href="#选择器：" class="headerlink" title="选择器："></a>选择器：</h5><ul>
+<li>:first-of-type 选择其父元素第一个子元素</li>
+<li>:last-of-type 选择其父元素最后一个子元素</li>
+<li>:nth-of-type(2) 选择父元素的第二个元素</li>
+<li>:only-child 选择属于父元素的唯一一个子元素</li>
+<li>:last-child 选择属于其父元素的最后一个子元素</li>
+</ul>
+<h5 id="新样式："><a href="#新样式：" class="headerlink" title="新样式："></a>新样式：</h5><ul>
+<li><p>边框 border-radius：创建圆角边框</p>
+</li>
+<li><p>border-shadow：为元素添加阴影</p>
+</li>
+<li><p>border-image：使用图片绘制边框</p>
+</li>
+<li><p>背景 background-clip</p>
+</li>
+<li><p>background-origin</p>
+</li>
+<li><p>background-size</p>
+</li>
+<li><p>background-break</p>
+</li>
+<li><p>文字 word-warp：</p>
+<ul>
+<li>narmal：使用浏览器默认换行</li>
+<li>break-all：允许在单词内换行</li>
+</ul>
+</li>
+<li><p>text-shadow：设置字体的阴影，位置及阴影颜色</p>
+</li>
+<li><p>颜色：增加了新的颜色表示方式</p>
+<ul>
+<li>rgba，rgb为颜色值，a为透明度</li>
+<li>hsla，h色相，s为饱和度，l为高度，a为透明度。</li>
+</ul>
+</li>
+</ul>
+<h4 id="css3动画有那些？"><a href="#css3动画有那些？" class="headerlink" title="css3动画有那些？"></a>css3动画有那些？</h4><p>使用css动画的模块就是指元素从一种样式逐渐过渡为另一种样式的过程。</p>
+<p>常见的动画有 平移，旋转，缩放等等。</p>
+<ul>
+<li>transition 实现渐变动画</li>
+<li>transform 转变动画<ul>
+<li>translate 位移</li>
+<li>skew 倾斜</li>
+<li>rotate：旋转</li>
+<li>scale 缩放</li>
+</ul>
+</li>
+<li>animation 实现自定义动画</li>
+</ul>
+]]></content>
+      <categories>
+        <category>css3</category>
+      </categories>
+      <tags>
+        <tag>css</tag>
+        <tag>css3</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>inline-block缝隙问题</title>
+    <url>/2020/07/08/inline-block%E7%BC%9D%E9%9A%99%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<h4 id="display-inline-block元素之间空隙的产生原因和解决办法？"><a href="#display-inline-block元素之间空隙的产生原因和解决办法？" class="headerlink" title="display:inline-block元素之间空隙的产生原因和解决办法？"></a>display:inline-block元素之间空隙的产生原因和解决办法？</h4><h5 id="空隙产生原因"><a href="#空隙产生原因" class="headerlink" title="空隙产生原因"></a>空隙产生原因</h5><p>元素被当做行内元素进行排版布局的时候，元素之间的空格，换行符，空白会被浏览器处理，根据white-space的默认值 normal，合并多余的空白符。在html代码当中，换行符就会被当做是一处空白，当字体大小font-size不为零的情况下，两个元素之间就会有空隙。这些元素之间的间距会随着字体大小来变化，比如行内元素font-size：16px时，间距为8px。</p>
+<h5 id="解决办法："><a href="#解决办法：" class="headerlink" title="解决办法："></a>解决办法：</h5><ul>
+<li>将所有html标签写在一行 （代码可读性差）</li>
+<li>给inline-block属性元素设置float：left （造成高度塌陷）</li>
+<li>设置inlin-block属性元素font-size为零，需重更新设置子元素大小。</li>
+<li>设置子元素margin-left:-2px。</li>
+<li>给父元素设置display：table。word-sapcing：-1em。（根据实际情况来）</li>
+</ul>
+]]></content>
+      <categories>
+        <category>css</category>
+      </categories>
+      <tags>
+        <tag>css</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>keep-alive作用</title>
+    <url>/2019/10/10/keep-alive%E4%BD%9C%E7%94%A8/</url>
+    <content><![CDATA[<h4 id="keep-alive作用是什么呢？"><a href="#keep-alive作用是什么呢？" class="headerlink" title="keep-alive作用是什么呢？"></a>keep-alive作用是什么呢？</h4><blockquote>
+<p>keep-alive可以实现组件缓存，当组件切换时不会对当前组件进行卸载</p>
+</blockquote>
+<ul>
+<li><code>&lt;keep-alive&gt;&lt;/keep-alive&gt;</code>包裹动态组件时，会缓存不活动得组件实例，主要用于保留组件状态或避免重新渲染</li>
+</ul>
+<blockquote>
+<p>比如有一个列表和一个详情，那么用户就会经常执行打开详情&#x3D;》返回列表&#x3D;》打开详情….这样得话列表和详情都是一个频率很高得也买你，那么就可以对列表组件使用<code>&lt;keep-alive&gt;&lt;/keep-alive&gt;</code>进行缓存，这样用户每次返回列表的时候，都能从缓存中快速渲染，而不是重新渲染。</p>
+</blockquote>
+<ul>
+<li>常用的两个属性 <code>include/exclude</code>，允许组件有条件的进行缓存</li>
+<li>两个生命周期<code>activated/deactivated</code>，用来得知当前组件是否处于活跃状态</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Vue</category>
+      </categories>
+      <tags>
+        <tag>Vue</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>对于mvvm的理解</title>
+    <url>/2019/03/26/%E5%AF%B9%E4%BA%8Emvvm%E7%9A%84%E7%90%86%E8%A7%A3/</url>
+    <content><![CDATA[<h4 id="对于mvvm的理解？"><a href="#对于mvvm的理解？" class="headerlink" title="对于mvvm的理解？"></a>对于mvvm的理解？</h4><p>mvvm就是modle-view-viewmodule。mvvm是一种设计思想。</p>
+<ul>
+<li>modle：模型层，用于处理逻辑和服务器的交互。</li>
+<li>view：视图层，用于将数据渲染在页面上。UI视图。</li>
+<li>view-model：视图模型层，用来连接model和view，是model和view之间的通信桥梁。达到数据驱动视图的效果。</li>
+</ul>
+<p>mvvm模式简化了界面与业务的依赖，解决了数据频繁更新。mvvm在使用当中，利用双向数据绑定技术，使得model变化时，viewmodel会自动更新，而viewmodel变化时，view也会自动变化。</p>
+]]></content>
+      <categories>
+        <category>Vue</category>
+      </categories>
+      <tags>
+        <tag>Vue</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>浏览器渲染机制</title>
+    <url>/2019/06/06/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E6%9C%BA%E5%88%B6/</url>
+    <content><![CDATA[<h4 id="浏览器渲染机制"><a href="#浏览器渲染机制" class="headerlink" title="浏览器渲染机制"></a>浏览器渲染机制</h4><h5 id="1-渲染机制步骤步骤："><a href="#1-渲染机制步骤步骤：" class="headerlink" title="1.渲染机制步骤步骤："></a>1.渲染机制步骤步骤：</h5><ul>
+<li>处理<code>HTML</code>并构建<code>DOM</code>树</li>
+<li>处理<code>css</code>构建<code>cssdom</code>树</li>
+<li>将<code>DOM</code>与<code>cssdom</code>合并成一个渲染树</li>
+<li>根据渲染树来布局，计算每个节点的位置</li>
+<li>调用<code>GPU</code>绘制，合成图层，显示在屏幕上</li>
+</ul>
+<p><a href="http://zslin.xyz/2019/06/06/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%A8%A1%E5%9D%97/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E6%9C%BA%E5%88%B6/98.png"><img src="http://zslin.xyz/2019/06/06/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%A8%A1%E5%9D%97/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E6%9C%BA%E5%88%B6/98.png" alt="img"></a></p>
+<p>在构建cssdom树时，会阻塞渲染，直至cssdom树构建完成。并且构建cssdom树是一个十分消耗性能的过程，所以尽量保证层级扁平，减少过度层叠，越是具体的css选择器，执行速度越慢。</p>
+<p>css是阻塞渲染的资源。需要将他尽早，尽快的下载到客户端，以便缩短首次渲染的时间。</p>
+<p>当html解析到script标签时，会暂停构建dom，完成后才会从暂停的地方重新开始。也就是说，如果你想首屏渲染的越快，就越不应该在首屏就加载js文件。并且css也会影响js的执行，只有当解析完样式才会执行js，所以也可以认为这种情况下，css也会暂停构建dom。</p>
+<h5 id="2-图层"><a href="#2-图层" class="headerlink" title="2.图层"></a>2.图层</h5><blockquote>
+<p>一般来说，可以把普通文档流看成一个图层。特定的属性可以生成一个新的图层。不同的图层渲染互不影响，所以对于某些频繁需要渲染的建议单独生成一个新图层，提高性能。但也不能生成过多的图层，会引起反作用。</p>
+</blockquote>
+<p>通过以下几个常用属性可以生成新图层</p>
+<ul>
+<li><code>3D</code>变换：<code>translate3d</code>,<code>reanslatez</code></li>
+<li><code>will-change</code></li>
+<li><code>video</code>,<code>iframe</code>标签</li>
+<li>通过动画实现的<code>opacity</code>动画转换</li>
+<li><code>position：fixed</code></li>
+</ul>
+<h5 id="3-重绘与回流"><a href="#3-重绘与回流" class="headerlink" title="3.重绘与回流"></a>3.重绘与回流</h5><blockquote>
+<ul>
+<li>重绘(repaint)：当元素样式的改变不影响布局时，浏览器将使用重绘对元素进行更新，此时由于只需要UI层面的重新像素绘制，因此，损耗较少</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>回流(reflow)：当元素的尺寸，结构或触发某些属性时，浏览器会重新渲染页面，称为回流。此时，浏览器需要重新经过计算，计算后还需要重新页面布局，因此是较重的操作。会触发回流的操作：</li>
+</ul>
+</blockquote>
+<p>触发回流和重绘的操作：</p>
+<ul>
+<li>页面初次渲染</li>
+<li>浏览器窗口大小发生改变</li>
+<li>元素尺寸，位置，内容发生改变</li>
+<li>元素字体大小变化</li>
+<li>添加或者删除可见的dom元素</li>
+<li>激活css伪类（列如：hover）</li>
+<li>查询某些属性或调用某些方法<ul>
+<li><code>clientWidth、clientHeight、clientTop、clientLeft</code></li>
+<li>&#96;&#96;offsetWidth、offsetHeight、offsetTop、offsetLeft&#96;</li>
+<li><code>scrollWidth、scrollHeight、scrollTop、scrollLeft</code></li>
+<li>&#96;&#96;getComputedStyle()&#96;</li>
+<li><code>getBoundingClientRect()</code></li>
+<li><code>scrollTo()</code></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>回流必定触发重绘，重绘不不一定触发回流。重绘的开销小，回流的代价高。</p>
+</blockquote>
+<p>避免回流的优化：</p>
+<ul>
+<li>css层面：<ul>
+<li>不要使用css表达式</li>
+<li>避免table布局</li>
+<li>避免多层嵌套样式</li>
+</ul>
+</li>
+<li>js层面：<ul>
+<li>避免频繁操作DOM，可以创建一个documentFragment文档流片段，在它上面应用所有dom操作，最后再把它添加到文档中。</li>
+<li>避免频繁操作样式</li>
+<li>可以先为元素设置不可见：<code>display：none</code>，操作结束后在显示出来。</li>
+</ul>
+</li>
+</ul>
+<h5 id="4-javascript会阻塞dom生成"><a href="#4-javascript会阻塞dom生成" class="headerlink" title="4.javascript会阻塞dom生成"></a>4.javascript会阻塞dom生成</h5><blockquote>
+<p>javascript 会阻塞dom生成，而样式文件又会阻塞javascriot执行，所以在实际的工程中需要重点关注javascript文件和样式表文件，使用不当会影响页面性能的</p>
+</blockquote>
+<blockquote>
+<p>当渲染进程接收html文件字节流时，会先开启一个与解析线程，如果遇到javascipt文件或者css文件，那么与解析线程会提前下载这些数据</p>
+</blockquote>
+<ul>
+<li>如果代码里引用了外部的css文件，那么在执行javascript之前，还需要等待外部的css文件下载完成，并解析生成cssdom对象之后，才能执行javascript脚本。</li>
+<li>而javascript引擎在解析javascript之前，是不知道javascript是否操作了cssdom的，所以渲染引擎在遇到javascript脚本时，不管脚本是否操作了cssdom，都会执行css文件下载，解析操作，在执行javascript脚本。</li>
+<li>不管css文件和javascript文件谁先到达，都要等到css文件下载完成并生成cssdom，然后在执行javascript脚本，最后再继续构建dom，构建布局树，绘制页面。</li>
+</ul>
+<h5 id="5-缩短白屏时长的策略"><a href="#5-缩短白屏时长的策略" class="headerlink" title="5.缩短白屏时长的策略"></a>5.缩短白屏时长的策略</h5><ul>
+<li>通过内联 JavaScript、内联 CSS 来移除这两种类型的文件下载，这样获取到 HTML 文件之后就可以直接开始渲染流程了。</li>
+<li>但并不是所有的场合都适合内联，那么还可以尽量减少文件大小，比如通过 webpack 等工具移除一些不必要的注释，并压缩 JavaScript 文件。</li>
+<li>还可以将一些不需要在解析 HTML 阶段使用的 JavaScript 标记上 sync 或者 defer</li>
+<li>对于大的 CSS 文件，可以通过媒体查询属性，将其拆分为多个不同用途的 CSS 文件，这样只有在特定的场景下才会加载特定的 CSS 文件。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>浏览器</category>
+      </categories>
+      <tags>
+        <tag>浏览器</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>浏览器事件循环</title>
+    <url>/2019/06/05/%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/</url>
+    <content><![CDATA[<h4 id="说说你对事件循环的理解"><a href="#说说你对事件循环的理解" class="headerlink" title="说说你对事件循环的理解"></a>说说你对事件循环的理解</h4><p>event loop过程1：</p>
+<ul>
+<li>同步代码，一行一行在call stack（执行栈）执行</li>
+<li>遇到异步，会先“记录”下，等待时机（定时，网络请求等）</li>
+<li>时机到了，就移动到 Callback Queue （回调队列）</li>
+</ul>
+<p>event loop过程2：</p>
+<ul>
+<li>如Call Stack为空（及代码执行完）Event loop 开始工作</li>
+<li>轮询查找Callback Queue，如有则移动到 Call Stack执行</li>
+<li>然后继续轮询查找（永动机一样）</li>
+</ul>
+<p><a href="http://zslin.xyz/2019/06/05/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%A8%A1%E5%9D%97/%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/69.png"><img src="http://zslin.xyz/2019/06/05/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%A8%A1%E5%9D%97/%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/69.png" alt="img"></a></p>
+<p><a href="http://zslin.xyz/2019/06/05/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%A8%A1%E5%9D%97/%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/70.png"><img src="http://zslin.xyz/2019/06/05/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%A8%A1%E5%9D%97/%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/70.png" alt="img"></a></p>
+<h5 id="宏任务："><a href="#宏任务：" class="headerlink" title="宏任务："></a>宏任务：</h5><ul>
+<li><p>我们可以将每次执行栈执行的代码当做是一个宏任务（包括每次从事件队列中获取一个事件回调并放到执行栈中执行）</p>
+</li>
+<li><p>每一个宏任务会从头到尾执行完毕，不会执行其他</p>
+<blockquote>
+<p>浏览器为了能够使js内部宏任务与dom任务有序的执行，会在一个宏任务执行结束后，在下一个宏任务执行开始前，对页面进行重新渲染。</p>
+<figure class="highlight brainfuck"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 宏任务</span><span class="literal">--</span>&gt;<span class="comment">渲染</span><span class="literal">--</span>&gt;<span class="comment">宏任务</span><span class="literal">--</span>&gt;<span class="comment">渲染</span><span class="literal">--</span>&gt;<span class="comment">渲染．．</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</blockquote>
+<ul>
+<li>js代码</li>
+<li>setTimeout</li>
+<li>Ajax</li>
+<li>Dom事件</li>
+</ul>
+</li>
+</ul>
+<h5 id="微任务："><a href="#微任务：" class="headerlink" title="微任务："></a>微任务：</h5><ul>
+<li>我们已经知道 宏任务结束后，会执行渲染，然后执行下一个 宏任务。</li>
+<li>而微任务可以理解成在当前 宏任务执行后立即执行的任务。</li>
+<li>也就是说，当宏任务执行完，会在渲染前，将执行期间所产生的所有 微任务都执行完。<ul>
+<li>Promise async&#x2F;</li>
+<li>nextTick（Node.js）</li>
+<li>MutaionObserver</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>浏览器</category>
+      </categories>
+      <tags>
+        <tag>浏览器</tag>
+        <tag>Event Loop</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>浏览器的夸标签页通讯</title>
+    <url>/2019/06/02/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E5%A4%B8%E6%A0%87%E7%AD%BE%E9%A1%B5%E9%80%9A%E8%AE%AF/</url>
+    <content><![CDATA[<h4 id="1-跨标签页通讯"><a href="#1-跨标签页通讯" class="headerlink" title="1.跨标签页通讯"></a>1.跨标签页通讯</h4><blockquote>
+<p>不同标签页面间的通讯，本质与哪里就是去运用一些可以 共享的中间介质，因此比较常用的有以下方法：</p>
+</blockquote>
+<ul>
+<li>通过父页面<code>windowopen()</code>和子页面<code>postmessage</code><ul>
+<li>异步下通过<code>windowopen(&#39;about：blank&#39;)</code>和<code>tablocationhref=&#39;*&#39;</code></li>
+</ul>
+</li>
+<li>同域下共享的<code>localStorage</code>与监听<code>windowonstorage</code><ul>
+<li>重复写入相同的值无法触发</li>
+<li>会受到浏览器隐身模式等限制</li>
+</ul>
+</li>
+<li>共同设置<code>cookie</code>与不断轮询脏检查(<code>setInterval</code>)</li>
+<li>借助服务端或者中间层实现。</li>
+</ul>
+<h4 id="2-浏览器架构"><a href="#2-浏览器架构" class="headerlink" title="2.浏览器架构"></a>2.浏览器架构</h4><ul>
+<li>用户主界面</li>
+<li>主进程</li>
+<li>内核<ul>
+<li>渲染引擎</li>
+<li>JS引擎<ul>
+<li>执行栈</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>事件触发线程<ul>
+<li>消息队列<ul>
+<li>微任务</li>
+<li>宏任务</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>网络异步线程</li>
+<li>定时器线程</li>
+</ul>
+]]></content>
+      <categories>
+        <category>浏览器</category>
+      </categories>
+      <tags>
+        <tag>浏览器</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>页面布局</title>
+    <url>/2019/07/03/%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/</url>
+    <content><![CDATA[<h2 id="页面布局"><a href="#页面布局" class="headerlink" title="页面布局"></a>页面布局</h2><h4 id="通栏布局："><a href="#通栏布局：" class="headerlink" title="通栏布局："></a>通栏布局：</h4><p>浏览器左侧固定，右侧自适应。<br>1.flex布局，左侧固定宽，右侧flex：1<br>2.两个盒子分别左浮右浮，右侧盒子减去左侧盒子的宽 100% - 宽<br>3.左侧盒子左浮动，右侧盒子设置 margin-left：左侧盒子的宽</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">		<span class="selector-class">.box</span> &#123;</span></span><br><span class="line"><span class="language-css">			<span class="attribute">display</span>: flex;</span></span><br><span class="line"><span class="language-css">		&#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">		<span class="selector-class">.left</span> &#123;</span></span><br><span class="line"><span class="language-css">			<span class="attribute">width</span>: <span class="number">200px</span>;</span></span><br><span class="line"><span class="language-css">			<span class="attribute">background-color</span>: red;</span></span><br><span class="line"><span class="language-css">		&#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">		<span class="selector-class">.right</span> &#123;</span></span><br><span class="line"><span class="language-css">			<span class="attribute">flex</span>: <span class="number">1</span>;</span></span><br><span class="line"><span class="language-css">			<span class="attribute">background-color</span>: green;</span></span><br><span class="line"><span class="language-css">		&#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="comment">/* 方案2 </span></span></span><br><span class="line"><span class="comment"><span class="language-css">        .left &#123;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">            width: 120px;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">            float: left;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">        &#125;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">        .right &#123;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">            margin-left: 120px;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">        &#125; */</span></span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="comment">/* 方案3 </span></span></span><br><span class="line"><span class="comment"><span class="language-css">        .left &#123;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">            width: 120px;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">            float: left;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">        &#125;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">        .right &#123;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">            width: calc(100% - 120px);</span></span></span><br><span class="line"><span class="comment"><span class="language-css">            float: left;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">        &#125; */</span></span></span><br><span class="line"><span class="language-css">	</span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;left&quot;</span>&gt;</span>左侧<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;right&quot;</span>&gt;</span>右侧<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="圣杯布局："><a href="#圣杯布局：" class="headerlink" title="圣杯布局："></a>圣杯布局：</h4><p>左右两侧固定，中间自适应。<br>1.使用浮动和定位实现。<br>2.左右盒子加float分别左浮，右浮，中间盒子百分比减去俩盒子的宽。<br>3.flex布局，左右给固定宽，中间给flex：1 。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="comment">/* 方案3</span></span></span><br><span class="line"><span class="comment"><span class="language-css">        .box &#123;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">            display: flex;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">        &#125;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">        .left &#123;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">            width: 120px;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">        &#125;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">        .right &#123;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">            width: 120px;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">        &#125;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">        .center &#123;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">            flex: 1;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">        &#125; */</span></span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="comment">/* 方案2</span></span></span><br><span class="line"><span class="comment"><span class="language-css">        .left &#123;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">            width: 120px;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">            float: left;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">        &#125;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">        .right &#123;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">            float: right;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">            width: 120px;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">        &#125;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">        .center &#123;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">            width: calc(100% - 240px);</span></span></span><br><span class="line"><span class="comment"><span class="language-css">            margin-left: 120px;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">        &#125; */</span></span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">        * &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">padding</span>: <span class="number">0</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">margin</span>: <span class="number">0</span>;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="comment">/* //设置基础样式 */</span></span></span><br><span class="line"><span class="language-css">        <span class="selector-tag">div</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">text-align</span>: center;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="selector-tag">header</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">background-color</span>: blue;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">text-align</span>: center;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="selector-tag">footer</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">background-color</span>: blue;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">text-align</span>: center;</span></span><br><span class="line"><span class="language-css">            <span class="comment">/* 清除浮动 */</span></span></span><br><span class="line"><span class="language-css">            <span class="attribute">clear</span>: both;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.box</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">padding</span>: <span class="number">0</span> <span class="number">100px</span>;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.center</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">width</span>: <span class="number">100%</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">background-color</span>: red;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.left</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">width</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">background-color</span>: yellow;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">position</span>: relative;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">right</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">margin-left</span>: -<span class="number">100%</span>;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.right</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">width</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">background-color</span>: green;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">margin-right</span>: -<span class="number">100px</span>;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.center</span>,</span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.left</span>,</span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.right</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">float</span>: left;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">header</span>&gt;</span>顶部<span class="tag">&lt;/<span class="name">header</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;center&quot;</span>&gt;</span>中间<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;left&quot;</span>&gt;</span>左侧<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;right&quot;</span>&gt;</span>右侧<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">footer</span>&gt;</span>底部<span class="tag">&lt;/<span class="name">footer</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="双飞翼布局："><a href="#双飞翼布局：" class="headerlink" title="双飞翼布局："></a>双飞翼布局：</h4><p>和圣杯布局相似，但是元素结构有点变化，没用到定位。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">        * &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">padding</span>: <span class="number">0</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">margin</span>: <span class="number">0</span>;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="comment">/* //设置基础样式 */</span></span></span><br><span class="line"><span class="language-css">        <span class="selector-tag">div</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">text-align</span>: center;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="selector-tag">header</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">background-color</span>: blue;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">text-align</span>: center;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="selector-tag">footer</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">background-color</span>: blue;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">text-align</span>: center;</span></span><br><span class="line"><span class="language-css">            <span class="comment">/* 清除浮动 */</span></span></span><br><span class="line"><span class="language-css">            <span class="attribute">clear</span>: both;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.box</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">padding</span>: <span class="number">0</span> <span class="number">100px</span>;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.center</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">width</span>: <span class="number">100%</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">background-color</span>: red;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.left</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">width</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">background-color</span>: yellow;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">margin-left</span>: -<span class="number">100%</span>;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.right</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">width</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">background-color</span>: green;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">margin-left</span>: -<span class="number">100px</span>;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.center</span>,</span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.left</span>,</span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.right</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">float</span>: left;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">header</span>&gt;</span>顶部<span class="tag">&lt;/<span class="name">header</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;center&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box&quot;</span>&gt;</span>中间<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;left&quot;</span>&gt;</span>左侧<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;right&quot;</span>&gt;</span>右侧<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">footer</span>&gt;</span>底部<span class="tag">&lt;/<span class="name">footer</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>css</category>
+      </categories>
+      <tags>
+        <tag>css</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>基础面试总结</title>
     <url>/2020/05/17/%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93/</url>
     <content><![CDATA[<h4 id="1-说说你对盒子模型的理解"><a href="#1-说说你对盒子模型的理解" class="headerlink" title="1. 说说你对盒子模型的理解"></a>1. 说说你对盒子模型的理解</h4><p>标准盒子模型：</p>
@@ -123,7 +957,7 @@
 <li>修改<code>this</code>指向</li>
 <li>动态传递参数</li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 方式一：只在bind中传递函数参数</span><br><span class="line">fn.bind(obj,1,2)()</span><br><span class="line"> </span><br><span class="line">// 方式二：在bind中传递函数参数，也在返回函数中传递参数</span><br><span class="line">fn.bind(obj,1)(2)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight scss"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 方式一：只在bind中传递函数参数</span></span><br><span class="line">fn<span class="selector-class">.bind</span>(obj,<span class="number">1</span>,<span class="number">2</span>)()</span><br><span class="line"> </span><br><span class="line"><span class="comment">// 方式二：在bind中传递函数参数，也在返回函数中传递参数</span></span><br><span class="line">fn<span class="selector-class">.bind</span>(obj,<span class="number">1</span>)(<span class="number">2</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <ul>
 <li>兼容<code>new</code>关键字</li>
@@ -279,7 +1113,7 @@
 <li>将所有的属性，方法都添加到了this引用的这个对象。</li>
 <li>新创建的对象由this引用，最后隐式的返回this。</li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">function mynew(Func, ...args) &#123;</span><br><span class="line">    // 1.创建一个新对象</span><br><span class="line">    const obj = &#123;&#125;</span><br><span class="line">    // 2.新对象原型指向构造函数原型对象</span><br><span class="line">    obj.__proto__ = Func.prototype</span><br><span class="line">    // 3.将构建函数的this指向新对象</span><br><span class="line">    let result = Func.apply(obj, args)</span><br><span class="line">    // 4.根据返回值判断</span><br><span class="line">    return result instanceof Object ? result : obj</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight actionscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">mynew</span><span class="params">(Func, <span class="rest_arg">...args</span>)</span> &#123;</span><br><span class="line">    <span class="comment">// 1.创建一个新对象</span></span><br><span class="line">    <span class="keyword">const</span> obj = &#123;&#125;</span><br><span class="line">    <span class="comment">// 2.新对象原型指向构造函数原型对象</span></span><br><span class="line">    obj.__proto__ = Func.prototype</span><br><span class="line">    <span class="comment">// 3.将构建函数的this指向新对象</span></span><br><span class="line">    let result = Func.apply(obj, args)</span><br><span class="line">    <span class="comment">// 4.根据返回值判断</span></span><br><span class="line">    <span class="keyword">return</span> result <span class="keyword">instanceof</span> Object ? result : obj</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h4 id="23-null，undefined-的区别"><a href="#23-null，undefined-的区别" class="headerlink" title="23. null，undefined 的区别"></a>23. null，undefined 的区别</h4><ul>
 <li>undefinded：表示没有不存在的值，一个缺少值。此处应有值，但没定义。读取时，返回undefined。</li>
@@ -823,840 +1657,6 @@
       </categories>
       <tags>
         <tag>前端面试</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Vue3系列面试</title>
-    <url>/2021/08/19/Vue3%E7%B3%BB%E5%88%97%E9%9D%A2%E8%AF%95/</url>
-    <content><![CDATA[<h4 id="Vue3-0的设计目标是什么？做了哪些优化？"><a href="#Vue3-0的设计目标是什么？做了哪些优化？" class="headerlink" title="Vue3.0的设计目标是什么？做了哪些优化？"></a>Vue3.0的设计目标是什么？做了哪些优化？</h4><h5 id="设计目标"><a href="#设计目标" class="headerlink" title="设计目标"></a>设计目标</h5><ul>
-<li>体积更小：<ul>
-<li>vue3移除一些不常用的API，引入tree shaking，将一些无用的模块“剪辑掉”。仅打包需要的模块。使打包体积变小了。</li>
-</ul>
-</li>
-<li>更快：<ul>
-<li>diff算法优化：</li>
-<li>静态提升</li>
-<li>事件缓存机制</li>
-<li>ssr优化</li>
-</ul>
-</li>
-<li>更友好：<ul>
-<li>vue3推出了composition API，大大增加了代码的组织能力和复用能力。</li>
-</ul>
-</li>
-</ul>
-<h5 id="优化方案"><a href="#优化方案" class="headerlink" title="优化方案"></a>优化方案</h5><ul>
-<li>源码<ul>
-<li>源码管理，体积更小</li>
-<li>使用ts，提供类型检查</li>
-</ul>
-</li>
-<li>性能<ul>
-<li>体积优化</li>
-<li>编译优化</li>
-<li>数据劫持优化</li>
-</ul>
-</li>
-<li>语法API<ul>
-<li>组合式API，主要提高了代码的组织和复用能力<span id="more"></span></li>
-</ul>
-</li>
-</ul>
-<h4 id="Vue3-0性能提升主要是通过哪几方面体现的？"><a href="#Vue3-0性能提升主要是通过哪几方面体现的？" class="headerlink" title="Vue3.0性能提升主要是通过哪几方面体现的？"></a>Vue3.0性能提升主要是通过哪几方面体现的？</h4><ul>
-<li>编译阶段<ul>
-<li>diff算法优化：比vue2增加了静态标记，在发生改变的地方做一个flag标记，下次发生改变可以直接找到该地方进行比较。</li>
-<li>静态提升： vue3对不参与更新的元素，会做静态提升，只创建一次，可以复用渲染。免去重复创建节点，优化了运行时的内存。</li>
-<li>事件缓存机制</li>
-<li>SSR优化： 当内容达到一定量的时候，采用服务端渲染。</li>
-</ul>
-</li>
-<li>源码体积<ul>
-<li>相对于vue2来说体积变小了，去除一些不常用API。使用树摇（tree shaking），只打包需要的模块，打包体积变小了</li>
-</ul>
-</li>
-<li>响应式系统<ul>
-<li>vue2采用object.proerty（）劫持整个对象，深度遍历每个属性，给每个属性添加getter，setter，来实现响应式。</li>
-<li>vue3使用了vue3代理对象，可以对整个对象进行监听，不需要深度遍历。</li>
-<li>可以监听整个对象以及属性的修改和删除，可以监听数组的索引和lenght属性。</li>
-</ul>
-</li>
-</ul>
-<h4 id="Vue3-0里为什么要用-Proxy-API-替代-defineProperty-API-？"><a href="#Vue3-0里为什么要用-Proxy-API-替代-defineProperty-API-？" class="headerlink" title="Vue3.0里为什么要用 Proxy API 替代 defineProperty API ？"></a>Vue3.0里为什么要用 Proxy API 替代 defineProperty API ？</h4><ul>
-<li>defineProerty API：<ul>
-<li>检测不到对象属性的添加和删除， 提供了set，和delete方法。</li>
-<li>数组的方法 无法监听到（push，shift）</li>
-<li>需要对每个属性进行监听，如果是嵌套对象的话，需使用深度监听，可能会造成性能问题。</li>
-</ul>
-</li>
-<li>Proxy：<ul>
-<li>object.definproerty 只能遍历对象属性进行劫持，proxy直接监听整个对象。</li>
-<li>返回一个新对象，只需操作新对象就能达到目的。</li>
-<li>proxy有多达13种监听方法，不限于apply，has等，这是object.defineproerty（）不具备的</li>
-<li>可以直接监听数组的变化（push，shift，splice）</li>
-</ul>
-</li>
-</ul>
-<h4 id="Vue3-0-所采用的-Composition-Api-与-Vue2-x-使用的-Options-Api-有什么不同？"><a href="#Vue3-0-所采用的-Composition-Api-与-Vue2-x-使用的-Options-Api-有什么不同？" class="headerlink" title="Vue3.0 所采用的 Composition Api 与 Vue2.x 使用的 Options Api 有什么不同？"></a>Vue3.0 所采用的 Composition Api 与 Vue2.x 使用的 Options Api 有什么不同？</h4><ul>
-<li>Options API:<ul>
-<li>通过定义data，methods，computed等方法和属性，来共同处理页面逻辑，一个功能的实现，需要不同的位置的方法和属性，比较分散。可能会造成组件的难以理解和维护。</li>
-</ul>
-</li>
-<li>Composition API:<ul>
-<li>所有方法和功能都写在setup当中，将一个功能的所有方法，属性放在一起。（高内聚，低耦合）。根据相关逻辑来组织代码，提高代码的可读性和维护性。（当功能增多时，还可使用hook来封装出去）</li>
-<li>组合式API中见不到this的使用，减少this指向不明的问题。</li>
-<li>组合式API几乎都是函数，会有很好的类型判断。</li>
-</ul>
-</li>
-</ul>
-<h4 id="说说Vue-3-0中Treeshaking特性？举例说明一下？"><a href="#说说Vue-3-0中Treeshaking特性？举例说明一下？" class="headerlink" title="说说Vue 3.0中Treeshaking特性？举例说明一下？"></a>说说Vue 3.0中Treeshaking特性？举例说明一下？</h4><h5 id="是什么？"><a href="#是什么？" class="headerlink" title="是什么？"></a>是什么？</h5><p>Tree shaking是一种术语，在打包时不打包没有用到的模块，减小了打包体积。</p>
-<h5 id="如何做？"><a href="#如何做？" class="headerlink" title="如何做？"></a>如何做？</h5><p>Tree shaking是基于es6的 <code>import</code> 和 <code>exports</code> 静态编程思想来确定模块的依赖关系。</p>
-<ul>
-<li>tree shaking会在编译阶段判断模块的加载状态</li>
-<li>判断未使用的变量，进行移除。</li>
-</ul>
-<h5 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h5><ul>
-<li>减小打包体积</li>
-<li>减少程序打包的时间</li>
-<li>便于维护优化项目框架</li>
-</ul>
-<h4 id="用Vue3-0-写过组件吗？如果想实现一个-Modal你会怎么设计？"><a href="#用Vue3-0-写过组件吗？如果想实现一个-Modal你会怎么设计？" class="headerlink" title="用Vue3.0 写过组件吗？如果想实现一个 Modal你会怎么设计？"></a>用Vue3.0 写过组件吗？如果想实现一个 Modal你会怎么设计？</h4><p>首先要考虑，大致实现的思路，根据ui设计图，确定好主体的内容，布局样式，做的那些交互操作，删除，修改等等。定义API方法来进行开发。</p>
-]]></content>
-      <categories>
-        <category>前端面试</category>
-      </categories>
-      <tags>
-        <tag>前端面试</tag>
-        <tag>Vue</tag>
-        <tag>Vue3</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>浏览器渲染机制</title>
-    <url>/2019/06/06/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E6%9C%BA%E5%88%B6/</url>
-    <content><![CDATA[<h4 id="浏览器渲染机制"><a href="#浏览器渲染机制" class="headerlink" title="浏览器渲染机制"></a>浏览器渲染机制</h4><h5 id="1-渲染机制步骤步骤："><a href="#1-渲染机制步骤步骤：" class="headerlink" title="1.渲染机制步骤步骤："></a>1.渲染机制步骤步骤：</h5><ul>
-<li>处理<code>HTML</code>并构建<code>DOM</code>树</li>
-<li>处理<code>css</code>构建<code>cssdom</code>树</li>
-<li>将<code>DOM</code>与<code>cssdom</code>合并成一个渲染树</li>
-<li>根据渲染树来布局，计算每个节点的位置</li>
-<li>调用<code>GPU</code>绘制，合成图层，显示在屏幕上</li>
-</ul>
-<p><a href="http://zslin.xyz/2019/06/06/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%A8%A1%E5%9D%97/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E6%9C%BA%E5%88%B6/98.png"><img src="http://zslin.xyz/2019/06/06/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%A8%A1%E5%9D%97/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E6%9C%BA%E5%88%B6/98.png" alt="img"></a></p>
-<p>在构建cssdom树时，会阻塞渲染，直至cssdom树构建完成。并且构建cssdom树是一个十分消耗性能的过程，所以尽量保证层级扁平，减少过度层叠，越是具体的css选择器，执行速度越慢。</p>
-<p>css是阻塞渲染的资源。需要将他尽早，尽快的下载到客户端，以便缩短首次渲染的时间。</p>
-<p>当html解析到script标签时，会暂停构建dom，完成后才会从暂停的地方重新开始。也就是说，如果你想首屏渲染的越快，就越不应该在首屏就加载js文件。并且css也会影响js的执行，只有当解析完样式才会执行js，所以也可以认为这种情况下，css也会暂停构建dom。</p>
-<h5 id="2-图层"><a href="#2-图层" class="headerlink" title="2.图层"></a>2.图层</h5><blockquote>
-<p>一般来说，可以把普通文档流看成一个图层。特定的属性可以生成一个新的图层。不同的图层渲染互不影响，所以对于某些频繁需要渲染的建议单独生成一个新图层，提高性能。但也不能生成过多的图层，会引起反作用。</p>
-</blockquote>
-<p>通过以下几个常用属性可以生成新图层</p>
-<ul>
-<li><code>3D</code>变换：<code>translate3d</code>,<code>reanslatez</code></li>
-<li><code>will-change</code></li>
-<li><code>video</code>,<code>iframe</code>标签</li>
-<li>通过动画实现的<code>opacity</code>动画转换</li>
-<li><code>position：fixed</code></li>
-</ul>
-<h5 id="3-重绘与回流"><a href="#3-重绘与回流" class="headerlink" title="3.重绘与回流"></a>3.重绘与回流</h5><blockquote>
-<ul>
-<li>重绘(repaint)：当元素样式的改变不影响布局时，浏览器将使用重绘对元素进行更新，此时由于只需要UI层面的重新像素绘制，因此，损耗较少</li>
-</ul>
-</blockquote>
-<blockquote>
-<ul>
-<li>回流(reflow)：当元素的尺寸，结构或触发某些属性时，浏览器会重新渲染页面，称为回流。此时，浏览器需要重新经过计算，计算后还需要重新页面布局，因此是较重的操作。会触发回流的操作：</li>
-</ul>
-</blockquote>
-<p>触发回流和重绘的操作：</p>
-<ul>
-<li>页面初次渲染</li>
-<li>浏览器窗口大小发生改变</li>
-<li>元素尺寸，位置，内容发生改变</li>
-<li>元素字体大小变化</li>
-<li>添加或者删除可见的dom元素</li>
-<li>激活css伪类（列如：hover）</li>
-<li>查询某些属性或调用某些方法<ul>
-<li><code>clientWidth、clientHeight、clientTop、clientLeft</code></li>
-<li>&#96;&#96;offsetWidth、offsetHeight、offsetTop、offsetLeft&#96;</li>
-<li><code>scrollWidth、scrollHeight、scrollTop、scrollLeft</code></li>
-<li>&#96;&#96;getComputedStyle()&#96;</li>
-<li><code>getBoundingClientRect()</code></li>
-<li><code>scrollTo()</code></li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<p>回流必定触发重绘，重绘不不一定触发回流。重绘的开销小，回流的代价高。</p>
-</blockquote>
-<p>避免回流的优化：</p>
-<ul>
-<li>css层面：<ul>
-<li>不要使用css表达式</li>
-<li>避免table布局</li>
-<li>避免多层嵌套样式</li>
-</ul>
-</li>
-<li>js层面：<ul>
-<li>避免频繁操作DOM，可以创建一个documentFragment文档流片段，在它上面应用所有dom操作，最后再把它添加到文档中。</li>
-<li>避免频繁操作样式</li>
-<li>可以先为元素设置不可见：<code>display：none</code>，操作结束后在显示出来。</li>
-</ul>
-</li>
-</ul>
-<h5 id="4-javascript会阻塞dom生成"><a href="#4-javascript会阻塞dom生成" class="headerlink" title="4.javascript会阻塞dom生成"></a>4.javascript会阻塞dom生成</h5><blockquote>
-<p>javascript 会阻塞dom生成，而样式文件又会阻塞javascriot执行，所以在实际的工程中需要重点关注javascript文件和样式表文件，使用不当会影响页面性能的</p>
-</blockquote>
-<blockquote>
-<p>当渲染进程接收html文件字节流时，会先开启一个与解析线程，如果遇到javascipt文件或者css文件，那么与解析线程会提前下载这些数据</p>
-</blockquote>
-<ul>
-<li>如果代码里引用了外部的css文件，那么在执行javascript之前，还需要等待外部的css文件下载完成，并解析生成cssdom对象之后，才能执行javascript脚本。</li>
-<li>而javascript引擎在解析javascript之前，是不知道javascript是否操作了cssdom的，所以渲染引擎在遇到javascript脚本时，不管脚本是否操作了cssdom，都会执行css文件下载，解析操作，在执行javascript脚本。</li>
-<li>不管css文件和javascript文件谁先到达，都要等到css文件下载完成并生成cssdom，然后在执行javascript脚本，最后再继续构建dom，构建布局树，绘制页面。</li>
-</ul>
-<h5 id="5-缩短白屏时长的策略"><a href="#5-缩短白屏时长的策略" class="headerlink" title="5.缩短白屏时长的策略"></a>5.缩短白屏时长的策略</h5><ul>
-<li>通过内联 JavaScript、内联 CSS 来移除这两种类型的文件下载，这样获取到 HTML 文件之后就可以直接开始渲染流程了。</li>
-<li>但并不是所有的场合都适合内联，那么还可以尽量减少文件大小，比如通过 webpack 等工具移除一些不必要的注释，并压缩 JavaScript 文件。</li>
-<li>还可以将一些不需要在解析 HTML 阶段使用的 JavaScript 标记上 sync 或者 defer</li>
-<li>对于大的 CSS 文件，可以通过媒体查询属性，将其拆分为多个不同用途的 CSS 文件，这样只有在特定的场景下才会加载特定的 CSS 文件。</li>
-</ul>
-]]></content>
-      <categories>
-        <category>浏览器</category>
-      </categories>
-      <tags>
-        <tag>浏览器</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>浏览器事件循环</title>
-    <url>/2019/06/05/%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/</url>
-    <content><![CDATA[<h4 id="说说你对事件循环的理解"><a href="#说说你对事件循环的理解" class="headerlink" title="说说你对事件循环的理解"></a>说说你对事件循环的理解</h4><p>event loop过程1：</p>
-<ul>
-<li>同步代码，一行一行在call stack（执行栈）执行</li>
-<li>遇到异步，会先“记录”下，等待时机（定时，网络请求等）</li>
-<li>时机到了，就移动到 Callback Queue （回调队列）</li>
-</ul>
-<p>event loop过程2：</p>
-<ul>
-<li>如Call Stack为空（及代码执行完）Event loop 开始工作</li>
-<li>轮询查找Callback Queue，如有则移动到 Call Stack执行</li>
-<li>然后继续轮询查找（永动机一样）</li>
-</ul>
-<p><a href="http://zslin.xyz/2019/06/05/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%A8%A1%E5%9D%97/%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/69.png"><img src="http://zslin.xyz/2019/06/05/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%A8%A1%E5%9D%97/%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/69.png" alt="img"></a></p>
-<p><a href="http://zslin.xyz/2019/06/05/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%A8%A1%E5%9D%97/%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/70.png"><img src="http://zslin.xyz/2019/06/05/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%A8%A1%E5%9D%97/%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/70.png" alt="img"></a></p>
-<h5 id="宏任务："><a href="#宏任务：" class="headerlink" title="宏任务："></a>宏任务：</h5><ul>
-<li><p>我们可以将每次执行栈执行的代码当做是一个宏任务（包括每次从事件队列中获取一个事件回调并放到执行栈中执行）</p>
-</li>
-<li><p>每一个宏任务会从头到尾执行完毕，不会执行其他</p>
-<blockquote>
-<p>浏览器为了能够使js内部宏任务与dom任务有序的执行，会在一个宏任务执行结束后，在下一个宏任务执行开始前，对页面进行重新渲染。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 宏任务--&gt;渲染--&gt;宏任务--&gt;渲染--&gt;渲染．．</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-</blockquote>
-<ul>
-<li>js代码</li>
-<li>setTimeout</li>
-<li>Ajax</li>
-<li>Dom事件</li>
-</ul>
-</li>
-</ul>
-<h5 id="微任务："><a href="#微任务：" class="headerlink" title="微任务："></a>微任务：</h5><ul>
-<li>我们已经知道 宏任务结束后，会执行渲染，然后执行下一个 宏任务。</li>
-<li>而微任务可以理解成在当前 宏任务执行后立即执行的任务。</li>
-<li>也就是说，当宏任务执行完，会在渲染前，将执行期间所产生的所有 微任务都执行完。<ul>
-<li>Promise async&#x2F;</li>
-<li>nextTick（Node.js）</li>
-<li>MutaionObserver</li>
-</ul>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>浏览器</category>
-      </categories>
-      <tags>
-        <tag>浏览器</tag>
-        <tag>Event Loop</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>浏览器的夸标签页通讯</title>
-    <url>/2019/06/02/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E5%A4%B8%E6%A0%87%E7%AD%BE%E9%A1%B5%E9%80%9A%E8%AE%AF/</url>
-    <content><![CDATA[<h4 id="1-跨标签页通讯"><a href="#1-跨标签页通讯" class="headerlink" title="1.跨标签页通讯"></a>1.跨标签页通讯</h4><blockquote>
-<p>不同标签页面间的通讯，本质与哪里就是去运用一些可以 共享的中间介质，因此比较常用的有以下方法：</p>
-</blockquote>
-<ul>
-<li>通过父页面<code>windowopen()</code>和子页面<code>postmessage</code><ul>
-<li>异步下通过<code>windowopen(&#39;about：blank&#39;)</code>和<code>tablocationhref=&#39;*&#39;</code></li>
-</ul>
-</li>
-<li>同域下共享的<code>localStorage</code>与监听<code>windowonstorage</code><ul>
-<li>重复写入相同的值无法触发</li>
-<li>会受到浏览器隐身模式等限制</li>
-</ul>
-</li>
-<li>共同设置<code>cookie</code>与不断轮询脏检查(<code>setInterval</code>)</li>
-<li>借助服务端或者中间层实现。</li>
-</ul>
-<h4 id="2-浏览器架构"><a href="#2-浏览器架构" class="headerlink" title="2.浏览器架构"></a>2.浏览器架构</h4><ul>
-<li>用户主界面</li>
-<li>主进程</li>
-<li>内核<ul>
-<li>渲染引擎</li>
-<li>JS引擎<ul>
-<li>执行栈</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>事件触发线程<ul>
-<li>消息队列<ul>
-<li>微任务</li>
-<li>宏任务</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>网络异步线程</li>
-<li>定时器线程</li>
-</ul>
-]]></content>
-      <categories>
-        <category>浏览器</category>
-      </categories>
-      <tags>
-        <tag>浏览器</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>页面布局</title>
-    <url>/2019/07/03/%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/</url>
-    <content><![CDATA[<h2 id="页面布局"><a href="#页面布局" class="headerlink" title="页面布局"></a>页面布局</h2><h4 id="通栏布局："><a href="#通栏布局：" class="headerlink" title="通栏布局："></a>通栏布局：</h4><p>浏览器左侧固定，右侧自适应。<br>1.flex布局，左侧固定宽，右侧flex：1<br>2.两个盒子分别左浮右浮，右侧盒子减去左侧盒子的宽 100% - 宽<br>3.左侧盒子左浮动，右侧盒子设置 margin-left：左侧盒子的宽</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">		<span class="selector-class">.box</span> &#123;</span></span><br><span class="line"><span class="language-css">			<span class="attribute">display</span>: flex;</span></span><br><span class="line"><span class="language-css">		&#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">		<span class="selector-class">.left</span> &#123;</span></span><br><span class="line"><span class="language-css">			<span class="attribute">width</span>: <span class="number">200px</span>;</span></span><br><span class="line"><span class="language-css">			<span class="attribute">background-color</span>: red;</span></span><br><span class="line"><span class="language-css">		&#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">		<span class="selector-class">.right</span> &#123;</span></span><br><span class="line"><span class="language-css">			<span class="attribute">flex</span>: <span class="number">1</span>;</span></span><br><span class="line"><span class="language-css">			<span class="attribute">background-color</span>: green;</span></span><br><span class="line"><span class="language-css">		&#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="comment">/* 方案2 </span></span></span><br><span class="line"><span class="comment"><span class="language-css">        .left &#123;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">            width: 120px;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">            float: left;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">        &#125;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">        .right &#123;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">            margin-left: 120px;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">        &#125; */</span></span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="comment">/* 方案3 </span></span></span><br><span class="line"><span class="comment"><span class="language-css">        .left &#123;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">            width: 120px;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">            float: left;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">        &#125;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">        .right &#123;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">            width: calc(100% - 120px);</span></span></span><br><span class="line"><span class="comment"><span class="language-css">            float: left;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">        &#125; */</span></span></span><br><span class="line"><span class="language-css">	</span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;left&quot;</span>&gt;</span>左侧<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;right&quot;</span>&gt;</span>右侧<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h4 id="圣杯布局："><a href="#圣杯布局：" class="headerlink" title="圣杯布局："></a>圣杯布局：</h4><p>左右两侧固定，中间自适应。<br>1.使用浮动和定位实现。<br>2.左右盒子加float分别左浮，右浮，中间盒子百分比减去俩盒子的宽。<br>3.flex布局，左右给固定宽，中间给flex：1 。</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="comment">/* 方案3</span></span></span><br><span class="line"><span class="comment"><span class="language-css">        .box &#123;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">            display: flex;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">        &#125;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">        .left &#123;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">            width: 120px;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">        &#125;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">        .right &#123;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">            width: 120px;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">        &#125;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">        .center &#123;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">            flex: 1;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">        &#125; */</span></span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="comment">/* 方案2</span></span></span><br><span class="line"><span class="comment"><span class="language-css">        .left &#123;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">            width: 120px;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">            float: left;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">        &#125;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">        .right &#123;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">            float: right;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">            width: 120px;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">        &#125;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">        .center &#123;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">            width: calc(100% - 240px);</span></span></span><br><span class="line"><span class="comment"><span class="language-css">            margin-left: 120px;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">        &#125; */</span></span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">        * &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">padding</span>: <span class="number">0</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">margin</span>: <span class="number">0</span>;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="comment">/* //设置基础样式 */</span></span></span><br><span class="line"><span class="language-css">        <span class="selector-tag">div</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">text-align</span>: center;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="selector-tag">header</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">background-color</span>: blue;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">text-align</span>: center;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="selector-tag">footer</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">background-color</span>: blue;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">text-align</span>: center;</span></span><br><span class="line"><span class="language-css">            <span class="comment">/* 清除浮动 */</span></span></span><br><span class="line"><span class="language-css">            <span class="attribute">clear</span>: both;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.box</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">padding</span>: <span class="number">0</span> <span class="number">100px</span>;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.center</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">width</span>: <span class="number">100%</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">background-color</span>: red;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.left</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">width</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">background-color</span>: yellow;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">position</span>: relative;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">right</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">margin-left</span>: -<span class="number">100%</span>;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.right</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">width</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">background-color</span>: green;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">margin-right</span>: -<span class="number">100px</span>;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.center</span>,</span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.left</span>,</span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.right</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">float</span>: left;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">header</span>&gt;</span>顶部<span class="tag">&lt;/<span class="name">header</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;center&quot;</span>&gt;</span>中间<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;left&quot;</span>&gt;</span>左侧<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;right&quot;</span>&gt;</span>右侧<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">footer</span>&gt;</span>底部<span class="tag">&lt;/<span class="name">footer</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h4 id="双飞翼布局："><a href="#双飞翼布局：" class="headerlink" title="双飞翼布局："></a>双飞翼布局：</h4><p>和圣杯布局相似，但是元素结构有点变化，没用到定位。</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">        * &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">padding</span>: <span class="number">0</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">margin</span>: <span class="number">0</span>;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="comment">/* //设置基础样式 */</span></span></span><br><span class="line"><span class="language-css">        <span class="selector-tag">div</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">text-align</span>: center;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="selector-tag">header</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">background-color</span>: blue;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">text-align</span>: center;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="selector-tag">footer</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">background-color</span>: blue;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">text-align</span>: center;</span></span><br><span class="line"><span class="language-css">            <span class="comment">/* 清除浮动 */</span></span></span><br><span class="line"><span class="language-css">            <span class="attribute">clear</span>: both;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.box</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">padding</span>: <span class="number">0</span> <span class="number">100px</span>;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.center</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">width</span>: <span class="number">100%</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">background-color</span>: red;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.left</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">width</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">background-color</span>: yellow;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">margin-left</span>: -<span class="number">100%</span>;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.right</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">width</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">background-color</span>: green;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">margin-left</span>: -<span class="number">100px</span>;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.center</span>,</span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.left</span>,</span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.right</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">float</span>: left;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">header</span>&gt;</span>顶部<span class="tag">&lt;/<span class="name">header</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;center&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box&quot;</span>&gt;</span>中间<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;left&quot;</span>&gt;</span>左侧<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;right&quot;</span>&gt;</span>右侧<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">footer</span>&gt;</span>底部<span class="tag">&lt;/<span class="name">footer</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>css</category>
-      </categories>
-      <tags>
-        <tag>css</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Vue3与Vue2API的区别</title>
-    <url>/2021/09/02/Vue3%E4%B8%8EVue2API%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
-    <content><![CDATA[<h4 id="Vue3-0-所采用的-Composition-Api-与-Vue2-x-使用的-Options-Api-有什么不同？"><a href="#Vue3-0-所采用的-Composition-Api-与-Vue2-x-使用的-Options-Api-有什么不同？" class="headerlink" title="Vue3.0 所采用的 Composition Api 与 Vue2.x 使用的 Options Api 有什么不同？"></a>Vue3.0 所采用的 Composition Api 与 Vue2.x 使用的 Options Api 有什么不同？</h4><ol>
-<li><p>options API:</p>
-<p>即选项式API，通过定义methods，data，computed，watch等属性与方法，共同处理页面逻辑。</p>
-<p>一个功能的实现，需要不同的vue配置项，定义属相和方法比较分散。大项目可能包含多个方法，这可能会导致组件难以阅读和理解。</p>
-</li>
-</ol>
-<span id="more"></span>
-<p>   如图：</p>
-<p>   <a href="http://zslin.xyz/2021/06/09/vue3/vue3%E5%92%8Cvue2-API%E7%9A%84%E5%8C%BA%E5%88%AB/tt.png"><img src="http://zslin.xyz/2021/06/09/vue3/vue3%E5%92%8Cvue2-API%E7%9A%84%E5%8C%BA%E5%88%AB/tt.png" alt="img"></a></p>
-<ol start="2">
-<li><p>composition API:</p>
-<p>一个功能的所有api都会放在一起，实现了高内聚，低耦合。方便找到功能所对应的方法及属性。</p>
-<p>根据逻辑相关性组织代码，提高可读性和可维护性，基于函数组合的API。</p>
-<p>如图：</p>
-<p><a href="http://zslin.xyz/2021/06/09/vue3/vue3%E5%92%8Cvue2-API%E7%9A%84%E5%8C%BA%E5%88%AB/cc.png"><img src="http://zslin.xyz/2021/06/09/vue3/vue3%E5%92%8Cvue2-API%E7%9A%84%E5%8C%BA%E5%88%AB/cc.png" alt="img"></a></p>
-<h4 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h4><hr>
-<blockquote>
-<ul>
-<li><a href="https://vue3js.cn/interview/vue3/composition.html#%E6%AD%A3%E6%96%87">https://vue3js.cn/interview/vue3/composition.html#%E6%AD%A3%E6%96%87</a></li>
-</ul>
-</blockquote>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>Vue3</category>
-      </categories>
-      <tags>
-        <tag>Vue</tag>
-        <tag>Vue3</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Vue3中Treeshaking</title>
-    <url>/2021/07/27/Vue3%E4%B8%ADTreeshaking/</url>
-    <content><![CDATA[<h4 id="说说Vue-3-0中Treeshaking特性？举例说明一下？"><a href="#说说Vue-3-0中Treeshaking特性？举例说明一下？" class="headerlink" title="说说Vue 3.0中Treeshaking特性？举例说明一下？"></a>说说Vue 3.0中Treeshaking特性？举例说明一下？</h4><p><a href="http://zslin.xyz/2021/07/27/vue3/vue3%E4%B8%ADTreeshaking%E7%89%B9%E6%80%A7/tt.png"><img src="http://zslin.xyz/2021/07/27/vue3/vue3%E4%B8%ADTreeshaking%E7%89%B9%E6%80%A7/tt.png" alt="img"></a></p>
-<h5 id="是什么？"><a href="#是什么？" class="headerlink" title="是什么？"></a>是什么？</h5><p>Tree shaking是一种术语，在打包时将不打包没有用到的代码清除掉，这些代码会成为dead code（死代码）。也就是说，treeshaking在打包时所留下的，是我们用到的代码。</p>
-<ul>
-<li>在vue2中，无论我们使用什么功能，它们最终都会出现在打包后的文件中。因为vue2在项目中是单例的，无法检测到哪些代码在项目中是被用到的。</li>
-<li>vue3引入了treeshaking特性，将全局api进行分块。如果没有使用到某个功能，他们将不会包含在你打包后的文件中。</li>
-</ul>
-<h5 id="如何做？"><a href="#如何做？" class="headerlink" title="如何做？"></a>如何做？</h5><p>Tree shaking是基于es6的模板语法import，exports静态编辑思想确定模块依赖关系的。</p>
-<ul>
-<li>treeshaking在编译阶段会判断模块的加载状态。</li>
-<li>判断未使用的相关变量，进行移除。</li>
-</ul>
-<p>举个例子：<br>如果，新创建的项目中，data中的变量1，和变量2被使用了，但是变量3，并没有被使用，那么变量3，会在打包的时候被移除<br>在比如，可以对比一下项目在使用treeShaking打包之后和未使用的情况下进行打包后的大小，<br>data中的数据都被正常使用，methods的方法也被正常使用，component方法和watch方法未使用，然后进行打包<br>答案显而易见，在使用treeShaking后进行打包只会将data和methods这种使用的方法进行打包，而不是打包所有</p>
-<h5 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h5><ul>
-<li>减少程序体积（更小）</li>
-<li>减少程序执行时间（更快）</li>
-<li>便于维护优化项目框架</li>
-</ul>
-<h5 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h5><hr>
-<blockquote>
-<ul>
-<li><a href="https://segmentfault.com/a/1190000038962700">https://segmentfault.com/a/1190000038962700</a></li>
-</ul>
-</blockquote>
-<blockquote>
-<ul>
-<li><a href="https://vue3js.cn/interview/vue3/treeshaking.html#%E4%B8%80%E3%80%81%E6%98%AF%E4%BB%80%E4%B9%88">https://vue3js.cn/interview/vue3/treeshaking.html#%E4%B8%80%E3%80%81%E6%98%AF%E4%BB%80%E4%B9%88</a></li>
-</ul>
-</blockquote>
-]]></content>
-      <categories>
-        <category>Vue3</category>
-      </categories>
-      <tags>
-        <tag>Vue</tag>
-        <tag>Vue3</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Vue3响应式改进</title>
-    <url>/2021/09/25/Vue3%E5%93%8D%E5%BA%94%E5%BC%8F%E6%94%B9%E8%BF%9B/</url>
-    <content><![CDATA[<h4 id="Vue3-0里为什么要用-Proxy-API-替代-defineProperty-API-？"><a href="#Vue3-0里为什么要用-Proxy-API-替代-defineProperty-API-？" class="headerlink" title="Vue3.0里为什么要用 Proxy API 替代 defineProperty API ？"></a>Vue3.0里为什么要用 Proxy API 替代 defineProperty API ？</h4><hr>
-<p>proxy的性能本来比defindproerty好，proxy可以拦截属性的访问，赋值，删除等操作，不需要初始化的时候遍历所有属性。另外如果是多层嵌套的对象，只有访问某个属性的时候，才会递归处理下一级的属性。</p>
-<span id="more"></span>
-<p>object.defineproperty():</p>
-<ul>
-<li>检测不到对象属性的添加和删除 在这里可以使用set，delete方法。</li>
-<li>不能根据数组索引来修改值</li>
-<li>需要遍历每个属性进行遍历监听，如果是嵌套对象的话，就需要深层监听，造成性能问题。</li>
-</ul>
-<p>proxy：</p>
-<ul>
-<li>可以直接监听整个对象</li>
-<li>可以直接监听数组的变化（push，shift，splice）</li>
-<li>有多达13种拦截方法，不限于apply，has等等，是defindproerty不具备的</li>
-<li>返回一个新的对象，只操作新的对象就能达到目的。</li>
-</ul>
-<h4 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h4><hr>
-<blockquote>
-<ul>
-<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty">https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty</a></li>
-</ul>
-</blockquote>
-<blockquote>
-<ul>
-<li><a href="https://vue3js.cn/interview/vue3/proxy.html#%E4%B8%80%E3%80%81object-defineproperty">https://vue3js.cn/interview/vue3/proxy.html#%E4%B8%80%E3%80%81object-defineproperty</a></li>
-</ul>
-</blockquote>
-]]></content>
-      <categories>
-        <category>Vue3</category>
-      </categories>
-      <tags>
-        <tag>Vue</tag>
-        <tag>Vue3</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Vue3性能提升</title>
-    <url>/2021/09/21/Vue3%E6%80%A7%E8%83%BD%E6%8F%90%E5%8D%87/</url>
-    <content><![CDATA[<h4 id="Vue3-0性能提升主要是通过哪几方面体现的？"><a href="#Vue3-0性能提升主要是通过哪几方面体现的？" class="headerlink" title="Vue3.0性能提升主要是通过哪几方面体现的？"></a>Vue3.0性能提升主要是通过哪几方面体现的？</h4><p><a href="http://zslin.xyz/2021/04/27/vue3/vue3%E6%80%A7%E8%83%BD%E6%8F%90%E5%8D%87/tt.png"><img src="http://zslin.xyz/2021/04/27/vue3/vue3%E6%80%A7%E8%83%BD%E6%8F%90%E5%8D%87/tt.png" alt="img"></a></p>
-<h5 id="编译阶段"><a href="#编译阶段" class="headerlink" title="编译阶段"></a>编译阶段</h5><ul>
-<li><p>diff算法优化</p>
-<ul>
-<li><p>vue3在diff算法中相比vue2增加了静态标记。作用：为了会发生变化的地方添加一个flag标记，下次发生变化的时候直接找该地方进行比较即可。</p>
-<p>下图这里，已经标记静态节点的p标签在diff过程中则不会比较，把性能进一步提高。</p>
-<p><a href="http://zslin.xyz/2021/04/27/vue3/vue3%E6%80%A7%E8%83%BD%E6%8F%90%E5%8D%87/cc.png"><img src="http://zslin.xyz/2021/04/27/vue3/vue3%E6%80%A7%E8%83%BD%E6%8F%90%E5%8D%87/cc.png" alt="img"></a></p>
-</li>
-</ul>
-</li>
-<li><p>静态提升</p>
-<ul>
-<li>vue3中对不参与更新的元素，会做静态提升，只会被创建一次，在渲染时直接复用。</li>
-</ul>
-</li>
-<li><p>事件监听缓存</p>
-</li>
-<li><p>SSR优化</p>
-<ul>
-<li>当静态内容达到一定量度时，会使用服务端渲染。</li>
-</ul>
-</li>
-</ul>
-<span id="more"></span>
-<h5 id="源码体积"><a href="#源码体积" class="headerlink" title="源码体积"></a>源码体积</h5><ul>
-<li><p>相比vue2，vue3整体体积变小了，除了移除一些不常用的API，在重要的是<code>Tree shanking</code>(树摇)。比如任何一个函数（ref，reactived，computed）等，仅用到的时候才打包，没用到的模块都被摇掉，打包的整体体积变小。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; computed, defineComponent, ref &#125; <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span>;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">defineComponent</span>(&#123;</span><br><span class="line">    <span class="title function_">setup</span>(<span class="params">props, context</span>) &#123;</span><br><span class="line">        <span class="keyword">const</span> age = <span class="title function_">ref</span>(<span class="number">18</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> state = <span class="title function_">reactive</span>(&#123;</span><br><span class="line">            <span class="attr">name</span>: <span class="string">&#x27;test&#x27;</span></span><br><span class="line">        &#125;)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">const</span> readOnlyAge = <span class="title function_">computed</span>(<span class="function">() =&gt;</span> age.<span class="property">value</span>++) <span class="comment">// 19</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">            age,</span><br><span class="line">            state,</span><br><span class="line">            readOnlyAge</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h5 id="响应式系统"><a href="#响应式系统" class="headerlink" title="响应式系统"></a>响应式系统</h5><ul>
-<li>vue2中采用defineProerty来劫持整个对象，然后进行深度遍历所有属性，给每个属性添加getter和setter，实现响应式。</li>
-<li>vue3采用proxy代理对象，因为proxy可以对整个对象进行监听，所以不需要深度遍历。<ul>
-<li>可以监听整个对象的修改和添加</li>
-<li>可以监听数组的索引和数组length属性。</li>
-</ul>
-</li>
-</ul>
-<h4 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h4><hr>
-<blockquote>
-<ul>
-<li><a href="https://juejin.cn/post/6903171037211557895">https://juejin.cn/post/6903171037211557895</a></li>
-</ul>
-</blockquote>
-<blockquote>
-<ul>
-<li><a href="https://vue3js.cn/interview/vue3/performance.html#%E4%B8%80%E3%80%81%E7%BC%96%E8%AF%91%E9%98%B6%E6%AE%B5">https://vue3js.cn/interview/vue3/performance.html#%E4%B8%80%E3%80%81%E7%BC%96%E8%AF%91%E9%98%B6%E6%AE%B5</a></li>
-</ul>
-</blockquote>
-]]></content>
-      <categories>
-        <category>Vue3</category>
-      </categories>
-      <tags>
-        <tag>Vue</tag>
-        <tag>Vue3</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Vue3设计目标及优化</title>
-    <url>/2021/09/06/Vue3%E8%AE%BE%E8%AE%A1%E7%9B%AE%E6%A0%87%E5%8F%8A%E4%BC%98%E5%8C%96/</url>
-    <content><![CDATA[<h4 id="vue3-0的设计目标是什么？做了那些优化？"><a href="#vue3-0的设计目标是什么？做了那些优化？" class="headerlink" title="vue3.0的设计目标是什么？做了那些优化？"></a>vue3.0的设计目标是什么？做了那些优化？</h4><hr>
-<p>设计目标：</p>
-<ul>
-<li><p>打包体积更小： vue3移除一些不常用的API，将无用的模块“剪辑”掉，仅打包需要的，使打包体积更小了。</p>
-</li>
-<li><p>速度更快： diff算法优化，静态提升。</p>
-</li>
-<li><p>更灵活的代码组织能力： 推出composition API，大大增加了代码的逻辑组织能力和代码复用能力。</p>
-<span id="more"></span>
-<p>优化方案：</p>
-</li>
-<li><p>源码</p>
-<ul>
-<li>使用ts语法，源码的优化。</li>
-</ul>
-</li>
-<li><p>性能</p>
-<ul>
-<li>体积，编译，数据劫持优化。</li>
-</ul>
-</li>
-<li><p>语法 API</p>
-<ul>
-<li><p>组合式API，根据相关逻辑组织代码。</p>
-<p><a href="http://zslin.xyz/2021/06/06/vue3/vue3-0%E7%9A%84%E8%AE%BE%E8%AE%A1%E5%8F%8A%E4%BC%98%E5%8C%96/tt.png"><img src="http://zslin.xyz/2021/06/06/vue3/vue3-0%E7%9A%84%E8%AE%BE%E8%AE%A1%E5%8F%8A%E4%BC%98%E5%8C%96/tt.png" alt="img"></a></p>
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献:"></a>参考文献:</h4><hr>
-<blockquote>
-<ul>
-<li><a href="https://juejin.cn/post/6850418112878575629#heading-5">https://juejin.cn/post/6850418112878575629#heading-5</a></li>
-</ul>
-</blockquote>
-<blockquote>
-<ul>
-<li><a href="https://vue3js.cn/docs/zh">https://vue3js.cn/docs/zh</a></li>
-</ul>
-</blockquote>
-]]></content>
-      <categories>
-        <category>Vue3</category>
-      </categories>
-      <tags>
-        <tag>Vue</tag>
-        <tag>Vue3</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>css3新增特性</title>
-    <url>/2020/07/01/css3%E6%96%B0%E5%A2%9E%E7%89%B9%E6%80%A7/</url>
-    <content><![CDATA[<h4 id="css3新增那些新特性？"><a href="#css3新增那些新特性？" class="headerlink" title="css3新增那些新特性？"></a>css3新增那些新特性？</h4><h5 id="选择器："><a href="#选择器：" class="headerlink" title="选择器："></a>选择器：</h5><ul>
-<li>:first-of-type 选择其父元素第一个子元素</li>
-<li>:last-of-type 选择其父元素最后一个子元素</li>
-<li>:nth-of-type(2) 选择父元素的第二个元素</li>
-<li>:only-child 选择属于父元素的唯一一个子元素</li>
-<li>:last-child 选择属于其父元素的最后一个子元素</li>
-</ul>
-<h5 id="新样式："><a href="#新样式：" class="headerlink" title="新样式："></a>新样式：</h5><ul>
-<li><p>边框 border-radius：创建圆角边框</p>
-</li>
-<li><p>border-shadow：为元素添加阴影</p>
-</li>
-<li><p>border-image：使用图片绘制边框</p>
-</li>
-<li><p>背景 background-clip</p>
-</li>
-<li><p>background-origin</p>
-</li>
-<li><p>background-size</p>
-</li>
-<li><p>background-break</p>
-</li>
-<li><p>文字 word-warp：</p>
-<ul>
-<li>narmal：使用浏览器默认换行</li>
-<li>break-all：允许在单词内换行</li>
-</ul>
-</li>
-<li><p>text-shadow：设置字体的阴影，位置及阴影颜色</p>
-</li>
-<li><p>颜色：增加了新的颜色表示方式</p>
-<ul>
-<li>rgba，rgb为颜色值，a为透明度</li>
-<li>hsla，h色相，s为饱和度，l为高度，a为透明度。</li>
-</ul>
-</li>
-</ul>
-<h4 id="css3动画有那些？"><a href="#css3动画有那些？" class="headerlink" title="css3动画有那些？"></a>css3动画有那些？</h4><p>使用css动画的模块就是指元素从一种样式逐渐过渡为另一种样式的过程。</p>
-<p>常见的动画有 平移，旋转，缩放等等。</p>
-<ul>
-<li>transition 实现渐变动画</li>
-<li>transform 转变动画<ul>
-<li>translate 位移</li>
-<li>skew 倾斜</li>
-<li>rotate：旋转</li>
-<li>scale 缩放</li>
-</ul>
-</li>
-<li>animation 实现自定义动画</li>
-</ul>
-]]></content>
-      <categories>
-        <category>css3</category>
-      </categories>
-      <tags>
-        <tag>css</tag>
-        <tag>css3</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>inline-block缝隙问题</title>
-    <url>/2020/07/08/inline-block%E7%BC%9D%E9%9A%99%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<h4 id="display-inline-block元素之间空隙的产生原因和解决办法？"><a href="#display-inline-block元素之间空隙的产生原因和解决办法？" class="headerlink" title="display:inline-block元素之间空隙的产生原因和解决办法？"></a>display:inline-block元素之间空隙的产生原因和解决办法？</h4><h5 id="空隙产生原因"><a href="#空隙产生原因" class="headerlink" title="空隙产生原因"></a>空隙产生原因</h5><p>元素被当做行内元素进行排版布局的时候，元素之间的空格，换行符，空白会被浏览器处理，根据white-space的默认值 normal，合并多余的空白符。在html代码当中，换行符就会被当做是一处空白，当字体大小font-size不为零的情况下，两个元素之间就会有空隙。这些元素之间的间距会随着字体大小来变化，比如行内元素font-size：16px时，间距为8px。</p>
-<h5 id="解决办法："><a href="#解决办法：" class="headerlink" title="解决办法："></a>解决办法：</h5><ul>
-<li>将所有html标签写在一行 （代码可读性差）</li>
-<li>给inline-block属性元素设置float：left （造成高度塌陷）</li>
-<li>设置inlin-block属性元素font-size为零，需重更新设置子元素大小。</li>
-<li>设置子元素margin-left:-2px。</li>
-<li>给父元素设置display：table。word-sapcing：-1em。（根据实际情况来）</li>
-</ul>
-]]></content>
-      <categories>
-        <category>css</category>
-      </categories>
-      <tags>
-        <tag>css</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Vue响应式原理</title>
-    <url>/2020/12/29/Vue%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/</url>
-    <content><![CDATA[<p><a href="http://zslin.xyz/2019/05/27/vue2/vue2%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/15.png"><img src="http://zslin.xyz/2019/05/27/vue2/vue2%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/15.png" alt="img"></a></p>
-<p>Vue2.x响应式原理：</p>
-<p>vue创建一个实例时，首先会遍历data属性。采用数据劫持结合发布者订阅者的方式。使用es5的object.defindeproperty 方法将他们转化成getter，setter，并在内部追踪相关依赖。在属性被访问和修改时通知变化。也就是observer使用object.defindproerty来监听数据的读写。读取数据时，调用get方法通知dep去收集订阅者（watcher）。添加到道dep的一个属性subs数理。 dep有很多属性，其中就有一个subsadd添加订阅者的方法。修改1数据时，调用set方法，通知dep数据发生了改变。使用dep.notify方法遍历subs数组里面的每个watcher。调用watcher的update（）方法。创建出一个新的dom树，与原来旧的dom树作对比，根据差异性，从而更新视图。</p>
-<p><a href="http://zslin.xyz/2019/05/27/vue2/vue2%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/vue.jpeg"><img src="http://zslin.xyz/2019/05/27/vue2/vue2%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/vue.jpeg" alt="img"></a></p>
-<p>**Object.defineProperty()**，那么它的用法是什么，以及优缺点是什么呢？</p>
-<ul>
-<li>可以检测对象中数据发生的修改</li>
-<li>对于复杂的对象，层级很深的话，是不友好的，需要经行深度监听，这样子就需要递归到底，这也是它的缺点。</li>
-<li>对于一个对象中，如果你新增加属性，删除属性，**Object.defineProperty()**是不能观测到的，那么应该如何解决呢？可以通过<code>Vue.set()</code>和<code>Vue.delete()</code>来实现。</li>
-</ul>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 模拟 Vue 中的 data 选项 </span></span><br><span class="line"><span class="keyword">let</span> data = &#123;</span><br><span class="line">    <span class="attr">msg</span>: <span class="string">&#x27;hello&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 模拟 Vue 的实例 </span></span><br><span class="line"><span class="keyword">let</span> vm = &#123;&#125;</span><br><span class="line"><span class="comment">// 数据劫持:当访问或者设置 vm 中的成员的时候，做一些干预操作</span></span><br><span class="line"><span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(vm, <span class="string">&#x27;msg&#x27;</span>, &#123;</span><br><span class="line">  <span class="comment">// 可枚举(可遍历)</span></span><br><span class="line">  <span class="attr">enumerable</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="comment">// 可配置(可以使用 delete 删除，可以通过 defineProperty 重新定义) </span></span><br><span class="line">  <span class="attr">configurable</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="comment">// 当获取值的时候执行 </span></span><br><span class="line">  get () &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;get: &#x27;</span>, data.<span class="property">msg</span>)</span><br><span class="line">    <span class="keyword">return</span> data.<span class="property">msg</span> </span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// 当设置值的时候执行 </span></span><br><span class="line">  set (newValue) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;set: &#x27;</span>, newValue) </span><br><span class="line">    <span class="keyword">if</span> (newValue === data.<span class="property">msg</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    data.<span class="property">msg</span> = newValue</span><br><span class="line">    <span class="comment">// 数据更改，更新 DOM 的值 </span></span><br><span class="line">    <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;#app&#x27;</span>).<span class="property">textContent</span> = data.<span class="property">msg</span></span><br><span class="line">  &#125; </span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 测试</span></span><br><span class="line">vm.<span class="property">msg</span> = <span class="string">&#x27;Hello World&#x27;</span> </span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(vm.<span class="property">msg</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>Vue3.响应式原理：</p>
-<p><code>Vue3.x</code>改用<code>Proxy</code>替代<code>Object.defineProperty</code>。因为<code>Proxy</code>可以直接监听<code>对象和数组</code>的变化，并且有多达13种拦截方法。</p>
-<p>代理，顾名思义，就是在要访问的对象之前增加⼀个中间层，这样就不直接访问对象，⽽是通过中间层做⼀个中转，通过操作代理对象，来实现修改目标对象。</p>
-<p><strong>监测数组的时候可能触发多次get&#x2F;set，那么如何防止触发多次呢？</strong></p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 模拟 Vue 中的 data 选项 </span></span><br><span class="line"><span class="keyword">let</span> data = &#123;</span><br><span class="line">  <span class="attr">msg</span>: <span class="string">&#x27;hello&#x27;</span>,</span><br><span class="line">  <span class="attr">count</span>: <span class="number">0</span> </span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 模拟 Vue 实例</span></span><br><span class="line"><span class="keyword">let</span> vm = <span class="keyword">new</span> <span class="title class_">Proxy</span>(data, &#123;</span><br><span class="line">  <span class="comment">// 当访问 vm 的成员会执行</span></span><br><span class="line">  get (target, key) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;get, key: &#x27;</span>, key, target[key])</span><br><span class="line">    <span class="keyword">return</span> target[key]</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// 当设置 vm 的成员会执行</span></span><br><span class="line">  set (target, key, newValue) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;set, key: &#x27;</span>, key, newValue)</span><br><span class="line">    <span class="keyword">if</span> (target[key] === newValue) &#123;</span><br><span class="line">      <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    target[key] = newValue</span><br><span class="line">    <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;#app&#x27;</span>).<span class="property">textContent</span> = target[key]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 测试</span></span><br><span class="line">vm.<span class="property">msg</span> = <span class="string">&#x27;Hello World&#x27;</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(vm.<span class="property">msg</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>总结：</p>
-<ul>
-<li>Vue<ul>
-<li>记录传入的选项，设置 <code>$data/$el</code></li>
-<li>把 <code>data</code> 的成员注入到 <code>Vue</code> 实例</li>
-<li>负责调用 <code>Observer</code> 实现数据响应式处理(数据劫持)</li>
-<li>负责调用 <code>Compiler</code> 编译指令&#x2F;插值表达式等</li>
-</ul>
-</li>
-<li>Observer<ul>
-<li>数据劫持<ul>
-<li>负责把 <code>data</code> 中的成员转换成 <code>getter/setter</code></li>
-<li>负责把多层属性转换成 <code>getter/setter</code></li>
-<li>如果给属性赋值为新对象，把新对象的成员设置为 <code>getter/setter</code></li>
-</ul>
-</li>
-<li>添加 <code>Dep</code> 和 <code>Watcher</code> 的依赖关系</li>
-<li>数据变化发送通知</li>
-</ul>
-</li>
-<li>Compiler<ul>
-<li>负责编译模板，解析指令&#x2F;插值表达式</li>
-<li>负责页面的首次渲染过程</li>
-<li>当数据变化后重新渲染</li>
-</ul>
-</li>
-<li>Dep<ul>
-<li>收集依赖，添加订阅者(<code>watcher</code>)</li>
-<li>通知所有订阅者</li>
-</ul>
-</li>
-<li>Watcher<ul>
-<li>自身实例化的时候往<code>dep</code>对象中添加自己</li>
-<li>当数据变化<code>dep</code>通知所有的 <code>Watcher</code> 实例更新视图</li>
-</ul>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>Vue</category>
-      </categories>
-      <tags>
-        <tag>Vue</tag>
-        <tag>Vue3</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Vue生命周期的理解</title>
-    <url>/2019/03/28/Vue%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E7%9A%84%E7%90%86%E8%A7%A3/</url>
-    <content><![CDATA[<h4 id="vue生命周期的理解"><a href="#vue生命周期的理解" class="headerlink" title="vue生命周期的理解"></a><strong>vue生命周期的理解</strong></h4><p>vue生命周期主要分为8个阶段：创建前&#x2F;后，载入前&#x2F;后，更新前&#x2F;后，销毁前&#x2F;后。</p>
-<p>vue实例有一个完整的生命周期，也就是从开始创建，初始化数据，编译模板，挂载Dom &#x3D;》 渲染，更新 &#x3D;》渲染，卸载这个过程。</p>
-<table>
-<thead>
-<tr>
-<th align="left">beforeCreate</th>
-<th>组件实例被创建之初，组件的属性生效之前</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">created</td>
-<td>组件实例已经完全创建，属性也绑定，但真实dom还没有生成，$el还不可用</td>
-</tr>
-<tr>
-<td align="left">beforeMount</td>
-<td>在挂载开始之前被调用：相关的 render 函数首次被调用</td>
-</tr>
-<tr>
-<td align="left">mounted</td>
-<td>el 被新创建的 vm.$el 替换，并挂载到实例上去之后调用该钩子</td>
-</tr>
-<tr>
-<td align="left">beforeUpdate</td>
-<td>组件数据更新之前调用，发生在虚拟 DOM 打补丁之前</td>
-</tr>
-<tr>
-<td align="left">update</td>
-<td>组件数据更新之后</td>
-</tr>
-<tr>
-<td align="left">activated</td>
-<td>keep-alive专属，组件被激活时调用</td>
-</tr>
-<tr>
-<td align="left">deactivated</td>
-<td>keep-alive专属，组件被销毁时调用</td>
-</tr>
-<tr>
-<td align="left">beforeDestroy</td>
-<td>组件销毁前调用</td>
-</tr>
-<tr>
-<td align="left">destroyed</td>
-<td>组件销毁后调用</td>
-</tr>
-</tbody></table>
-<p><a href="http://zslin.xyz/2019/06/27/vue2/vue%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E7%9A%84%E7%90%86%E8%A7%A3/61.png"><img src="http://zslin.xyz/2019/06/27/vue2/vue%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E7%9A%84%E7%90%86%E8%A7%A3/61.png" alt="img"></a></p>
-<p><strong>什么是vue生命周期？</strong></p>
-<ul>
-<li>答： Vue 实例从创建到销毁的过程，就是生命周期。从开始创建、初始化数据、编译模板、挂载Dom→渲染、更新→渲染、销毁等一系列过程，称之为 Vue 的生命周期。</li>
-</ul>
-<p><strong>vue生命周期的作用是什么？</strong></p>
-<ul>
-<li>答：它的生命周期中有多个事件钩子，让我们在控制整个Vue实例的过程时更容易形成好的逻辑。</li>
-</ul>
-<p><strong>vue生命周期总共有几个阶段？</strong></p>
-<ul>
-<li>答：它可以总共分为<code>8</code>个阶段：创建前&#x2F;后、载入前&#x2F;后、更新前&#x2F;后、销毁前&#x2F;销毁后。</li>
-</ul>
-<p><strong>第一次页面加载会触发哪几个钩子？</strong></p>
-<ul>
-<li>答：会触发下面这几个<code>beforeCreate</code>、<code>created</code>、<code>beforeMount</code>、<code>mounted</code> 。</li>
-</ul>
-<p><strong>DOM 渲染在哪个周期中就已经完成？</strong></p>
-<ul>
-<li>答：<code>DOM</code> 渲染在 <code>mounted</code> 中就已经完成了</li>
-</ul>
-]]></content>
-      <categories>
-        <category>Vue</category>
-      </categories>
-      <tags>
-        <tag>Vue</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Vue路由原理</title>
-    <url>/2019/11/12/Vue%E8%B7%AF%E7%94%B1%E5%8E%9F%E7%90%86/</url>
-    <content><![CDATA[<h4 id="vue路由原理"><a href="#vue路由原理" class="headerlink" title="vue路由原理"></a>vue路由原理</h4><ul>
-<li>hash模式：浏ener器中符号<code>#</code>，后面的字符称之为<code>hash</code>。<ul>
-<li>其中对象中的<code>location.hash</code>储存的是路由的地址，可以赋值改变其URL的地址。而这会触发<code>hashchange</code>事件，通过<code>window.addEventListn</code>监听hash值然后去匹配对应的路由，从而渲染页面的组件。</li>
-</ul>
-</li>
-<li>history：<ul>
-<li>history采用HTML5的新特性，通过<code>pushState</code>和<code>replaceState</code>两个方法来实现url的变化。可以通过<code>popstagte</code>事件监听url的变化，从而对页面进行跳转（渲染）</li>
-</ul>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>Vue</category>
-      </categories>
-      <tags>
-        <tag>Vue</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>keep-alive作用</title>
-    <url>/2019/10/10/keep-alive%E4%BD%9C%E7%94%A8/</url>
-    <content><![CDATA[<h4 id="keep-alive作用是什么呢？"><a href="#keep-alive作用是什么呢？" class="headerlink" title="keep-alive作用是什么呢？"></a>keep-alive作用是什么呢？</h4><blockquote>
-<p>keep-alive可以实现组件缓存，当组件切换时不会对当前组件进行卸载</p>
-</blockquote>
-<ul>
-<li><code>&lt;keep-alive&gt;&lt;/keep-alive&gt;</code>包裹动态组件时，会缓存不活动得组件实例，主要用于保留组件状态或避免重新渲染</li>
-</ul>
-<blockquote>
-<p>比如有一个列表和一个详情，那么用户就会经常执行打开详情&#x3D;》返回列表&#x3D;》打开详情….这样得话列表和详情都是一个频率很高得也买你，那么就可以对列表组件使用<code>&lt;keep-alive&gt;&lt;/keep-alive&gt;</code>进行缓存，这样用户每次返回列表的时候，都能从缓存中快速渲染，而不是重新渲染。</p>
-</blockquote>
-<ul>
-<li>常用的两个属性 <code>include/exclude</code>，允许组件有条件的进行缓存</li>
-<li>两个生命周期<code>activated/deactivated</code>，用来得知当前组件是否处于活跃状态</li>
-</ul>
-]]></content>
-      <categories>
-        <category>Vue</category>
-      </categories>
-      <tags>
-        <tag>Vue</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>对于mvvm的理解</title>
-    <url>/2019/03/26/%E5%AF%B9%E4%BA%8Emvvm%E7%9A%84%E7%90%86%E8%A7%A3/</url>
-    <content><![CDATA[<h4 id="对于mvvm的理解？"><a href="#对于mvvm的理解？" class="headerlink" title="对于mvvm的理解？"></a>对于mvvm的理解？</h4><p>mvvm就是modle-view-viewmodule。mvvm是一种设计思想。</p>
-<ul>
-<li>modle：模型层，用于处理逻辑和服务器的交互。</li>
-<li>view：视图层，用于将数据渲染在页面上。UI视图。</li>
-<li>view-model：视图模型层，用来连接model和view，是model和view之间的通信桥梁。达到数据驱动视图的效果。</li>
-</ul>
-<p>mvvm模式简化了界面与业务的依赖，解决了数据频繁更新。mvvm在使用当中，利用双向数据绑定技术，使得model变化时，viewmodel会自动更新，而viewmodel变化时，view也会自动变化。</p>
-]]></content>
-      <categories>
-        <category>Vue</category>
-      </categories>
-      <tags>
-        <tag>Vue</tag>
       </tags>
   </entry>
 </search>
