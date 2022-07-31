@@ -20,17 +20,20 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="心有猛虎，细嗅蔷薇。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="AFAN">
-<meta property="og:url" content="http://example.com/tags/Vue/index.html">
+  <meta name="description" content="keep-alive作用是什么呢？ keep-alive可以实现组件缓存，当组件切换时不会对当前组件进行卸载   &lt;keep-alive&gt;&lt;&#x2F;keep-alive&gt;包裹动态组件时，会缓存不活动得组件实例，主要用于保留组件状态或避免重新渲染   比如有一个列表和一个详情，那么用户就会经常执行打开详情&#x3D;》返回列表&#x3D;》打开详情….这样得话列表和详情都是一个频率">
+<meta property="og:type" content="article">
+<meta property="og:title" content="keep-alive作用">
+<meta property="og:url" content="http://example.com/2019/10/10/keep-alive%E4%BD%9C%E7%94%A8/index.html">
 <meta property="og:site_name" content="AFAN">
-<meta property="og:description" content="心有猛虎，细嗅蔷薇。">
+<meta property="og:description" content="keep-alive作用是什么呢？ keep-alive可以实现组件缓存，当组件切换时不会对当前组件进行卸载   &lt;keep-alive&gt;&lt;&#x2F;keep-alive&gt;包裹动态组件时，会缓存不活动得组件实例，主要用于保留组件状态或避免重新渲染   比如有一个列表和一个详情，那么用户就会经常执行打开详情&#x3D;》返回列表&#x3D;》打开详情….这样得话列表和详情都是一个频率">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2019-10-09T16:00:00.000Z">
+<meta property="article:modified_time" content="2019-10-09T16:00:00.000Z">
 <meta property="article:author" content="Lifan Yin">
+<meta property="article:tag" content="Vue">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/tags/Vue/">
+<link rel="canonical" href="http://example.com/2019/10/10/keep-alive%E4%BD%9C%E7%94%A8/">
 
 
 <script id="page-configurations">
@@ -38,12 +41,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'en'
   };
 </script>
 
-  <title>Tag: Vue | AFAN</title>
+  <title>keep-alive作用 | AFAN</title>
   
 
 
@@ -185,241 +188,104 @@
         <div class="content-wrap">
           
 
-          <div class="content tag">
+          <div class="content post posts-expand">
             
 
+    
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <h2 class="collection-header">Vue
-          <small>Tag</small>
-        </h2>
-      </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2019/10/10/keep-alive%E4%BD%9C%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/touxaing.png">
+      <meta itemprop="name" content="Lifan Yin">
+      <meta itemprop="description" content="心有猛虎，细嗅蔷薇。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AFAN">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          keep-alive作用
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-10-10 00:00:00" itemprop="dateCreated datePublished" datetime="2019-10-10T00:00:00+08:00">2019-10-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Vue/" itemprop="url" rel="index"><span itemprop="name">Vue</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2021</span>
-    </div>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-09-25T00:00:00+08:00"
-              content="2021-09-25">
-          09-25
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/09/25/Vue3%E5%93%8D%E5%BA%94%E5%BC%8F%E6%94%B9%E8%BF%9B/" itemprop="url">
-            <span itemprop="name">Vue3响应式改进</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-09-21T00:00:00+08:00"
-              content="2021-09-21">
-          09-21
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/09/21/Vue3%E6%80%A7%E8%83%BD%E6%8F%90%E5%8D%87/" itemprop="url">
-            <span itemprop="name">Vue3性能提升</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-09-06T00:00:00+08:00"
-              content="2021-09-06">
-          09-06
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/09/06/Vue3%E8%AE%BE%E8%AE%A1%E7%9B%AE%E6%A0%87%E5%8F%8A%E4%BC%98%E5%8C%96/" itemprop="url">
-            <span itemprop="name">Vue3设计目标及优化</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-09-02T00:00:00+08:00"
-              content="2021-09-02">
-          09-02
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/09/02/Vue3%E4%B8%8EVue2API%E7%9A%84%E5%8C%BA%E5%88%AB/" itemprop="url">
-            <span itemprop="name">Vue3与Vue2API的区别</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-08-19T00:00:00+08:00"
-              content="2021-08-19">
-          08-19
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/08/19/Vue3%E7%B3%BB%E5%88%97%E9%9D%A2%E8%AF%95/" itemprop="url">
-            <span itemprop="name">Vue3系列面试</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-07-27T00:00:00+08:00"
-              content="2021-07-27">
-          07-27
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/07/27/Vue3%E4%B8%ADTreeshaking/" itemprop="url">
-            <span itemprop="name">Vue3中Treeshaking</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-    <div class="collection-year">
-      <span class="collection-header">2020</span>
-    </div>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-12-29T00:00:00+08:00"
-              content="2020-12-29">
-          12-29
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/12/29/Vue%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/" itemprop="url">
-            <span itemprop="name">Vue响应式原理</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-    <div class="collection-year">
-      <span class="collection-header">2019</span>
-    </div>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-11-12T00:00:00+08:00"
-              content="2019-11-12">
-          11-12
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2019/11/12/Vue%E8%B7%AF%E7%94%B1%E5%8E%9F%E7%90%86/" itemprop="url">
-            <span itemprop="name">Vue路由原理</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-10-10T00:00:00+08:00"
-              content="2019-10-10">
-          10-10
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2019/10/10/keep-alive%E4%BD%9C%E7%94%A8/" itemprop="url">
-            <span itemprop="name">keep-alive作用</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-03-28T00:00:00+08:00"
-              content="2019-03-28">
-          03-28
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2019/03/28/Vue%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E7%9A%84%E7%90%86%E8%A7%A3/" itemprop="url">
-            <span itemprop="name">Vue生命周期的理解</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
+        <h4 id="keep-alive作用是什么呢？"><a href="#keep-alive作用是什么呢？" class="headerlink" title="keep-alive作用是什么呢？"></a>keep-alive作用是什么呢？</h4><blockquote>
+<p>keep-alive可以实现组件缓存，当组件切换时不会对当前组件进行卸载</p>
+</blockquote>
+<ul>
+<li><code>&lt;keep-alive&gt;&lt;/keep-alive&gt;</code>包裹动态组件时，会缓存不活动得组件实例，主要用于保留组件状态或避免重新渲染</li>
+</ul>
+<blockquote>
+<p>比如有一个列表和一个详情，那么用户就会经常执行打开详情&#x3D;》返回列表&#x3D;》打开详情….这样得话列表和详情都是一个频率很高得也买你，那么就可以对列表组件使用<code>&lt;keep-alive&gt;&lt;/keep-alive&gt;</code>进行缓存，这样用户每次返回列表的时候，都能从缓存中快速渲染，而不是重新渲染。</p>
+</blockquote>
+<ul>
+<li>常用的两个属性 <code>include/exclude</code>，允许组件有条件的进行缓存</li>
+<li>两个生命周期<code>activated/deactivated</code>，用来得知当前组件是否处于活跃状态</li>
+</ul>
 
     </div>
-  </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Vue/" rel="tag"># Vue</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/07/03/%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/" rel="prev" title="页面布局">
+      <i class="fa fa-chevron-left"></i> 页面布局
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/11/12/Vue%E8%B7%AF%E7%94%B1%E5%8E%9F%E7%90%86/" rel="next" title="Vue路由原理">
+      Vue路由原理 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
   
   
   
-
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/tags/Vue/page/2/">2</a><a class="extend next" rel="next" href="/tags/Vue/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
-  </nav>
 
 
 
@@ -471,6 +337,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#keep-alive%E4%BD%9C%E7%94%A8%E6%98%AF%E4%BB%80%E4%B9%88%E5%91%A2%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">keep-alive作用是什么呢？</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

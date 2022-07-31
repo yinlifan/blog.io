@@ -20,17 +20,20 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="心有猛虎，细嗅蔷薇。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="AFAN">
-<meta property="og:url" content="http://example.com/tags/Vue/index.html">
+  <meta name="description" content="display:inline-block元素之间空隙的产生原因和解决办法？空隙产生原因元素被当做行内元素进行排版布局的时候，元素之间的空格，换行符，空白会被浏览器处理，根据white-space的默认值 normal，合并多余的空白符。在html代码当中，换行符就会被当做是一处空白，当字体大小font-size不为零的情况下，两个元素之间就会有空隙。这些元素之间的间距会随着字体大小来变化，比如行内">
+<meta property="og:type" content="article">
+<meta property="og:title" content="inline-block缝隙问题">
+<meta property="og:url" content="http://example.com/2020/07/08/inline-block%E7%BC%9D%E9%9A%99%E9%97%AE%E9%A2%98/index.html">
 <meta property="og:site_name" content="AFAN">
-<meta property="og:description" content="心有猛虎，细嗅蔷薇。">
+<meta property="og:description" content="display:inline-block元素之间空隙的产生原因和解决办法？空隙产生原因元素被当做行内元素进行排版布局的时候，元素之间的空格，换行符，空白会被浏览器处理，根据white-space的默认值 normal，合并多余的空白符。在html代码当中，换行符就会被当做是一处空白，当字体大小font-size不为零的情况下，两个元素之间就会有空隙。这些元素之间的间距会随着字体大小来变化，比如行内">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-07-07T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-07-07T16:00:00.000Z">
 <meta property="article:author" content="Lifan Yin">
+<meta property="article:tag" content="css">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/tags/Vue/">
+<link rel="canonical" href="http://example.com/2020/07/08/inline-block%E7%BC%9D%E9%9A%99%E9%97%AE%E9%A2%98/">
 
 
 <script id="page-configurations">
@@ -38,12 +41,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'en'
   };
 </script>
 
-  <title>Tag: Vue | AFAN</title>
+  <title>inline-block缝隙问题 | AFAN</title>
   
 
 
@@ -185,241 +188,99 @@
         <div class="content-wrap">
           
 
-          <div class="content tag">
+          <div class="content post posts-expand">
             
 
+    
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <h2 class="collection-header">Vue
-          <small>Tag</small>
-        </h2>
-      </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/07/08/inline-block%E7%BC%9D%E9%9A%99%E9%97%AE%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/touxaing.png">
+      <meta itemprop="name" content="Lifan Yin">
+      <meta itemprop="description" content="心有猛虎，细嗅蔷薇。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AFAN">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          inline-block缝隙问题
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-07-08 00:00:00" itemprop="dateCreated datePublished" datetime="2020-07-08T00:00:00+08:00">2020-07-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/css/" itemprop="url" rel="index"><span itemprop="name">css</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2021</span>
-    </div>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-09-25T00:00:00+08:00"
-              content="2021-09-25">
-          09-25
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/09/25/Vue3%E5%93%8D%E5%BA%94%E5%BC%8F%E6%94%B9%E8%BF%9B/" itemprop="url">
-            <span itemprop="name">Vue3响应式改进</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-09-21T00:00:00+08:00"
-              content="2021-09-21">
-          09-21
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/09/21/Vue3%E6%80%A7%E8%83%BD%E6%8F%90%E5%8D%87/" itemprop="url">
-            <span itemprop="name">Vue3性能提升</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-09-06T00:00:00+08:00"
-              content="2021-09-06">
-          09-06
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/09/06/Vue3%E8%AE%BE%E8%AE%A1%E7%9B%AE%E6%A0%87%E5%8F%8A%E4%BC%98%E5%8C%96/" itemprop="url">
-            <span itemprop="name">Vue3设计目标及优化</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-09-02T00:00:00+08:00"
-              content="2021-09-02">
-          09-02
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/09/02/Vue3%E4%B8%8EVue2API%E7%9A%84%E5%8C%BA%E5%88%AB/" itemprop="url">
-            <span itemprop="name">Vue3与Vue2API的区别</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-08-19T00:00:00+08:00"
-              content="2021-08-19">
-          08-19
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/08/19/Vue3%E7%B3%BB%E5%88%97%E9%9D%A2%E8%AF%95/" itemprop="url">
-            <span itemprop="name">Vue3系列面试</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-07-27T00:00:00+08:00"
-              content="2021-07-27">
-          07-27
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/07/27/Vue3%E4%B8%ADTreeshaking/" itemprop="url">
-            <span itemprop="name">Vue3中Treeshaking</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-    <div class="collection-year">
-      <span class="collection-header">2020</span>
-    </div>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-12-29T00:00:00+08:00"
-              content="2020-12-29">
-          12-29
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/12/29/Vue%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/" itemprop="url">
-            <span itemprop="name">Vue响应式原理</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-    <div class="collection-year">
-      <span class="collection-header">2019</span>
-    </div>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-11-12T00:00:00+08:00"
-              content="2019-11-12">
-          11-12
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2019/11/12/Vue%E8%B7%AF%E7%94%B1%E5%8E%9F%E7%90%86/" itemprop="url">
-            <span itemprop="name">Vue路由原理</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-10-10T00:00:00+08:00"
-              content="2019-10-10">
-          10-10
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2019/10/10/keep-alive%E4%BD%9C%E7%94%A8/" itemprop="url">
-            <span itemprop="name">keep-alive作用</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-03-28T00:00:00+08:00"
-              content="2019-03-28">
-          03-28
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2019/03/28/Vue%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E7%9A%84%E7%90%86%E8%A7%A3/" itemprop="url">
-            <span itemprop="name">Vue生命周期的理解</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
+        <h4 id="display-inline-block元素之间空隙的产生原因和解决办法？"><a href="#display-inline-block元素之间空隙的产生原因和解决办法？" class="headerlink" title="display:inline-block元素之间空隙的产生原因和解决办法？"></a>display:inline-block元素之间空隙的产生原因和解决办法？</h4><h5 id="空隙产生原因"><a href="#空隙产生原因" class="headerlink" title="空隙产生原因"></a>空隙产生原因</h5><p>元素被当做行内元素进行排版布局的时候，元素之间的空格，换行符，空白会被浏览器处理，根据white-space的默认值 normal，合并多余的空白符。在html代码当中，换行符就会被当做是一处空白，当字体大小font-size不为零的情况下，两个元素之间就会有空隙。这些元素之间的间距会随着字体大小来变化，比如行内元素font-size：16px时，间距为8px。</p>
+<h5 id="解决办法："><a href="#解决办法：" class="headerlink" title="解决办法："></a>解决办法：</h5><ul>
+<li>将所有html标签写在一行 （代码可读性差）</li>
+<li>给inline-block属性元素设置float：left （造成高度塌陷）</li>
+<li>设置inlin-block属性元素font-size为零，需重更新设置子元素大小。</li>
+<li>设置子元素margin-left:-2px。</li>
+<li>给父元素设置display：table。word-sapcing：-1em。（根据实际情况来）</li>
+</ul>
 
     </div>
-  </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/css/" rel="tag"># css</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/07/01/css3%E6%96%B0%E5%A2%9E%E7%89%B9%E6%80%A7/" rel="prev" title="css3新增特性">
+      <i class="fa fa-chevron-left"></i> css3新增特性
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/12/29/Vue%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/" rel="next" title="Vue响应式原理">
+      Vue响应式原理 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
   
   
   
-
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/tags/Vue/page/2/">2</a><a class="extend next" rel="next" href="/tags/Vue/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
-  </nav>
 
 
 
@@ -471,6 +332,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#display-inline-block%E5%85%83%E7%B4%A0%E4%B9%8B%E9%97%B4%E7%A9%BA%E9%9A%99%E7%9A%84%E4%BA%A7%E7%94%9F%E5%8E%9F%E5%9B%A0%E5%92%8C%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">display:inline-block元素之间空隙的产生原因和解决办法？</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%A9%BA%E9%9A%99%E4%BA%A7%E7%94%9F%E5%8E%9F%E5%9B%A0"><span class="nav-number">1.1.</span> <span class="nav-text">空隙产生原因</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95%EF%BC%9A"><span class="nav-number">1.2.</span> <span class="nav-text">解决办法：</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

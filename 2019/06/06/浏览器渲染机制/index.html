@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/taikong.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/taikong.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="浏览器渲染机制1.渲染机制步骤步骤： 处理HTML并构建DOM树 处理css构建cssdom树 将DOM与cssdom合并成一个渲染树 根据渲染树来布局，计算每个节点的位置 调用GPU绘制，合成图层，显示在屏幕上   在构建cssdom树时，会阻塞渲染，直至cssdom树构建完成。并且构建cssdom树是一个十分消耗性能的过程，所以尽量保证层级扁平，减少过度层叠，越是具体的css选择器，执行速度越">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浏览器渲染机制">
+<meta property="og:url" content="http://example.com/2019/06/06/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E6%9C%BA%E5%88%B6/index.html">
+<meta property="og:site_name" content="AFAN">
+<meta property="og:description" content="浏览器渲染机制1.渲染机制步骤步骤： 处理HTML并构建DOM树 处理css构建cssdom树 将DOM与cssdom合并成一个渲染树 根据渲染树来布局，计算每个节点的位置 调用GPU绘制，合成图层，显示在屏幕上   在构建cssdom树时，会阻塞渲染，直至cssdom树构建完成。并且构建cssdom树是一个十分消耗性能的过程，所以尽量保证层级扁平，减少过度层叠，越是具体的css选择器，执行速度越">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://zslin.xyz/2019/06/06/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%A8%A1%E5%9D%97/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E6%9C%BA%E5%88%B6/98.png">
+<meta property="article:published_time" content="2019-06-05T16:00:00.000Z">
+<meta property="article:modified_time" content="2019-06-05T16:00:00.000Z">
+<meta property="article:author" content="Lifan Yin">
+<meta property="article:tag" content="浏览器">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://zslin.xyz/2019/06/06/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%A8%A1%E5%9D%97/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E6%9C%BA%E5%88%B6/98.png">
+
+<link rel="canonical" href="http://example.com/2019/06/06/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E6%9C%BA%E5%88%B6/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>浏览器渲染机制 | AFAN</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">AFAN</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">CODE IS POETRY.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2019/06/06/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E6%9C%BA%E5%88%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/touxaing.png">
+      <meta itemprop="name" content="Lifan Yin">
+      <meta itemprop="description" content="心有猛虎，细嗅蔷薇。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AFAN">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          浏览器渲染机制
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-06-06 00:00:00" itemprop="dateCreated datePublished" datetime="2019-06-06T00:00:00+08:00">2019-06-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B5%8F%E8%A7%88%E5%99%A8/" itemprop="url" rel="index"><span itemprop="name">浏览器</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h4 id="浏览器渲染机制"><a href="#浏览器渲染机制" class="headerlink" title="浏览器渲染机制"></a>浏览器渲染机制</h4><h5 id="1-渲染机制步骤步骤："><a href="#1-渲染机制步骤步骤：" class="headerlink" title="1.渲染机制步骤步骤："></a>1.渲染机制步骤步骤：</h5><ul>
+<li>处理<code>HTML</code>并构建<code>DOM</code>树</li>
+<li>处理<code>css</code>构建<code>cssdom</code>树</li>
+<li>将<code>DOM</code>与<code>cssdom</code>合并成一个渲染树</li>
+<li>根据渲染树来布局，计算每个节点的位置</li>
+<li>调用<code>GPU</code>绘制，合成图层，显示在屏幕上</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="http://zslin.xyz/2019/06/06/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%A8%A1%E5%9D%97/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E6%9C%BA%E5%88%B6/98.png"><img src="http://zslin.xyz/2019/06/06/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%A8%A1%E5%9D%97/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E6%9C%BA%E5%88%B6/98.png" alt="img"></a></p>
+<p>在构建cssdom树时，会阻塞渲染，直至cssdom树构建完成。并且构建cssdom树是一个十分消耗性能的过程，所以尽量保证层级扁平，减少过度层叠，越是具体的css选择器，执行速度越慢。</p>
+<p>css是阻塞渲染的资源。需要将他尽早，尽快的下载到客户端，以便缩短首次渲染的时间。</p>
+<p>当html解析到script标签时，会暂停构建dom，完成后才会从暂停的地方重新开始。也就是说，如果你想首屏渲染的越快，就越不应该在首屏就加载js文件。并且css也会影响js的执行，只有当解析完样式才会执行js，所以也可以认为这种情况下，css也会暂停构建dom。</p>
+<h5 id="2-图层"><a href="#2-图层" class="headerlink" title="2.图层"></a>2.图层</h5><blockquote>
+<p>一般来说，可以把普通文档流看成一个图层。特定的属性可以生成一个新的图层。不同的图层渲染互不影响，所以对于某些频繁需要渲染的建议单独生成一个新图层，提高性能。但也不能生成过多的图层，会引起反作用。</p>
+</blockquote>
+<p>通过以下几个常用属性可以生成新图层</p>
+<ul>
+<li><code>3D</code>变换：<code>translate3d</code>,<code>reanslatez</code></li>
+<li><code>will-change</code></li>
+<li><code>video</code>,<code>iframe</code>标签</li>
+<li>通过动画实现的<code>opacity</code>动画转换</li>
+<li><code>position：fixed</code></li>
+</ul>
+<h5 id="3-重绘与回流"><a href="#3-重绘与回流" class="headerlink" title="3.重绘与回流"></a>3.重绘与回流</h5><blockquote>
+<ul>
+<li>重绘(repaint)：当元素样式的改变不影响布局时，浏览器将使用重绘对元素进行更新，此时由于只需要UI层面的重新像素绘制，因此，损耗较少</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>回流(reflow)：当元素的尺寸，结构或触发某些属性时，浏览器会重新渲染页面，称为回流。此时，浏览器需要重新经过计算，计算后还需要重新页面布局，因此是较重的操作。会触发回流的操作：</li>
+</ul>
+</blockquote>
+<p>触发回流和重绘的操作：</p>
+<ul>
+<li>页面初次渲染</li>
+<li>浏览器窗口大小发生改变</li>
+<li>元素尺寸，位置，内容发生改变</li>
+<li>元素字体大小变化</li>
+<li>添加或者删除可见的dom元素</li>
+<li>激活css伪类（列如：hover）</li>
+<li>查询某些属性或调用某些方法<ul>
+<li><code>clientWidth、clientHeight、clientTop、clientLeft</code></li>
+<li>&#96;&#96;offsetWidth、offsetHeight、offsetTop、offsetLeft&#96;</li>
+<li><code>scrollWidth、scrollHeight、scrollTop、scrollLeft</code></li>
+<li>&#96;&#96;getComputedStyle()&#96;</li>
+<li><code>getBoundingClientRect()</code></li>
+<li><code>scrollTo()</code></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>回流必定触发重绘，重绘不不一定触发回流。重绘的开销小，回流的代价高。</p>
+</blockquote>
+<p>避免回流的优化：</p>
+<ul>
+<li>css层面：<ul>
+<li>不要使用css表达式</li>
+<li>避免table布局</li>
+<li>避免多层嵌套样式</li>
+</ul>
+</li>
+<li>js层面：<ul>
+<li>避免频繁操作DOM，可以创建一个documentFragment文档流片段，在它上面应用所有dom操作，最后再把它添加到文档中。</li>
+<li>避免频繁操作样式</li>
+<li>可以先为元素设置不可见：<code>display：none</code>，操作结束后在显示出来。</li>
+</ul>
+</li>
+</ul>
+<h5 id="4-javascript会阻塞dom生成"><a href="#4-javascript会阻塞dom生成" class="headerlink" title="4.javascript会阻塞dom生成"></a>4.javascript会阻塞dom生成</h5><blockquote>
+<p>javascript 会阻塞dom生成，而样式文件又会阻塞javascriot执行，所以在实际的工程中需要重点关注javascript文件和样式表文件，使用不当会影响页面性能的</p>
+</blockquote>
+<blockquote>
+<p>当渲染进程接收html文件字节流时，会先开启一个与解析线程，如果遇到javascipt文件或者css文件，那么与解析线程会提前下载这些数据</p>
+</blockquote>
+<ul>
+<li>如果代码里引用了外部的css文件，那么在执行javascript之前，还需要等待外部的css文件下载完成，并解析生成cssdom对象之后，才能执行javascript脚本。</li>
+<li>而javascript引擎在解析javascript之前，是不知道javascript是否操作了cssdom的，所以渲染引擎在遇到javascript脚本时，不管脚本是否操作了cssdom，都会执行css文件下载，解析操作，在执行javascript脚本。</li>
+<li>不管css文件和javascript文件谁先到达，都要等到css文件下载完成并生成cssdom，然后在执行javascript脚本，最后再继续构建dom，构建布局树，绘制页面。</li>
+</ul>
+<h5 id="5-缩短白屏时长的策略"><a href="#5-缩短白屏时长的策略" class="headerlink" title="5.缩短白屏时长的策略"></a>5.缩短白屏时长的策略</h5><ul>
+<li>通过内联 JavaScript、内联 CSS 来移除这两种类型的文件下载，这样获取到 HTML 文件之后就可以直接开始渲染流程了。</li>
+<li>但并不是所有的场合都适合内联，那么还可以尽量减少文件大小，比如通过 webpack 等工具移除一些不必要的注释，并压缩 JavaScript 文件。</li>
+<li>还可以将一些不需要在解析 HTML 阶段使用的 JavaScript 标记上 sync 或者 defer</li>
+<li>对于大的 CSS 文件，可以通过媒体查询属性，将其拆分为多个不同用途的 CSS 文件，这样只有在特定的场景下才会加载特定的 CSS 文件。</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" rel="tag"># 浏览器</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/06/05/%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/" rel="prev" title="浏览器事件循环">
+      <i class="fa fa-chevron-left"></i> 浏览器事件循环
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/07/03/%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/" rel="next" title="页面布局">
+      页面布局 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E6%9C%BA%E5%88%B6"><span class="nav-number">1.</span> <span class="nav-text">浏览器渲染机制</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-%E6%B8%B2%E6%9F%93%E6%9C%BA%E5%88%B6%E6%AD%A5%E9%AA%A4%E6%AD%A5%E9%AA%A4%EF%BC%9A"><span class="nav-number">1.1.</span> <span class="nav-text">1.渲染机制步骤步骤：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-%E5%9B%BE%E5%B1%82"><span class="nav-number">1.2.</span> <span class="nav-text">2.图层</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-%E9%87%8D%E7%BB%98%E4%B8%8E%E5%9B%9E%E6%B5%81"><span class="nav-number">1.3.</span> <span class="nav-text">3.重绘与回流</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-javascript%E4%BC%9A%E9%98%BB%E5%A1%9Edom%E7%94%9F%E6%88%90"><span class="nav-number">1.4.</span> <span class="nav-text">4.javascript会阻塞dom生成</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-%E7%BC%A9%E7%9F%AD%E7%99%BD%E5%B1%8F%E6%97%B6%E9%95%BF%E7%9A%84%E7%AD%96%E7%95%A5"><span class="nav-number">1.5.</span> <span class="nav-text">5.缩短白屏时长的策略</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Lifan Yin"
+      src="/images/touxaing.png">
+  <p class="site-author-name" itemprop="name">Lifan Yin</p>
+  <div class="site-description" itemprop="description">心有猛虎，细嗅蔷薇。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">18</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lifan Yin</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
