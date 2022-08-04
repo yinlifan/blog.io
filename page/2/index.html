@@ -245,28 +245,14 @@
 <li>vue3引入了treeshaking特性，将全局api进行分块。如果没有使用到某个功能，他们将不会包含在你打包后的文件中。</li>
 </ul>
 <h5 id="如何做？"><a href="#如何做？" class="headerlink" title="如何做？"></a>如何做？</h5><p>Tree shaking是基于es6的模板语法import，exports静态编辑思想确定模块依赖关系的。</p>
-<ul>
-<li>treeshaking在编译阶段会判断模块的加载状态。</li>
-<li>判断未使用的相关变量，进行移除。</li>
-</ul>
-<p>举个例子：<br>如果，新创建的项目中，data中的变量1，和变量2被使用了，但是变量3，并没有被使用，那么变量3，会在打包的时候被移除<br>在比如，可以对比一下项目在使用treeShaking打包之后和未使用的情况下进行打包后的大小，<br>data中的数据都被正常使用，methods的方法也被正常使用，component方法和watch方法未使用，然后进行打包<br>答案显而易见，在使用treeShaking后进行打包只会将data和methods这种使用的方法进行打包，而不是打包所有</p>
-<h5 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h5><ul>
-<li>减少程序体积（更小）</li>
-<li>减少程序执行时间（更快）</li>
-<li>便于维护优化项目框架</li>
-</ul>
-<h5 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h5><hr>
-<blockquote>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000038962700">https://segmentfault.com/a/1190000038962700</a></li>
-</ul>
-</blockquote>
-<blockquote>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://vue3js.cn/interview/vue3/treeshaking.html#%E4%B8%80%E3%80%81%E6%98%AF%E4%BB%80%E4%B9%88">https://vue3js.cn/interview/vue3/treeshaking.html#%E4%B8%80%E3%80%81%E6%98%AF%E4%BB%80%E4%B9%88</a></li>
-</ul>
-</blockquote>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/07/27/Vue3%E4%B8%ADTreeshaking/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -335,59 +321,163 @@
           <p><a target="_blank" rel="noopener" href="http://zslin.xyz/2019/05/27/vue2/vue2%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/15.png"><img src="http://zslin.xyz/2019/05/27/vue2/vue2%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/15.png" alt="img"></a></p>
 <p>Vue2.x响应式原理：</p>
 <p>vue创建一个实例时，首先会遍历data属性。采用数据劫持结合发布者订阅者的方式。使用es5的object.defindeproperty 方法将他们转化成getter，setter，并在内部追踪相关依赖。在属性被访问和修改时通知变化。也就是observer使用object.defindproerty来监听数据的读写。读取数据时，调用get方法通知dep去收集订阅者（watcher）。添加到道dep的一个属性subs数理。 dep有很多属性，其中就有一个subsadd添加订阅者的方法。修改1数据时，调用set方法，通知dep数据发生了改变。使用dep.notify方法遍历subs数组里面的每个watcher。调用watcher的update（）方法。创建出一个新的dom树，与原来旧的dom树作对比，根据差异性，从而更新视图。</p>
-<p><a target="_blank" rel="noopener" href="http://zslin.xyz/2019/05/27/vue2/vue2%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/vue.jpeg"><img src="http://zslin.xyz/2019/05/27/vue2/vue2%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/vue.jpeg" alt="img"></a></p>
-<p>**Object.defineProperty()**，那么它的用法是什么，以及优缺点是什么呢？</p>
-<ul>
-<li>可以检测对象中数据发生的修改</li>
-<li>对于复杂的对象，层级很深的话，是不友好的，需要经行深度监听，这样子就需要递归到底，这也是它的缺点。</li>
-<li>对于一个对象中，如果你新增加属性，删除属性，**Object.defineProperty()**是不能观测到的，那么应该如何解决呢？可以通过<code>Vue.set()</code>和<code>Vue.delete()</code>来实现。</li>
-</ul>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 模拟 Vue 中的 data 选项 </span></span><br><span class="line"><span class="keyword">let</span> data = &#123;</span><br><span class="line">    <span class="attr">msg</span>: <span class="string">&#x27;hello&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 模拟 Vue 的实例 </span></span><br><span class="line"><span class="keyword">let</span> vm = &#123;&#125;</span><br><span class="line"><span class="comment">// 数据劫持:当访问或者设置 vm 中的成员的时候，做一些干预操作</span></span><br><span class="line"><span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(vm, <span class="string">&#x27;msg&#x27;</span>, &#123;</span><br><span class="line">  <span class="comment">// 可枚举(可遍历)</span></span><br><span class="line">  <span class="attr">enumerable</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="comment">// 可配置(可以使用 delete 删除，可以通过 defineProperty 重新定义) </span></span><br><span class="line">  <span class="attr">configurable</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="comment">// 当获取值的时候执行 </span></span><br><span class="line">  get () &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;get: &#x27;</span>, data.<span class="property">msg</span>)</span><br><span class="line">    <span class="keyword">return</span> data.<span class="property">msg</span> </span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// 当设置值的时候执行 </span></span><br><span class="line">  set (newValue) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;set: &#x27;</span>, newValue) </span><br><span class="line">    <span class="keyword">if</span> (newValue === data.<span class="property">msg</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    data.<span class="property">msg</span> = newValue</span><br><span class="line">    <span class="comment">// 数据更改，更新 DOM 的值 </span></span><br><span class="line">    <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;#app&#x27;</span>).<span class="property">textContent</span> = data.<span class="property">msg</span></span><br><span class="line">  &#125; </span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 测试</span></span><br><span class="line">vm.<span class="property">msg</span> = <span class="string">&#x27;Hello World&#x27;</span> </span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(vm.<span class="property">msg</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/12/29/Vue%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
 
-<p>Vue3.响应式原理：</p>
-<p><code>Vue3.x</code>改用<code>Proxy</code>替代<code>Object.defineProperty</code>。因为<code>Proxy</code>可以直接监听<code>对象和数组</code>的变化，并且有多达13种拦截方法。</p>
-<p>代理，顾名思义，就是在要访问的对象之前增加⼀个中间层，这样就不直接访问对象，⽽是通过中间层做⼀个中转，通过操作代理对象，来实现修改目标对象。</p>
-<p><strong>监测数组的时候可能触发多次get&#x2F;set，那么如何防止触发多次呢？</strong></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 模拟 Vue 中的 data 选项 </span></span><br><span class="line"><span class="keyword">let</span> data = &#123;</span><br><span class="line">  <span class="attr">msg</span>: <span class="string">&#x27;hello&#x27;</span>,</span><br><span class="line">  <span class="attr">count</span>: <span class="number">0</span> </span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 模拟 Vue 实例</span></span><br><span class="line"><span class="keyword">let</span> vm = <span class="keyword">new</span> <span class="title class_">Proxy</span>(data, &#123;</span><br><span class="line">  <span class="comment">// 当访问 vm 的成员会执行</span></span><br><span class="line">  get (target, key) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;get, key: &#x27;</span>, key, target[key])</span><br><span class="line">    <span class="keyword">return</span> target[key]</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// 当设置 vm 的成员会执行</span></span><br><span class="line">  set (target, key, newValue) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;set, key: &#x27;</span>, key, newValue)</span><br><span class="line">    <span class="keyword">if</span> (target[key] === newValue) &#123;</span><br><span class="line">      <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    target[key] = newValue</span><br><span class="line">    <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;#app&#x27;</span>).<span class="property">textContent</span> = target[key]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 测试</span></span><br><span class="line">vm.<span class="property">msg</span> = <span class="string">&#x27;Hello World&#x27;</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(vm.<span class="property">msg</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
 
-<p>总结：</p>
-<ul>
-<li>Vue<ul>
-<li>记录传入的选项，设置 <code>$data/$el</code></li>
-<li>把 <code>data</code> 的成员注入到 <code>Vue</code> 实例</li>
-<li>负责调用 <code>Observer</code> 实现数据响应式处理(数据劫持)</li>
-<li>负责调用 <code>Compiler</code> 编译指令&#x2F;插值表达式等</li>
-</ul>
-</li>
-<li>Observer<ul>
-<li>数据劫持<ul>
-<li>负责把 <code>data</code> 中的成员转换成 <code>getter/setter</code></li>
-<li>负责把多层属性转换成 <code>getter/setter</code></li>
-<li>如果给属性赋值为新对象，把新对象的成员设置为 <code>getter/setter</code></li>
-</ul>
-</li>
-<li>添加 <code>Dep</code> 和 <code>Watcher</code> 的依赖关系</li>
-<li>数据变化发送通知</li>
-</ul>
-</li>
-<li>Compiler<ul>
-<li>负责编译模板，解析指令&#x2F;插值表达式</li>
-<li>负责页面的首次渲染过程</li>
-<li>当数据变化后重新渲染</li>
-</ul>
-</li>
-<li>Dep<ul>
-<li>收集依赖，添加订阅者(<code>watcher</code>)</li>
-<li>通知所有订阅者</li>
-</ul>
-</li>
-<li>Watcher<ul>
-<li>自身实例化的时候往<code>dep</code>对象中添加自己</li>
-<li>当数据变化<code>dep</code>通知所有的 <code>Watcher</code> 实例更新视图</li>
-</ul>
-</li>
-</ul>
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/08/18/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/">
 
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/touxaing.png">
+      <meta itemprop="name" content="Lifan Yin">
+      <meta itemprop="description" content="心有猛虎，细嗅蔷薇。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AFAN">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/18/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/" class="post-title-link" itemprop="url">前端工程化</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-08-18 00:00:00" itemprop="dateCreated datePublished" datetime="2020-08-18T00:00:00+08:00">2020-08-18</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="什么是前端工程化"><a href="#什么是前端工程化" class="headerlink" title="什么是前端工程化"></a>什么是前端工程化</h4><p><strong>前端工程化</strong>是使用软件工程的技术和方法来进行前端的开发流程、技术、工具、经验等规范化、标准化，其主要目的<strong>为了提高效率和降低成本，即提高开发过程中的开发效率，减少不必要的重复工作时间</strong>。</p>
+<h4 id="如何做”前端工程化”"><a href="#如何做”前端工程化”" class="headerlink" title="如何做”前端工程化”"></a>如何做”前端工程化”</h4><p>前端工程化就是为了让前端开发能够“自成体系”，个人认为主要应该从<strong>模块化</strong>、<strong>组件化</strong>、<strong>规范化</strong>、<strong>自动化</strong>四个方面思考。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/08/18/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/07/20/JavaScript%E5%87%A0%E7%A7%8D%E7%BB%A7%E6%89%BF%E6%96%B9%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/touxaing.png">
+      <meta itemprop="name" content="Lifan Yin">
+      <meta itemprop="description" content="心有猛虎，细嗅蔷薇。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AFAN">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/07/20/JavaScript%E5%87%A0%E7%A7%8D%E7%BB%A7%E6%89%BF%E6%96%B9%E6%B3%95/" class="post-title-link" itemprop="url">JavaScript几种继承方法</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-07-20 00:00:00" itemprop="dateCreated datePublished" datetime="2020-07-20T00:00:00+08:00">2020-07-20</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="JavaScript实现继承的几种方法"><a href="#JavaScript实现继承的几种方法" class="headerlink" title="JavaScript实现继承的几种方法"></a>JavaScript实现继承的几种方法</h4><h5 id="1-原型链继承"><a href="#1-原型链继承" class="headerlink" title="1.原型链继承"></a>1.原型链继承</h5><p>构造函数，原型，实例之间的关系：每一个构造函数都有一个原型对象(prototype)，原型对象中有一个指向构造函数的指针()，然而实例对象中包含一个指向原型对象的指针(<em>proto</em>)。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/07/20/JavaScript%E5%87%A0%E7%A7%8D%E7%BB%A7%E6%89%BF%E6%96%B9%E6%B3%95/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -476,1013 +566,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/07/01/css3%E6%96%B0%E5%A2%9E%E7%89%B9%E6%80%A7/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/touxaing.png">
-      <meta itemprop="name" content="Lifan Yin">
-      <meta itemprop="description" content="心有猛虎，细嗅蔷薇。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="AFAN">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/07/01/css3%E6%96%B0%E5%A2%9E%E7%89%B9%E6%80%A7/" class="post-title-link" itemprop="url">css3新增特性</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-07-01 00:00:00" itemprop="dateCreated datePublished" datetime="2020-07-01T00:00:00+08:00">2020-07-01</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/css3/" itemprop="url" rel="index"><span itemprop="name">css3</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="css3新增那些新特性？"><a href="#css3新增那些新特性？" class="headerlink" title="css3新增那些新特性？"></a>css3新增那些新特性？</h4><h5 id="选择器："><a href="#选择器：" class="headerlink" title="选择器："></a>选择器：</h5><ul>
-<li>:first-of-type 选择其父元素第一个子元素</li>
-<li>:last-of-type 选择其父元素最后一个子元素</li>
-<li>:nth-of-type(2) 选择父元素的第二个元素</li>
-<li>:only-child 选择属于父元素的唯一一个子元素</li>
-<li>:last-child 选择属于其父元素的最后一个子元素</li>
-</ul>
-<h5 id="新样式："><a href="#新样式：" class="headerlink" title="新样式："></a>新样式：</h5><ul>
-<li><p>边框 border-radius：创建圆角边框</p>
-</li>
-<li><p>border-shadow：为元素添加阴影</p>
-</li>
-<li><p>border-image：使用图片绘制边框</p>
-</li>
-<li><p>背景 background-clip</p>
-</li>
-<li><p>background-origin</p>
-</li>
-<li><p>background-size</p>
-</li>
-<li><p>background-break</p>
-</li>
-<li><p>文字 word-warp：</p>
-<ul>
-<li>narmal：使用浏览器默认换行</li>
-<li>break-all：允许在单词内换行</li>
-</ul>
-</li>
-<li><p>text-shadow：设置字体的阴影，位置及阴影颜色</p>
-</li>
-<li><p>颜色：增加了新的颜色表示方式</p>
-<ul>
-<li>rgba，rgb为颜色值，a为透明度</li>
-<li>hsla，h色相，s为饱和度，l为高度，a为透明度。</li>
-</ul>
-</li>
-</ul>
-<h4 id="css3动画有那些？"><a href="#css3动画有那些？" class="headerlink" title="css3动画有那些？"></a>css3动画有那些？</h4><p>使用css动画的模块就是指元素从一种样式逐渐过渡为另一种样式的过程。</p>
-<p>常见的动画有 平移，旋转，缩放等等。</p>
-<ul>
-<li>transition 实现渐变动画</li>
-<li>transform 转变动画<ul>
-<li>translate 位移</li>
-<li>skew 倾斜</li>
-<li>rotate：旋转</li>
-<li>scale 缩放</li>
-</ul>
-</li>
-<li>animation 实现自定义动画</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/05/17/%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/touxaing.png">
-      <meta itemprop="name" content="Lifan Yin">
-      <meta itemprop="description" content="心有猛虎，细嗅蔷薇。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="AFAN">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/05/17/%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93/" class="post-title-link" itemprop="url">基础面试总结</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-05-17 01:41:47" itemprop="dateCreated datePublished" datetime="2020-05-17T01:41:47+08:00">2020-05-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-05-18 12:00:00" itemprop="dateModified" datetime="2021-05-18T12:00:00+08:00">2021-05-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95/" itemprop="url" rel="index"><span itemprop="name">前端面试</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="1-说说你对盒子模型的理解"><a href="#1-说说你对盒子模型的理解" class="headerlink" title="1. 说说你对盒子模型的理解"></a>1. 说说你对盒子模型的理解</h4><p>标准盒子模型：</p>
-<ul>
-<li>content（内容）</li>
-<li>margin（外边距） ：盒子与盒子之间的距离。</li>
-<li>padding（内边距）：内容与边框的距离。</li>
-<li>border（边框）</li>
-</ul>
-<p>IE盒子模型（怪异盒模型）</p>
-<ul>
-<li>content</li>
-<li>margin</li>
-</ul>
-<p>开发中往往使用IE盒模型，只需要设置box-sizing：border-box</p>
-<p>盒⼦模型的实际宽度:width+左右padding+左右border</p>
-<p>盒⼦模型的实际高度:height+左右padding+左右border</p>
-<h4 id="2-css选择器有哪些？优先级？哪些属性可以继承？"><a href="#2-css选择器有哪些？优先级？哪些属性可以继承？" class="headerlink" title="2. css选择器有哪些？优先级？哪些属性可以继承？"></a>2. css选择器有哪些？优先级？哪些属性可以继承？</h4><ul>
-<li>id选择器（#box），选择id为box的元素</li>
-<li>类选择器（.one），选择类名为one的所有元素</li>
-<li>标签选择器（div），选择标签为div的所有元素</li>
-<li>后代选择器（#box div），选择id为box元素内部所有的div元素</li>
-<li>通配符选择器(*)</li>
-<li>伪类选择器(a:hover, li:nth-child)</li>
-</ul>
-<p><strong>优先级</strong></p>
-<p>内联 &gt; ID选择器 &gt; 类选择器 &gt; 标签选择器 &gt;子代选择器&gt;后代选择器&gt;通配符选择器&gt;伪类选择器</p>
-<p>可继承的属性：font-size, font-family, color， line-height：行高</p>
-<p>不可继承的属性：border, padding, margin, width, height</p>
-<h4 id="3-元素水平垂直居中的方法有哪些？如果元素不定宽高呢？"><a href="#3-元素水平垂直居中的方法有哪些？如果元素不定宽高呢？" class="headerlink" title="3. 元素水平垂直居中的方法有哪些？如果元素不定宽高呢？"></a>3. 元素水平垂直居中的方法有哪些？如果元素不定宽高呢？</h4><ul>
-<li>使用绝对定位：position:absolute; left:0, top:0, bottom:0, right:0, margin:auto。</li>
-<li>使用flex布局：display：flex，aligin-item：center，justify-content：center。</li>
-<li>使用表格中属性：display：table-cell，text-align：center</li>
-<li>使用text-align：center水平居中，使用line-height：父元素的高度</li>
-</ul>
-<h4 id="4-怎么理解回流跟重绘？什么场景下会触发？"><a href="#4-怎么理解回流跟重绘？什么场景下会触发？" class="headerlink" title="4. 怎么理解回流跟重绘？什么场景下会触发？"></a>4. 怎么理解回流跟重绘？什么场景下会触发？</h4><p>回流一定会触发重绘，重绘不能触发回流。</p>
-<p>回流的代价高，只要元素结构发生变化就有可能全部重新渲染。</p>
-<p>回流：当渲染树中的一些元素结构，窗口大小，位置发生变化，浏览器就会重新渲染文档这个过程叫做回流。（连锁反应）</p>
-<p>重绘：当页面样式发生改变而不影响它在文档流中的位置，布局不会发生改变这个过程叫做重绘。</p>
-<p>导致回流的操作：</p>
-<ul>
-<li>页面重新渲染</li>
-<li>页面内容改变</li>
-<li>添加和删除节点</li>
-<li>浏览器窗口大小发生改变</li>
-</ul>
-<p>导致重绘的操作：</p>
-<ul>
-<li>背景颜色 透明度 阴影 发生改变。</li>
-</ul>
-<p>如何避免减少回流？</p>
-<ul>
-<li>css<ul>
-<li>避免设置多层内联样式。</li>
-<li>避免使用table布局</li>
-<li>避免使用CSS表达式</li>
-</ul>
-</li>
-<li>JavaScript<ul>
-<li>避免频繁操作样式。</li>
-<li>避免频繁操作DOM。创建一个documentFragment，在它上面应用所有DOM操作，最后再把它添加到文档中。</li>
-<li>可以先为元素设置为不可见：display: none，操作结束后再把它显示出来。</li>
-</ul>
-</li>
-</ul>
-<h4 id="5-什么是响应式设计？响应式设计的基本原理是什么？如何做？"><a href="#5-什么是响应式设计？响应式设计的基本原理是什么？如何做？" class="headerlink" title="5. 什么是响应式设计？响应式设计的基本原理是什么？如何做？"></a>5. 什么是响应式设计？响应式设计的基本原理是什么？如何做？</h4><p>响应式设计就是：页面布局可以响应不同尺寸的屏幕，同一个页面，随着屏幕尺寸的改变，自适应的改变页面布局。</p>
-<p>原理：利用CSS3媒体查询，为不同尺寸的设备适配不同样式。</p>
-<p>实现响应式布局的方式有如下 ：</p>
-<ul>
-<li>媒体查询： 通过给不同分辨率的设备编写不同的样式。</li>
-<li>百分比： 当浏览器高度，宽度发生变化时，样式也会随着变化。</li>
-<li>vw&#x2F;vh： vw表示视图窗口的宽度，vh表示视图窗口高度。</li>
-<li>rem ： 根据根元素html的font-size属性。</li>
-</ul>
-<h4 id="6-如果要做优化，CSS提高性能的方法有哪些？"><a href="#6-如果要做优化，CSS提高性能的方法有哪些？" class="headerlink" title="6. 如果要做优化，CSS提高性能的方法有哪些？"></a>6. 如果要做优化，CSS提高性能的方法有哪些？</h4><p>加载性能：</p>
-<ul>
-<li>css压缩：使用webpack将写好的css进行打包压缩，可以减少很多的体积 。</li>
-<li>减少使用@import,而建议使用link，因为后者在页面加载时一起加载，前者是等待页面加载完成之后再进行加载。</li>
-</ul>
-<p>选择器性能：</p>
-<ul>
-<li>避免使用通配规则。 *{}计算次数惊人！只对需要用到的元素进行选择 。</li>
-<li>尽量少的去对标签进行选择，而是用class。</li>
-</ul>
-<p>渲染性能：</p>
-<ul>
-<li>尽量减少页面重排、重绘 。</li>
-<li>属性值为0时，不加单位。</li>
-</ul>
-<h4 id="7-对前端工程师这个职位是怎么样理解的？它的前景会怎么样"><a href="#7-对前端工程师这个职位是怎么样理解的？它的前景会怎么样" class="headerlink" title="7. 对前端工程师这个职位是怎么样理解的？它的前景会怎么样"></a>7. 对前端工程师这个职位是怎么样理解的？它的前景会怎么样</h4><p>理解：</p>
-<p>前端工程师是跟用户最贴合的一个职位。一个产品的好坏并不是企业说了算，是用户喜欢的才是好的产品。而用户所能评价的就是他可以看到的，可以触摸到的。前端工程师要做的就是呈现给用户这些信息。</p>
-<p>前景：</p>
-<p>web前端人才需求量是比较大的。</p>
-<p>同时他的就业方向多：包括网站，h5页面，小程序，APP等等，就需要前端开发工程师岗位。具体就业方向还可以按公司所需技术来区分，前端已经变得越来越广泛。</p>
-<h4 id="8-说说JavaScript中的数据类型？存储上的差别？"><a href="#8-说说JavaScript中的数据类型？存储上的差别？" class="headerlink" title="8. 说说JavaScript中的数据类型？存储上的差别？"></a>8. 说说JavaScript中的数据类型？存储上的差别？</h4><p>基本数据类型：string，number，boolean，undefind，null，symbol，bigint</p>
-<p>复杂数据类型：object，function，array，data，math</p>
-<p>存储差别：</p>
-<ul>
-<li>基本数据类型存储在栈当中，固定大小，占空间小，适于频繁调用。</li>
-<li>复杂数据类型存放在堆中，大小不固定，占空间大。并且在栈中存储了指向堆实体的指针，使用时会检索栈中的地址，再去堆中拿到实体。</li>
-</ul>
-<h4 id="9-typeof-与-instanceof-区别"><a href="#9-typeof-与-instanceof-区别" class="headerlink" title="9. typeof 与 instanceof 区别"></a>9. typeof 与 instanceof 区别</h4><p><strong>typeof</strong>：可以正确判断基本数据类型，除了null外（object）。他不能正确判断复杂数据类型，除function外都是object。</p>
-<p><strong>instanceof</strong>：可以正确判断复杂数据类型，其内部机制是根据判断对象的原型链上是否含有该类型，是返回true，不是返回false。不能直接判断基本数据类型。</p>
-<p>可使用原型判断的方式：</p>
-<p>**object.prototype.toString().call()**：判断object类型的，直接调用toString()就可以返回正确类型，其他对象必须使用.call（）方法，才能返回正确的类型信息 。</p>
-<h4 id="10-说说你对闭包的理解？闭包使用场景"><a href="#10-说说你对闭包的理解？闭包使用场景" class="headerlink" title="10. 说说你对闭包的理解？闭包使用场景"></a>10. 说说你对闭包的理解？闭包使用场景</h4><p>闭包就是一个有权访问其他函数里的变量及参数。最常见创建闭包的形式就是一个函数内嵌套一个函数。内部函数可以访问外部函数的变量和参数。突破了作用域。</p>
-<p>两个用处：封装私有属性及私有方法。 可以读取函数内部的变量，并且不会被回收。</p>
-<p>闭包的使用场景：</p>
-<ol>
-<li>返回一个函数</li>
-<li>函数赋值，将内部函数赋值给外部变量</li>
-<li>返回一个函数，作为函数参数传递</li>
-</ol>
-<h4 id="11-bind、call、apply-区别？如何实现一个bind"><a href="#11-bind、call、apply-区别？如何实现一个bind" class="headerlink" title="11. bind、call、apply 区别？如何实现一个bind?"></a>11. bind、call、apply 区别？如何实现一个bind?</h4><p>三者都可以改变函数的<code>this</code>对象指向</p>
-<p>三者第一个参数都是<code>this</code>要指向的对象，如果没有这个参数或参数为<code>undefined</code>或<code>null</code>，则默认指向全局<code>window</code>。</p>
-<p>call()传递参数是以参数列表的形式，apply是以数组的形式。这两者都是调用之后立即执行。</p>
-<p>bind()返回一个绑定this之后的函数。bind第一个参数就作为运行时的this。</p>
-<p>实现<code>bind</code>的步骤，我们可以分解成为三部分：</p>
-<ul>
-<li>修改<code>this</code>指向</li>
-<li>动态传递参数</li>
-</ul>
-<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 方式一：只在bind中传递函数参数</span></span><br><span class="line">fn<span class="selector-class">.bind</span>(obj,<span class="number">1</span>,<span class="number">2</span>)()</span><br><span class="line"> </span><br><span class="line"><span class="comment">// 方式二：在bind中传递函数参数，也在返回函数中传递参数</span></span><br><span class="line">fn<span class="selector-class">.bind</span>(obj,<span class="number">1</span>)(<span class="number">2</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>兼容<code>new</code>关键字</li>
-</ul>
-<h4 id="12-说说你对事件循环的理解"><a href="#12-说说你对事件循环的理解" class="headerlink" title="12. 说说你对事件循环的理解"></a>12. 说说你对事件循环的理解</h4><p>event loop过程1：</p>
-<ul>
-<li>同步代码，一行一行在call stack（执行栈）执行</li>
-<li>遇到异步，会先“记录”下，等待时机（定时，网络请求等）</li>
-<li>时机到了，就移动到 Callback Queue （回调队列）</li>
-</ul>
-<p>event loop过程2：</p>
-<ul>
-<li>如Call Stack为空（及代码执行完）Event loop 开始工作</li>
-<li>轮询查找Callback Queue，如有则移动到 Call Stack执行</li>
-<li>然后继续轮询查找（永动机一样）</li>
-</ul>
-<p>宏任务：</p>
-<ul>
-<li>js代码</li>
-<li>setTimeout</li>
-<li>Ajax</li>
-<li>Dom事件</li>
-</ul>
-<p>微任务：</p>
-<ul>
-<li>Promise async&#x2F;</li>
-<li>nextTick（Node.js）</li>
-<li>MutaionObserver</li>
-</ul>
-<h4 id="13-DOM常见的操作有哪些"><a href="#13-DOM常见的操作有哪些" class="headerlink" title="13. DOM常见的操作有哪些"></a>13. DOM常见的操作有哪些</h4><ul>
-<li><p>创建dom节点</p>
-<ul>
-<li>document.createElement(‘元素名’); 创建新的元素节点</li>
-<li>document.createAttribute(‘属性名’); 创建新的属性节点</li>
-<li>document.createTextNode(‘⽂本内容’); 创建新的⽂本节点</li>
-<li>document.createComment(‘注释节点’); 创建新的注释节点</li>
-<li>document.createDocumentFragment(); 创建文档片段节点</li>
-</ul>
-</li>
-<li><p>访问&#x2F;获取节点</p>
-<ul>
-<li>getElementById(‘id属性值’); 返回拥有指定id的第⼀个对象的引⽤</li>
-<li>getElementsByClassName(‘class属性值’);返回拥有指定class的对象集合</li>
-<li>getElementsByTagName(‘标签名’); 返回拥有指定标签名的对象集合</li>
-<li>getElementsByName(‘name属性值’); 返回拥有指定名称的对象结合</li>
-<li>querySelector(‘CSS选择器’); 仅返回第⼀个匹配的元素</li>
-<li>querySelectorAll(‘CSS选择器’); 返回所有匹配的元素</li>
-<li>document.documentElement; 获取页⾯中的HTML标签</li>
-<li>document.body ； 获取页面body标签</li>
-</ul>
-</li>
-<li><p>添加节点</p>
-<ul>
-<li>appendChild 添加节点</li>
-</ul>
-</li>
-<li><p>删除节点</p>
-<ul>
-<li>parentNode.removeChild( existingChild ); 删除已有的⼦节点，返回值为删除节点</li>
-<li>element.removeAttribute(‘属性名’); 删除具有指定属性名称的属性，⽆返回值</li>
-<li>element.removeAttributeNode( attrNode ); 删除指定属性，返回值为删除的属性</li>
-</ul>
-<p>修改节点内容</p>
-<ul>
-<li>style 设置css样式</li>
-<li>innerHTML 修改节点内容</li>
-<li>innerText 修改内容，也可添加一个节点</li>
-</ul>
-</li>
-</ul>
-<h4 id="14-说说你对BOM的理解，常见的BOM对象你了解哪些？"><a href="#14-说说你对BOM的理解，常见的BOM对象你了解哪些？" class="headerlink" title="14. 说说你对BOM的理解，常见的BOM对象你了解哪些？"></a>14. 说说你对BOM的理解，常见的BOM对象你了解哪些？</h4><p><code>BOM</code> (Browser Object <a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=Model&spm=1001.2101.3001.7020">Model</a>)，浏览器对象模型，提供了内容与浏览器窗口进行交互的对象。</p>
-<p>Bom作用：跟浏览器做一些交互效果。比如：页面的前进，后退，刷新，滚动条的滚动，鼠标的坐标 。</p>
-<p>五个对象：</p>
-<ul>
-<li>window<ul>
-<li><code>Bom</code>的核心对象是<code>window</code> ， 在全局作用域中声明的变量、函数都会变成<code>window</code>对象的属性和方法</li>
-</ul>
-</li>
-<li>location<ul>
-<li><code>location.reload()</code>，此方法可以重新刷新当前页面 。修改location，会重载页面。</li>
-</ul>
-</li>
-<li>navigator<ul>
-<li>主要用来获取浏览器的属性，区分浏览器类型。</li>
-</ul>
-</li>
-<li>history<ul>
-<li>主要用来操作浏览器<code>URL</code>的历史记录，可以通过参数向前，向后，或者向指定<code>URL</code>跳转</li>
-<li><code>history.go()</code></li>
-<li><code>history.forward()</code>：向前跳转一个页面</li>
-<li><code>history.back()</code>：向后跳转一个页面</li>
-<li><code>history.length</code>：获取历史记录数</li>
-</ul>
-</li>
-<li>screen<ul>
-<li>保存的是客户端的信息。比如像素的宽和高。</li>
-</ul>
-</li>
-</ul>
-<h4 id="15-Javascript本地存储的方式有哪些？区别及应用场景？"><a href="#15-Javascript本地存储的方式有哪些？区别及应用场景？" class="headerlink" title="15. Javascript本地存储的方式有哪些？区别及应用场景？"></a>15. Javascript本地存储的方式有哪些？区别及应用场景？</h4><ul>
-<li>cookie</li>
-<li>sessionStorage</li>
-<li>locaStorage</li>
-</ul>
-<p>区别：</p>
-<ul>
-<li>cookie存储大小不能超过4k，http始终携带cookie，即使不使用。是为了解决 <code>HTTP</code> 无状态导致的问题。适合保存很小的数据。sessionStorage和localStorage比cookis大得多，可以达到5m或者更多。</li>
-<li>cookie具有时效，时间过后清除数据。 sessionStorage是在关闭当前对话也就是当前页面清除缓存。locaStorage只有手动清除，否侧一直存在。适合做持久化。</li>
-<li>sessionStorage只在当前浏览器窗口共享，locaStorage，cookie在所有同源浏览器窗口共享。</li>
-</ul>
-<h4 id="16-什么是防抖和节流？有什么区别？如何实现？"><a href="#16-什么是防抖和节流？有什么区别？如何实现？" class="headerlink" title="16. 什么是防抖和节流？有什么区别？如何实现？"></a>16. 什么是防抖和节流？有什么区别？如何实现？</h4><ul>
-<li>防抖：在一定的时间后调用函数，如果在这段时间内重新调用该函数，则重新计算执行时间。只执行最后一次。</li>
-<li>节流：持续触发一个事件，每隔一段时间，只执行一次事件。控制执行的次数以及事件触发的频率。从而提高性能。</li>
-</ul>
-<p>相同点：</p>
-<ul>
-<li>都可以通过使用 setTimeout 实现目的都是，降低回调执行频率。节省计算资源</li>
-</ul>
-<p>不同点：</p>
-<ul>
-<li>函数防抖，利用clearTimeout和 setTimeout实现。</li>
-<li>防抖关注一定时间连续触发的事件，只在最后执行一次，而函数节流一段时间内只执行一次。</li>
-</ul>
-<p>应用场景：</p>
-<p> 1.scroll事件滚动触发</p>
-<p> 2.搜索框输入查询</p>
-<p> 3.表单验证</p>
-<p> 4.按钮提交事件</p>
-<p> 5.浏览器窗口缩放，resize事件</p>
-<h4 id="17-如何通过JS判断一个数组"><a href="#17-如何通过JS判断一个数组" class="headerlink" title="17. 如何通过JS判断一个数组"></a>17. 如何通过JS判断一个数组</h4><ul>
-<li>isArray()数组自带的判断方法</li>
-<li>instanceof 判断类型</li>
-<li>constructor.toString()方法</li>
-<li>Object.prototype.toString.call(a) 原型方法</li>
-</ul>
-<h4 id="18-说说你对作用域链的理解"><a href="#18-说说你对作用域链的理解" class="headerlink" title="18. 说说你对作用域链的理解"></a>18. 说说你对作用域链的理解</h4><p>作用域的作用就是保证有权被访问的变量及函数的有序性，作用域链的变量只能向上访问，不能向下访问。当访问到window对象时终止。作用链就是变量和函数的可访问范围，控制变量和函数的可见性及生命周期。</p>
-<h4 id="19-JavaScript原型，原型链-有什么特点？"><a href="#19-JavaScript原型，原型链-有什么特点？" class="headerlink" title="19. JavaScript原型，原型链 ? 有什么特点？"></a>19. JavaScript原型，原型链 ? 有什么特点？</h4><ul>
-<li>原型： 每个对象都会在其内部初始化一个属性，就是<code>__proto__</code> （原型）。还预置了prototype属性。构造函数创建实例时，该prototype属性值就会被作为实例对象的原型proto。</li>
-<li>原型链：当我们访问一个对象的属性时，如果这个对象内部不存在这个属性，那么它就会去它的原型对象里找这个属性，这个原型对象又会有自己的原型，于是就这样一直找下去， 直到找到属性&#x2F;方法或 <code>undefined</code> 为止 ，也就是原型链的概念 。</li>
-<li>特点： javascript对象是通过引用来传递的，当修改原型时，与之相关的对象也会继承这一改变 。</li>
-</ul>
-<h4 id="20-请解释什么是事件代理"><a href="#20-请解释什么是事件代理" class="headerlink" title="20. 请解释什么是事件代理"></a>20. 请解释什么是事件代理</h4><p>事件代理也就是事件委托，将原本需要绑定的事件委托给父元素。让父元素去监听。其原理就是：dom元素的事件冒泡。好处：节省大量内存，减少事件注册，提高性能。当新增子对象时无需再次绑定。</p>
-<h4 id="21-谈谈This对象的理解"><a href="#21-谈谈This对象的理解" class="headerlink" title="21. 谈谈This对象的理解"></a>21. 谈谈This对象的理解</h4><ul>
-<li>this总是指向函数的直接调用者</li>
-<li>如果有new关键字，this指向new出来的这个实例对象</li>
-<li>在事件中，this指向触发这个事件的对象。</li>
-<li>IE中，this总是指向全局对象window。</li>
-<li>箭头函数没有this，箭头函数的this指向上一级的函数。</li>
-<li>可通过apply，call，bind来改变this指向。</li>
-</ul>
-<h4 id="22-new操作符具体干了什么"><a href="#22-new操作符具体干了什么" class="headerlink" title="22. new操作符具体干了什么"></a>22. new操作符具体干了什么</h4><ul>
-<li>创建一个空对象，并且this引用该对象，也继承了该对象的原型。</li>
-<li>将所有的属性，方法都添加到了this引用的这个对象。</li>
-<li>新创建的对象由this引用，最后隐式的返回this。</li>
-</ul>
-<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">mynew</span><span class="params">(Func, <span class="rest_arg">...args</span>)</span> &#123;</span><br><span class="line">    <span class="comment">// 1.创建一个新对象</span></span><br><span class="line">    <span class="keyword">const</span> obj = &#123;&#125;</span><br><span class="line">    <span class="comment">// 2.新对象原型指向构造函数原型对象</span></span><br><span class="line">    obj.__proto__ = Func.prototype</span><br><span class="line">    <span class="comment">// 3.将构建函数的this指向新对象</span></span><br><span class="line">    let result = Func.apply(obj, args)</span><br><span class="line">    <span class="comment">// 4.根据返回值判断</span></span><br><span class="line">    <span class="keyword">return</span> result <span class="keyword">instanceof</span> Object ? result : obj</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="23-null，undefined-的区别"><a href="#23-null，undefined-的区别" class="headerlink" title="23. null，undefined 的区别"></a>23. null，undefined 的区别</h4><ul>
-<li>undefinded：表示没有不存在的值，一个缺少值。此处应有值，但没定义。读取时，返回undefined。</li>
-<li>null：表示一个空对象，没有任何属性及方法。对比验证时使用&#x3D;&#x3D;&#x3D;。</li>
-</ul>
-<h4 id="24-javascript-代码中的”use-strict”-是什么意思"><a href="#24-javascript-代码中的”use-strict”-是什么意思" class="headerlink" title="24. javascript 代码中的”use strict”;是什么意思"></a>24. javascript 代码中的”use strict”;是什么意思</h4><p>use strict是 es5添加的一种严格运行模式，这种模式使JavaScript能够在更严格的条件下运行。使js编码更加规范，消除了一些不严谨，不合理之处。</p>
-<h4 id="25-同步和异步的区别"><a href="#25-同步和异步的区别" class="headerlink" title="25. 同步和异步的区别"></a>25. 同步和异步的区别</h4><p>同步是阻塞模式，异步是非阻塞模式。</p>
-<ul>
-<li>同步<ul>
-<li>同步是指一个进程在执行某个请求时，该请求需要一定时间返回消息。那么这个进程就会一直等待下去，直到返回消息后，才执行下面的操作。</li>
-</ul>
-</li>
-<li>异步<ul>
-<li>异步是指不需要一直等待下去，而是继续执行下面的操作。不管其他进程的状态，当返回消息时，系统会通知该进程进行处理。提高了执行效率。</li>
-</ul>
-</li>
-</ul>
-<h4 id="26-谈一谈箭头函数与普通函数的区别"><a href="#26-谈一谈箭头函数与普通函数的区别" class="headerlink" title="26. 谈一谈箭头函数与普通函数的区别"></a>26. 谈一谈箭头函数与普通函数的区别</h4><ul>
-<li>语法形式不同，箭头函数更简短</li>
-<li>没有单独的<code>this</code></li>
-<li>不绑定<code>arguments</code></li>
-<li>不能使用<code>new</code>操作</li>
-<li>没有<code>prototype</code>属性</li>
-<li>通过<code>call</code>或<code>apply</code>调用会忽略第一个参数，只能传递参数，不能绑定<code>this</code></li>
-<li>不能使用<code>yield</code>关键字</li>
-</ul>
-<h4 id="27-JS-数组和对象的遍历方式，以及几种方式的比较"><a href="#27-JS-数组和对象的遍历方式，以及几种方式的比较" class="headerlink" title="27. JS 数组和对象的遍历方式，以及几种方式的比较"></a>27. JS 数组和对象的遍历方式，以及几种方式的比较</h4><ul>
-<li>for in 循环</li>
-<li>for of循环</li>
-<li>forEach循环</li>
-<li>map循环</li>
-</ul>
-<p>区别：</p>
-<ul>
-<li>for in循环 和 for循环 性能低。</li>
-<li>for in适合遍历对象，for of适合遍历数组。for in遍历的是数组的索引，对象的key值，以及原型链上的属性 。</li>
-<li>forEach ⽆法遍历对象 forEach ⽆法使⽤ break ， continue 跳出循环，且使⽤ return 是跳过本次循环 。</li>
-<li>map可以return出一个新数组，原数组不会改变 。⽆法遍历对象 。</li>
-</ul>
-<h4 id="28-如何解决跨域问题"><a href="#28-如何解决跨域问题" class="headerlink" title="28. 如何解决跨域问题"></a>28. 如何解决跨域问题</h4><p>产生跨域的是因为浏览器的同源策略，同源策略是一种约定，它是浏览器最核心也最基本的安全功能。所谓同源是指 协议 域名 端口 三者一致。若其中一项不一致就会产生跨域。</p>
-<ul>
-<li>jsonp跨域<ul>
-<li>只可以使用get方式提交。设置请求url –》 参数拼接 –》创建script节点 –》 返回数据，清除script。</li>
-</ul>
-</li>
-<li>nginx代理跨域</li>
-<li>node中间件跨域</li>
-<li>cors后端头部设置安全域名<ul>
-<li>需要浏览器和服务器的支持，自动完成跨域。添加一些头部信息。</li>
-</ul>
-</li>
-</ul>
-<h4 id="29-XML和JSON的区别"><a href="#29-XML和JSON的区别" class="headerlink" title="29. XML和JSON的区别"></a>29. XML和JSON的区别</h4><p>json是一个轻量的数据交换格式。是javascript的一个子集。</p>
-<p>xml是纯文本的格式的，可扩展标记语言。</p>
-<ul>
-<li>JSON 比 XML 体积小，传递速度快。</li>
-<li>JSON对jacascript交互更方便，更容易解析。</li>
-<li>JSON 比 XML 传输速度快很多。</li>
-<li>JSON对数据的描述性差。</li>
-</ul>
-<h4 id="30-谈谈你对webpack的看法"><a href="#30-谈谈你对webpack的看法" class="headerlink" title="30. 谈谈你对webpack的看法"></a>30. 谈谈你对webpack的看法</h4><p>webpack是一个模块打包工具，可以使用webpack管理模块依赖，并编译除模块所需的静态文件。打包web开发中所用到的html，css，js等静态文件。提高开发效率。对于不同的类型的资源，webpack由相对应的模块加载器。webpack会分析模块间的相关依赖，最后生成优化后的静态资源。</p>
-<h4 id="31-webpack的打包原理"><a href="#31-webpack的打包原理" class="headerlink" title="31. webpack的打包原理"></a>31. webpack的打包原理</h4><p><a target="_blank" rel="noopener" href="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/71b263000fa94db792cf1e98d67a578a~tplv-k3u1fbpfcp-zoom-in-crop-mark:1304:0:0:0.awebp"><img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/71b263000fa94db792cf1e98d67a578a~tplv-k3u1fbpfcp-zoom-in-crop-mark:1304:0:0:0.awebp" alt="img"></a></p>
-<ul>
-<li>初始化参数：从配置文件和 Shell 语句中读取并合并参数，得出最终的配置参数。</li>
-<li>开始编译：从上一步得到的参数初始化 <code>Compiler</code> 对象，加载所有配置的插件，执行对象的 <code>run</code> 方法开始执行编译。</li>
-<li>确定入口：根scope据配置中的 <code>entry</code> 找出所有的入口文件。</li>
-<li>编译模块：从入口文件出发，调用所有配置的 <code>loader</code> 对模块进行翻译，再找出该模块依赖的模块，这个步骤是递归执行的，直至所有入口依赖的模块文件都经过本步骤的处理。</li>
-<li>完成模块编译：经过第 4 步使用 loader 翻译完所有模块后，得到了每个模块被翻译后的最终内容以及它们之间的依赖关系。</li>
-<li>输出资源：根据入口和模块之间的依赖关系，组装成一个个包含多个模块的 <code>chunk</code>，再把每个 <code>chunk</code> 转换成一个单独的文件加入到输出列表，这一步是可以修改输出内容的最后机会。</li>
-<li>输出完成：在确定好输出内容后，根据配置确定输出的路径和文件名，把文件内容写入到文件系统。</li>
-</ul>
-<p>webpack打包原理是将根据文件间的依赖关系对其进行静态分析，然后将这些模块按指定规则生成静态资源，当 webpack处理程序时，会递归地构建一个依赖关系图，其中包含应用程序需要的每个模块，然后将所所有这些模块打包成bundle。</p>
-<p>从配置文件中读取所需要的参数，并且加载所有的插件，开始执行编译。找到entry入口文件。调用loader对模板进行递归解析翻译。等确定每个模块的依赖关系后，将他们组装成一个个包含多个模块的chunk。确定好内容后，根据出口配置将打包后的文件写入到具体位置。</p>
-<h4 id="32-如何优化webpack打包速度"><a href="#32-如何优化webpack打包速度" class="headerlink" title="32. 如何优化webpack打包速度"></a>32. 如何优化webpack打包速度</h4><ul>
-<li>优化 loader 配置： 减少文件的搜索范围，使用test，include，exclude。</li>
-<li>使用image-webpack-loader进行图片压缩</li>
-<li>terser启用多线程 ： 使用多进程并行运行来提高构建速度</li>
-<li>使用 cache-loader： 将开销较大的loader结果缓存到磁盘</li>
-<li>优化 resolve.modules: 指明存放第三方模块的绝对路径，以减少寻找 。</li>
-<li>优化 resolve.alias</li>
-<li>使用 DLLPlugin 插件</li>
-<li>合理使用 sourceMap</li>
-</ul>
-<h4 id="33-说说webpack中常见的Loader？解决了什么问题？"><a href="#33-说说webpack中常见的Loader？解决了什么问题？" class="headerlink" title="33. 说说webpack中常见的Loader？解决了什么问题？"></a>33. 说说webpack中常见的Loader？解决了什么问题？</h4><p>webpack默认情况下，只支持对js，json文件打包。像css，less，png等这些类型文件，webpack需要采用相对应的loader（模块加载器）进行解析。</p>
-<p>关于<code>loader</code>的配置，我们是写在<code>module.rules</code>属性中，属性介绍如下：</p>
-<ul>
-<li><code>rules</code>是一个数组的形式，因此我们可以配置很多个<code>loader</code></li>
-<li>每一个<code>loader</code>对应一个对象的形式，对象属性<code>test</code> 为匹配的规则，一般情况为正则表达式</li>
-<li>属性<code>use</code>针对匹配到文件类型，调用对应的 <code>loader</code> 进行处理</li>
-</ul>
-<p>常见的<code>loader</code>如下：</p>
-<ul>
-<li>style-loader: 将css添加到DOM的内联样式标签style里</li>
-<li>css-loader :允许将css文件通过require的方式引入，并返回css代码</li>
-<li>less-loader: 处理less</li>
-<li>sass-loader: 处理sass</li>
-<li>babel-loader :用babel来转换ES6文件到ES5</li>
-<li>file-loader: 分发文件到output目录并返回相对路径</li>
-<li>url-loader: 和file-loader类似，但是当文件小于设定的limit时可以返回一个Data Url</li>
-</ul>
-<p>css-loader: 分析 <code>css</code> 模块之间的关系，并合成⼀个 <code>css</code></p>
-<p>staly-loader: 把 <code>css-loader</code> 生成的内容，用 <code>style</code> 标签挂载到页面的 <code>head</code> 中</p>
-<p>less-loader: 开发中，我们也常常会使用<code>less</code>、<code>sass</code>、<code>stylus</code>预处理器编写<code>css</code>样式，使开发效率提高，这里需要使用<code>less-loader</code></p>
-<p>url-loader: 可以处理 <code>file-loader</code> 所有的事情，遇到图片格式的模块，可以选择性的把图片转成 <code>base64</code> 格式的字符串，并打包到 <code>js</code> 中，对小体积的图片比较合适，大图片不合适。</p>
-<h4 id="34-说说webpack中常见的Plugin？解决了什么问题？"><a href="#34-说说webpack中常见的Plugin？解决了什么问题？" class="headerlink" title="34. 说说webpack中常见的Plugin？解决了什么问题？"></a>34. 说说webpack中常见的Plugin？解决了什么问题？</h4><p>plugin是插件，对于webpack本身的扩展，是一个扩展器。</p>
-<p>配置方式：写在plugins属性中传入new实例对象，他是个数组，可以写多个插件。</p>
-<p>下面介绍几个常用的插件用法：</p>
-<ul>
-<li>HtmlWebpackPlugin<ul>
-<li>⾃动生成⼀个 <code>html</code> ⽂文件，并把打包生成的<code>js</code> 模块引⼊到该 <code>html</code> 中</li>
-</ul>
-</li>
-<li>clean-webpack-plugin<ul>
-<li>删除（清理）构建目录</li>
-</ul>
-</li>
-<li>mini-css-extract-plugin<ul>
-<li>提取css到一个单独文件中</li>
-</ul>
-</li>
-<li>copy-webpack-plugin<ul>
-<li>复制文件或目录到执行区域。</li>
-</ul>
-</li>
-</ul>
-<h4 id="35-说说你对promise的了解"><a href="#35-说说你对promise的了解" class="headerlink" title="35. 说说你对promise的了解"></a>35. 说说你对promise的了解</h4><p>promise是es6新增的语法，解决了回调地狱的问题。（ 多个异步任务顺序执行，形成的多层回调函数的嵌套结构，就称为回调地狱现象 ）。</p>
-<p>promise有三个状态：pending等待初始化状态，resolved成功的状态，rejected成功的状态。变化不可逆。</p>
-<p>promise构造函数内代码是同步的，而之后then和catch执行的是异步的。构造函数接收两个参数resolve和reject。他们的执行是传递给then，catch，表示成功的回调及失败的回调。</p>
-<h4 id="36-async函数是什么，有什么作用"><a href="#36-async函数是什么，有什么作用" class="headerlink" title="36. async函数是什么，有什么作用"></a>36. async函数是什么，有什么作用</h4><p>async&#x2F;await 是为了简化使用基于promiseAPI的一种语法（语法糖）。async和await简化了promise的异步行为，不用链式的调用promise。</p>
-<p>async表示是异步操作，await表示跟在表达式后面等待结果。await只能在async函数中有效，不然会报错。async返回一个promise对象，可以使用then方法添加回调函数。不管是不是promise对象，都会被包装成promise对象。async函数内部会被await阻塞并按顺序执行代码。也可使用try..catch进行异常处理。</p>
-<h4 id="37-有使用过vue吗？说说你对vue的理解"><a href="#37-有使用过vue吗？说说你对vue的理解" class="headerlink" title="37. 有使用过vue吗？说说你对vue的理解"></a>37. 有使用过vue吗？说说你对vue的理解</h4><p>vue是一个构建用户界面的渐进式框架。vue所关注的核心是视图层。有一套精简的mvvm框架。</p>
-<p>vue是一款轻量级别的框架，适合开发小型项目。</p>
-<p>vue核心特性：</p>
-<ul>
-<li>数据驱动（MVVM  Model-View-ViewModel）<ul>
-<li>Model：模型层，负责处理业务逻辑以及和服务器端进行交互</li>
-<li>View：视图层：负责将数据渲染出来展示页面，可以简单的理解为HTML页面</li>
-<li>ViewModel：视图模型层，用来连接Model和View，是Model和View之间的通信桥梁。</li>
-</ul>
-</li>
-<li>组件化开发<ul>
-<li>组件可以重复使用。提高开发效率。高内聚低耦合。</li>
-<li>提高可维护性，每个组件的职责单一 。</li>
-</ul>
-</li>
-<li>有着一套丰富的vue指令<ul>
-<li>条件渲染指令 <code>v-if</code></li>
-<li>列表渲染指令<code>v-for</code></li>
-<li>属性绑定指令<code>v-bind</code></li>
-<li>事件绑定指令<code>v-on</code></li>
-<li>双向数据绑定指令<code>v-model</code></li>
-</ul>
-</li>
-</ul>
-<h4 id="38-你对SPA单页面的理解，它的优缺点分别是什么？如何实现SPA应用呢"><a href="#38-你对SPA单页面的理解，它的优缺点分别是什么？如何实现SPA应用呢" class="headerlink" title="38. 你对SPA单页面的理解，它的优缺点分别是什么？如何实现SPA应用呢"></a>38. 你对SPA单页面的理解，它的优缺点分别是什么？如何实现SPA应用呢</h4><p>SPA仅在Web页面初始化时加载相应的HTML、JavaScript和CSS。一旦页面加载完成,SPA不会因为用户操作而进行页面的重新加载或跳转;取而代之的是利用JavaScript实现HTML内容变换,UI与用户的交互,避免页面的重新加载。</p>
-<p>优点：</p>
-<ul>
-<li>用户体验好、快，内容的改变不需要重新加载整个页面</li>
-<li>SPA相对于服务器压力小;</li>
-<li>良好的前后端分离，分工更明确。</li>
-</ul>
-<p>缺点：</p>
-<ul>
-<li>不利于搜索引擎的抓取</li>
-<li>首次加载页面速度比较慢</li>
-</ul>
-<p>实现：</p>
-<ul>
-<li>hash模式<ul>
-<li>通过onhashchange监听路由的改变，从而跳转路由更新页面。</li>
-</ul>
-</li>
-<li>history模式<ul>
-<li>history采用HTML5的新特性；pushState()添加历史记录，replaceState()修改浏览器历史记录。</li>
-<li>通过popState()监听路由的改变，从而触发路由跳转和页面更新。</li>
-</ul>
-</li>
-</ul>
-<h4 id="39-SPA首屏加载速度慢的怎么解决？"><a href="#39-SPA首屏加载速度慢的怎么解决？" class="headerlink" title="39. SPA首屏加载速度慢的怎么解决？"></a>39. SPA首屏加载速度慢的怎么解决？</h4><ul>
-<li>减小入口文件积<ul>
-<li>路由懒加载，不同组件的分割。</li>
-</ul>
-</li>
-<li>静态资源本地缓存</li>
-<li>UI框架按需加载</li>
-<li>开启GZip压缩</li>
-<li>使用服务器端渲染SSR（nuxt.js）</li>
-<li>图片资源的压缩</li>
-</ul>
-<h4 id="40-VUE路由的原理"><a href="#40-VUE路由的原理" class="headerlink" title="40. VUE路由的原理"></a>40. VUE路由的原理</h4><p>hash：</p>
-<ul>
-<li>其中对象中的location.hash储存的是路由的地址、可以赋值改变其URL的地址。而这会触发hashchange事件，而通过window.addEventListener监听hash值然后去匹配对应的路由、从而渲染页面的组件 。</li>
-</ul>
-<p>history：</p>
-<ul>
-<li>history采用HTML5的新特性，通过 pushState 和 replaceState 两个方法来实现 URL 的变化</li>
-<li>可以通过 popstate 事件来监听 URL 的变化，从而对页面进行跳转（渲染）</li>
-</ul>
-<h4 id="41-Vue中组件和插件有什么区别？"><a href="#41-Vue中组件和插件有什么区别？" class="headerlink" title="41. Vue中组件和插件有什么区别？"></a>41. Vue中组件和插件有什么区别？</h4><p>组件 <code>(Component)</code> 是用来构成 <code>App</code> 的业务模块，它的目标是 <code>App.vue</code>。 在<code>Vue</code>中每一个<code>.vue</code>文件都可以视为一个组件</p>
-<p>插件就是指对<code>Vue</code>的功能的增强或补充。</p>
-<p>编写形式区别：</p>
-<ul>
-<li>组件是以.vue后缀结尾的组件，包含三部分。template，script，style。</li>
-<li>插件需要暴露一个install方法，第一个参数是vue构造器，第二个参数是可选对象。</li>
-</ul>
-<p>注册形式区别：</p>
-<ul>
-<li>组件是在main.js中全局注册vue.component(),局部注册就是在组件内。</li>
-<li>插件在main.js中使用vue实例vue.use（插件名）</li>
-</ul>
-<h4 id="42-Vue组件之间的通信方式都有哪些"><a href="#42-Vue组件之间的通信方式都有哪些" class="headerlink" title="42. Vue组件之间的通信方式都有哪些"></a>42. Vue组件之间的通信方式都有哪些</h4><ul>
-<li>父子组件之间的通信<ul>
-<li>使用props进行传递</li>
-</ul>
-</li>
-<li>兄弟组件之间的通信<ul>
-<li>使用eventbus vue实例进行传递</li>
-</ul>
-</li>
-<li>provide 和 inject<ul>
-<li>在祖先组件定义<code>provide</code>属性，返回传递的值</li>
-<li>在后代组件通过<code>inject</code>接收组件传递过来的值</li>
-</ul>
-</li>
-<li>vuex</li>
-</ul>
-<h1 id="43-你了解vue的diff算法吗？说说看"><a href="#43-你了解vue的diff算法吗？说说看" class="headerlink" title="43. 你了解vue的diff算法吗？说说看"></a>43. 你了解vue的diff算法吗？说说看</h1><p>diff的过程就是调用名为patch的函数，比较新旧节点，一边比较一边给真实的DOM打补丁 。</p>
-<p>原理：当数据发生改变时，<code>set</code>方法会调用<code>Dep.notify</code>通知所有订阅者<code>Watcher</code>，调用<code>patch</code>给真实的<code>DOM</code>打补丁，更新相应的视图 。</p>
-<p>其有两个特点：</p>
-<ul>
-<li>比较只会在同层级进行, 不会跨层级比较</li>
-<li>在diff比较的过程中，循环从两边向中间比较</li>
-<li>同一个节点，进行最小量的更新。</li>
-</ul>
-<p>diff 算法的在很多场景下都有应用，在 vue 中，作用于虚拟 dom 渲染成真实 dom 的新旧 VNode 节点比较</p>
-<p>Diff算法的步骤：</p>
-<ul>
-<li>用 JavaScript 对象结构表示 DOM 树的结构；然后用这个树构建一个真正的 DOM 树，插到文 档当中。</li>
-<li>当状态变更的时候，重新构造一棵新的对象树。然后用新的树和旧的树进行比较(diff)，记录两棵树差异。</li>
-<li>把第二棵树所记录的差异应用到第一棵树所构建的真正的DOM树上(patch)，视图就更新了。</li>
-</ul>
-<h4 id="44-为什么需要-Virtual-Dom"><a href="#44-为什么需要-Virtual-Dom" class="headerlink" title="44. 为什么需要 Virtual Dom"></a>44. 为什么需要 Virtual Dom</h4><ul>
-<li>DOM的操作本身是性能会出现问题，操作比较复杂的</li>
-<li>MVVM框架解决视图和状态同步问题</li>
-<li>模板引擎可以简化视图操作，没办法跟踪状态（无法得知当前页面变化之前的状态）</li>
-<li>虚拟DOM能够跟踪状态变化</li>
-<li>虚拟DOM可以维护程序的状态，跟踪上一次的状态，通过比较前后两次状态差异更新真实DOM</li>
-</ul>
-<p><strong>虚拟 DOM 的作用</strong></p>
-<ul>
-<li>维护视图和状态的关系</li>
-<li>复杂视图情况下提升渲染性能</li>
-<li>除了渲染 <code>DOM</code> 以外，还可以实现 <code>SSR(Nuxt.js/Next.js)</code>、原生应用(<code>Weex/React Native</code>)、小程序(<code>mpvue/uni-app</code>)等</li>
-</ul>
-<h4 id="45-Vue3-0的设计目标是什么？做了哪些优化"><a href="#45-Vue3-0的设计目标是什么？做了哪些优化" class="headerlink" title="45. Vue3.0的设计目标是什么？做了哪些优化"></a>45. Vue3.0的设计目标是什么？做了哪些优化</h4><p>设计目标：</p>
-<ul>
-<li>打包体积更小： <code>Vue3</code>移除一些不常用的 <code>API</code> ， 将无用模块“剪辑”，仅打包需要的，使打包的整体体积变小了</li>
-<li>速度更快： diff算法优化，静态提升。</li>
-<li>更灵活的代码组织能力：推出Composition API，大大增加了代码的逻辑组织能力和代码复用能力。</li>
-</ul>
-<p>优化方案：</p>
-<ul>
-<li>源码<ul>
-<li>使用ts语法，源码的优化。</li>
-</ul>
-</li>
-<li>性能<ul>
-<li>体积，编译，数据劫持优化。</li>
-</ul>
-</li>
-<li>语法 API<ul>
-<li>组合式API，根据相关逻辑组织代码。</li>
-</ul>
-</li>
-</ul>
-<h4 id="46-Vue3-0-所采用的-Composition-Api-与-Vue2-x-使用的-Options-Api-有什么不同？"><a href="#46-Vue3-0-所采用的-Composition-Api-与-Vue2-x-使用的-Options-Api-有什么不同？" class="headerlink" title="46. Vue3.0 所采用的 Composition Api 与 Vue2.x 使用的 Options Api 有什么不同？"></a>46. Vue3.0 所采用的 Composition Api 与 Vue2.x 使用的 Options Api 有什么不同？</h4><ul>
-<li>Options：</li>
-</ul>
-<p> 在一个vue文件中的data，methods，computed…定义属性和方法，共同处理页面逻辑。</p>
-<p> 缺点：一个功能的实现 需要不同的vue配置项，定义属性方法比较分散。大项目methods可能 包含多个方法，这可能会导致组件难以阅读和理解。</p>
-<p> 优点：新手入门会比较简单。</p>
-<ul>
-<li><p>Compositions API:</p>
-<p> 一个功能的所有api会放在一起（高内聚，低耦合），方便找到功能所对应的方法及属性。</p>
-<p> 缺点：学习思维方式改变。</p>
-<p> 优点：根据逻辑相关性组织代码，提高可读性和可维护性，基于函数组合的API。</p>
-</li>
-</ul>
-<h4 id="47-说一下Vue数据响应式的原理"><a href="#47-说一下Vue数据响应式的原理" class="headerlink" title="47. 说一下Vue数据响应式的原理"></a>47. 说一下Vue数据响应式的原理</h4><p>当一个vue实例被创建时，vue会遍历data选项的属性。采用数据劫持结合发布&#x2F;订阅者模式，用es5的object.defindproerty将他们转化为getter&#x2F;setter，并在内部追踪相关依赖。在属性被访问和修改时通知变化。也就是observer使用object.defindproerty来监听数据的读写。读取数据时，调用get方法通知dep收集订阅者（watcher）。添加到dep的一个属性subs数组里。 修改数据时，调用set方法，通知dep数据改变了。 使用notify方法遍历subs里面的watcher，调用watcher的update（）方法。创建出一个新的dom树与原本旧的dom树做对比，从而更新视图。</p>
-<h4 id="48-说说对-React-的理解？有哪些特性？"><a href="#48-说说对-React-的理解？有哪些特性？" class="headerlink" title="48. 说说对 React 的理解？有哪些特性？"></a>48. 说说对 React 的理解？有哪些特性？</h4><p>由FaceBook在2011年开发的。React用于构建用户界面的 JavaScript 库 ，声明式编程，组件化开发。</p>
-<ol>
-<li>它使用**虚拟DOM **而不是真正的DOM。</li>
-<li>它可以用<strong>服务器端渲染</strong>。</li>
-<li>它遵循<strong>单向数据流</strong>或数据绑定。</li>
-<li>使用jsx语法，将html和css代码写入到一个js文件。</li>
-</ol>
-<h4 id="49-说说-Real-DOM-和-Virtual-DOM-的区别？优缺点？"><a href="#49-说说-Real-DOM-和-Virtual-DOM-的区别？优缺点？" class="headerlink" title="49. 说说 Real DOM 和 Virtual DOM 的区别？优缺点？"></a>49. 说说 Real DOM 和 Virtual DOM 的区别？优缺点？</h4><p>Real DOM（真实的dom），在页面渲染出的每个节点都是一个真实的DOM结构 。</p>
-<p>Virtual DOM （虚拟dom），是一个轻量级的js对象，它最初只是real DOM的副本，也是一个节点树。将属性和内容作为该对象的属性。</p>
-<p>区别：</p>
-<ul>
-<li>虚拟dom会减少重绘和回流，而真实dom会频繁进行重绘和回流。</li>
-<li>虚拟dom的总损耗是”虚拟dom的增删改+真实dom的<strong>差异</strong>增删改+重排“；真实dom的消耗是”真实dom全部增删改+重排“</li>
-</ul>
-<p>真实dom： 优点：直接操作html，易用。 缺点：解析速度慢，效率低，内存占用高。， 频繁操作真实 DOM，导致重绘、 回流</p>
-<p>虚拟dom： 优点：减少真实dom的频繁更新，减少重绘，回流，占内存少。 跨平台：一套react代码可以多 端运行</p>
-<p> 缺点：初次渲染时，多了一层虚拟dom计算，速度慢些。</p>
-<h4 id="50-说说-React-生命周期有哪些不同阶段？每个阶段对应的方法是？"><a href="#50-说说-React-生命周期有哪些不同阶段？每个阶段对应的方法是？" class="headerlink" title="50. 说说 React 生命周期有哪些不同阶段？每个阶段对应的方法是？"></a>50. 说说 React 生命周期有哪些不同阶段？每个阶段对应的方法是？</h4><p><code>React</code>生命周期就是从创建、初始化数据、编译模板、挂载Dom→渲染、更新→渲染、卸载等这一过程 。</p>
-<ul>
-<li>创建阶段<ul>
-<li>render 用于渲染<code>DOM</code>结构，可以访问组件<code>state</code>与<code>prop</code>属性</li>
-<li>componentDidMount 组件挂载到真实<code>DOM</code>节点后执行，其在<code>render</code>方法之后执行</li>
-<li>constructor 初始化<code>state</code>状态</li>
-</ul>
-</li>
-<li>更新阶段<ul>
-<li>componentDidUpdate 组件更新结束后触发</li>
-<li>shouldComponentUpdate 告诉组件本身是否需要重新渲染，默认false。</li>
-<li>render 用于渲染<code>DOM</code>结构</li>
-</ul>
-</li>
-<li>卸载阶段<ul>
-<li><strong>componentWillUnmount()</strong> – 从 DOM 卸载组件前调用。</li>
-</ul>
-</li>
-</ul>
-<h4 id="51-说说-React中的setState执行机制"><a href="#51-说说-React中的setState执行机制" class="headerlink" title="51. 说说 React中的setState执行机制"></a>51. 说说 React中的setState执行机制</h4><p>当需要修改状态时通过调用<code>setState</code>来改变，从而达到更新组件内部数据的作用 。</p>
-<p>当使用setState（）更新状态后，然后会执行render函数，从而导致页面的视图更新。</p>
-<p>更新类型：</p>
-<ul>
-<li>异步更新<ul>
-<li>在组件生命周期或React合成事件中，setState是异步</li>
-</ul>
-</li>
-<li>同步更新<ul>
-<li>在setTimeout或者原生dom事件中，setState是同步</li>
-</ul>
-</li>
-</ul>
-<h4 id="52-说说对React中类组件和函数组件的理解？有什么区别？"><a href="#52-说说对React中类组件和函数组件的理解？有什么区别？" class="headerlink" title="52. 说说对React中类组件和函数组件的理解？有什么区别？"></a>52. 说说对React中类组件和函数组件的理解？有什么区别？</h4><p>类组件：通过使用es6类的编写形式来定义，继承React.Component。如果想要访问父组件传递过来的参数，可通过this.props来拿到。使用render方法，返回一个react对象。</p>
-<p>函数组件：通过函数来编写一个react组件，函数第一个参数用于接收父组件传过来的参数。</p>
-<p>在hooks出来之前，函数式组件时没有生命周期的，以及无法定义状态。现在可以使用useState定义状态。</p>
-<p>useEffect定义生命周期。类式组件是不能使用hooks的。</p>
-<h4 id="53-说说对React-Hooks的理解？解决了什么问题？"><a href="#53-说说对React-Hooks的理解？解决了什么问题？" class="headerlink" title="53. 说说对React Hooks的理解？解决了什么问题？"></a>53. 说说对React Hooks的理解？解决了什么问题？</h4><p>hooks是react 16版本以后新增的特性，可以在不写class组件的情况下使用state及其他属性。</p>
-<p>useState（）定义组件状态 useEffect（）定义组件生命周期，第一个参数相当于 componentDidMount 和 componentDidUpdate 。第二个参数是个列表。可以返回一个函数，相当于 componentwillUnmount 销毁生命周期。 useReducer，useRef。</p>
-<p>解决：</p>
-<ul>
-<li>每调用useHook一次都会生成一份独立的状态</li>
-<li>通过自定义hook能够更好的封装我们的功能</li>
-</ul>
-<p>hook的出现，使函数式组件拥有了类式组件的相似功能。还可以进行代码复用。</p>
-<h4 id="54-说说你对Redux的理解？其工作原理？"><a href="#54-说说你对Redux的理解？其工作原理？" class="headerlink" title="54. 说说你对Redux的理解？其工作原理？"></a>54. 说说你对Redux的理解？其工作原理？</h4><p>redux与vux相似，也是将组件状态进行集中管理。相当于管理组件状态的一个工具。</p>
-<p><strong>Redux三大原则</strong> ：</p>
-<ul>
-<li>单一数据源</li>
-<li>state是只读的</li>
-<li>使用纯函数修改状态</li>
-</ul>
-<p>redux三大核心：</p>
-<ul>
-<li>action： 动作对象，两个参数type，和data</li>
-<li>reducer： 用于初始化状态，加工状态</li>
-<li>store</li>
-</ul>
-<p>原理： 页面需要获取数据时，通过Action creates创建一个action动作对象，提交dispatch请求给store。store通知reducer进行匹配action的属性type。从而进行返回一个新的对象。</p>
-<h4 id="55-说说-React-性能优化的手段有哪些"><a href="#55-说说-React-性能优化的手段有哪些" class="headerlink" title="55. 说说 React 性能优化的手段有哪些"></a>55. 说说 React 性能优化的手段有哪些</h4><ul>
-<li>为避免不必要的render渲染，可以使用shouldComponentUpdate。</li>
-<li>避免使用内联函数</li>
-<li>懒加载组件</li>
-<li>服务端渲染</li>
-<li>事件绑定方式</li>
-<li>列表渲染的时候加key</li>
-<li>避免使用内联样式属性</li>
-</ul>
-<h4 id="56-vue、react、angular-区别"><a href="#56-vue、react、angular-区别" class="headerlink" title="56. vue、react、angular 区别"></a>56. vue、react、angular 区别</h4><ul>
-<li>angular是基于MVC架构，vue和react都是基于虚拟dom。</li>
-<li><strong>Angular</strong>使用的是双向数据绑定，<strong>React</strong>用的是单数据流的，而<strong>Vue</strong>则支持两者。</li>
-<li>vue与angular自带的渲染指令不同。react没有渲染指令。</li>
-<li>react使用jsx语法，angular使用ts语法。</li>
-</ul>
-<h4 id="57-说说你对-TypeScript-的理解？与-JavaScript-的区别"><a href="#57-说说你对-TypeScript-的理解？与-JavaScript-的区别" class="headerlink" title="57. 说说你对 TypeScript 的理解？与 JavaScript 的区别"></a>57. 说说你对 TypeScript 的理解？与 JavaScript 的区别</h4><p>typescript是一个强类型的JavaScript超集， 支持面向对象编程的概念，如类、接口、继承、泛型等 ，可编译为纯JavaScript 。typescrit可以在任何浏览器运行。但是不能直接运行，需要一个编译器编译成javascript文件。</p>
-<p>区别：</p>
-<ul>
-<li>ts支持es6语法，js不支持es6。</li>
-<li>ts支持模块，js不支持模块。</li>
-<li>js中没有静态类型的概念。</li>
-<li>TypeScript 文件的后缀名 .ts （.ts，.tsx，.dts），JavaScript 文件是 .js</li>
-</ul>
-<h4 id="58-说说你对-TypeScript-中泛型的理解？应用场景？"><a href="#58-说说你对-TypeScript-中泛型的理解？应用场景？" class="headerlink" title="58. 说说你对 TypeScript 中泛型的理解？应用场景？"></a>58. 说说你对 TypeScript 中泛型的理解？应用场景？</h4><p>泛型是设计语言的一种风格或规范。</p>
-<p>泛型（Generics）是指在定义函数、接口或类的时候，不预先指定具体的类型，而在使用的时候再指定类型的一种特性 。</p>
-<p>泛型通过<code>&lt;&gt;</code>的形式进行表述，可以声明 ：函数，类，接口。</p>
-<h4 id="59-说说你对微信小程序的理解？优缺点？"><a href="#59-说说你对微信小程序的理解？优缺点？" class="headerlink" title="59. 说说你对微信小程序的理解？优缺点？"></a>59. 说说你对微信小程序的理解？优缺点？</h4><p>小程序是一种不需要下载安装即可使用的应用，用户扫一扫或者搜一下即可打开应用。</p>
-<p>也体现了“用完即走”的理念，用户不用关心是否安装太多应用的问题。应用将无处不在，随时可用，但又无需安装卸载。</p>
-<p>注意的是，除了微信小程序，还有百度小程序、支付宝小程序、抖音小程序，都是每个平台自己开发的，都是有针对性平台的应用程序。</p>
-<p>优点：</p>
-<ul>
-<li>随搜随用，用完即走：使得小程序可以代替许多APP，或是做APP的整体嫁接，或是作为阉割版功能的承载体</li>
-<li>流量大，易接受：小程序借助自身平台更加容易引入更多的流量</li>
-<li>安全</li>
-<li>开发门槛低</li>
-<li>降低兼容性限制</li>
-</ul>
-<p>缺点：</p>
-<ul>
-<li>用户留存：及相关数据显示，小程序的平均次日留存在13%左右，但是双周留存骤降到仅有1%</li>
-<li>体积限制：微信小程序只有2M的大小，这样导致无法开发大型一些的小程序</li>
-<li>受控微信：比起APP，尤其是安卓版的高自由度，小程序要面对很多来自微信的限制，从功能接口，甚至到类别内容，都要接受微信的管控</li>
-</ul>
-<h4 id="60-说说你对发布订阅、观察者模式的理解？区别？"><a href="#60-说说你对发布订阅、观察者模式的理解？区别？" class="headerlink" title="60. 说说你对发布订阅、观察者模式的理解？区别？"></a>60. 说说你对发布订阅、观察者模式的理解？区别？</h4><ul>
-<li>发布订阅模式三个角色：订阅者，发布者。信号中心。<ul>
-<li>我们假定，存在一个”信号中心”，某个任务执行完成，就向信号中心”发布”(publish)一个信 号，其他任务可以向信号中心”订阅”(subscribe)这个信号，从而知道什么时候自己可以开始执 行。这就叫做”发布&#x2F;订阅模式”</li>
-<li>例子： Vue 的自定义事件 ， 兄弟组件通信， 模拟 Vue 自定义事件的实现</li>
-</ul>
-</li>
-<li>观察者模式三个角色：<ul>
-<li>观察者(订阅者)–Watcher<ul>
-<li><code>update()</code>:当事件发生时，具体要做的事情</li>
-</ul>
-</li>
-<li>目标(发布者) –Dep<ul>
-<li><code>subs</code> 数组:存储所有的观察者</li>
-<li><code>addSub()</code>:添加观察者</li>
-<li><code>notify()</code>:当事件发生，调用所有观察者的 <code>update()</code> 方法</li>
-</ul>
-</li>
-<li>没有事件中心</li>
-</ul>
-</li>
-</ul>
-<p><strong>发布&#x2F;订阅模式</strong>由统一信号中心调用，因此发布者和订阅者不需要知道对方的存在</p>
-<p><strong>观察者模式</strong>是由具体目标调动，比如当事件触发，<code>Dep</code> 就会去调用观察者的方法，所以观察者模 式的订阅者与发布者之间是存在依赖的</p>
-<h4 id="61-项目做过哪些性能优化"><a href="#61-项目做过哪些性能优化" class="headerlink" title="61. 项目做过哪些性能优化"></a>61. 项目做过哪些性能优化</h4><ul>
-<li>减少 <code>HTTP</code> 请求数</li>
-<li>减少<code>DOM</code> 操作</li>
-<li>压缩css，js，图片等</li>
-<li>在外部使用js和css</li>
-<li>路由懒加载，图片懒加载</li>
-<li>减少重绘，和回流。</li>
-<li>ui框架按需加载</li>
-<li>减少 <code>DNS</code> 查询</li>
-<li>使用 <code>CDN</code></li>
-<li>避免重定向</li>
-<li>减少 <code>DOM</code> 元素数量</li>
-<li>优化 <code>CSS Sprite</code></li>
-<li>使用 <code>iconfont</code></li>
-<li>字体裁剪</li>
-<li>多域名分发划分内容到不同域名</li>
-<li>尽量减少 <code>iframe</code> 使用</li>
-<li>避免图片 <code>src</code> 为空</li>
-<li>把样式表放在<code>link</code> 中</li>
-<li>把<code>JavaScript</code>放在页面底部</li>
-</ul>
-<h4 id="62-描述浏览器的渲染过程，DOM树和渲染树的区别"><a href="#62-描述浏览器的渲染过程，DOM树和渲染树的区别" class="headerlink" title="62. 描述浏览器的渲染过程，DOM树和渲染树的区别"></a>62. 描述浏览器的渲染过程，DOM树和渲染树的区别</h4><ul>
-<li>浏览器的渲染过程：<ul>
-<li>解析<code>HTML</code>构建 <code>DOM</code>(DOM树)，并请求 <code>css/image/js</code></li>
-<li><code>CSS</code> 文件下载完成，开始构建 <code>CSSDOM</code>(<code>CSS</code>树)</li>
-<li>css树构建结束后，和 <code>DOM</code> 一起生成 <code>Render Tree</code>(渲染树)</li>
-<li>布局：计算出每个节点在屏幕中的位置</li>
-<li>显示：通过显卡把页面画到屏幕上</li>
-</ul>
-</li>
-<li>DOM树 和 渲染树 的区别：<ul>
-<li><code>DOM</code>树与<code>HTML</code>标签一一对应，包括<code>head</code>和隐藏元素</li>
-<li>渲染树不包括<code>head</code>和隐藏元素，大段文本每一行都是独立节点，每一个节点都有对应的<code>css</code>属性。</li>
-</ul>
-</li>
-</ul>
-<h4 id="63-你认为什么样的前端代码是好的"><a href="#63-你认为什么样的前端代码是好的" class="headerlink" title="63. 你认为什么样的前端代码是好的"></a>63. 你认为什么样的前端代码是好的</h4><p>完成一个项目操作尽量是低代码，代码是高内聚，低耦合的。</p>
-<p>代码维护性比较高，而且容易扩展的。遵循代码的规范。</p>
-<h4 id="64-从浏览器地址栏输入url到显示页面的步骤"><a href="#64-从浏览器地址栏输入url到显示页面的步骤" class="headerlink" title="64. 从浏览器地址栏输入url到显示页面的步骤"></a>64. 从浏览器地址栏输入url到显示页面的步骤</h4><p>1，URL解析 ：判断url格式是否正确</p>
-<p>2，DNS域名查询 ：获取域名对应的服务器IP地址</p>
-<p>3，建立TCP连接： 三次握手建立TCP连接</p>
-<p>4，发起http请求: 浏览器发送请求到目标服务器，进行逻辑操作</p>
-<p>5，响应请求和页面渲染：服务器返回一个响应请求，响应完，当页面关闭，tcp经过四次挥手断开连接</p>
-<p>6 ，页面渲染：浏览器拿到服务器响应返回的资源，解析 先对资源进行解析，比如重定向 储存cookie、解压gzip等</p>
-<p>7，解析html，构建dom树。</p>
-<p>8，解析css 生成css规则树。</p>
-<p>9，合并dom树，生成rander树</p>
-<p>10，布局rander树，绘制rander树，绘制页面像素信息</p>
-<p>11最后，浏览器把信息给gpu将各层信息合并，显示到屏幕上；</p>
-<h4 id="65-http-请求报文和响应报文的格式"><a href="#65-http-请求报文和响应报文的格式" class="headerlink" title="65. http 请求报文和响应报文的格式"></a>65. http 请求报文和响应报文的格式</h4><ul>
-<li><p>向后端服务器发出一个web资源请求，称之为客户端向服务器端发出了一个http请求。</p>
-<p>HTTP请求报文主要由请求行、请求头、请求正文3部分组成 。</p>
-</li>
-<li><p>响应就是后端服务器对该请求做了个处理，返回一些数据等等。</p>
-<p>HTTP响应报文主要由响应行、响应头、响应正文3部分组成。</p>
-</li>
-</ul>
-<h4 id="66-Token-cookie-session-区别"><a href="#66-Token-cookie-session-区别" class="headerlink" title="66. Token cookie session 区别"></a>66. Token cookie session 区别</h4><p><strong>Session</strong>会话：客户端A访问服务器，服务器存储A的数据value，把key返回给客户端A，客户端A下次带着key（<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=session&spm=1001.2101.3001.7020">session</a> ID）来访问服务器，服务器就能给出客户端A的数据。</p>
-<p><strong>Cookie</strong>：客户端A访问服务器，服务器返回cookie给客户端A，客户端A存储cookie，下次需要带着cookie访问服务器，服务器返回相应的数据。</p>
-<p><strong>Token</strong>令牌：客户端A访问服务器，服务器给了客户端token，客户端A拿着token访问服务器，服务器验证token，返回数据。</p>
-<ul>
-<li><code>cookie</code> 数据存放在浏览器上，session 数据存放在服务器上</li>
-<li><code>cookie</code> 不是很安全，别人可以分析存放在本地的cookie 并进行 cookie 欺骗 考虑到安全应当使用 session</li>
-<li><code>session</code> 会在一定时间内保存在服务器上。当访问增多，服务器性能会变差，这时应当使用cookie。</li>
-<li>单个 <code>cookie</code> 保存的数据不能超过 <code>4K</code>，很多浏览器都限制一个站点最多保存 20 个 <code>cookie</code>。session是根据服务器大小来定。</li>
-</ul>
-<p>token：</p>
-<p>token是服务器生成的一串字符串，作为客户端进行请求的一个令牌。</p>
-<p>token比较安全，cookie容易伪造，但是token不容易伪造，盗取。</p>
-<h4 id="67-CORS跨域的原理"><a href="#67-CORS跨域的原理" class="headerlink" title="67. CORS跨域的原理"></a>67. CORS跨域的原理</h4><ul>
-<li>当我们发起跨域请求时，如果是非简单请求，浏览器会帮我们自动触发预检请求，也就是 options请求，用于确认目标资源是否支持跨域。如果是简单请求，则不会触发预检，直接发出正常请求。</li>
-<li>浏览器会根据服务端响应的 header 自动处理剩余的请求，如果响应支持跨域，则继续发出正常请求，如果不支持，则在控制台显示错误。</li>
-</ul>
-<h4 id="68-什么是MVVM"><a href="#68-什么是MVVM" class="headerlink" title="68. 什么是MVVM"></a>68. 什么是MVVM</h4><p>mvvm就是modle –view –viewmodle。mvvm是一种设计思想 。</p>
-<p>modle：模型层，用于处理逻辑和服务器的交互。</p>
-<p>view：视图层，用于将数据渲染在页面上。UI视图。</p>
-<p>view-modle：视图模型层，用来连接Model和View，是Model和View之间的通信桥梁。达到数据驱动视图的效果。</p>
-<p>MVVM模式简化了界面与业务的依赖，解决了数据频繁更新。MVVM 在使用当中，利用双向绑定技术，使得 Model 变化时，ViewModel 会自动更新，而 ViewModel 变化时，View 也会自动变化。</p>
-<h4 id="69-说说你对版本管理的理解？常用的版本管理工具有哪些？"><a href="#69-说说你对版本管理的理解？常用的版本管理工具有哪些？" class="headerlink" title="69. 说说你对版本管理的理解？常用的版本管理工具有哪些？"></a>69. 说说你对版本管理的理解？常用的版本管理工具有哪些？</h4><p>简单来说： 你的修改只要提到到版本控制系统，基本都可以找回，版本控制系统就像一台时光机器，可以让你回到任何一个时间点 。</p>
-<p>三个分类：</p>
-<ul>
-<li>本地版本控制系统</li>
-<li>集中式版本控制系统 优点：适合多人团队协作开发，代码集中管理。 缺点：必须联网，无法单机工作。<ul>
-<li>SVN</li>
-<li>CVS</li>
-</ul>
-</li>
-<li>分布式版本控制系统 优点：适合多人团队协作开发，代码集中管理。可离线工作。<ul>
-<li>Git 一般公司都是使用git和gitlab自己搭建版本控制环境。比较安全。</li>
-<li>HG</li>
-</ul>
-</li>
-</ul>
-<h4 id="70-说说你对Git的理解？"><a href="#70-说说你对Git的理解？" class="headerlink" title="70. 说说你对Git的理解？"></a>70. 说说你对Git的理解？</h4><p>git是目前世界上最先进的分布式版本控制系统，快速高效的处理小型到大型项目的事务。</p>
-<p>当我们通过<code>git init</code>创建或者<code>git clone</code>一个项目的时候，项目目录会隐藏一个<code>.git</code>子目录，其作用是用来跟踪管理版本库的 。</p>
-<p>特性：易于学习，占用内存小，具有闪电般快速的性能。</p>
-<p>使用<code>Git</code>和<code>Gitlab</code>搭建版本控制环境是现在互联网公司最流行的版本控制方式。</p>
-<h4 id="71-说说Git常用的命令有哪些"><a href="#71-说说Git常用的命令有哪些" class="headerlink" title="71. 说说Git常用的命令有哪些"></a>71. 说说Git常用的命令有哪些</h4><ul>
-<li>git add . ：提交暂存区</li>
-<li>git status： 查看当前分支状态</li>
-<li>git commit -m ‘’ ：提交本地库</li>
-<li>git pull 更新或合并</li>
-<li>git push -u origin master 提交到远程仓库</li>
-</ul>
-<h4 id="72-说说-git-发生冲突的场景？如何解决？"><a href="#72-说说-git-发生冲突的场景？如何解决？" class="headerlink" title="72. 说说 git 发生冲突的场景？如何解决？"></a>72. 说说 git 发生冲突的场景？如何解决？</h4><p>多个分支修改了同一个文件，比如在项目开发中，需要写组件了。要注册路由，然后你增加了几个路由。在你提交前，已经有人提交了并且已经修改了路由文件。这时你提交就会冲突。</p>
-<p>首先将修改过的文件add 提到暂存区，commit 提交本地库，git pull 更新合并代码。然后根据提示手动去解决冲突。</p>
-<h4 id="73-loader和plugin的区别"><a href="#73-loader和plugin的区别" class="headerlink" title="73. loader和plugin的区别"></a>73. loader和plugin的区别</h4><p>对于loader，它是一个转换器，将A文件进行编译形成B文件，这里操作的是文件，比如将A.scss转换为A.css，单纯的文件转换过程。<br>plugin是一个插件，在webpack中相当于一个扩展器。是对现有webpack功能的一个扩展。针对于loader结束后，在webpack打包过程中并不是直接进行操作的，而是遵循事件机制工作的。会监听webpack打包过程中的某些节点，执行广泛的任务。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1550,20 +637,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">18</span>
+          <span class="site-state-item-count">30</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

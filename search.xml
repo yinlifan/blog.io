@@ -1,6 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Rollup优缺点</title>
+    <url>/2019/04/03/Rollup%E4%BC%98%E7%BC%BA%E7%82%B9/</url>
+    <content><![CDATA[<h4 id="介绍一下Rollup"><a href="#介绍一下Rollup" class="headerlink" title="介绍一下Rollup"></a>介绍一下Rollup</h4><p>Rollup 是一款 ES Modules 打包器。它也可以将项目中散落的细小模块打包为整块代码，从而使得这些划分的模块可以更好地运行在浏览器环境或者 Node.js 环境。</p>
+<blockquote>
+<p>Rollup 是一款 ES Modules 打包器。它也可以将项目中散落的细小模块打包为整块代码，从而使得这些划分的模块可以更好地运行在浏览器环境或者 Node.js 环境。</p>
+</blockquote>
+<h5 id="Rollup优势："><a href="#Rollup优势：" class="headerlink" title="Rollup优势："></a><strong>Rollup优势：</strong></h5><ul>
+<li>输出结果更加扁平，执行效率更高；</li>
+<li>自动移除未引用代码；</li>
+<li>打包结果依然完全可读</li>
+</ul>
+<h5 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a><strong>缺点</strong></h5><span id="more"></span>
+<ul>
+<li>加载非 ESM 的第三方模块比较复杂；</li>
+<li>因为模块最终都被打包到全局中，所以无法实现 <code>HMR</code>；</li>
+<li>浏览器环境中，代码拆分功能必须使用 <code>Require.js</code> 这样的 <code>AMD</code> 库</li>
+</ul>
+<blockquote>
+<ul>
+<li>我们发现如果我们开发的是一个应用程序，需要大量引用第三方模块，同时还需要 HMR 提升开发体验，而且应用过大就必须要分包。那这些需求 Rollup 都无法满足。</li>
+<li>如果我们是开发一个 JavaScript 框架或者库，那这些优点就特别有必要，而缺点呢几乎也都可以忽略，所以在很多像 React 或者 Vue 之类的框架中都是使用的 Rollup 作为模块打包器，而并非 Webpack</li>
+</ul>
+</blockquote>
+<p><strong>总结一下</strong>：<code>Webpack 大而全，Rollup 小而美</code>。</p>
+<p>在对它们的选择上，我的基本原则是：<code>应用开发使用 Webpack，类库或者框架开发使用 Rollup</code>。</p>
+<p>不过这并不是绝对的标准，只是经验法则。因为 Rollup 也可用于构建绝大多数应用程序，而 Webpack 同样也可以构建类库或者框架。</p>
+<p><a href="http://zslin.xyz/2019/04/10/webpack/%E4%BB%8B%E7%BB%8DRollup/tt.png"><img src="http://zslin.xyz/2019/04/10/webpack/%E4%BB%8B%E7%BB%8DRollup/tt.png" alt="img"></a></p>
+]]></content>
+      <categories>
+        <category>Webpack</category>
+      </categories>
+      <tags>
+        <tag>Webpack</tag>
+        <tag>Rollup</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Vue3与Vue2API的区别</title>
     <url>/2021/09/02/Vue3%E4%B8%8EVue2API%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
     <content><![CDATA[<h4 id="Vue3-0-所采用的-Composition-Api-与-Vue2-x-使用的-Options-Api-有什么不同？"><a href="#Vue3-0-所采用的-Composition-Api-与-Vue2-x-使用的-Options-Api-有什么不同？" class="headerlink" title="Vue3.0 所采用的 Composition Api 与 Vue2.x 使用的 Options Api 有什么不同？"></a>Vue3.0 所采用的 Composition Api 与 Vue2.x 使用的 Options Api 有什么不同？</h4><ol>
@@ -143,6 +180,7 @@
 <li>vue3引入了treeshaking特性，将全局api进行分块。如果没有使用到某个功能，他们将不会包含在你打包后的文件中。</li>
 </ul>
 <h5 id="如何做？"><a href="#如何做？" class="headerlink" title="如何做？"></a>如何做？</h5><p>Tree shaking是基于es6的模板语法import，exports静态编辑思想确定模块依赖关系的。</p>
+<span id="more"></span>
 <ul>
 <li>treeshaking在编译阶段会判断模块的加载状态。</li>
 <li>判断未使用的相关变量，进行移除。</li>
@@ -174,174 +212,18 @@
       </tags>
   </entry>
   <entry>
-    <title>Vue3系列面试</title>
-    <url>/2021/08/19/Vue3%E7%B3%BB%E5%88%97%E9%9D%A2%E8%AF%95/</url>
-    <content><![CDATA[<h4 id="Vue3-0的设计目标是什么？做了哪些优化？"><a href="#Vue3-0的设计目标是什么？做了哪些优化？" class="headerlink" title="Vue3.0的设计目标是什么？做了哪些优化？"></a>Vue3.0的设计目标是什么？做了哪些优化？</h4><h5 id="设计目标"><a href="#设计目标" class="headerlink" title="设计目标"></a>设计目标</h5><ul>
-<li>体积更小：<ul>
-<li>vue3移除一些不常用的API，引入tree shaking，将一些无用的模块“剪辑掉”。仅打包需要的模块。使打包体积变小了。</li>
-</ul>
-</li>
-<li>更快：<ul>
-<li>diff算法优化：</li>
-<li>静态提升</li>
-<li>事件缓存机制</li>
-<li>ssr优化</li>
-</ul>
-</li>
-<li>更友好：<ul>
-<li>vue3推出了composition API，大大增加了代码的组织能力和复用能力。</li>
-</ul>
-</li>
-</ul>
-<h5 id="优化方案"><a href="#优化方案" class="headerlink" title="优化方案"></a>优化方案</h5><ul>
-<li>源码<ul>
-<li>源码管理，体积更小</li>
-<li>使用ts，提供类型检查</li>
-</ul>
-</li>
-<li>性能<ul>
-<li>体积优化</li>
-<li>编译优化</li>
-<li>数据劫持优化</li>
-</ul>
-</li>
-<li>语法API<ul>
-<li>组合式API，主要提高了代码的组织和复用能力<span id="more"></span></li>
-</ul>
-</li>
-</ul>
-<h4 id="Vue3-0性能提升主要是通过哪几方面体现的？"><a href="#Vue3-0性能提升主要是通过哪几方面体现的？" class="headerlink" title="Vue3.0性能提升主要是通过哪几方面体现的？"></a>Vue3.0性能提升主要是通过哪几方面体现的？</h4><ul>
-<li>编译阶段<ul>
-<li>diff算法优化：比vue2增加了静态标记，在发生改变的地方做一个flag标记，下次发生改变可以直接找到该地方进行比较。</li>
-<li>静态提升： vue3对不参与更新的元素，会做静态提升，只创建一次，可以复用渲染。免去重复创建节点，优化了运行时的内存。</li>
-<li>事件缓存机制</li>
-<li>SSR优化： 当内容达到一定量的时候，采用服务端渲染。</li>
-</ul>
-</li>
-<li>源码体积<ul>
-<li>相对于vue2来说体积变小了，去除一些不常用API。使用树摇（tree shaking），只打包需要的模块，打包体积变小了</li>
-</ul>
-</li>
-<li>响应式系统<ul>
-<li>vue2采用object.proerty（）劫持整个对象，深度遍历每个属性，给每个属性添加getter，setter，来实现响应式。</li>
-<li>vue3使用了vue3代理对象，可以对整个对象进行监听，不需要深度遍历。</li>
-<li>可以监听整个对象以及属性的修改和删除，可以监听数组的索引和lenght属性。</li>
-</ul>
-</li>
-</ul>
-<h4 id="Vue3-0里为什么要用-Proxy-API-替代-defineProperty-API-？"><a href="#Vue3-0里为什么要用-Proxy-API-替代-defineProperty-API-？" class="headerlink" title="Vue3.0里为什么要用 Proxy API 替代 defineProperty API ？"></a>Vue3.0里为什么要用 Proxy API 替代 defineProperty API ？</h4><ul>
-<li>defineProerty API：<ul>
-<li>检测不到对象属性的添加和删除， 提供了set，和delete方法。</li>
-<li>数组的方法 无法监听到（push，shift）</li>
-<li>需要对每个属性进行监听，如果是嵌套对象的话，需使用深度监听，可能会造成性能问题。</li>
-</ul>
-</li>
-<li>Proxy：<ul>
-<li>object.definproerty 只能遍历对象属性进行劫持，proxy直接监听整个对象。</li>
-<li>返回一个新对象，只需操作新对象就能达到目的。</li>
-<li>proxy有多达13种监听方法，不限于apply，has等，这是object.defineproerty（）不具备的</li>
-<li>可以直接监听数组的变化（push，shift，splice）</li>
-</ul>
-</li>
-</ul>
-<h4 id="Vue3-0-所采用的-Composition-Api-与-Vue2-x-使用的-Options-Api-有什么不同？"><a href="#Vue3-0-所采用的-Composition-Api-与-Vue2-x-使用的-Options-Api-有什么不同？" class="headerlink" title="Vue3.0 所采用的 Composition Api 与 Vue2.x 使用的 Options Api 有什么不同？"></a>Vue3.0 所采用的 Composition Api 与 Vue2.x 使用的 Options Api 有什么不同？</h4><ul>
-<li>Options API:<ul>
-<li>通过定义data，methods，computed等方法和属性，来共同处理页面逻辑，一个功能的实现，需要不同的位置的方法和属性，比较分散。可能会造成组件的难以理解和维护。</li>
-</ul>
-</li>
-<li>Composition API:<ul>
-<li>所有方法和功能都写在setup当中，将一个功能的所有方法，属性放在一起。（高内聚，低耦合）。根据相关逻辑来组织代码，提高代码的可读性和维护性。（当功能增多时，还可使用hook来封装出去）</li>
-<li>组合式API中见不到this的使用，减少this指向不明的问题。</li>
-<li>组合式API几乎都是函数，会有很好的类型判断。</li>
-</ul>
-</li>
-</ul>
-<h4 id="说说Vue-3-0中Treeshaking特性？举例说明一下？"><a href="#说说Vue-3-0中Treeshaking特性？举例说明一下？" class="headerlink" title="说说Vue 3.0中Treeshaking特性？举例说明一下？"></a>说说Vue 3.0中Treeshaking特性？举例说明一下？</h4><h5 id="是什么？"><a href="#是什么？" class="headerlink" title="是什么？"></a>是什么？</h5><p>Tree shaking是一种术语，在打包时不打包没有用到的模块，减小了打包体积。</p>
-<h5 id="如何做？"><a href="#如何做？" class="headerlink" title="如何做？"></a>如何做？</h5><p>Tree shaking是基于es6的 <code>import</code> 和 <code>exports</code> 静态编程思想来确定模块的依赖关系。</p>
-<ul>
-<li>tree shaking会在编译阶段判断模块的加载状态</li>
-<li>判断未使用的变量，进行移除。</li>
-</ul>
-<h5 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h5><ul>
-<li>减小打包体积</li>
-<li>减少程序打包的时间</li>
-<li>便于维护优化项目框架</li>
-</ul>
-<h4 id="用Vue3-0-写过组件吗？如果想实现一个-Modal你会怎么设计？"><a href="#用Vue3-0-写过组件吗？如果想实现一个-Modal你会怎么设计？" class="headerlink" title="用Vue3.0 写过组件吗？如果想实现一个 Modal你会怎么设计？"></a>用Vue3.0 写过组件吗？如果想实现一个 Modal你会怎么设计？</h4><p>首先要考虑，大致实现的思路，根据ui设计图，确定好主体的内容，布局样式，做的那些交互操作，删除，修改等等。定义API方法来进行开发。</p>
-]]></content>
-      <categories>
-        <category>前端面试</category>
-      </categories>
-      <tags>
-        <tag>Vue3</tag>
-        <tag>Vue</tag>
-        <tag>前端面试</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Vue3设计目标及优化</title>
-    <url>/2021/09/06/Vue3%E8%AE%BE%E8%AE%A1%E7%9B%AE%E6%A0%87%E5%8F%8A%E4%BC%98%E5%8C%96/</url>
-    <content><![CDATA[<h4 id="vue3-0的设计目标是什么？做了那些优化？"><a href="#vue3-0的设计目标是什么？做了那些优化？" class="headerlink" title="vue3.0的设计目标是什么？做了那些优化？"></a>vue3.0的设计目标是什么？做了那些优化？</h4><hr>
-<p>设计目标：</p>
-<ul>
-<li><p>打包体积更小： vue3移除一些不常用的API，将无用的模块“剪辑”掉，仅打包需要的，使打包体积更小了。</p>
-</li>
-<li><p>速度更快： diff算法优化，静态提升。</p>
-</li>
-<li><p>更灵活的代码组织能力： 推出composition API，大大增加了代码的逻辑组织能力和代码复用能力。</p>
-<span id="more"></span>
-<p>优化方案：</p>
-</li>
-<li><p>源码</p>
-<ul>
-<li>使用ts语法，源码的优化。</li>
-</ul>
-</li>
-<li><p>性能</p>
-<ul>
-<li>体积，编译，数据劫持优化。</li>
-</ul>
-</li>
-<li><p>语法 API</p>
-<ul>
-<li><p>组合式API，根据相关逻辑组织代码。</p>
-<p><a href="http://zslin.xyz/2021/06/06/vue3/vue3-0%E7%9A%84%E8%AE%BE%E8%AE%A1%E5%8F%8A%E4%BC%98%E5%8C%96/tt.png"><img src="http://zslin.xyz/2021/06/06/vue3/vue3-0%E7%9A%84%E8%AE%BE%E8%AE%A1%E5%8F%8A%E4%BC%98%E5%8C%96/tt.png" alt="img"></a></p>
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献:"></a>参考文献:</h4><hr>
-<blockquote>
-<ul>
-<li><a href="https://juejin.cn/post/6850418112878575629#heading-5">https://juejin.cn/post/6850418112878575629#heading-5</a></li>
-</ul>
-</blockquote>
-<blockquote>
-<ul>
-<li><a href="https://vue3js.cn/docs/zh">https://vue3js.cn/docs/zh</a></li>
-</ul>
-</blockquote>
-]]></content>
-      <categories>
-        <category>Vue3</category>
-      </categories>
-      <tags>
-        <tag>Vue3</tag>
-        <tag>Vue</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Vue响应式原理</title>
     <url>/2020/12/29/Vue%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/</url>
     <content><![CDATA[<p><a href="http://zslin.xyz/2019/05/27/vue2/vue2%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/15.png"><img src="http://zslin.xyz/2019/05/27/vue2/vue2%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/15.png" alt="img"></a></p>
 <p>Vue2.x响应式原理：</p>
 <p>vue创建一个实例时，首先会遍历data属性。采用数据劫持结合发布者订阅者的方式。使用es5的object.defindeproperty 方法将他们转化成getter，setter，并在内部追踪相关依赖。在属性被访问和修改时通知变化。也就是observer使用object.defindproerty来监听数据的读写。读取数据时，调用get方法通知dep去收集订阅者（watcher）。添加到道dep的一个属性subs数理。 dep有很多属性，其中就有一个subsadd添加订阅者的方法。修改1数据时，调用set方法，通知dep数据发生了改变。使用dep.notify方法遍历subs数组里面的每个watcher。调用watcher的update（）方法。创建出一个新的dom树，与原来旧的dom树作对比，根据差异性，从而更新视图。</p>
+<span id="more"></span>
 <p><a href="http://zslin.xyz/2019/05/27/vue2/vue2%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/vue.jpeg"><img src="http://zslin.xyz/2019/05/27/vue2/vue2%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/vue.jpeg" alt="img"></a></p>
-<p>**Object.defineProperty()**，那么它的用法是什么，以及优缺点是什么呢？</p>
+<p>***Object.defineProperty()***，那么它的用法是什么，以及优缺点是什么呢？</p>
 <ul>
 <li>可以检测对象中数据发生的修改</li>
 <li>对于复杂的对象，层级很深的话，是不友好的，需要经行深度监听，这样子就需要递归到底，这也是它的缺点。</li>
-<li>对于一个对象中，如果你新增加属性，删除属性，**Object.defineProperty()**是不能观测到的，那么应该如何解决呢？可以通过<code>Vue.set()</code>和<code>Vue.delete()</code>来实现。</li>
+<li>对于一个对象中，如果你新增加属性，删除属性，***Object.defineProperty()***是不能观测到的，那么应该如何解决呢？可以通过<code>Vue.set()</code>和<code>Vue.delete()</code>来实现。</li>
 </ul>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 模拟 Vue 中的 data 选项 </span></span><br><span class="line"><span class="keyword">let</span> data = &#123;</span><br><span class="line">    <span class="attr">msg</span>: <span class="string">&#x27;hello&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 模拟 Vue 的实例 </span></span><br><span class="line"><span class="keyword">let</span> vm = &#123;&#125;</span><br><span class="line"><span class="comment">// 数据劫持:当访问或者设置 vm 中的成员的时候，做一些干预操作</span></span><br><span class="line"><span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(vm, <span class="string">&#x27;msg&#x27;</span>, &#123;</span><br><span class="line">  <span class="comment">// 可枚举(可遍历)</span></span><br><span class="line">  <span class="attr">enumerable</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="comment">// 可配置(可以使用 delete 删除，可以通过 defineProperty 重新定义) </span></span><br><span class="line">  <span class="attr">configurable</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="comment">// 当获取值的时候执行 </span></span><br><span class="line">  get () &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;get: &#x27;</span>, data.<span class="property">msg</span>)</span><br><span class="line">    <span class="keyword">return</span> data.<span class="property">msg</span> </span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// 当设置值的时候执行 </span></span><br><span class="line">  set (newValue) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;set: &#x27;</span>, newValue) </span><br><span class="line">    <span class="keyword">if</span> (newValue === data.<span class="property">msg</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    data.<span class="property">msg</span> = newValue</span><br><span class="line">    <span class="comment">// 数据更改，更新 DOM 的值 </span></span><br><span class="line">    <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;#app&#x27;</span>).<span class="property">textContent</span> = data.<span class="property">msg</span></span><br><span class="line">  &#125; </span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 测试</span></span><br><span class="line">vm.<span class="property">msg</span> = <span class="string">&#x27;Hello World&#x27;</span> </span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(vm.<span class="property">msg</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
@@ -476,24 +358,341 @@
       </tags>
   </entry>
   <entry>
-    <title>Vue路由原理</title>
-    <url>/2019/11/12/Vue%E8%B7%AF%E7%94%B1%E5%8E%9F%E7%90%86/</url>
-    <content><![CDATA[<h4 id="vue路由原理"><a href="#vue路由原理" class="headerlink" title="vue路由原理"></a>vue路由原理</h4><ul>
-<li>hash模式：浏ener器中符号<code>#</code>，后面的字符称之为<code>hash</code>。<ul>
-<li>其中对象中的<code>location.hash</code>储存的是路由的地址，可以赋值改变其URL的地址。而这会触发<code>hashchange</code>事件，通过<code>window.addEventListn</code>监听hash值然后去匹配对应的路由，从而渲染页面的组件。</li>
-</ul>
-</li>
-<li>history：<ul>
-<li>history采用HTML5的新特性，通过<code>pushState</code>和<code>replaceState</code>两个方法来实现url的变化。可以通过<code>popstagte</code>事件监听url的变化，从而对页面进行跳转（渲染）</li>
-</ul>
-</li>
-</ul>
+    <title>ES5,ES6和ES2015</title>
+    <url>/2019/02/20/ES5-ES6%E5%92%8CES2015/</url>
+    <content><![CDATA[<h4 id="ES5，ES6和ES2015有什么区别？"><a href="#ES5，ES6和ES2015有什么区别？" class="headerlink" title="ES5，ES6和ES2015有什么区别？"></a>ES5，ES6和ES2015有什么区别？</h4><p>Es2015是指2015年发布的新一代js语言标准，es6泛指下一代js语言标准，包含了es2015，es2016，es2017，es2018等。现阶段在绝大部分场景下，es2015默认等同es6。es5泛指上一代语言标准。es2015可以理解为ES5和ES6的时间分解线。</p>
+<h4 id="babel是什么，有什么作用？"><a href="#babel是什么，有什么作用？" class="headerlink" title="babel是什么，有什么作用？"></a>babel是什么，有什么作用？</h4><p>babel是一个es6的转换器，可以将es6代码转为es5代码，以便兼容那些还没支持es6的平台。</p>
 ]]></content>
       <categories>
-        <category>Vue</category>
+        <category>JavaScript</category>
       </categories>
       <tags>
-        <tag>Vue</tag>
+        <tag>ES6</tag>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Webpack中Proxy工作原理</title>
+    <url>/2019/04/12/Webpack%E4%B8%ADProxy%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/</url>
+    <content><![CDATA[<h4 id="Webpack-Proxy工作原理？为什么能解决跨域？"><a href="#Webpack-Proxy工作原理？为什么能解决跨域？" class="headerlink" title="Webpack Proxy工作原理？为什么能解决跨域？"></a>Webpack Proxy工作原理？为什么能解决跨域？</h4><h5 id="1-是什么"><a href="#1-是什么" class="headerlink" title="1. 是什么"></a><strong>1. 是什么</strong></h5><p><code>webpack proxy</code>，即<code>webpack</code>提供的代理服务</p>
+<p>基本行为就是接收客户端发送的请求后转发给其他服务器</p>
+<p>其目的是为了便于开发者在开发模式下解决跨域问题（浏览器安全策略限制）</p>
+<p>想要实现代理首先需要一个中间服务器，<code>webpack</code>中提供服务器的工具为<code>webpack-dev-server</code></p>
+<h5 id="2-webpack-dev-server"><a href="#2-webpack-dev-server" class="headerlink" title="2. webpack-dev-server"></a><strong>2. webpack-dev-server</strong></h5><span id="more"></span>
+<p><code>webpack-dev-server</code>是 <code>webpack</code> 官方推出的一款开发工具，将自动编译和自动刷新浏览器等一系列对开发友好的功能全部集成在了一起</p>
+<p>目的是为了提高开发者日常的开发效率，「只适用在开发阶段」</p>
+<p>关于配置方面，在<code>webpack</code>配置对象属性中通过<code>devServer</code>属性提供，如下：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// ./webpack.config.js</span></span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    <span class="attr">devServer</span>: &#123;</span><br><span class="line">        <span class="attr">contentBase</span>: path.<span class="title function_">join</span>(__dirname, <span class="string">&#x27;dist&#x27;</span>),</span><br><span class="line">        <span class="attr">compress</span>: <span class="literal">true</span>,</span><br><span class="line">        <span class="attr">port</span>: <span class="number">9000</span>,</span><br><span class="line">        <span class="attr">proxy</span>: &#123;</span><br><span class="line">            <span class="string">&#x27;/api&#x27;</span>: &#123;</span><br><span class="line">                <span class="attr">target</span>: <span class="string">&#x27;https://api.github.com&#x27;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><code>devServetr</code>里面<code>proxy</code>则是关于代理的配置，该属性为对象的形式，对象中每一个属性就是一个代理的规则匹配</p>
+<p>属性的名称是需要被代理的请求路径前缀，一般为了辨别都会设置前缀为<code>/api</code>，值为对应的代理匹配规则，对应如下：</p>
+<ul>
+<li><code>target</code>：表示的是代理到的目标地址</li>
+<li><code>pathRewrite</code>：默认情况下，我们的 <code>/api-hy</code> 也会被写入到URL中，如果希望删除，可以使用<code>pathRewrite</code></li>
+<li><code>secure</code>：默认情况下不接收转发到<code>https</code>的服务器上，如果希望支持，可以设置为<code>false</code></li>
+<li><code>changeOrigin</code>：它表示是否更新代理后请求的 <code>headers</code> 中<code>host</code>地址</li>
+</ul>
+<p><strong>2. 工作原理</strong></p>
+<blockquote>
+<p><code>proxy</code>工作原理实质上是利用<code>http-proxy-middleware</code> 这个<code>http</code>代理中间件，实现请求转发给其他服务器</p>
+</blockquote>
+<p>举个例子：</p>
+<p>在开发阶段，本地地址为<code>http://localhost:3000</code>，该浏览器发送一个前缀带有<code>/api</code>标识的请求到服务端获取数据，但响应这个请求的服务器只是将请求转发到另一台服务器中</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&#x27;express&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> proxy = <span class="built_in">require</span>(<span class="string">&#x27;http-proxy-middleware&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> app = <span class="title function_">express</span>();</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">use</span>(<span class="string">&#x27;/api&#x27;</span>, <span class="title function_">proxy</span>(&#123;<span class="attr">target</span>: <span class="string">&#x27;http://www.example.org&#x27;</span>, <span class="attr">changeOrigin</span>: <span class="literal">true</span>&#125;));</span><br><span class="line">app.<span class="title function_">listen</span>(<span class="number">3000</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// http://localhost:3000/api/foo/bar -&gt; http://www.example.org/api/foo/bar</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h5 id="3-跨域"><a href="#3-跨域" class="headerlink" title="3. 跨域"></a><strong>3. 跨域</strong></h5><blockquote>
+<p>在开发阶段， <code>webpack-dev-server</code> 会启动一个本地开发服务器，所以我们的应用在开发阶段是独立运行在 <code>localhost</code>的一个端口上，而后端服务又是运行在另外一个地址上</p>
+</blockquote>
+<p>所以在开发阶段中，由于浏览器同源策略的原因，当本地访问后端就会出现跨域请求的问题</p>
+<p>通过设置<code>webpack proxy</code>实现代理请求后，相当于浏览器与服务端中添加一个代理者</p>
+<p>当本地发送请求的时候，代理服务器响应该请求，并将请求转发到目标服务器，目标服务器响应数据后再将数据返回给代理服务器，最终再由代理服务器将数据响应给本地</p>
+<p><a href="http://zslin.xyz/2019/04/12/webpack/WebpackProxy%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86-%E8%A7%A3%E5%86%B3%E8%B7%A8%E5%9F%9F/tt.png"><img src="http://zslin.xyz/2019/04/12/webpack/WebpackProxy%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86-%E8%A7%A3%E5%86%B3%E8%B7%A8%E5%9F%9F/tt.png" alt="img"></a></p>
+<p>在代理服务器传递数据给本地浏览器的过程中，两者同源，并不存在跨域行为，这时候浏览器就能正常接收数据</p>
+<blockquote>
+<p>注意：<code>「服务器与服务器之间请求数据并不会存在跨域行为，跨域行为是浏览器安全策略限制」</code></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>Webpack</category>
+      </categories>
+      <tags>
+        <tag>Webpack</tag>
+        <tag>Proxy</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Webpack中的Loader</title>
+    <url>/2019/08/24/Webpack%E4%B8%AD%E7%9A%84Loader/</url>
+    <content><![CDATA[<h4 id="介绍webpack中的loader？"><a href="#介绍webpack中的loader？" class="headerlink" title="介绍webpack中的loader？"></a>介绍webpack中的loader？</h4><p>webpack默认情况下，只支持对js，json文件打包。像css，less，png图片啊这些类型文件，webpack需要采用相对应的loader（模块加载器）进行解析转换。</p>
+<h5 id="loader配置（module-rules）："><a href="#loader配置（module-rules）：" class="headerlink" title="loader配置（module.rules）："></a>loader配置（module.rules）：</h5><ul>
+<li>rules是一个数组的形式，因此我们可以配置多个loader。</li>
+<li>每一个loader对应一个对象形式，属性test为匹配的规则，一般情况下为正则表达式。</li>
+<li>属性use针对匹配到文件类型，调用对应的loader进行处理。</li>
+</ul>
+<h5 id="常见的loader："><a href="#常见的loader：" class="headerlink" title="常见的loader："></a>常见的loader：</h5><span id="more"></span>
+<ul>
+<li>style-loader：将css添加到dom的内联样式标签style中。</li>
+<li>css-loader： 允许css文件通过import和url,引用css文件对应的资源。</li>
+<li>sass-loader &#x2F; less-loader：css预处理器，提高了开发效率。</li>
+<li>babel-loader： 用babel将es6&#x2F;es7 代码转换成es5。</li>
+<li>file-loader： 加载文件资源，如 字体&#x2F;图片 等。</li>
+<li>url-loader：对于图片格式的模块，可以选择性的把图片转成base64格式的字符串，并打包到js中，对小体积的图片比较合适，大图片不合适。</li>
+</ul>
+<h5 id="编写原则"><a href="#编写原则" class="headerlink" title="编写原则:"></a><strong>编写原则:</strong></h5><ul>
+<li>单一原则: 每个 Loader 只做一件事；</li>
+<li>链式调用: Webpack 会按顺序链式调用每个 Loader；</li>
+<li>统一原则: 遵循 Webpack制定的设计规则和结构，输入与输出均为字符串，各个 Loader 完全独立，即插即用；</li>
+</ul>
+<h5 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h5><hr>
+<blockquote>
+<ul>
+<li><a href="https://interview2.poetries.top/docs/simply.html#_2-%E4%BB%8B%E7%BB%8D-loader">https://interview2.poetries.top/docs/simply.html#_2-%E4%BB%8B%E7%BB%8D-loader</a></li>
+</ul>
+</blockquote>
+]]></content>
+      <categories>
+        <category>Webpack</category>
+      </categories>
+      <tags>
+        <tag>Webpack</tag>
+        <tag>Loader</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Webpack中的Plugin</title>
+    <url>/2019/08/23/Webpack%E4%B8%AD%E7%9A%84Plugin/</url>
+    <content><![CDATA[<h4 id="介绍webpack中的plugin？"><a href="#介绍webpack中的plugin？" class="headerlink" title="介绍webpack中的plugin？"></a>介绍webpack中的plugin？</h4><p>plugin是插件，对于webpack本身的扩展，是一个扩展器。</p>
+<p>配置方式：写在plugins属性中传入new实例对象，他是个数组，可以写多个插件。</p>
+<ul>
+<li>UglifyJsPlugin: 压缩、混淆代码；</li>
+<li>CommonsChunkPlugin: 代码分割；</li>
+<li>ProvidePlugin: 自动加载模块；</li>
+<li>html-webpack-plugin: 加载 html 文件，并引入 css &#x2F; js 文件；</li>
+<li>extract-text-webpack-plugin &#x2F; mini-css-extract-plugin: 抽离样式，生成 css 文件； DefinePlugin: 定义全局变量；</li>
+<li>optimize-css-assets-webpack-plugin: CSS 代码去重；</li>
+<li>webpack-bundle-analyzer: 代码分析；</li>
+<li>compression-webpack-plugin: 使用 gzip 压缩 js 和 css；</li>
+<li>happypack: 使用多进程，加速代码构建；</li>
+<li>EnvironmentPlugin: 定义环境变量；</li>
+</ul>
+<h5 id="下面介绍几个常用的插件用法："><a href="#下面介绍几个常用的插件用法：" class="headerlink" title="下面介绍几个常用的插件用法："></a>下面介绍几个常用的插件用法：</h5><span id="more"></span>
+<ul>
+<li>HtmlWebpackPlugin<ul>
+<li>⾃动生成⼀个 <code>html</code> ⽂文件，并把打包生成的<code>js</code> 模块引⼊到该 <code>html</code> 中</li>
+</ul>
+</li>
+<li>clean-webpack-plugin<ul>
+<li>删除（清理）构建目录</li>
+</ul>
+</li>
+<li>mini-css-extract-plugin<ul>
+<li>提取css到一个单独文件中</li>
+</ul>
+</li>
+<li>copy-webpack-plugin<ul>
+<li>复制文件或目录到执行区域。</li>
+</ul>
+</li>
+</ul>
+<h5 id="loader和plugin的区别？"><a href="#loader和plugin的区别？" class="headerlink" title="loader和plugin的区别？"></a>loader和plugin的区别？</h5><ul>
+<li>对于loader，它是一个转换器，将A文件进行编译形成B文件，这里操作的是文件，比如将A.scss转换为A.css，单纯的文件转换过程。</li>
+<li>plugin是一个插件，在webpack中相当于一个扩展器。是对现有webpack功能的一个扩展。针对于loader结束后，在webpack打包过程中并不是直接进行操作的，而是遵循事件机制工作的。会监听webpack打包过程中的某些节点，执行广泛的任务。</li>
+</ul>
+<h5 id="一个最简单的-plugin-是这样的"><a href="#一个最简单的-plugin-是这样的" class="headerlink" title="一个最简单的 plugin 是这样的:"></a><strong>一个最简单的 plugin 是这样的:</strong></h5><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Plugin</span>&#123;</span><br><span class="line">  	<span class="comment">// 注册插件时，会调用 apply 方法</span></span><br><span class="line">  	<span class="comment">// apply 方法接收 compiler 对象</span></span><br><span class="line">  	<span class="comment">// 通过 compiler 上提供的 Api，可以对事件进行监听，执行相应的操作</span></span><br><span class="line">  	<span class="title function_">apply</span>(<span class="params">compiler</span>)&#123;</span><br><span class="line">  		<span class="comment">// compilation 是监听每次编译循环</span></span><br><span class="line">  		<span class="comment">// 每次文件变化，都会生成新的 compilation 对象并触发该事件</span></span><br><span class="line">    	compiler.<span class="title function_">plugin</span>(<span class="string">&#x27;compilation&#x27;</span>,<span class="keyword">function</span>(<span class="params">compilation</span>) &#123;&#125;)</span><br><span class="line">  	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><strong>注册插件:</strong></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// webpack.config.js</span></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">export</span> = &#123;</span><br><span class="line">	<span class="attr">plugins</span>:[</span><br><span class="line">		<span class="keyword">new</span> <span class="title class_">Plugin</span>(options),</span><br><span class="line">	]</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h5 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h5><hr>
+<blockquote>
+<ul>
+<li><a href="https://interview2.poetries.top/docs/simply.html#_3-%E4%BB%8B%E7%BB%8D-plugin">https://interview2.poetries.top/docs/simply.html#_3-%E4%BB%8B%E7%BB%8D-plugin</a></li>
+</ul>
+</blockquote>
+]]></content>
+      <categories>
+        <category>Webpack</category>
+      </categories>
+      <tags>
+        <tag>Webpack</tag>
+        <tag>Plugin</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Webpack层面的性能优化</title>
+    <url>/2019/08/19/Webpack%E5%B1%82%E9%9D%A2%E7%9A%84%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/</url>
+    <content><![CDATA[<h4 id="webpack-层面如何做性能优化"><a href="#webpack-层面如何做性能优化" class="headerlink" title="webpack 层面如何做性能优化"></a>webpack 层面如何做性能优化</h4><h5 id="优化前的准备工作"><a href="#优化前的准备工作" class="headerlink" title="优化前的准备工作"></a>优化前的准备工作</h5><p>准备基于时间的分析工具：我们需要一类插件，来帮助我们统计项目构建过程中在编译阶段的耗时情况。speed-measure-webpack-plugin 分析插件加载的时间<br>使用 webpack-bundle-analyzer 分析产物内容<br>代码优化:</p>
+<blockquote>
+<p>无用代码消除，是许多编程语言都具有的优化手段，这个过程称为 DCE (dead code elimination)，即 删除不可能执行的代码；</p>
+</blockquote>
+<p>例如我们的 UglifyJs，它就会帮我们在生产环境中删除不可能被执行的代码，例如:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> fn = <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">	<span class="comment">// 下面代码便属于 不可能执行的代码；</span></span><br><span class="line">	<span class="comment">// 通过 UglifyJs (Webpack4+ 已内置) 便会进行 DCE；</span></span><br><span class="line">	<span class="keyword">var</span> a = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">return</span> a;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+<blockquote>
+<p>摇树优化 (Tree-shaking)，这是一种形象比喻。我们把打包后的代码比喻成一棵树，这里其实表示的就是，通过工具 “摇” 我们打包后的 js 代码，将没有使用到的无用代码 “摇” 下来 (删除)。即 消除那些被 引用了但未被使用 的模块代码。</p>
+</blockquote>
+<ul>
+<li>原理: 由于是在编译时优化，因此最基本的前提就是语法的静态分析，ES6的模块机制 提供了这种可能性。不需要运行时，便可进行代码字面上的静态分析，确定相应的依赖关系。</li>
+<li>问题: 具有 副作用 的函数无法被tree-shaking<ul>
+<li>在引用一些第三方库，需要去观察其引入的代码量是不是符合预期；</li>
+<li>尽量写纯函数，减少函数的副作用；</li>
+<li>可使用 <code>webpack-deep-scope-plugin</code>，可以进行作用域分析，减少此类情况的发生，但仍需要注意；</li>
+</ul>
+</li>
+</ul>
+<p><strong>code-spliting: 代码分割技术</strong>，将代码分割成多份进行 懒加载 或 异步加载，避免打包成一份后导致体积过大，影响页面的首屏加载；</p>
+<ul>
+<li><code>Webpack</code> 中使用 <code>SplitChunksPlugin</code> 进行拆分；</li>
+<li>按 页面 拆分: 不同页面打包成不同的文件；</li>
+<li>按 功能 拆分:<ul>
+<li>将类似于播放器，计算库等大模块进行拆分后再懒加载引入；</li>
+<li>提取复用的业务代码，减少冗余代码；</li>
+</ul>
+</li>
+<li>按 文件修改频率 拆分: 将第三方库等不常修改的代码单独打包，而且不改变其文件 hash 值，能最大化运用浏览器的缓存；</li>
+</ul>
+<p><strong>scope hoisting</strong>: 作用域提升，将分散的模块划分到同一个作用域中，避免了代码的重复引入，有效减少打包后的代码体积和运行时的内存损耗；</p>
+<h5 id="编译性能优化"><a href="#编译性能优化" class="headerlink" title="编译性能优化:"></a>编译性能优化:</h5><ul>
+<li>升级至 最新 版本的 <code>webpack</code>，能有效提升编译性能；</li>
+<li>使用 <code>dev-server</code> &#x2F; 模块热替换 (<code>HMR</code>) 提升开发体验；</li>
+<li>监听文件变动 忽略 node_modules 目录能有效提高监听时的编译效率；</li>
+<li>缩小编译范围<ul>
+<li><code>modules</code>: 指定模块路径，减少递归搜索；</li>
+<li><code>mainFields</code>: 指定入口文件描述字段，减少搜索；</li>
+<li><code>noParse</code>: 避免对非模块化文件的加载；</li>
+<li><code>includes/exclude</code>: 指定搜索范围&#x2F;排除不必要的搜索范围；</li>
+<li><code>alias</code>: 缓存目录，避免重复寻址；</li>
+</ul>
+</li>
+<li>babel-loader<ul>
+<li>忽略<code>node_moudles</code>，避免编译第三方库中已经被编译过的代码</li>
+<li>使用<code>cacheDirectory</code>，可以缓存编译结果，避免多次重复编译</li>
+</ul>
+</li>
+<li>多进程并发<ul>
+<li><code>webpack-parallel-uglify-plugin</code>: 可多进程并发压缩 js 文件，提高压缩速度；</li>
+<li><code>HappyPack</code>: 多进程并发文件的 <code>Loader</code> 解析；</li>
+</ul>
+</li>
+<li>第三方库模块缓存:<ul>
+<li><code>DLLPlugin</code> 和 <code>DLLReferencePlugin</code> 可以提前进行打包并缓存，避免每次都重新编译；</li>
+</ul>
+</li>
+<li>使用分析<ul>
+<li><code>Webpack Analyse / webpack-bundle-analyzer</code> 对打包后的文件进行分析，寻找可优化的地方</li>
+<li>配置profile：true，对各个编译阶段耗时进行监控，寻找耗时最多的地方</li>
+</ul>
+</li>
+<li>source-map:<ul>
+<li>开发: <code>cheap-module-eval-source-map</code></li>
+<li>生产: <code>hidden-source-map</code>；</li>
+</ul>
+</li>
+</ul>
+<h5 id="优化webpack打包速度"><a href="#优化webpack打包速度" class="headerlink" title="优化webpack打包速度"></a>优化webpack打包速度</h5><ul>
+<li>减少文件搜索范围<ul>
+<li>比如通过别名</li>
+<li><code>loader</code> 的 <code>test</code>，<code>include &amp; exclude</code></li>
+</ul>
+</li>
+<li><code>Webpack4</code> 默认压缩并行</li>
+<li><code>Happypack</code> 并发调用</li>
+<li><code>babel</code> 也可以缓存编译</li>
+<li><code>Resolve</code> 在构建时指定查找模块文件的规则</li>
+<li>使用<code>DllPlugin</code>，不用每次都重新构建</li>
+<li><code>externals</code> 和 <code>DllPlugin</code> 解决的是同一类问题：将依赖的框架等模块从构建过程中移除。它们的区别在于</li>
+<li>在 Webpack 的配置方面，<code>externals</code> 更简单，而 <code>DllPlugin</code> 需要独立的配置文件。</li>
+<li><code>DllPlugin</code> 包含了依赖包的独立构建流程，而 <code>externals</code> 配置中不包含依赖框架的生成方式，通常使用已传入 CDN 的依赖包</li>
+<li><code>externals</code> 配置的依赖包需要单独指定依赖模块的加载方式：全局对象、CommonJS、AMD 等</li>
+<li>在引用依赖包的子模块时，<code>DllPlugin</code> 无须更改，而 <code>externals</code> 则会将子模块打入项目包中</li>
+</ul>
+<h5 id="优化打包体积"><a href="#优化打包体积" class="headerlink" title="优化打包体积"></a>优化打包体积</h5><ul>
+<li>提取第三方库或通过引用外部文件的方式引入第三方库</li>
+<li>代码压缩插件<code>UglifyJsPlugin</code></li>
+<li>服务器启用<code>gzip</code>压缩</li>
+<li>按需加载资源文件 <code>require.ensure</code></li>
+<li>优化<code>devtool</code>中的<code>source-map</code></li>
+<li>剥离<code>css</code>文件，单独打包</li>
+<li>去除不必要插件，通常就是开发环境与生产环境用同一套配置文件导致</li>
+<li><code>Tree Shaking</code> 在构建打包过程中，移除那些引入但未被使用的无效代码</li>
+<li>开启scope hosting<ul>
+<li>体积更小</li>
+<li>创建函数作用域更小</li>
+<li>代码可读性更好</li>
+</ul>
+</li>
+</ul>
+<p><a href="http://zslin.xyz/2019/04/06/webpack/webpack%E5%B1%82%E9%9D%A2%E5%A6%82%E4%BD%95%E5%81%9A%E4%BC%98%E5%8C%96/tt.png"><img src="http://zslin.xyz/2019/04/06/webpack/webpack%E5%B1%82%E9%9D%A2%E5%A6%82%E4%BD%95%E5%81%9A%E4%BC%98%E5%8C%96/tt.png" alt="img"></a></p>
+<p><a href="http://zslin.xyz/2019/04/06/webpack/webpack%E5%B1%82%E9%9D%A2%E5%A6%82%E4%BD%95%E5%81%9A%E4%BC%98%E5%8C%96/oo.png"><img src="http://zslin.xyz/2019/04/06/webpack/webpack%E5%B1%82%E9%9D%A2%E5%A6%82%E4%BD%95%E5%81%9A%E4%BC%98%E5%8C%96/oo.png" alt="img"></a></p>
+]]></content>
+      <categories>
+        <category>Webpack</category>
+      </categories>
+      <tags>
+        <tag>Webpack</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Webpack构建流程</title>
+    <url>/2019/08/20/Webpack%E6%9E%84%E5%BB%BA%E6%B5%81%E7%A8%8B/</url>
+    <content><![CDATA[<h4 id="介绍一下-webpack-的构建流程"><a href="#介绍一下-webpack-的构建流程" class="headerlink" title="介绍一下 webpack 的构建流程"></a>介绍一下 webpack 的构建流程</h4><h5 id="核心概念"><a href="#核心概念" class="headerlink" title="核心概念"></a><strong>核心概念</strong></h5><ul>
+<li><code>entry</code>：入口配置。webpack从入口开始根据模块间依赖关系递归解析和处理所有资源文件。</li>
+<li><code>output</code>：出口配置。经打包后的文件写入的位置。</li>
+<li><code>loader</code>：模块转换器。纯文件转换。因为webpack默认只认识js，json文件。</li>
+<li><code>plugin</code>：扩展插件。插件可以扩展 Webpack 的功能。</li>
+<li><code>module</code>：模块。除了js范畴内的<code>es module、commonJs、AMD</code>等，<code>css @import、url(...)</code>、图片、字体等在webpack中都被视为模块。</li>
+</ul>
+<h5 id="打包流程"><a href="#打包流程" class="headerlink" title="打包流程"></a>打包流程</h5><span id="more"></span>
+<ul>
+<li>初始化参数：从配置文件和 Shell 语句中读取并合并参数，得出最终的配置参数。</li>
+<li>开始编译：从上一步得到的参数初始化 <code>Compiler</code> 对象，加载所有配置的插件，执行对象的 <code>run</code> 方法开始执行编译。</li>
+<li>确定入口：根scope据配置中的 <code>entry</code> 找出所有的入口文件。</li>
+<li>编译模块：从入口文件出发，调用所有配置的 <code>loader</code> 对模块进行翻译，再找出该模块依赖的模块，这个步骤是递归执行的，直至所有入口依赖的模块文件都经过本步骤的处理。</li>
+<li>完成模块编译：经过第 4 步使用 loader 翻译完所有模块后，得到了每个模块被翻译后的最终内容以及它们之间的依赖关系。</li>
+<li>输出资源：根据入口和模块之间的依赖关系，组装成一个个包含多个模块的 <code>chunk</code>，再把每个 <code>chunk</code> 转换成一个单独的文件加入到输出列表，这一步是可以修改输出内容的最后机会。</li>
+<li>输出完成：在确定好输出内容后，根据配置确定输出的路径和文件名，把文件内容写入到文件系统。</li>
+</ul>
+<p><a href="http://zslin.xyz/2019/03/28/webpack/webpack%E6%9E%84%E5%BB%BA%E6%B5%81%E7%A8%8B/tt.png"><img src="http://zslin.xyz/2019/03/28/webpack/webpack%E6%9E%84%E5%BB%BA%E6%B5%81%E7%A8%8B/tt.png" alt="img"></a></p>
+<p>从配置文件中读取所需要的参数，初始化compiler对象，并且加载所有的插件，执行run方法开始编译。找到entry入口文件。调用loader对模板进行递归解析翻译。等确定每个模块的依赖关系后，将他们组装成一个个包含多个模块的chunk。确定好内容后，根据出口配置将打包后的文件写入到具体位置。</p>
+<h5 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h5><hr>
+<blockquote>
+<ul>
+<li><a href="https://interview2.poetries.top/docs/simply.html#_10-%E7%A7%BB%E5%8A%A8%E7%AB%AF%E4%BC%98%E5%8C%96">https://interview2.poetries.top/docs/simply.html#_10-%E7%A7%BB%E5%8A%A8%E7%AB%AF%E4%BC%98%E5%8C%96</a></li>
+</ul>
+</blockquote>
+]]></content>
+      <categories>
+        <category>Webpack</category>
+      </categories>
+      <tags>
+        <tag>Webpack</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Webpack热更新原理</title>
+    <url>/2019/08/15/Webpack%E7%83%AD%E6%9B%B4%E6%96%B0%E5%8E%9F%E7%90%86/</url>
+    <content><![CDATA[<p><a href="http://zslin.xyz/2019/04/04/webpack/webpack%E7%83%AD%E6%9B%B4%E6%96%B0%E5%8E%9F%E7%90%86/rr.png"><img src="http://zslin.xyz/2019/04/04/webpack/webpack%E7%83%AD%E6%9B%B4%E6%96%B0%E5%8E%9F%E7%90%86/rr.png" alt="img"></a></p>
+<h5 id="HMR-的基本流程图"><a href="#HMR-的基本流程图" class="headerlink" title="HMR 的基本流程图"></a><strong>HMR 的基本流程图</strong></h5><p><a href="http://zslin.xyz/2019/04/04/webpack/webpack%E7%83%AD%E6%9B%B4%E6%96%B0%E5%8E%9F%E7%90%86/tt.png"><img src="http://zslin.xyz/2019/04/04/webpack/webpack%E7%83%AD%E6%9B%B4%E6%96%B0%E5%8E%9F%E7%90%86/tt.png" alt="img"></a></p>
+<span id="more"></span>
+<ul>
+<li>当修改了一个或多个文件；</li>
+<li>文件系统接收更改并通知 <code>webpack</code>；</li>
+<li><code>webpack</code> 重新编译构建一个或多个模块，并通知 HMR 服务器进行更新；</li>
+<li><code>HMR Server</code> 使用 <code>webSocket</code> 通知 <code>HMR runtime</code> 需要更新，<code>HMR</code> 运行时通过 <code>HTTP</code> 请求更新 <code>jsonp</code></li>
+<li><code>HMR</code> 运行时替换更新中的模块，如果确定这些模块无法更新，则触发整个页面刷新</li>
+</ul>
+<h5 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h5><hr>
+<blockquote>
+<ul>
+<li><a href="https://interview2.poetries.top/docs/simply.html#_4-webpack-%E7%83%AD%E6%9B%B4%E6%96%B0%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86">https://interview2.poetries.top/docs/simply.html#_4-webpack-%E7%83%AD%E6%9B%B4%E6%96%B0%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86</a></li>
+</ul>
+</blockquote>
+]]></content>
+      <categories>
+        <category>Webpack</category>
+      </categories>
+      <tags>
+        <tag>Webpack</tag>
       </tags>
   </entry>
   <entry>
@@ -602,6 +801,67 @@
       </tags>
   </entry>
   <entry>
+    <title>介绍babel原理</title>
+    <url>/2019/04/10/%E4%BB%8B%E7%BB%8Dbabel%E5%8E%9F%E7%90%86/</url>
+    <content><![CDATA[<h4 id="介绍一下-webpack-scope-hosting"><a href="#介绍一下-webpack-scope-hosting" class="headerlink" title="介绍一下 webpack scope hosting"></a>介绍一下 webpack scope hosting</h4><p>作用域提升，将分散的模块划分到同一个作用域中，避免了代码的重复引入，有效减少打包后的代码体积和运行时的内存损耗；</p>
+<span id="more"></span>
+
+<h4 id="介绍一下-babel原理"><a href="#介绍一下-babel原理" class="headerlink" title="介绍一下 babel原理"></a>介绍一下 babel原理</h4><blockquote>
+<p><code>babel</code> 的编译过程分为三个阶段：<strong>parsing</strong>、<strong>transforming</strong>、<strong>generating</strong>，以 ES6 编译为 ES5 作为例子：</p>
+</blockquote>
+<ol>
+<li><code>ES6</code> 代码输入；</li>
+<li><code>babylon</code> 进行解析得到 AST；</li>
+<li><code>plugin</code> 用 <code>babel-traverse</code> 对 <code>AST</code>树进行遍历编译，得到新的 <code>AST</code>树；</li>
+<li>用 <code>babel-generator</code> 通过 <code>AST</code>树生成 <code>ES5</code> 代码。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Webpack</category>
+      </categories>
+      <tags>
+        <tag>Webpack</tag>
+        <tag>babel</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>关于tree-shaking</title>
+    <url>/2019/08/04/%E5%85%B3%E4%BA%8Etree-shaking/</url>
+    <content><![CDATA[<h4 id="介绍一下tree-shaking"><a href="#介绍一下tree-shaking" class="headerlink" title="介绍一下tree-shaking"></a>介绍一下tree-shaking</h4><h5 id="作用："><a href="#作用：" class="headerlink" title="作用："></a><strong>作用：</strong></h5><p>它表示在打包的时候会去除一些无用的代码</p>
+<h5 id="原理："><a href="#原理：" class="headerlink" title="原理："></a><strong>原理</strong>：</h5><ul>
+<li><code>ES6</code>的模块引入是静态分析的，所以在编译时能正确判断到底加载了哪些模块</li>
+<li>分析程序流，判断哪些变量未被使用、引用，进而删除此代码</li>
+</ul>
+<h5 id="特点："><a href="#特点：" class="headerlink" title="特点："></a><strong>特点：</strong></h5><ul>
+<li>在生产模式下它是默认开启的，但是由于经过<code>babel</code>编译全部模块被封装成<code>IIFE</code>，它存在副作用无法被<code>tree-shaking</code>掉</li>
+<li>可以在<code>package.json</code>中配置<code>sideEffects</code>来指定哪些文件是有副作用的。它有两种值，一个是布尔类型，如果是<code>false</code>则表示所有文件都没有副作用；如果是一个数组的话，数组里的文件路径表示改文件有副作用</li>
+<li><code>rollup</code>和<code>webpack</code>中对<code>tree-shaking</code>的层度不同，例如对<code>babel</code>转译后的<code>class</code>，如果<code>babel</code>的转译是宽松模式下的话(也就是<code>loose</code>为<code>true</code>)，<code>webpack</code>依旧会认为它有副作用不会<code>tree-shaking</code>掉，而<code>rollup</code>会。这是因为<code>rollup</code>有程序流分析的功能，可以更好的判断代码是否真正会产生副作用。</li>
+</ul>
+<h5 id="原理"><a href="#原理" class="headerlink" title="原理"></a><strong>原理</strong></h5><span id="more"></span>
+<ul>
+<li><code>ES6 Module</code> 引入进行静态分析，故而编译的时候正确判断到底加载了那些模块</li>
+<li>静态分析程序流，判断那些模块和变量未被使用或者引用，进而删除对应代码</li>
+</ul>
+<blockquote>
+<p>依赖于<code>import/export</code></p>
+</blockquote>
+<p>通过导入所有的包后再进行条件获取。如下：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> foo <span class="keyword">from</span> <span class="string">&quot;foo&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> bar <span class="keyword">from</span> <span class="string">&quot;bar&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(condition) &#123;</span><br><span class="line">    <span class="comment">// foo.xxxx</span></span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// bar.xxx</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>ES6的import语法完美可以使用tree shaking，因为可以在代码不运行的情况下就能分析出不需要的代码</p>
+</blockquote>
+<p><strong>CommonJS的动态特性模块意味着tree shaking不适用</strong>。因为它是不可能确定哪些模块实际运行之前是需要的或者是不需要的。在ES6中，进入了完全静态的导入语法：import。这也意味着下面的导入是不可行的：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 不可行，ES6 的import是完全静态的</span></span><br><span class="line"><span class="keyword">if</span>(condition) &#123;</span><br><span class="line">    myDynamicModule = <span class="built_in">require</span>(<span class="string">&quot;foo&quot;</span>);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    myDynamicModule = <span class="built_in">require</span>(<span class="string">&quot;bar&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Webpack</category>
+      </categories>
+      <tags>
+        <tag>Webpack</tag>
+        <tag>Treeshaking</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>对于mvvm的理解</title>
     <url>/2019/03/26/%E5%AF%B9%E4%BA%8Emvvm%E7%9A%84%E7%90%86%E8%A7%A3/</url>
     <content><![CDATA[<h4 id="对于mvvm的理解？"><a href="#对于mvvm的理解？" class="headerlink" title="对于mvvm的理解？"></a>对于mvvm的理解？</h4><p>mvvm就是modle-view-viewmodule。mvvm是一种设计思想。</p>
@@ -617,102 +877,6 @@
       </categories>
       <tags>
         <tag>Vue</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>浏览器渲染机制</title>
-    <url>/2019/06/06/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E6%9C%BA%E5%88%B6/</url>
-    <content><![CDATA[<h4 id="浏览器渲染机制"><a href="#浏览器渲染机制" class="headerlink" title="浏览器渲染机制"></a>浏览器渲染机制</h4><h5 id="1-渲染机制步骤步骤："><a href="#1-渲染机制步骤步骤：" class="headerlink" title="1.渲染机制步骤步骤："></a>1.渲染机制步骤步骤：</h5><ul>
-<li>处理<code>HTML</code>并构建<code>DOM</code>树</li>
-<li>处理<code>css</code>构建<code>cssdom</code>树</li>
-<li>将<code>DOM</code>与<code>cssdom</code>合并成一个渲染树</li>
-<li>根据渲染树来布局，计算每个节点的位置</li>
-<li>调用<code>GPU</code>绘制，合成图层，显示在屏幕上</li>
-</ul>
-<p><a href="http://zslin.xyz/2019/06/06/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%A8%A1%E5%9D%97/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E6%9C%BA%E5%88%B6/98.png"><img src="http://zslin.xyz/2019/06/06/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%A8%A1%E5%9D%97/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E6%9C%BA%E5%88%B6/98.png" alt="img"></a></p>
-<p>在构建cssdom树时，会阻塞渲染，直至cssdom树构建完成。并且构建cssdom树是一个十分消耗性能的过程，所以尽量保证层级扁平，减少过度层叠，越是具体的css选择器，执行速度越慢。</p>
-<p>css是阻塞渲染的资源。需要将他尽早，尽快的下载到客户端，以便缩短首次渲染的时间。</p>
-<p>当html解析到script标签时，会暂停构建dom，完成后才会从暂停的地方重新开始。也就是说，如果你想首屏渲染的越快，就越不应该在首屏就加载js文件。并且css也会影响js的执行，只有当解析完样式才会执行js，所以也可以认为这种情况下，css也会暂停构建dom。</p>
-<h5 id="2-图层"><a href="#2-图层" class="headerlink" title="2.图层"></a>2.图层</h5><blockquote>
-<p>一般来说，可以把普通文档流看成一个图层。特定的属性可以生成一个新的图层。不同的图层渲染互不影响，所以对于某些频繁需要渲染的建议单独生成一个新图层，提高性能。但也不能生成过多的图层，会引起反作用。</p>
-</blockquote>
-<p>通过以下几个常用属性可以生成新图层</p>
-<ul>
-<li><code>3D</code>变换：<code>translate3d</code>,<code>reanslatez</code></li>
-<li><code>will-change</code></li>
-<li><code>video</code>,<code>iframe</code>标签</li>
-<li>通过动画实现的<code>opacity</code>动画转换</li>
-<li><code>position：fixed</code></li>
-</ul>
-<h5 id="3-重绘与回流"><a href="#3-重绘与回流" class="headerlink" title="3.重绘与回流"></a>3.重绘与回流</h5><blockquote>
-<ul>
-<li>重绘(repaint)：当元素样式的改变不影响布局时，浏览器将使用重绘对元素进行更新，此时由于只需要UI层面的重新像素绘制，因此，损耗较少</li>
-</ul>
-</blockquote>
-<blockquote>
-<ul>
-<li>回流(reflow)：当元素的尺寸，结构或触发某些属性时，浏览器会重新渲染页面，称为回流。此时，浏览器需要重新经过计算，计算后还需要重新页面布局，因此是较重的操作。会触发回流的操作：</li>
-</ul>
-</blockquote>
-<p>触发回流和重绘的操作：</p>
-<ul>
-<li>页面初次渲染</li>
-<li>浏览器窗口大小发生改变</li>
-<li>元素尺寸，位置，内容发生改变</li>
-<li>元素字体大小变化</li>
-<li>添加或者删除可见的dom元素</li>
-<li>激活css伪类（列如：hover）</li>
-<li>查询某些属性或调用某些方法<ul>
-<li><code>clientWidth、clientHeight、clientTop、clientLeft</code></li>
-<li>&#96;&#96;offsetWidth、offsetHeight、offsetTop、offsetLeft&#96;</li>
-<li><code>scrollWidth、scrollHeight、scrollTop、scrollLeft</code></li>
-<li>&#96;&#96;getComputedStyle()&#96;</li>
-<li><code>getBoundingClientRect()</code></li>
-<li><code>scrollTo()</code></li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<p>回流必定触发重绘，重绘不不一定触发回流。重绘的开销小，回流的代价高。</p>
-</blockquote>
-<p>避免回流的优化：</p>
-<ul>
-<li>css层面：<ul>
-<li>不要使用css表达式</li>
-<li>避免table布局</li>
-<li>避免多层嵌套样式</li>
-</ul>
-</li>
-<li>js层面：<ul>
-<li>避免频繁操作DOM，可以创建一个documentFragment文档流片段，在它上面应用所有dom操作，最后再把它添加到文档中。</li>
-<li>避免频繁操作样式</li>
-<li>可以先为元素设置不可见：<code>display：none</code>，操作结束后在显示出来。</li>
-</ul>
-</li>
-</ul>
-<h5 id="4-javascript会阻塞dom生成"><a href="#4-javascript会阻塞dom生成" class="headerlink" title="4.javascript会阻塞dom生成"></a>4.javascript会阻塞dom生成</h5><blockquote>
-<p>javascript 会阻塞dom生成，而样式文件又会阻塞javascriot执行，所以在实际的工程中需要重点关注javascript文件和样式表文件，使用不当会影响页面性能的</p>
-</blockquote>
-<blockquote>
-<p>当渲染进程接收html文件字节流时，会先开启一个与解析线程，如果遇到javascipt文件或者css文件，那么与解析线程会提前下载这些数据</p>
-</blockquote>
-<ul>
-<li>如果代码里引用了外部的css文件，那么在执行javascript之前，还需要等待外部的css文件下载完成，并解析生成cssdom对象之后，才能执行javascript脚本。</li>
-<li>而javascript引擎在解析javascript之前，是不知道javascript是否操作了cssdom的，所以渲染引擎在遇到javascript脚本时，不管脚本是否操作了cssdom，都会执行css文件下载，解析操作，在执行javascript脚本。</li>
-<li>不管css文件和javascript文件谁先到达，都要等到css文件下载完成并生成cssdom，然后在执行javascript脚本，最后再继续构建dom，构建布局树，绘制页面。</li>
-</ul>
-<h5 id="5-缩短白屏时长的策略"><a href="#5-缩短白屏时长的策略" class="headerlink" title="5.缩短白屏时长的策略"></a>5.缩短白屏时长的策略</h5><ul>
-<li>通过内联 JavaScript、内联 CSS 来移除这两种类型的文件下载，这样获取到 HTML 文件之后就可以直接开始渲染流程了。</li>
-<li>但并不是所有的场合都适合内联，那么还可以尽量减少文件大小，比如通过 webpack 等工具移除一些不必要的注释，并压缩 JavaScript 文件。</li>
-<li>还可以将一些不需要在解析 HTML 阶段使用的 JavaScript 标记上 sync 或者 defer</li>
-<li>对于大的 CSS 文件，可以通过媒体查询属性，将其拆分为多个不同用途的 CSS 文件，这样只有在特定的场景下才会加载特定的 CSS 文件。</li>
-</ul>
-]]></content>
-      <categories>
-        <category>浏览器</category>
-      </categories>
-      <tags>
-        <tag>浏览器</tag>
       </tags>
   </entry>
   <entry>
@@ -768,6 +932,103 @@
       </tags>
   </entry>
   <entry>
+    <title>浏览器渲染机制</title>
+    <url>/2019/06/06/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E6%9C%BA%E5%88%B6/</url>
+    <content><![CDATA[<h4 id="浏览器渲染机制"><a href="#浏览器渲染机制" class="headerlink" title="浏览器渲染机制"></a>浏览器渲染机制</h4><h5 id="1-渲染机制步骤步骤："><a href="#1-渲染机制步骤步骤：" class="headerlink" title="1.渲染机制步骤步骤："></a>1.渲染机制步骤步骤：</h5><ul>
+<li>处理<code>HTML</code>并构建<code>DOM</code>树</li>
+<li>处理<code>css</code>构建<code>cssdom</code>树</li>
+<li>将<code>DOM</code>与<code>cssdom</code>合并成一个渲染树</li>
+<li>根据渲染树来布局，计算每个节点的位置</li>
+<li>调用<code>GPU</code>绘制，合成图层，显示在屏幕上</li>
+</ul>
+<p><a href="http://zslin.xyz/2019/06/06/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%A8%A1%E5%9D%97/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E6%9C%BA%E5%88%B6/98.png"><img src="http://zslin.xyz/2019/06/06/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%A8%A1%E5%9D%97/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E6%9C%BA%E5%88%B6/98.png" alt="img"></a></p>
+<p>在构建cssdom树时，会阻塞渲染，直至cssdom树构建完成。并且构建cssdom树是一个十分消耗性能的过程，所以尽量保证层级扁平，减少过度层叠，越是具体的css选择器，执行速度越慢。</p>
+<p>css是阻塞渲染的资源。需要将他尽早，尽快的下载到客户端，以便缩短首次渲染的时间。</p>
+<p>当html解析到script标签时，会暂停构建dom，完成后才会从暂停的地方重新开始。也就是说，如果你想首屏渲染的越快，就越不应该在首屏就加载js文件。并且css也会影响js的执行，只有当解析完样式才会执行js，所以也可以认为这种情况下，css也会暂停构建dom。</p>
+<span id="more"></span>
+<h5 id="2-图层"><a href="#2-图层" class="headerlink" title="2.图层"></a>2.图层</h5><blockquote>
+<p>一般来说，可以把普通文档流看成一个图层。特定的属性可以生成一个新的图层。不同的图层渲染互不影响，所以对于某些频繁需要渲染的建议单独生成一个新图层，提高性能。但也不能生成过多的图层，会引起反作用。</p>
+</blockquote>
+<p>通过以下几个常用属性可以生成新图层</p>
+<ul>
+<li><code>3D</code>变换：<code>translate3d</code>,<code>reanslatez</code></li>
+<li><code>will-change</code></li>
+<li><code>video</code>,<code>iframe</code>标签</li>
+<li>通过动画实现的<code>opacity</code>动画转换</li>
+<li><code>position：fixed</code></li>
+</ul>
+<h5 id="3-重绘与回流"><a href="#3-重绘与回流" class="headerlink" title="3.重绘与回流"></a>3.重绘与回流</h5><blockquote>
+<ul>
+<li>重绘(repaint)：当元素样式的改变不影响布局时，浏览器将使用重绘对元素进行更新，此时由于只需要UI层面的重新像素绘制，因此，损耗较少</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>回流(reflow)：当元素的尺寸，结构或触发某些属性时，浏览器会重新渲染页面，称为回流。此时，浏览器需要重新经过计算，计算后还需要重新页面布局，因此是较重的操作。会触发回流的操作：</li>
+</ul>
+</blockquote>
+<p>触发回流和重绘的操作：</p>
+<ul>
+<li>页面初次渲染</li>
+<li>浏览器窗口大小发生改变</li>
+<li>元素尺寸，位置，内容发生改变</li>
+<li>元素字体大小变化</li>
+<li>添加或者删除可见的dom元素</li>
+<li>激活css伪类（列如：hover）</li>
+<li>查询某些属性或调用某些方法<ul>
+<li><code>clientWidth、clientHeight、clientTop、clientLeft</code></li>
+<li><code>offsetWidth、offsetHeight、offsetTop、offsetLeft</code></li>
+<li><code>scrollWidth、scrollHeight、scrollTop、scrollLeft</code></li>
+<li><code>getComputedStyle()</code></li>
+<li><code>getBoundingClientRect()</code></li>
+<li><code>scrollTo()</code></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>回流必定触发重绘，重绘不不一定触发回流。重绘的开销小，回流的代价高。</p>
+</blockquote>
+<p>避免回流的优化：</p>
+<ul>
+<li>css层面：<ul>
+<li>不要使用css表达式</li>
+<li>避免table布局</li>
+<li>避免多层嵌套样式</li>
+</ul>
+</li>
+<li>js层面：<ul>
+<li>避免频繁操作DOM，可以创建一个documentFragment文档流片段，在它上面应用所有dom操作，最后再把它添加到文档中。</li>
+<li>避免频繁操作样式</li>
+<li>可以先为元素设置不可见：<code>display：none</code>，操作结束后在显示出来。</li>
+</ul>
+</li>
+</ul>
+<h5 id="4-javascript会阻塞dom生成"><a href="#4-javascript会阻塞dom生成" class="headerlink" title="4.javascript会阻塞dom生成"></a>4.javascript会阻塞dom生成</h5><blockquote>
+<p>javascript 会阻塞dom生成，而样式文件又会阻塞javascriot执行，所以在实际的工程中需要重点关注javascript文件和样式表文件，使用不当会影响页面性能的</p>
+</blockquote>
+<blockquote>
+<p>当渲染进程接收html文件字节流时，会先开启一个与解析线程，如果遇到javascipt文件或者css文件，那么与解析线程会提前下载这些数据</p>
+</blockquote>
+<ul>
+<li>如果代码里引用了外部的css文件，那么在执行javascript之前，还需要等待外部的css文件下载完成，并解析生成cssdom对象之后，才能执行javascript脚本。</li>
+<li>而javascript引擎在解析javascript之前，是不知道javascript是否操作了cssdom的，所以渲染引擎在遇到javascript脚本时，不管脚本是否操作了cssdom，都会执行css文件下载，解析操作，在执行javascript脚本。</li>
+<li>不管css文件和javascript文件谁先到达，都要等到css文件下载完成并生成cssdom，然后在执行javascript脚本，最后再继续构建dom，构建布局树，绘制页面。</li>
+</ul>
+<h5 id="5-缩短白屏时长的策略"><a href="#5-缩短白屏时长的策略" class="headerlink" title="5.缩短白屏时长的策略"></a>5.缩短白屏时长的策略</h5><ul>
+<li>通过内联 JavaScript、内联 CSS 来移除这两种类型的文件下载，这样获取到 HTML 文件之后就可以直接开始渲染流程了。</li>
+<li>但并不是所有的场合都适合内联，那么还可以尽量减少文件大小，比如通过 webpack 等工具移除一些不必要的注释，并压缩 JavaScript 文件。</li>
+<li>还可以将一些不需要在解析 HTML 阶段使用的 JavaScript 标记上 sync 或者 defer</li>
+<li>对于大的 CSS 文件，可以通过媒体查询属性，将其拆分为多个不同用途的 CSS 文件，这样只有在特定的场景下才会加载特定的 CSS 文件。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>浏览器</category>
+      </categories>
+      <tags>
+        <tag>浏览器</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>浏览器的夸标签页通讯</title>
     <url>/2019/06/02/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E5%A4%B8%E6%A0%87%E7%AD%BE%E9%A1%B5%E9%80%9A%E8%AE%AF/</url>
     <content><![CDATA[<h4 id="1-跨标签页通讯"><a href="#1-跨标签页通讯" class="headerlink" title="1.跨标签页通讯"></a>1.跨标签页通讯</h4><blockquote>
@@ -817,9 +1078,61 @@
       </tags>
   </entry>
   <entry>
+    <title>Vue3设计目标及优化</title>
+    <url>/2021/09/06/Vue3%E8%AE%BE%E8%AE%A1%E7%9B%AE%E6%A0%87%E5%8F%8A%E4%BC%98%E5%8C%96/</url>
+    <content><![CDATA[<h4 id="vue3-0的设计目标是什么？做了那些优化？"><a href="#vue3-0的设计目标是什么？做了那些优化？" class="headerlink" title="vue3.0的设计目标是什么？做了那些优化？"></a>vue3.0的设计目标是什么？做了那些优化？</h4><hr>
+<p>设计目标：</p>
+<ul>
+<li>打包体积更小： vue3移除一些不常用的API，将无用的模块“剪辑”掉，仅打包需要的，使打包体积更小了。</li>
+<li>速度更快： diff算法优化，静态提升。</li>
+<li>更灵活的代码组织能力： 推出composition API，大大增加了代码的逻辑组织能力和代码复用能力。</li>
+</ul>
+<p>优化方案：</p>
+<span id="more"></span>
+<ul>
+<li><p>源码</p>
+<ul>
+<li>使用ts语法，源码的优化。</li>
+</ul>
+</li>
+<li><p>性能</p>
+<ul>
+<li>体积，编译，数据劫持优化。</li>
+</ul>
+</li>
+<li><p>语法 API</p>
+<ul>
+<li><p>组合式API，根据相关逻辑组织代码。</p>
+<p><a href="http://zslin.xyz/2021/06/06/vue3/vue3-0%E7%9A%84%E8%AE%BE%E8%AE%A1%E5%8F%8A%E4%BC%98%E5%8C%96/tt.png"><img src="http://zslin.xyz/2021/06/06/vue3/vue3-0%E7%9A%84%E8%AE%BE%E8%AE%A1%E5%8F%8A%E4%BC%98%E5%8C%96/tt.png" alt="img"></a></p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献:"></a>参考文献:</h4><hr>
+<blockquote>
+<ul>
+<li><a href="https://juejin.cn/post/6850418112878575629#heading-5">https://juejin.cn/post/6850418112878575629#heading-5</a></li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li><a href="https://vue3js.cn/docs/zh">https://vue3js.cn/docs/zh</a></li>
+</ul>
+</blockquote>
+]]></content>
+      <categories>
+        <category>Vue3</category>
+      </categories>
+      <tags>
+        <tag>Vue3</tag>
+        <tag>Vue</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>页面布局</title>
     <url>/2019/07/03/%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/</url>
     <content><![CDATA[<h2 id="页面布局"><a href="#页面布局" class="headerlink" title="页面布局"></a>页面布局</h2><h4 id="通栏布局："><a href="#通栏布局：" class="headerlink" title="通栏布局："></a>通栏布局：</h4><p>浏览器左侧固定，右侧自适应。<br>1.flex布局，左侧固定宽，右侧flex：1<br>2.两个盒子分别左浮右浮，右侧盒子减去左侧盒子的宽 100% - 宽<br>3.左侧盒子左浮动，右侧盒子设置 margin-left：左侧盒子的宽</p>
+<span id="more"></span>
 <figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">		<span class="selector-class">.box</span> &#123;</span></span><br><span class="line"><span class="language-css">			<span class="attribute">display</span>: flex;</span></span><br><span class="line"><span class="language-css">		&#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">		<span class="selector-class">.left</span> &#123;</span></span><br><span class="line"><span class="language-css">			<span class="attribute">width</span>: <span class="number">200px</span>;</span></span><br><span class="line"><span class="language-css">			<span class="attribute">background-color</span>: red;</span></span><br><span class="line"><span class="language-css">		&#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">		<span class="selector-class">.right</span> &#123;</span></span><br><span class="line"><span class="language-css">			<span class="attribute">flex</span>: <span class="number">1</span>;</span></span><br><span class="line"><span class="language-css">			<span class="attribute">background-color</span>: green;</span></span><br><span class="line"><span class="language-css">		&#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="comment">/* 方案2 </span></span></span><br><span class="line"><span class="comment"><span class="language-css">        .left &#123;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">            width: 120px;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">            float: left;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">        &#125;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">        .right &#123;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">            margin-left: 120px;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">        &#125; */</span></span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="comment">/* 方案3 </span></span></span><br><span class="line"><span class="comment"><span class="language-css">        .left &#123;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">            width: 120px;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">            float: left;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">        &#125;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">        .right &#123;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">            width: calc(100% - 120px);</span></span></span><br><span class="line"><span class="comment"><span class="language-css">            float: left;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">        &#125; */</span></span></span><br><span class="line"><span class="language-css">	</span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;left&quot;</span>&gt;</span>左侧<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;right&quot;</span>&gt;</span>右侧<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <h4 id="圣杯布局："><a href="#圣杯布局：" class="headerlink" title="圣杯布局："></a>圣杯布局：</h4><p>左右两侧固定，中间自适应。<br>1.使用浮动和定位实现。<br>2.左右盒子加float分别左浮，右浮，中间盒子百分比减去俩盒子的宽。<br>3.flex布局，左右给固定宽，中间给flex：1 。</p>
@@ -832,6 +1145,281 @@
       </categories>
       <tags>
         <tag>css</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Vue3系列面试</title>
+    <url>/2021/08/19/Vue3%E7%B3%BB%E5%88%97%E9%9D%A2%E8%AF%95/</url>
+    <content><![CDATA[<h4 id="Vue3-0的设计目标是什么？做了哪些优化？"><a href="#Vue3-0的设计目标是什么？做了哪些优化？" class="headerlink" title="Vue3.0的设计目标是什么？做了哪些优化？"></a>Vue3.0的设计目标是什么？做了哪些优化？</h4><h5 id="设计目标"><a href="#设计目标" class="headerlink" title="设计目标"></a>设计目标</h5><ul>
+<li>体积更小：<ul>
+<li>vue3移除一些不常用的API，引入tree shaking，将一些无用的模块“剪辑掉”。仅打包需要的模块。使打包体积变小了。</li>
+</ul>
+</li>
+<li>更快：<ul>
+<li>diff算法优化：</li>
+<li>静态提升</li>
+<li>事件缓存机制</li>
+<li>ssr优化</li>
+</ul>
+</li>
+<li>更友好：<ul>
+<li>vue3推出了composition API，大大增加了代码的组织能力和复用能力。</li>
+</ul>
+</li>
+</ul>
+<h5 id="优化方案"><a href="#优化方案" class="headerlink" title="优化方案"></a>优化方案</h5><span id="more"></span>
+<ul>
+<li>源码<ul>
+<li>源码管理，体积更小</li>
+<li>使用ts，提供类型检查</li>
+</ul>
+</li>
+<li>性能<ul>
+<li>体积优化</li>
+<li>编译优化</li>
+<li>数据劫持优化</li>
+</ul>
+</li>
+<li>语法API<ul>
+<li>组合式API，主要提高了代码的组织和复用能力</li>
+</ul>
+</li>
+</ul>
+<h4 id="Vue3-0性能提升主要是通过哪几方面体现的？"><a href="#Vue3-0性能提升主要是通过哪几方面体现的？" class="headerlink" title="Vue3.0性能提升主要是通过哪几方面体现的？"></a>Vue3.0性能提升主要是通过哪几方面体现的？</h4><ul>
+<li>编译阶段<ul>
+<li>diff算法优化：比vue2增加了静态标记，在发生改变的地方做一个flag标记，下次发生改变可以直接找到该地方进行比较。</li>
+<li>静态提升： vue3对不参与更新的元素，会做静态提升，只创建一次，可以复用渲染。免去重复创建节点，优化了运行时的内存。</li>
+<li>事件缓存机制</li>
+<li>SSR优化： 当内容达到一定量的时候，采用服务端渲染。</li>
+</ul>
+</li>
+<li>源码体积<ul>
+<li>相对于vue2来说体积变小了，去除一些不常用API。使用树摇（tree shaking），只打包需要的模块，打包体积变小了</li>
+</ul>
+</li>
+<li>响应式系统<ul>
+<li>vue2采用object.proerty（）劫持整个对象，深度遍历每个属性，给每个属性添加getter，setter，来实现响应式。</li>
+<li>vue3使用了vue3代理对象，可以对整个对象进行监听，不需要深度遍历。</li>
+<li>可以监听整个对象以及属性的修改和删除，可以监听数组的索引和lenght属性。</li>
+</ul>
+</li>
+</ul>
+<h4 id="Vue3-0里为什么要用-Proxy-API-替代-defineProperty-API-？"><a href="#Vue3-0里为什么要用-Proxy-API-替代-defineProperty-API-？" class="headerlink" title="Vue3.0里为什么要用 Proxy API 替代 defineProperty API ？"></a>Vue3.0里为什么要用 Proxy API 替代 defineProperty API ？</h4><ul>
+<li>defineProerty API：<ul>
+<li>检测不到对象属性的添加和删除， 提供了set，和delete方法。</li>
+<li>数组的方法 无法监听到（push，shift）</li>
+<li>需要对每个属性进行监听，如果是嵌套对象的话，需使用深度监听，可能会造成性能问题。</li>
+</ul>
+</li>
+<li>Proxy：<ul>
+<li>object.definproerty 只能遍历对象属性进行劫持，proxy直接监听整个对象。</li>
+<li>返回一个新对象，只需操作新对象就能达到目的。</li>
+<li>proxy有多达13种监听方法，不限于apply，has等，这是object.defineproerty（）不具备的</li>
+<li>可以直接监听数组的变化（push，shift，splice）</li>
+</ul>
+</li>
+</ul>
+<h4 id="Vue3-0-所采用的-Composition-Api-与-Vue2-x-使用的-Options-Api-有什么不同？"><a href="#Vue3-0-所采用的-Composition-Api-与-Vue2-x-使用的-Options-Api-有什么不同？" class="headerlink" title="Vue3.0 所采用的 Composition Api 与 Vue2.x 使用的 Options Api 有什么不同？"></a>Vue3.0 所采用的 Composition Api 与 Vue2.x 使用的 Options Api 有什么不同？</h4><ul>
+<li>Options API:<ul>
+<li>通过定义data，methods，computed等方法和属性，来共同处理页面逻辑，一个功能的实现，需要不同的位置的方法和属性，比较分散。可能会造成组件的难以理解和维护。</li>
+</ul>
+</li>
+<li>Composition API:<ul>
+<li>所有方法和功能都写在setup当中，将一个功能的所有方法，属性放在一起。（高内聚，低耦合）。根据相关逻辑来组织代码，提高代码的可读性和维护性。（当功能增多时，还可使用hook来封装出去）</li>
+<li>组合式API中见不到this的使用，减少this指向不明的问题。</li>
+<li>组合式API几乎都是函数，会有很好的类型判断。</li>
+</ul>
+</li>
+</ul>
+<h4 id="说说Vue-3-0中Treeshaking特性？举例说明一下？"><a href="#说说Vue-3-0中Treeshaking特性？举例说明一下？" class="headerlink" title="说说Vue 3.0中Treeshaking特性？举例说明一下？"></a>说说Vue 3.0中Treeshaking特性？举例说明一下？</h4><h5 id="是什么？"><a href="#是什么？" class="headerlink" title="是什么？"></a>是什么？</h5><p>Tree shaking是一种术语，在打包时不打包没有用到的模块，减小了打包体积。</p>
+<h5 id="如何做？"><a href="#如何做？" class="headerlink" title="如何做？"></a>如何做？</h5><p>Tree shaking是基于es6的 <code>import</code> 和 <code>exports</code> 静态编程思想来确定模块的依赖关系。</p>
+<ul>
+<li>tree shaking会在编译阶段判断模块的加载状态</li>
+<li>判断未使用的变量，进行移除。</li>
+</ul>
+<h5 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h5><ul>
+<li>减小打包体积</li>
+<li>减少程序打包的时间</li>
+<li>便于维护优化项目框架</li>
+</ul>
+<h4 id="用Vue3-0-写过组件吗？如果想实现一个-Modal你会怎么设计？"><a href="#用Vue3-0-写过组件吗？如果想实现一个-Modal你会怎么设计？" class="headerlink" title="用Vue3.0 写过组件吗？如果想实现一个 Modal你会怎么设计？"></a>用Vue3.0 写过组件吗？如果想实现一个 Modal你会怎么设计？</h4><p>首先要考虑，大致实现的思路，根据ui设计图，确定好主体的内容，布局样式，做的那些交互操作，删除，修改等等。定义API方法来进行开发。</p>
+]]></content>
+      <categories>
+        <category>前端面试</category>
+      </categories>
+      <tags>
+        <tag>Vue3</tag>
+        <tag>Vue</tag>
+        <tag>前端面试</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Vue路由原理</title>
+    <url>/2019/11/12/Vue%E8%B7%AF%E7%94%B1%E5%8E%9F%E7%90%86/</url>
+    <content><![CDATA[<h4 id="vue路由原理"><a href="#vue路由原理" class="headerlink" title="vue路由原理"></a>vue路由原理</h4><ul>
+<li>hash模式：浏ener器中符号<code>#</code>，后面的字符称之为<code>hash</code>。<ul>
+<li>其中对象中的<code>location.hash</code>储存的是路由的地址，可以赋值改变其URL的地址。而这会触发<code>hashchange</code>事件，通过<code>window.addEventListn</code>监听hash值然后去匹配对应的路由，从而渲染页面的组件。</li>
+</ul>
+</li>
+<li>history：<ul>
+<li>history采用HTML5的新特性，通过<code>pushState</code>和<code>replaceState</code>两个方法来实现url的变化。可以通过<code>popstagte</code>事件监听url的变化，从而对页面进行跳转（渲染）</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Vue</category>
+      </categories>
+      <tags>
+        <tag>Vue</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>JavaScript几种继承方法</title>
+    <url>/2020/07/20/JavaScript%E5%87%A0%E7%A7%8D%E7%BB%A7%E6%89%BF%E6%96%B9%E6%B3%95/</url>
+    <content><![CDATA[<h4 id="JavaScript实现继承的几种方法"><a href="#JavaScript实现继承的几种方法" class="headerlink" title="JavaScript实现继承的几种方法"></a>JavaScript实现继承的几种方法</h4><h5 id="1-原型链继承"><a href="#1-原型链继承" class="headerlink" title="1.原型链继承"></a>1.原型链继承</h5><p>构造函数，原型，实例之间的关系：每一个构造函数都有一个原型对象(prototype)，原型对象中有一个指向构造函数的指针()，然而实例对象中包含一个指向原型对象的指针(<em>proto</em>)。</p>
+<span id="more"></span>
+<ul>
+<li><p>优点：父类方法可以复用。</p>
+</li>
+<li><p>缺点：</p>
+<ul>
+<li>父类中所有引用类型的数据（对象，数组）会被子类共享。只要更改了其中一个子类的数据。其他数据都会受到影响，一起变化。</li>
+<li>子类实例不能给父类构造函数传递参数。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//父类Person</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">Person</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">name</span> = <span class="string">&#x27;小明&#x27;</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">eats</span> = [<span class="string">&#x27;苹果&#x27;</span>]</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">getName</span> = <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">name</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//在父类原型上定义方法</span></span><br><span class="line"><span class="title class_">Person</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">get</span> = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Person的原型上的get方法&#x27;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//子类</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">Child</span>(<span class="params"></span>) &#123; &#125;</span><br><span class="line"><span class="comment">//将子类的原型指向父类的实例对象</span></span><br><span class="line"><span class="title class_">Child</span>.<span class="property"><span class="keyword">prototype</span></span> = <span class="keyword">new</span> <span class="title class_">Person</span>()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//创建子类实例对象，会拥有父类Person所有的属性，方法。</span></span><br><span class="line"><span class="keyword">const</span> children = <span class="keyword">new</span> <span class="title class_">Child</span>()</span><br><span class="line">children.<span class="property">name</span>=<span class="string">&#x27;赵先生&#x27;</span></span><br><span class="line">children.<span class="property">eats</span>.<span class="title function_">push</span>(<span class="string">&#x27;香蕉&#x27;</span>)</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(children.<span class="property">name</span>)</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(children.<span class="property">eats</span>)</span><br><span class="line">children.<span class="title function_">getName</span>()</span><br><span class="line">children.<span class="title function_">get</span>()</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;-----------------------------------------------&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//创建子类实例对象，会拥有父类Person所有的属性，方法。</span></span><br><span class="line"><span class="keyword">const</span> children2 = <span class="keyword">new</span> <span class="title class_">Child</span>()</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(children2.<span class="property">name</span>)</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(children2.<span class="property">eats</span>)</span><br><span class="line">children2.<span class="title function_">getName</span>()</span><br><span class="line">children2.<span class="title function_">get</span>()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">赵先生</span></span><br><span class="line"><span class="comment">[&quot;苹果&quot;,&quot;香蕉&quot;]</span></span><br><span class="line"><span class="comment">赵先生</span></span><br><span class="line"><span class="comment">Person的原型上的get方法</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">-----------------------------------------------</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">小明</span></span><br><span class="line"><span class="comment">[&quot;苹果&quot;,&quot;香蕉&quot;]</span></span><br><span class="line"><span class="comment">小明</span></span><br><span class="line"><span class="comment">Person的原型上的get方法*/</span></span><br><span class="line"></span><br><span class="line"><span class="variable constant_">JAVASCRIPT</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h5 id="2-构造函数继承"><a href="#2-构造函数继承" class="headerlink" title="2.构造函数继承"></a>2.构造函数继承</h5><ul>
+<li><p>优点：父类的引用类型的数据，不会被子类共享。不会互相影响。</p>
+</li>
+<li><p>缺点：不能访问父类构造函数原型上（Person.prototype）的参数和方法。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//父类Person</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">Person</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">name</span> = <span class="string">&#x27;小明&#x27;</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">eats</span> = [<span class="string">&#x27;苹果&#x27;</span>]</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">getName</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">name</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//在父类原型上定义方法</span></span><br><span class="line"><span class="title class_">Person</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">get</span> = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Person的原型上的get方法&#x27;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//子类</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">Child</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="title class_">Person</span>.<span class="title function_">call</span>(<span class="variable language_">this</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//创建子类实例对象，会拥有父类Person构造函数的属性，方法。</span></span><br><span class="line"><span class="keyword">const</span> children = <span class="keyword">new</span> <span class="title class_">Child</span>()</span><br><span class="line">children.<span class="property">name</span> = <span class="string">&#x27;赵先生&#x27;</span></span><br><span class="line">children.<span class="property">eats</span>.<span class="title function_">push</span>(<span class="string">&#x27;香蕉&#x27;</span>)</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(children.<span class="property">name</span>)</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(children.<span class="property">eats</span>)</span><br><span class="line">children.<span class="title function_">getName</span>()</span><br><span class="line"><span class="comment">// children.get()</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;-----------------------------------------------&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//创建子类实例对象，会拥有父类Person构造函数的属性，方法。</span></span><br><span class="line"><span class="keyword">const</span> children2 = <span class="keyword">new</span> <span class="title class_">Child</span>()</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(children2.<span class="property">name</span>)</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(children2.<span class="property">eats</span>)</span><br><span class="line">children2.<span class="title function_">getName</span>()</span><br><span class="line"><span class="comment">// children2.get()</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">赵先生</span></span><br><span class="line"><span class="comment">[&quot;苹果&quot;,&quot;香蕉&quot;]</span></span><br><span class="line"><span class="comment">赵先生</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">-----------------------------------------------</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">小明</span></span><br><span class="line"><span class="comment">[&quot;苹果&quot;]</span></span><br><span class="line"><span class="comment">小明</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="variable constant_">JAVASCRIPT</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h5 id="3-组合继承"><a href="#3-组合继承" class="headerlink" title="3.组合继承"></a>3.组合继承</h5><ul>
+<li><p>优点：组合继承就是将 原型链继承和构造函数继承 结合起来。解决了这种继承的弊端。</p>
+</li>
+<li><p>缺点：会调用两次父类构造函数，拥有两份一样的属性和方法。影响性能的开销。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//父类Person</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">Person</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">name</span> = <span class="string">&#x27;小明&#x27;</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">eats</span> = [<span class="string">&#x27;苹果&#x27;</span>]</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">getName</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">name</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//在父类原型上定义方法</span></span><br><span class="line"><span class="title class_">Person</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">get</span> = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Person的原型上的get方法&#x27;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//子类</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">Child</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="title class_">Person</span>.<span class="title function_">call</span>(<span class="variable language_">this</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="title class_">Child</span>.<span class="property"><span class="keyword">prototype</span></span>=<span class="keyword">new</span> <span class="title class_">Person</span>()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//创建子类实例对象，会拥有父类Person构造函数的属性，方法。</span></span><br><span class="line"><span class="keyword">const</span> children = <span class="keyword">new</span> <span class="title class_">Child</span>()</span><br><span class="line">children.<span class="property">name</span> = <span class="string">&#x27;赵先生&#x27;</span></span><br><span class="line">children.<span class="property">eats</span>.<span class="title function_">push</span>(<span class="string">&#x27;香蕉&#x27;</span>)</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(children.<span class="property">name</span>)</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(children.<span class="property">eats</span>)</span><br><span class="line">children.<span class="title function_">getName</span>()</span><br><span class="line">children.<span class="title function_">get</span>()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;-----------------------------------------------&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//创建子类实例对象，会拥有父类Person构造函数的属性，方法。</span></span><br><span class="line"><span class="keyword">const</span> children2 = <span class="keyword">new</span> <span class="title class_">Child</span>()</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(children2.<span class="property">name</span>)</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(children2.<span class="property">eats</span>)</span><br><span class="line">children2.<span class="title function_">getName</span>()</span><br><span class="line">children2.<span class="title function_">get</span>()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">赵先生</span></span><br><span class="line"><span class="comment">[&quot;苹果&quot;,&quot;香蕉&quot;]</span></span><br><span class="line"><span class="comment">赵先生</span></span><br><span class="line"><span class="comment">Person的原型上的get方法</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">-----------------------------------------------</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">小明</span></span><br><span class="line"><span class="comment">[&quot;苹果&quot;]</span></span><br><span class="line"><span class="comment">小明</span></span><br><span class="line"><span class="comment">Person的原型上的get方法</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="variable constant_">JAVASCRIPT</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h5 id="4-寄生式组合继承"><a href="#4-寄生式组合继承" class="headerlink" title="4.寄生式组合继承"></a>4.寄生式组合继承</h5><ul>
+<li><p>在组合继承的基础之上，做了一个中转，不在创建父类实例（new Person()），创建一个空的函数，将该函数的原型指向父类person的原型。之后在将子类的原型指向该函数的实例对象即可。是目前相对最优的继承方式。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//父类Person</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">Person</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">name</span> = <span class="string">&#x27;小明&#x27;</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">eats</span> = [<span class="string">&#x27;苹果&#x27;</span>]</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">getName</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">name</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//在父类原型上定义方法</span></span><br><span class="line"><span class="title class_">Person</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">get</span> = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Person的原型上的get方法&#x27;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//子类</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">Child</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="title class_">Person</span>.<span class="title function_">call</span>(<span class="variable language_">this</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//第一种</span></span><br><span class="line"><span class="comment">//创建空的函数，做中转，该函数指向父类的原型</span></span><br><span class="line"><span class="comment">//const fn = function()&#123;&#125;</span></span><br><span class="line"><span class="comment">//fn.prototype = Person.prototype</span></span><br><span class="line"><span class="comment">//最后子类的原型指向该函数的实例</span></span><br><span class="line"><span class="comment">//Child.prototype=new fn()</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//第二种</span></span><br><span class="line"><span class="title class_">Child</span>.<span class="property"><span class="keyword">prototype</span></span> = <span class="title class_">Object</span>.<span class="title function_">create</span>(<span class="title class_">Person</span>.<span class="property"><span class="keyword">prototype</span></span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//创建子类实例对象，会拥有父类Person构造函数的属性，方法。</span></span><br><span class="line"><span class="keyword">const</span> children = <span class="keyword">new</span> <span class="title class_">Child</span>()</span><br><span class="line">children.<span class="property">name</span> = <span class="string">&#x27;赵先生&#x27;</span></span><br><span class="line">children.<span class="property">eats</span>.<span class="title function_">push</span>(<span class="string">&#x27;香蕉&#x27;</span>)</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(children.<span class="property">name</span>)</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(children.<span class="property">eats</span>)</span><br><span class="line">children.<span class="title function_">getName</span>()</span><br><span class="line">children.<span class="title function_">get</span>()</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;-----------------------------------------------&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//创建子类实例对象，会拥有父类Person构造函数的属性，方法。</span></span><br><span class="line">  <span class="keyword">const</span> children2 = <span class="keyword">new</span> <span class="title class_">Child</span>()</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(children2.<span class="property">name</span>)</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(children2.<span class="property">eats</span>)</span><br><span class="line">  children2.<span class="title function_">getName</span>()</span><br><span class="line">  children2.<span class="title function_">get</span>()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="variable constant_">JAVASCRIPT</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h5 id="5-es6-class继承"><a href="#5-es6-class继承" class="headerlink" title="5.es6 class继承"></a>5.es6 class继承</h5><p>使用class构造一个父类， 构造一个子类使用extends来继承父类。super指向父类的原型对象。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Parent</span> &#123;</span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params">name, age</span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">name</span> = name</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">age</span> = age</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">tt</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;sdfsdfsdfsdfdsaf&#x27;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//原型上的方法</span></span><br><span class="line">    <span class="title function_">sayName</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">name</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Child</span> <span class="keyword">extends</span> <span class="title class_ inherited__">Parent</span> &#123;</span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params">name, age, gender</span>) &#123;</span><br><span class="line">        <span class="variable language_">super</span>(name, age)</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">gender</span> = gender</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//原型上的方法</span></span><br><span class="line">    <span class="title function_">sayGender</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">gender</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> ming = <span class="keyword">new</span> <span class="title class_">Child</span>(<span class="string">&#x27;ming&#x27;</span>, <span class="number">18</span>, <span class="string">&#x27;男&#x27;</span>)</span><br><span class="line">ming.<span class="title function_">sayGender</span>()</span><br><span class="line">ming.<span class="title function_">sayName</span>()</span><br><span class="line">ming.<span class="title function_">tt</span>()</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(ming.<span class="property">name</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(ming.<span class="property">age</span>);</span><br><span class="line"><span class="comment">//console.log(ming)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">男</span></span><br><span class="line"><span class="comment">ming</span></span><br><span class="line"><span class="comment">sdfsdfsdfsdfdsaf</span></span><br><span class="line"><span class="comment">ming</span></span><br><span class="line"><span class="comment">18</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="variable constant_">JAVASCRIPT</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h4><h4 id="第⼀部分：预备知识"><a href="#第⼀部分：预备知识" class="headerlink" title="第⼀部分：预备知识"></a>第⼀部分：预备知识</h4><h5 id="1、构造函数的属性"><a href="#1、构造函数的属性" class="headerlink" title="1、构造函数的属性"></a>1、构造函数的属性</h5><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">funcion <span class="title function_">A</span>(<span class="params">name</span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">name</span> = name; <span class="comment">// 实例基本属性 (该属性，强调私有，不共享)</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">arr</span> = [<span class="number">1</span>]; <span class="comment">// 实例引⽤属性 (该属性，强调私⽤，不共享)</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">say</span> = <span class="keyword">function</span>(<span class="params"></span>) &#123; <span class="comment">// 实例引⽤属性 (该属性，强调复⽤，需要共享)</span></span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;hello&#x27;</span>)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*注意：数组和⽅法都属于‘实例引⽤属性’，但是数组强调私有、不共享的。⽅法需要复⽤、共享。</span></span><br><span class="line"><span class="comment">在构造函数中，⼀般很少有数组形式的引⽤属性，⼤部分情况都是：基本属性 + ⽅法。*/</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="variable constant_">JAVASCRIPT</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="2、什么是原型对象"><a href="#2、什么是原型对象" class="headerlink" title="2、什么是原型对象"></a>2、什么是原型对象</h5><p>简单来说，每个函数都有prototype属性，它就是原型对象，通过函数实例化出来的对象有个 __proto__属性，指向原型对象。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="keyword">new</span> <span class="title function_">A</span>()</span><br><span class="line">a.<span class="property">__proto__</span> == A.<span class="property"><span class="keyword">prototype</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// prototype的结构如下</span></span><br><span class="line">A.<span class="property"><span class="keyword">prototype</span></span> = &#123;</span><br><span class="line">    <span class="attr">constructor</span>: A,</span><br><span class="line">    ...其他的原型属性和⽅法</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="variable constant_">JAVASCRIPT</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="3、原型对象的作用"><a href="#3、原型对象的作用" class="headerlink" title="3、原型对象的作用"></a>3、原型对象的作用</h5><p>原型对象的⽤途是为每个实例对象存储共享的⽅法和属性，它仅仅是⼀个普通对象⽽已。并且所有 的实例是共享同⼀个原型对象，因此有别于实例⽅法或属性，原型对象仅有⼀份。⽽实例有很多 份，且实例属性和⽅法是独⽴的。在构造函数中：为了属性(实例基本属性)的私有性、以及⽅法(实 例引⽤属性)的复⽤、共享。我们提倡：</p>
+<ul>
+<li>将属性封装在构造函数中</li>
+<li>将⽅法定义在原型对象上</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">funcion <span class="title function_">A</span>(<span class="params">name</span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">name</span> = name; <span class="comment">// (该属性，强调私有，不共享)</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">A.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">say</span> = <span class="keyword">function</span>(<span class="params"></span>) &#123; <span class="comment">// 定义在原型对象上的⽅法 (强调复⽤，需要共享)</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;hello&#x27;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 不推荐的写法：[原因](https://blog.csdn.net/kkkkkxiaofei/article/details/46474303)</span></span><br><span class="line">A.<span class="property"><span class="keyword">prototype</span></span> = &#123;</span><br><span class="line">    <span class="attr">say</span>: <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;hello&#x27;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="variable constant_">JAVASCRIPT</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="第⼆部分：五种js-继承⽅式"><a href="#第⼆部分：五种js-继承⽅式" class="headerlink" title="第⼆部分：五种js 继承⽅式"></a>第⼆部分：五种js 继承⽅式</h4><h5 id="1、原型链继承"><a href="#1、原型链继承" class="headerlink" title="1、原型链继承"></a>1、原型链继承</h5><ul>
+<li>核⼼：将⽗类实例作为⼦类原型</li>
+<li>优点：⽅法复⽤</li>
+<li>由于⽅法定义在⽗类的原型上，复⽤了⽗类构造函数的⽅法。⽐如say⽅法。</li>
+<li>缺点：</li>
+<li>创建⼦类实例的时候，不能传⽗类的参数（⽐如name）。</li>
+<li>⼦类实例共享了⽗类构造函数的引⽤属性，⽐如arr属性。</li>
+<li>⽆法实现多继承。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">Parent</span>(<span class="params">name</span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">name</span> = name || <span class="string">&#x27;⽗亲&#x27;</span>; <span class="comment">// 实例基本属性 (该属性，强调私有，不共享)</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">arr</span> = [<span class="number">1</span>]; <span class="comment">// (该属性，强调私有)</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title class_">Parent</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">say</span> = <span class="keyword">function</span>(<span class="params"></span>) &#123; <span class="comment">// -- 将需要复⽤、共享的⽅法定义在⽗类原型上</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;hello&#x27;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">Child</span>(<span class="params">like</span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">like</span> = like;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title class_">Child</span>.<span class="property"><span class="keyword">prototype</span></span> = <span class="keyword">new</span> <span class="title class_">Parent</span>() <span class="comment">// 核⼼，但此时Child.prototype.constructor==Parent</span></span><br><span class="line"><span class="title class_">Child</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">constructor</span> = <span class="title class_">Child</span> <span class="comment">// 修正constructor指向</span></span><br><span class="line"><span class="keyword">let</span> boy1 = <span class="keyword">new</span> <span class="title class_">Child</span>()</span><br><span class="line"><span class="keyword">let</span> boy2 = <span class="keyword">new</span> <span class="title class_">Child</span>()</span><br><span class="line"></span><br><span class="line"><span class="comment">// 优点：共享了⽗类构造函数的say⽅法</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(boy1.<span class="title function_">say</span>(), boy2.<span class="title function_">say</span>(), boy1.<span class="property">say</span> === boy2.<span class="property">say</span>); <span class="comment">// hello , hello , true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 缺点1：不能向⽗类构造函数传参</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(boy1.<span class="property">name</span>, boy2.<span class="property">name</span>, boy1.<span class="property">name</span>===boy2.<span class="property">name</span>); <span class="comment">// ⽗亲，⽗亲，true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 缺点2: ⼦类实例共享了⽗类构造函数的引⽤属性，⽐如arr属性</span></span><br><span class="line">boy1.<span class="property">arr</span>.<span class="title function_">push</span>(<span class="number">2</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 修改了boy1的arr属性，boy2的arr属性，也会变化，因为两个实例的原型上(Child.prototype)有了⽗类构造函数的实例属性arr；</span></span><br><span class="line"><span class="comment">//所以只要修改了boy1.arr，boy2.arr的属性也会变化。</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(boy2.<span class="property">arr</span>); <span class="comment">// [1,2]</span></span><br><span class="line"><span class="comment">//注意1：修改boy1的name属性，是不会影响到boy2.name。因为设置boy1.name相当于在⼦类实例新增了name属性。</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/* 注意2：</span></span><br><span class="line"><span class="comment">console.log(boy1.constructor); // Parent 你会发现实例的构造函数居然是Parent。</span></span><br><span class="line"><span class="comment">⽽实际上，我们希望⼦类实例的构造函数是Child,所以要记得修复构造函数指向。</span></span><br><span class="line"><span class="comment">修复如下：Child.prototype.constructor = Child; */</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="variable constant_">JAVASCRIPT</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="2、借⽤构造函数"><a href="#2、借⽤构造函数" class="headerlink" title="2、借⽤构造函数"></a>2、借⽤构造函数</h5><ul>
+<li><p>核⼼：借⽤⽗类的构造函数来增强⼦类实例，等于是复制⽗类的实例属性给⼦类。</p>
+</li>
+<li><p>优点：实例之间独⽴。</p>
+<ul>
+<li>创建⼦类实例，可以向⽗类构造函数传参数。</li>
+<li>⼦类实例不共享⽗类构造函数的引⽤属性。如arr属性</li>
+<li>可实现多继承（通过多个call或者apply继承多个⽗类）</li>
+</ul>
+</li>
+<li><p>缺点：</p>
+<ul>
+<li><p>⽗类的⽅法不能复⽤</p>
+<p>由于⽅法在⽗构造函数中定义，导致⽅法不能复⽤(因为每次创建⼦类实例都要创建⼀遍⽅法)。 ⽐如say⽅法。(⽅法应该要复⽤、共享)</p>
+</li>
+<li><p>⼦类实例，继承不了⽗类原型上的属性。(因为没有⽤到原型)</p>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">Parent</span>(<span class="params">name</span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">name</span> = name; <span class="comment">// 实例基本属性 (该属性，强调私有，不共享)</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">arr</span> = [<span class="number">1</span>]; <span class="comment">// (该属性，强调私有)</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">say</span> = <span class="keyword">function</span>(<span class="params"></span>) &#123; <span class="comment">// 实例引⽤属性 (该属性，强调复⽤，需要共享)</span></span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;hello&#x27;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">Child</span>(<span class="params">name,like</span>) &#123;</span><br><span class="line">    <span class="title class_">Parent</span>.<span class="title function_">call</span>(<span class="variable language_">this</span>,name); <span class="comment">// 核⼼ 拷⻉了⽗类的实例属性和⽅法</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">like</span> = like;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> boy1 = <span class="keyword">new</span> <span class="title class_">Child</span>(<span class="string">&#x27;⼩红&#x27;</span>,<span class="string">&#x27;apple&#x27;</span>);</span><br><span class="line"><span class="keyword">let</span> boy2 = <span class="keyword">new</span> <span class="title class_">Child</span>(<span class="string">&#x27;⼩明&#x27;</span>, <span class="string">&#x27;orange &#x27;</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 优点1：可向⽗类构造函数传参</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(boy1.<span class="property">name</span>, boy2.<span class="property">name</span>); <span class="comment">// ⼩红， ⼩明</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 优点2：不共享⽗类构造函数的引⽤属性</span></span><br><span class="line">boy1.<span class="property">arr</span>.<span class="title function_">push</span>(<span class="number">2</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(boy1.<span class="property">arr</span>,boy2.<span class="property">arr</span>);<span class="comment">// [1,2] [1]</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//详解js继承 4</span></span><br><span class="line"><span class="comment">// 缺点1：⽅法不能复⽤</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(boy1.<span class="property">say</span> === boy2.<span class="property">say</span>) <span class="comment">// false (说明，boy1和boy2的say⽅法是独⽴，不是共享的)</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 缺点2：不能继承⽗类原型上的⽅法</span></span><br><span class="line"><span class="title class_">Parent</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">walk</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123; <span class="comment">// 在⽗类的原型对象上定义⼀个walk⽅法。</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;我会⾛路&#x27;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">boy1.<span class="property">walk</span>; <span class="comment">// undefined (说明实例，不能获得⽗类原型上的⽅法)</span></span><br><span class="line"></span><br><span class="line"><span class="variable constant_">JAVASCRIPT</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h5 id="3、组合继承-核心"><a href="#3、组合继承-核心" class="headerlink" title="3、组合继承 核心"></a>3、组合继承 核心</h5><ul>
+<li>通过调⽤⽗类构造函数，继承⽗类的属性并保留传参的优点；然后通过将⽗类实例作为 ⼦类原型，实现函数复⽤。</li>
+<li>优点：</li>
+<li>保留构造函数的优点：创建⼦类实例，可以向⽗类构造函数传参数。</li>
+<li>保留原型链的优点：⽗类的⽅法定义在⽗类的原型对象上，可以实现⽅法复⽤。</li>
+<li>不共享⽗类的引⽤属性。⽐如arr属性</li>
+<li>缺点：<ul>
+<li>由于调⽤了2次⽗类的构造⽅法，会存在⼀份多余的⽗类实例属性，具体原因⻅⽂末。</li>
+</ul>
+</li>
+<li>注意：’组合继承’这种⽅式，要记得修复Child.prototype.constructor指向</li>
+</ul>
+<p>第⼀次Parent.call(this);从⽗类拷⻉⼀份⽗类实例属性，作为⼦类的实例属性，第⼆次 Child.prototype &#x3D; new Parent();创建⽗类实例作为⼦类原型，Child.protype中的⽗类属性和⽅法 会被第⼀次拷⻉来的实例属性屏蔽掉，所以多余。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">Parent</span>(<span class="params">name</span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">name</span> = name; <span class="comment">// 实例基本属性 (该属性，强调私有，不共享)</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">arr</span> = [<span class="number">1</span>]; <span class="comment">// (该属性，强调私有)</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title class_">Parent</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">say</span> = <span class="keyword">function</span>(<span class="params"></span>) &#123; <span class="comment">// --- 将需要复⽤、共享的⽅法定义在⽗类原型上</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;hello&#x27;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">Child</span>(<span class="params">name,like</span>) &#123;</span><br><span class="line">    <span class="title class_">Parent</span>.<span class="title function_">call</span>(<span class="variable language_">this</span>,name,like) <span class="comment">// 核⼼ 第⼆次</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">like</span> = like;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title class_">Child</span>.<span class="property"><span class="keyword">prototype</span></span> = <span class="keyword">new</span> <span class="title class_">Parent</span>() <span class="comment">// 核⼼ 第⼀次</span></span><br><span class="line"><span class="title class_">Child</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">constructor</span> = <span class="title class_">Child</span> <span class="comment">// 修正constructor指向</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> boy1 = <span class="keyword">new</span> <span class="title class_">Child</span>(<span class="string">&#x27;⼩红&#x27;</span>,<span class="string">&#x27;apple&#x27;</span>)</span><br><span class="line"><span class="keyword">let</span> boy2 = <span class="keyword">new</span> <span class="title class_">Child</span>(<span class="string">&#x27;⼩明&#x27;</span>,<span class="string">&#x27;orange&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 优点1：可以向⽗类构造函数传参数</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(boy1.<span class="property">name</span>,boy1.<span class="property">like</span>); <span class="comment">// ⼩红，apple</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 优点2：可复⽤⽗类原型上的⽅法</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(boy1.<span class="property">say</span> === boy2.<span class="property">say</span>) <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//详解js继承 5</span></span><br><span class="line"><span class="comment">// 优点3：不共享⽗类的引⽤属性，如arr属性</span></span><br><span class="line">boy1.<span class="property">arr</span>.<span class="title function_">push</span>(<span class="number">2</span>)</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(boy1.<span class="property">arr</span>,boy2.<span class="property">arr</span>); <span class="comment">// [1,2] [1] 可以看出没有共享arr属性。</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 缺点1：由于调⽤了2次⽗类的构造⽅法，会存在⼀份多余的⽗类实例属性</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="variable constant_">JAVASCRIPT</span></span><br></pre></td></tr></table></figure>
+
+<p>其实Child.prototype &#x3D; new Parent()</p>
+<p>console.log(Child.prototype.<strong>proto</strong> &#x3D;&#x3D;&#x3D; Parent.prototype); &#x2F;&#x2F; true</p>
+<p>因为Child.prototype等于Parent的实例，所以__proto__指向Parent.prototype 。</p>
+<h5 id="4、组合继承优化1"><a href="#4、组合继承优化1" class="headerlink" title="4、组合继承优化1"></a>4、组合继承优化1</h5><ul>
+<li>核⼼：<ul>
+<li>通过这种⽅式，砍掉⽗类的实例属性，这样在调⽤⽗类的构造函数的时候，就不会初始化两次实 例，避免组合继承的缺点。</li>
+</ul>
+</li>
+<li>优点：</li>
+<li>只调⽤⼀次⽗类构造函数。</li>
+<li>保留构造函数的优点：创建⼦类实例，可以向⽗类构造函数传参数。</li>
+<li>保留原型链的优点：⽗类的实例⽅法定义在⽗类的原型对象上，可以实现⽅法复⽤。</li>
+<li>缺点：</li>
+<li>修正构造函数的指向之后，⽗类实例的构造函数指向，同时也发⽣变化(这是我们不希望的)</li>
+<li>注意：’组合继承优化1’这种⽅式，要记得修复Child.prototype.constructor指向 原因是：不能判断⼦类实例的直接构造函数，到底是⼦类构造函数还是⽗类构造函数。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">Parent</span>(<span class="params">name</span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">name</span> = name; <span class="comment">// 实例基本属性 (该属性，强调私有，不共享)</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">arr</span> = [<span class="number">1</span>]; <span class="comment">// (该属性，强调私有)</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title class_">Parent</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">say</span> = <span class="keyword">function</span>(<span class="params"></span>) &#123; <span class="comment">// --- 将需要复⽤、共享的⽅法定义在⽗类原型上</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;hello&#x27;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">Child</span>(<span class="params">name,like</span>) &#123;</span><br><span class="line">    <span class="title class_">Parent</span>.<span class="title function_">call</span>(<span class="variable language_">this</span>,name,like) <span class="comment">// 核⼼</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">like</span> = like;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title class_">Child</span>.<span class="property"><span class="keyword">prototype</span></span> = <span class="title class_">Parent</span>.<span class="property"><span class="keyword">prototype</span></span> <span class="comment">// 核⼼ ⼦类原型和⽗类原型，实质上是同⼀个</span></span><br><span class="line"></span><br><span class="line">&lt;!--这⾥是修复构造函数指向的代码--&gt;</span><br><span class="line">    </span><br><span class="line"><span class="title class_">Child</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">constructor</span> = <span class="title class_">Child</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//详解js继承 6</span></span><br><span class="line"><span class="keyword">let</span> boy1 = <span class="keyword">new</span> <span class="title class_">Child</span>(<span class="string">&#x27;⼩红&#x27;</span>,<span class="string">&#x27;apple&#x27;</span>)</span><br><span class="line"><span class="keyword">let</span> boy2 = <span class="keyword">new</span> <span class="title class_">Child</span>(<span class="string">&#x27;⼩明&#x27;</span>,<span class="string">&#x27;orange&#x27;</span>)</span><br><span class="line"><span class="keyword">let</span> p1 = <span class="keyword">new</span> <span class="title class_">Parent</span>(<span class="string">&#x27;⼩爸爸&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 优点1：可以向⽗类构造函数传参数</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(boy1.<span class="property">name</span>,boy1.<span class="property">like</span>); <span class="comment">// ⼩红，apple</span></span><br><span class="line"><span class="comment">// 优点2：可复⽤⽗类原型上的⽅法</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(boy1.<span class="property">say</span> === boy2.<span class="property">say</span>) <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 缺点1：当修复⼦类构造函数的指向后，⽗类实例的构造函数指向也会跟着变了。</span></span><br><span class="line">没修复之前：<span class="variable language_">console</span>.<span class="title function_">log</span>(boy1.<span class="property">constructor</span>); <span class="comment">// Parent</span></span><br><span class="line">修复代码：<span class="title class_">Child</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">constructor</span> = <span class="title class_">Child</span></span><br><span class="line">修复之后：<span class="variable language_">console</span>.<span class="title function_">log</span>(boy1.<span class="property">constructor</span>); <span class="comment">// Child</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(p1.<span class="property">constructor</span>);<span class="comment">// Child 这⾥就是存在的问题(我们希望是Parent)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*具体原因：因为是通过原型来实现继承的，Child.prototype的上⾯是没有constructor属性的，</span></span><br><span class="line"><span class="comment">就会往上找，这样就找到了Parent.prototype上⾯的constructor属性；当你修改了⼦类实例的</span></span><br><span class="line"><span class="comment">construtor属性，所有的constructor的指向都会发⽣变化。*/</span></span><br><span class="line"></span><br><span class="line"><span class="variable constant_">JAVASCRIPT</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="5、组合继承优化2-⼜称-寄⽣组合继承-—-完美⽅式"><a href="#5、组合继承优化2-⼜称-寄⽣组合继承-—-完美⽅式" class="headerlink" title="5、组合继承优化2 ⼜称 寄⽣组合继承 — 完美⽅式"></a>5、组合继承优化2 ⼜称 寄⽣组合继承 — 完美⽅式</h5><p>核⼼：</p>
+<p>优点：完美</p>
+<p>缺点：—</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">Parent</span>(<span class="params">name</span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">name</span> = name; <span class="comment">// 实例基本属性 (该属性，强调私有，不共享)</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">arr</span> = [<span class="number">1</span>]; <span class="comment">// (该属性，强调私有)</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title class_">Parent</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">say</span> = <span class="keyword">function</span>(<span class="params"></span>) &#123; <span class="comment">// --- 将需要复⽤、共享的⽅法定义在⽗类原型上</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;hello&#x27;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">Child</span>(<span class="params">name,like</span>) &#123;</span><br><span class="line">    <span class="title class_">Parent</span>.<span class="title function_">call</span>(<span class="variable language_">this</span>,name,like) <span class="comment">// 核⼼</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">like</span> = like;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 核⼼ 通过创建中间对象，⼦类原型和⽗类原型，就会隔离开。不是同⼀个啦，有效避免了⽅式4的缺点。</span></span><br><span class="line"><span class="title class_">Child</span>.<span class="property"><span class="keyword">prototype</span></span> = <span class="title class_">Object</span>.<span class="title function_">create</span>(<span class="title class_">Parent</span>.<span class="property"><span class="keyword">prototype</span></span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 这⾥是修复构造函数指向的代码</span></span><br><span class="line"><span class="title class_">Child</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">constructor</span> = <span class="title class_">Child</span></span><br><span class="line"><span class="keyword">let</span> boy1 = <span class="keyword">new</span> <span class="title class_">Child</span>(<span class="string">&#x27;⼩红&#x27;</span>,<span class="string">&#x27;apple&#x27;</span>)</span><br><span class="line"><span class="keyword">let</span> boy2 = <span class="keyword">new</span> <span class="title class_">Child</span>(<span class="string">&#x27;⼩明&#x27;</span>,<span class="string">&#x27;orange&#x27;</span>)</span><br><span class="line"><span class="keyword">let</span> p1 = <span class="keyword">new</span> <span class="title class_">Parent</span>(<span class="string">&#x27;⼩爸爸&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//注意：这种⽅法也要修复构造函数的</span></span><br><span class="line"><span class="comment">//修复代码：Child.prototype.constructor = Child</span></span><br><span class="line"><span class="comment">//详解js继承 7</span></span><br><span class="line"><span class="comment">//修复之后：console.log(boy1.constructor); // Child</span></span><br><span class="line"><span class="comment">//console.log(p1.constructor); // Parent 完美😊</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="variable constant_">JAVASCRIPT</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="第三部分：其他相关问题"><a href="#第三部分：其他相关问题" class="headerlink" title="第三部分：其他相关问题"></a>第三部分：其他相关问题</h4><h5 id="1、Object-create-object-propertiesObject"><a href="#1、Object-create-object-propertiesObject" class="headerlink" title="1、Object.create(object, propertiesObject)"></a>1、Object.create(object, propertiesObject)</h5><p>Object.create()⽅法创建⼀个新对象，使⽤第⼀个参数来提供新创建对象的__proto__（以第⼀个参 数作为新对象的构造函数的原型对象）； ⽅法还有第⼆个可选参数，是添加到新创建对象的属性，写法如下。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> a = <span class="title class_">Object</span>.<span class="title function_">create</span>(<span class="title class_">Person</span>.<span class="property"><span class="keyword">prototype</span></span>, &#123;</span><br><span class="line">    <span class="attr">age</span>: &#123;</span><br><span class="line">        <span class="attr">value</span>: <span class="number">12</span>,</span><br><span class="line">        <span class="attr">writable</span>:<span class="literal">true</span>,</span><br><span class="line">        <span class="attr">configurable</span>:<span class="literal">true</span>,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="variable constant_">JAVASCRIPT</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="new-与-Object-create-的区别？"><a href="#new-与-Object-create-的区别？" class="headerlink" title="new 与 Object.create() 的区别？"></a>new 与 Object.create() 的区别？</h5><p>new 产⽣的实例，优先获取构造函数上的属性；构造函数上没有对应的属性，才会去原型上查找； 如果构造函数中以及原型中都没有对应的属性，就会报错。Object.create() 产⽣的对象，只会在原 型上进⾏查找属性，原型上没有对应的属性，就会报错。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="title class_">Base1</span> = <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">a</span> = <span class="number">1</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> o1 = <span class="keyword">new</span> <span class="title class_">Base1</span>()</span><br><span class="line"><span class="keyword">let</span> o2 = <span class="title class_">Object</span>.<span class="title function_">create</span>(<span class="title class_">Base1</span>.<span class="property"><span class="keyword">prototype</span></span>)</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(o1.<span class="property">a</span>); <span class="comment">// 1</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(o2.<span class="property">a</span>); <span class="comment">// undefined</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> <span class="title class_">Base2</span> = <span class="keyword">function</span>(<span class="params"></span>) &#123;&#125;</span><br><span class="line"><span class="title class_">Base2</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">a</span> = <span class="string">&#x27;aa&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> o3 = <span class="keyword">new</span> <span class="title class_">Base2</span>()</span><br><span class="line"><span class="keyword">let</span> o4 = <span class="title class_">Object</span>.<span class="title function_">create</span>(<span class="title class_">Base2</span>.<span class="property"><span class="keyword">prototype</span></span>)</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(o3.<span class="property">a</span>); <span class="comment">// aa</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(o4.<span class="property">a</span>); <span class="comment">// aa</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> <span class="title class_">Base3</span> = <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">a</span> = <span class="number">1</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="title class_">Base3</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">a</span> = <span class="string">&#x27;aa&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> o5 = <span class="keyword">new</span> <span class="title class_">Base3</span>()</span><br><span class="line"><span class="keyword">let</span> o6 = <span class="title class_">Object</span>.<span class="title function_">create</span>(<span class="title class_">Base3</span>.<span class="property"><span class="keyword">prototype</span></span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//详解js继承 8</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(o5.<span class="property">a</span>); <span class="comment">// 1</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(o6.<span class="property">a</span>); <span class="comment">// aa</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="variable constant_">JAVASCRIPT</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="2、new-的过程"><a href="#2、new-的过程" class="headerlink" title="2、new 的过程"></a>2、new 的过程</h5><ul>
+<li>创建新对象（如obj）。</li>
+<li>将新对象的_proto_指向构造函数的prototype对象。</li>
+<li>执⾏构造函数，为这个新对象添加属性，并将this指向创建的新对象obj。</li>
+<li>当构造函数本⾝返回值为对象时，返回该对象，否则返回新对象。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//创建Person构造函数，参数为name,age</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">Person</span>(<span class="params">name,age</span>)&#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">name</span> = name;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">age</span> = age;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">_new</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="comment">//1.拿到传⼊的参数中的第⼀个参数，即构造函数名Func</span></span><br><span class="line">    <span class="keyword">var</span> <span class="title class_">Func</span> = [].<span class="property">shift</span>.<span class="title function_">call</span>(<span class="variable language_">arguments</span>);</span><br><span class="line">    <span class="comment">//2.创建⼀个空对象obj,并让其继承Func.prototype</span></span><br><span class="line">    <span class="keyword">var</span> obj = <span class="title class_">Object</span>.<span class="title function_">create</span>(<span class="title class_">Func</span>.<span class="property"><span class="keyword">prototype</span></span>);</span><br><span class="line">    <span class="comment">//3.执⾏构造函数，并将this指向创建的空对象obj</span></span><br><span class="line">    <span class="keyword">const</span> result = <span class="title class_">Func</span>.<span class="title function_">apply</span>(obj,<span class="variable language_">arguments</span>)</span><br><span class="line">    <span class="comment">//4.当函数也有返回值且为对象时返回该对象，否则返回创建的新对象obj</span></span><br><span class="line">    <span class="keyword">return</span> (result instanceOf <span class="title class_">Object</span> ? result : obj)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> ming = <span class="title function_">_new</span>(<span class="title class_">Person</span>,<span class="string">&#x27;xiaoming&#x27;</span>,<span class="number">18</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(ming);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="variable constant_">JAVASCRIPT</span></span><br></pre></td></tr></table></figure>
+
+<p>[].shift.call表⽰删除并返回auguments[0]。也可以通过以下⽅式取得函数名和函数的参数：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">_new</span>(<span class="params">Func, ...params</span>)&#123;</span><br><span class="line">...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="variable constant_">JAVASCRIPT</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="3、为什么‘组合继承’这种⽅式，会执⾏两次⽗类构造函数？？"><a href="#3、为什么‘组合继承’这种⽅式，会执⾏两次⽗类构造函数？？" class="headerlink" title="3、为什么‘组合继承’这种⽅式，会执⾏两次⽗类构造函数？？"></a>3、为什么‘组合继承’这种⽅式，会执⾏两次⽗类构造函数？？</h5><ul>
+<li>第⼀次：Child.prototype &#x3D; new Parent()<ul>
+<li>‘new 的过程’的第三步，其实就是执⾏了⽗类构造函数。</li>
+</ul>
+</li>
+<li>第⼆次：Parent.call(this,name,like)</li>
+<li>call的作⽤是改变函数执⾏时的上下⽂。⽐如：A.call(B)。其实，最终执⾏的还是A函数，只不过是 ⽤B来调⽤⽽已。所以，你就懂了Parent.call(this,name,like) ,也就是执⾏了⽗类构造函数Person</li>
+</ul>
+]]></content>
+      <categories>
+        <category>JavaScript</category>
+      </categories>
+      <tags>
+        <tag>JavaScript</tag>
       </tags>
   </entry>
   <entry>
@@ -861,6 +1449,7 @@
 <li>伪类选择器(a:hover, li:nth-child)</li>
 </ul>
 <p><strong>优先级</strong></p>
+<span id="more"></span>
 <p>内联 &gt; ID选择器 &gt; 类选择器 &gt; 标签选择器 &gt;子代选择器&gt;后代选择器&gt;通配符选择器&gt;伪类选择器</p>
 <p>可继承的属性：font-size, font-family, color， line-height：行高</p>
 <p>不可继承的属性：border, padding, margin, width, height</p>
@@ -1657,6 +2246,185 @@
       </categories>
       <tags>
         <tag>前端面试</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>前端工程化</title>
+    <url>/2020/08/18/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/</url>
+    <content><![CDATA[<h4 id="什么是前端工程化"><a href="#什么是前端工程化" class="headerlink" title="什么是前端工程化"></a>什么是前端工程化</h4><p><strong>前端工程化</strong>是使用软件工程的技术和方法来进行前端的开发流程、技术、工具、经验等规范化、标准化，其主要目的<strong>为了提高效率和降低成本，即提高开发过程中的开发效率，减少不必要的重复工作时间</strong>。</p>
+<h4 id="如何做”前端工程化”"><a href="#如何做”前端工程化”" class="headerlink" title="如何做”前端工程化”"></a>如何做”前端工程化”</h4><p>前端工程化就是为了让前端开发能够“自成体系”，个人认为主要应该从<strong>模块化</strong>、<strong>组件化</strong>、<strong>规范化</strong>、<strong>自动化</strong>四个方面思考。</p>
+<span id="more"></span>
+<ul>
+<li>模块化（js模块化，css模块化，资源模块化）</li>
+<li>组件化（复用现有的UI结构，样式，行为）</li>
+<li>规范化（目录结构的划分，编码规范化，接口规范化，文档规范化）</li>
+<li>自动化（自动化构建，自动部署，自动化测试）</li>
+</ul>
+<h4 id="1-模块化"><a href="#1-模块化" class="headerlink" title="1.模块化"></a>1.模块化</h4><blockquote>
+<p>简单来说，模块化就是将一个大文件拆分成相互依赖的小文件，再进行统一的拼装和加载。</p>
+</blockquote>
+<ul>
+<li><h5 id="JS的模块化"><a href="#JS的模块化" class="headerlink" title="JS的模块化"></a>JS的模块化</h5><p>在ES6之前，JavaScript一直没有模块系统，这对开发大型复杂的前端工程造成了巨大的障碍。对此社区制定了一些模块加载方案，如CommonJS、AMD和CMD等。</p>
+<p>现在ES6已经在语言层面上规定了模块系统，完全可以取代现有的CommonJS和AMD规范，而且使用起来相当简洁，并且有静态加载的特性。</p>
+<ol>
+<li>用<code>Webpack</code> + <code>Babel</code>将所有模块打包成一个文件同步加载，也可以搭乘多个chunk异步加载；</li>
+<li>用<code>System</code>+<code>Babel</code>主要是分模块异步加载；</li>
+<li>用浏览器的<code>&lt;script type=&quot;module&quot;&gt;</code>加载。</li>
+</ol>
+</li>
+<li><h5 id="css的模块化"><a href="#css的模块化" class="headerlink" title="css的模块化"></a>css的模块化</h5><p>虽然SASS、LESS、Stylus等预处理器实现了CSS的文件拆分，但没有解决CSS模块化的一个重要问题：选择器的全局污染问题。</p>
+<p>按道理，一个模块化的文件应该要隐藏内部作用域，只暴露少量接口给使用者。而按照目前预处理器的方式，导入一个CSS模块后，已存在的样式有被覆盖的风险。虽然重写样式是CSS的一个优势，但这并不利于多人协作。</p>
+<p>为了避免全局选择器的冲突，需要制定CSS命名风格：</p>
+<ul>
+<li>BEM风格</li>
+<li>Bootstrap风格</li>
+<li>…</li>
+</ul>
+<p>但是这毕竟是弱约束。所以很赞同一句话：</p>
+<blockquote>
+<p><em>与其费尽心思地告诉别人要遵守某种规则，以规避某种痛苦，倒不如从工具层面就消灭这种痛苦。</em></p>
+</blockquote>
+<p>从工具层面，社区又创造出Shadow DOM、CSS in JS和CSS Modules三种解决方案。</p>
+<ul>
+<li>Shadow DOM是WebComponents的标准。它能解决全局污染问题，但目前很多浏览器不兼容，对我们来说还很久远；</li>
+<li>CSS in JS是彻底抛弃CSS，使用JS或JSON来写样式。这种方法很激进，不能利用现有的CSS技术，而且处理伪类等问题比较困难；</li>
+<li>CSS Modules仍然使用CSS，只是让JS来管理依赖。它能够最大化地结合CSS生态和JS模块化能力，目前来看是最好的解决方案。Vue的scoped style也算是一种。</li>
+</ul>
+</li>
+<li><h5 id="资源的模块化"><a href="#资源的模块化" class="headerlink" title="资源的模块化"></a>资源的模块化</h5><p>Webpack的强大之处不仅仅在于它统一了JS的各种模块系统，取代了Browserify、RequireJS、SeaJS的工作。更重要的是它的万能模块加载理念，即所有的资源都可以且也应该模块化。</p>
+<p>资源模块化后，优点是：</p>
+<ul>
+<li><strong>依赖关系单一化</strong>。所有CSS和图片等资源的依赖关系统一走JS路线，无需额外处理CSS预处理器的依赖关系，也不需处理代码迁移时的图片合并、字体图片等路径问题；</li>
+<li><strong>资源处理集成化</strong>。现在可以用loader对各种资源做各种事情，比如复杂的vue-loader等等；</li>
+<li><strong>项目结构清晰化</strong>。使用Webpack后，你的项目结构总可以表示成这样的函数： dest &#x3D; webpack(src, config)。</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-组件化"><a href="#2-组件化" class="headerlink" title="2.组件化"></a>2.组件化</h4><p>从UI拆分下来的<strong>每个包含模板(HTML)+样式(CSS)+逻辑(JS)功能完备的结构单元</strong>，我们称之为<strong>组件</strong>。</p>
+<blockquote>
+<p><strong>组件化≠模块化</strong>。模块化只是在文件层面上，对代码或资源的拆分；而组件化是在设计层面上，对UI（用户界面）的拆分。</p>
+</blockquote>
+<p>其实，组件化更重要是一种分治思想。</p>
+<blockquote>
+<p>Keep Simple. Everything can be a component.</p>
+</blockquote>
+<p>页面上所有的东西都是组件。页面是个大型组件，可以拆成若干个中型组件，然后中型组件还可以再拆，拆成若干个小型组件，小型组件也可以再拆，直到拆成DOM元素为止。DOM元素可以看成是浏览器自身的组件，作为组件的基本单元。</p>
+<p>传统前端框架&#x2F;类库的思想是先组织DOM，然后把某些可复用的逻辑封装成组件来操作DOM，是DOM优先；而组件化框架&#x2F;类库的思想是先来构思组件，然后用DOM这种基本单元结合相应逻辑来实现组件，是组件优先。这是两者本质的区别。</p>
+<p>其次，组件化实际上是一种按照模板(HTML)+样式(CSS)+逻辑(JS)三位一体的形式<strong>对面向对象的进一步抽象。</strong></p>
+<p>所以我们除了封装组件本身，还要合理处理组件之间的关系，比如 <strong>（逻辑）继承</strong>、<strong>（样式）扩展</strong>、<strong>（模板）嵌套</strong>和<strong>包含</strong>等，这些关系都可以归为<strong>依赖</strong>。</p>
+<p>目前市面上的组件化框架很多，主要的有Vue、React、Angular。Vue文档中的对比其他框架一文已经讲得很详细了。</p>
+<h4 id="3-规范化"><a href="#3-规范化" class="headerlink" title="3.规范化"></a>3.规范化</h4><p>规范化其实是工程化中很重要的一个部分，项目初期规范制定的好坏会直接影响到后期的开发质量。</p>
+<p>比如：</p>
+<ul>
+<li><p>目录结构的制定</p>
+<p>目录结构的合理设定，能为项目带来很多优点：</p>
+<ul>
+<li>有助于提高项目的逻辑结构合理性；</li>
+<li>对应扩展和合作；</li>
+<li>方便资源的统一定位管理。</li>
+</ul>
+</li>
+<li><p>编码规范</p>
+<p>制定一套良好的编码规范可以增强团队开发协作、提高代码质量。<br> 推荐参考<strong>凹凸实验室</strong>打造的<a href="https://links.jianshu.com/go?to=https://guide.aotu.io/docs/index.html">前端代码规范</a>。</p>
+<p>编码规范包括</p>
+<ul>
+<li><p><strong>HTML规范</strong>。</p>
+<p>基于 W3C、苹果开发者 等官方文档，并结合团队业务和开发过程中总结的规范约定，让页面HTML代码更具语义性。</p>
+</li>
+<li><p><strong>CSS规范</strong>。</p>
+<p>统一规范团队 CSS 代码书写风格和使用 CSS 预编译语言语法风格，提供常用媒体查询语句和浏览器私有属性引用，并从业务层面统一规范常用模块的引用。</p>
+</li>
+<li><p><strong>JS规范</strong>。</p>
+<p>统一规范团队 CSS 代码书写风格和使用 CSS 预编译语言语法风格，提供常用媒体查询语句和浏览器私有属性引用，并从业务层面统一规范常用模块的引用。</p>
+</li>
+<li><p><strong>图片规范</strong>。</p>
+<p>了解各种图片格式特性，根据特性制定图片规范，包括但不限于图片的质量约定、图片引入方式、图片合并处理等，旨在从图片层面优化页面性能。</p>
+</li>
+<li><p><strong>命名规范</strong>。</p>
+<p>从 目录、图片、HTML&#x2F;CSS文件、ClassName 的命名等层面约定规范团队的命名习惯，增强团队代码的可读性。</p>
+</li>
+</ul>
+</li>
+<li><p>前后端接口规范</p>
+<p>“基于 Ajax 带来的 SPA 时代”，这种模式下，前后端的分工非常清晰，前后端的关键协作点是 Ajax 接口，引发一个重要问题：前后端的对接界面双方却关注甚少，没有任何接口约定规范情况下各自撸起袖子就是干，导致我们在产品项目开发过程中，前后端的接口联调对接工作量占比在30%-50%左右，甚至会更高。往往前后端接口联调对接及系统间的联调对接都是整个产品项目研发的软肋。</p>
+<p>接口规范主要初衷就是规范约定先行，尽量避免沟通联调产生的不必要的问题，让大家身心愉快地专注于各自擅长的领域。</p>
+<p>那么，对于这一SPA阶段，前后端分离有几个重要的关注挑战：</p>
+<ul>
+<li><h5 id="职责分离"><a href="#职责分离" class="headerlink" title="职责分离"></a>职责分离</h5><ol>
+<li>前后端仅仅通过异步接口(AJAX&#x2F;JSONP)来编程；</li>
+<li>前后端都各自有自己的开发流程，构建工具，测试集合；</li>
+<li>关注点分离，前后端变得相对独立并松耦合。</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>后端</th>
+<th>前端</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>提供数据</td>
+<td>接收数据，返回数据</td>
+</tr>
+<tr>
+<td>处理业务逻辑</td>
+<td>处理渲染逻辑</td>
+</tr>
+</tbody></table>
+</li>
+<li><h5 id="规范原则"><a href="#规范原则" class="headerlink" title="规范原则"></a>规范原则</h5><ol>
+<li>接口返回数据即显示，前端仅做渲染逻辑处理；</li>
+<li>渲染逻辑禁止跨多个接口调用；</li>
+<li>前端关注交互、渲染逻辑，尽量避免业务逻辑处理的出现；</li>
+<li>请求响应传输数据格式：JSON，JSON数据尽量简单轻量，避免多级JSON的出现；</li>
+</ol>
+</li>
+<li><h5 id="响应格式"><a href="#响应格式" class="headerlink" title="响应格式"></a>响应格式</h5><ol>
+<li>响应基本格式及处理状态值的规范。<ul>
+<li>基本响应格式</li>
+<li>列表响应格式</li>
+</ul>
+</li>
+<li>特殊内容<ul>
+<li>下拉框、复选框、单选框统一由后端逻辑判定选中返回给前端展示；</li>
+<li>关于Boolean类型，JSON数据传输中一律使用1&#x2F;0来标示，1为是&#x2F;True，0为否&#x2F;False</li>
+<li>关于日期类型，JSON数据传输中一律使用字符串，具体日期格式因业务而定；</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p>文档规范</p>
+</li>
+<li><p>组件管理</p>
+</li>
+<li><p>git分支管理</p>
+</li>
+<li><p>commit描述规范</p>
+</li>
+<li><p>视觉图标规范</p>
+</li>
+<li><p>…</p>
+</li>
+</ul>
+<h4 id="4-自动化"><a href="#4-自动化" class="headerlink" title="4.自动化"></a>4.自动化</h4><p>前端工程化的很多脏活累活都应该交给自动化工具来完成。需要秉持的一个理念是:</p>
+<blockquote>
+<p>任何简单机械的重复劳动都应该让机器去完成。</p>
+</blockquote>
+<ul>
+<li>图标合并</li>
+<li>持续集成</li>
+<li>自动化构建</li>
+<li>自动化部署</li>
+<li>自动化测试</li>
+</ul>
+]]></content>
+      <categories>
+        <category>JavaScript</category>
+      </categories>
+      <tags>
+        <tag>JavaScript</tag>
       </tags>
   </entry>
 </search>

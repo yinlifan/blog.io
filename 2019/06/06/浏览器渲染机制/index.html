@@ -254,6 +254,7 @@
 <p>在构建cssdom树时，会阻塞渲染，直至cssdom树构建完成。并且构建cssdom树是一个十分消耗性能的过程，所以尽量保证层级扁平，减少过度层叠，越是具体的css选择器，执行速度越慢。</p>
 <p>css是阻塞渲染的资源。需要将他尽早，尽快的下载到客户端，以便缩短首次渲染的时间。</p>
 <p>当html解析到script标签时，会暂停构建dom，完成后才会从暂停的地方重新开始。也就是说，如果你想首屏渲染的越快，就越不应该在首屏就加载js文件。并且css也会影响js的执行，只有当解析完样式才会执行js，所以也可以认为这种情况下，css也会暂停构建dom。</p>
+<span id="more"></span>
 <h5 id="2-图层"><a href="#2-图层" class="headerlink" title="2.图层"></a>2.图层</h5><blockquote>
 <p>一般来说，可以把普通文档流看成一个图层。特定的属性可以生成一个新的图层。不同的图层渲染互不影响，所以对于某些频繁需要渲染的建议单独生成一个新图层，提高性能。但也不能生成过多的图层，会引起反作用。</p>
 </blockquote>
@@ -285,9 +286,9 @@
 <li>激活css伪类（列如：hover）</li>
 <li>查询某些属性或调用某些方法<ul>
 <li><code>clientWidth、clientHeight、clientTop、clientLeft</code></li>
-<li>&#96;&#96;offsetWidth、offsetHeight、offsetTop、offsetLeft&#96;</li>
+<li><code>offsetWidth、offsetHeight、offsetTop、offsetLeft</code></li>
 <li><code>scrollWidth、scrollHeight、scrollTop、scrollLeft</code></li>
-<li>&#96;&#96;getComputedStyle()&#96;</li>
+<li><code>getComputedStyle()</code></li>
 <li><code>getBoundingClientRect()</code></li>
 <li><code>scrollTo()</code></li>
 </ul>
@@ -427,20 +428,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">18</span>
+          <span class="site-state-item-count">30</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

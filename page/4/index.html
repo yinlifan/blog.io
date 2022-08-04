@@ -191,7 +191,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2019/06/02/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E5%A4%B8%E6%A0%87%E7%AD%BE%E9%A1%B5%E9%80%9A%E8%AE%AF/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2019/08/23/Webpack%E4%B8%AD%E7%9A%84Plugin/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/touxaing.png">
@@ -205,7 +205,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2019/06/02/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E5%A4%B8%E6%A0%87%E7%AD%BE%E9%A1%B5%E9%80%9A%E8%AE%AF/" class="post-title-link" itemprop="url">浏览器的夸标签页通讯</a>
+            <a href="/2019/08/23/Webpack%E4%B8%AD%E7%9A%84Plugin/" class="post-title-link" itemprop="url">Webpack中的Plugin</a>
         </h2>
 
         <div class="post-meta">
@@ -215,7 +215,7 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2019-06-02 00:00:00" itemprop="dateCreated datePublished" datetime="2019-06-02T00:00:00+08:00">2019-06-02</time>
+              <time title="Created: 2019-08-23 00:00:00" itemprop="dateCreated datePublished" datetime="2019-08-23T00:00:00+08:00">2019-08-23</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -223,7 +223,7 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%B5%8F%E8%A7%88%E5%99%A8/" itemprop="url" rel="index"><span itemprop="name">浏览器</span></a>
+                  <a href="/categories/Webpack/" itemprop="url" rel="index"><span itemprop="name">Webpack</span></a>
                 </span>
             </span>
 
@@ -238,45 +238,189 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h4 id="1-跨标签页通讯"><a href="#1-跨标签页通讯" class="headerlink" title="1.跨标签页通讯"></a>1.跨标签页通讯</h4><blockquote>
-<p>不同标签页面间的通讯，本质与哪里就是去运用一些可以 共享的中间介质，因此比较常用的有以下方法：</p>
+          <h4 id="介绍webpack中的plugin？"><a href="#介绍webpack中的plugin？" class="headerlink" title="介绍webpack中的plugin？"></a>介绍webpack中的plugin？</h4><p>plugin是插件，对于webpack本身的扩展，是一个扩展器。</p>
+<p>配置方式：写在plugins属性中传入new实例对象，他是个数组，可以写多个插件。</p>
+<ul>
+<li>UglifyJsPlugin: 压缩、混淆代码；</li>
+<li>CommonsChunkPlugin: 代码分割；</li>
+<li>ProvidePlugin: 自动加载模块；</li>
+<li>html-webpack-plugin: 加载 html 文件，并引入 css &#x2F; js 文件；</li>
+<li>extract-text-webpack-plugin &#x2F; mini-css-extract-plugin: 抽离样式，生成 css 文件； DefinePlugin: 定义全局变量；</li>
+<li>optimize-css-assets-webpack-plugin: CSS 代码去重；</li>
+<li>webpack-bundle-analyzer: 代码分析；</li>
+<li>compression-webpack-plugin: 使用 gzip 压缩 js 和 css；</li>
+<li>happypack: 使用多进程，加速代码构建；</li>
+<li>EnvironmentPlugin: 定义环境变量；</li>
+</ul>
+<h5 id="下面介绍几个常用的插件用法："><a href="#下面介绍几个常用的插件用法：" class="headerlink" title="下面介绍几个常用的插件用法："></a>下面介绍几个常用的插件用法：</h5>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/08/23/Webpack%E4%B8%AD%E7%9A%84Plugin/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2019/08/20/Webpack%E6%9E%84%E5%BB%BA%E6%B5%81%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/touxaing.png">
+      <meta itemprop="name" content="Lifan Yin">
+      <meta itemprop="description" content="心有猛虎，细嗅蔷薇。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AFAN">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/08/20/Webpack%E6%9E%84%E5%BB%BA%E6%B5%81%E7%A8%8B/" class="post-title-link" itemprop="url">Webpack构建流程</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-08-20 00:00:00" itemprop="dateCreated datePublished" datetime="2019-08-20T00:00:00+08:00">2019-08-20</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Webpack/" itemprop="url" rel="index"><span itemprop="name">Webpack</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="介绍一下-webpack-的构建流程"><a href="#介绍一下-webpack-的构建流程" class="headerlink" title="介绍一下 webpack 的构建流程"></a>介绍一下 webpack 的构建流程</h4><h5 id="核心概念"><a href="#核心概念" class="headerlink" title="核心概念"></a><strong>核心概念</strong></h5><ul>
+<li><code>entry</code>：入口配置。webpack从入口开始根据模块间依赖关系递归解析和处理所有资源文件。</li>
+<li><code>output</code>：出口配置。经打包后的文件写入的位置。</li>
+<li><code>loader</code>：模块转换器。纯文件转换。因为webpack默认只认识js，json文件。</li>
+<li><code>plugin</code>：扩展插件。插件可以扩展 Webpack 的功能。</li>
+<li><code>module</code>：模块。除了js范畴内的<code>es module、commonJs、AMD</code>等，<code>css @import、url(...)</code>、图片、字体等在webpack中都被视为模块。</li>
+</ul>
+<h5 id="打包流程"><a href="#打包流程" class="headerlink" title="打包流程"></a>打包流程</h5>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/08/20/Webpack%E6%9E%84%E5%BB%BA%E6%B5%81%E7%A8%8B/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2019/08/19/Webpack%E5%B1%82%E9%9D%A2%E7%9A%84%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/touxaing.png">
+      <meta itemprop="name" content="Lifan Yin">
+      <meta itemprop="description" content="心有猛虎，细嗅蔷薇。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AFAN">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/08/19/Webpack%E5%B1%82%E9%9D%A2%E7%9A%84%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" class="post-title-link" itemprop="url">Webpack层面的性能优化</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-08-19 00:00:00" itemprop="dateCreated datePublished" datetime="2019-08-19T00:00:00+08:00">2019-08-19</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Webpack/" itemprop="url" rel="index"><span itemprop="name">Webpack</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="webpack-层面如何做性能优化"><a href="#webpack-层面如何做性能优化" class="headerlink" title="webpack 层面如何做性能优化"></a>webpack 层面如何做性能优化</h4><h5 id="优化前的准备工作"><a href="#优化前的准备工作" class="headerlink" title="优化前的准备工作"></a>优化前的准备工作</h5><p>准备基于时间的分析工具：我们需要一类插件，来帮助我们统计项目构建过程中在编译阶段的耗时情况。speed-measure-webpack-plugin 分析插件加载的时间<br>使用 webpack-bundle-analyzer 分析产物内容<br>代码优化:</p>
+<blockquote>
+<p>无用代码消除，是许多编程语言都具有的优化手段，这个过程称为 DCE (dead code elimination)，即 删除不可能执行的代码；</p>
 </blockquote>
-<ul>
-<li>通过父页面<code>windowopen()</code>和子页面<code>postmessage</code><ul>
-<li>异步下通过<code>windowopen(&#39;about：blank&#39;)</code>和<code>tablocationhref=&#39;*&#39;</code></li>
-</ul>
-</li>
-<li>同域下共享的<code>localStorage</code>与监听<code>windowonstorage</code><ul>
-<li>重复写入相同的值无法触发</li>
-<li>会受到浏览器隐身模式等限制</li>
-</ul>
-</li>
-<li>共同设置<code>cookie</code>与不断轮询脏检查(<code>setInterval</code>)</li>
-<li>借助服务端或者中间层实现。</li>
-</ul>
-<h4 id="2-浏览器架构"><a href="#2-浏览器架构" class="headerlink" title="2.浏览器架构"></a>2.浏览器架构</h4><ul>
-<li>用户主界面</li>
-<li>主进程</li>
-<li>内核<ul>
-<li>渲染引擎</li>
-<li>JS引擎<ul>
-<li>执行栈</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>事件触发线程<ul>
-<li>消息队列<ul>
-<li>微任务</li>
-<li>宏任务</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>网络异步线程</li>
-<li>定时器线程</li>
-</ul>
-
+<p>例如我们的 UglifyJs，它就会帮我们在生产环境中删除不可能被执行的代码，例如:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> fn = <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">	<span class="comment">// 下面代码便属于 不可能执行的代码；</span></span><br><span class="line">	<span class="comment">// 通过 UglifyJs (Webpack4+ 已内置) 便会进行 DCE；</span></span><br><span class="line">	<span class="keyword">var</span> a = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">return</span> a;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/08/19/Webpack%E5%B1%82%E9%9D%A2%E7%9A%84%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -295,7 +439,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2019/03/28/Vue%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E7%9A%84%E7%90%86%E8%A7%A3/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2019/08/15/Webpack%E7%83%AD%E6%9B%B4%E6%96%B0%E5%8E%9F%E7%90%86/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/touxaing.png">
@@ -309,7 +453,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2019/03/28/Vue%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E7%9A%84%E7%90%86%E8%A7%A3/" class="post-title-link" itemprop="url">Vue生命周期的理解</a>
+            <a href="/2019/08/15/Webpack%E7%83%AD%E6%9B%B4%E6%96%B0%E5%8E%9F%E7%90%86/" class="post-title-link" itemprop="url">Webpack热更新原理</a>
         </h2>
 
         <div class="post-meta">
@@ -319,7 +463,7 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2019-03-28 00:00:00" itemprop="dateCreated datePublished" datetime="2019-03-28T00:00:00+08:00">2019-03-28</time>
+              <time title="Created: 2019-08-15 00:00:00" itemprop="dateCreated datePublished" datetime="2019-08-15T00:00:00+08:00">2019-08-15</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -327,7 +471,7 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Vue/" itemprop="url" rel="index"><span itemprop="name">Vue</span></a>
+                  <a href="/categories/Webpack/" itemprop="url" rel="index"><span itemprop="name">Webpack</span></a>
                 </span>
             </span>
 
@@ -342,74 +486,16 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h4 id="vue生命周期的理解"><a href="#vue生命周期的理解" class="headerlink" title="vue生命周期的理解"></a><strong>vue生命周期的理解</strong></h4><p>vue生命周期主要分为8个阶段：创建前&#x2F;后，载入前&#x2F;后，更新前&#x2F;后，销毁前&#x2F;后。</p>
-<p>vue实例有一个完整的生命周期，也就是从开始创建，初始化数据，编译模板，挂载Dom &#x3D;》 渲染，更新 &#x3D;》渲染，卸载这个过程。</p>
-<table>
-<thead>
-<tr>
-<th align="left">beforeCreate</th>
-<th>组件实例被创建之初，组件的属性生效之前</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">created</td>
-<td>组件实例已经完全创建，属性也绑定，但真实dom还没有生成，$el还不可用</td>
-</tr>
-<tr>
-<td align="left">beforeMount</td>
-<td>在挂载开始之前被调用：相关的 render 函数首次被调用</td>
-</tr>
-<tr>
-<td align="left">mounted</td>
-<td>el 被新创建的 vm.$el 替换，并挂载到实例上去之后调用该钩子</td>
-</tr>
-<tr>
-<td align="left">beforeUpdate</td>
-<td>组件数据更新之前调用，发生在虚拟 DOM 打补丁之前</td>
-</tr>
-<tr>
-<td align="left">update</td>
-<td>组件数据更新之后</td>
-</tr>
-<tr>
-<td align="left">activated</td>
-<td>keep-alive专属，组件被激活时调用</td>
-</tr>
-<tr>
-<td align="left">deactivated</td>
-<td>keep-alive专属，组件被销毁时调用</td>
-</tr>
-<tr>
-<td align="left">beforeDestroy</td>
-<td>组件销毁前调用</td>
-</tr>
-<tr>
-<td align="left">destroyed</td>
-<td>组件销毁后调用</td>
-</tr>
-</tbody></table>
-<p><a target="_blank" rel="noopener" href="http://zslin.xyz/2019/06/27/vue2/vue%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E7%9A%84%E7%90%86%E8%A7%A3/61.png"><img src="http://zslin.xyz/2019/06/27/vue2/vue%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E7%9A%84%E7%90%86%E8%A7%A3/61.png" alt="img"></a></p>
-<p><strong>什么是vue生命周期？</strong></p>
-<ul>
-<li>答： Vue 实例从创建到销毁的过程，就是生命周期。从开始创建、初始化数据、编译模板、挂载Dom→渲染、更新→渲染、销毁等一系列过程，称之为 Vue 的生命周期。</li>
-</ul>
-<p><strong>vue生命周期的作用是什么？</strong></p>
-<ul>
-<li>答：它的生命周期中有多个事件钩子，让我们在控制整个Vue实例的过程时更容易形成好的逻辑。</li>
-</ul>
-<p><strong>vue生命周期总共有几个阶段？</strong></p>
-<ul>
-<li>答：它可以总共分为<code>8</code>个阶段：创建前&#x2F;后、载入前&#x2F;后、更新前&#x2F;后、销毁前&#x2F;销毁后。</li>
-</ul>
-<p><strong>第一次页面加载会触发哪几个钩子？</strong></p>
-<ul>
-<li>答：会触发下面这几个<code>beforeCreate</code>、<code>created</code>、<code>beforeMount</code>、<code>mounted</code> 。</li>
-</ul>
-<p><strong>DOM 渲染在哪个周期中就已经完成？</strong></p>
-<ul>
-<li>答：<code>DOM</code> 渲染在 <code>mounted</code> 中就已经完成了</li>
-</ul>
-
+          <p><a target="_blank" rel="noopener" href="http://zslin.xyz/2019/04/04/webpack/webpack%E7%83%AD%E6%9B%B4%E6%96%B0%E5%8E%9F%E7%90%86/rr.png"><img src="http://zslin.xyz/2019/04/04/webpack/webpack%E7%83%AD%E6%9B%B4%E6%96%B0%E5%8E%9F%E7%90%86/rr.png" alt="img"></a></p>
+<h5 id="HMR-的基本流程图"><a href="#HMR-的基本流程图" class="headerlink" title="HMR 的基本流程图"></a><strong>HMR 的基本流程图</strong></h5><p><a target="_blank" rel="noopener" href="http://zslin.xyz/2019/04/04/webpack/webpack%E7%83%AD%E6%9B%B4%E6%96%B0%E5%8E%9F%E7%90%86/tt.png"><img src="http://zslin.xyz/2019/04/04/webpack/webpack%E7%83%AD%E6%9B%B4%E6%96%B0%E5%8E%9F%E7%90%86/tt.png" alt="img"></a></p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/08/15/Webpack%E7%83%AD%E6%9B%B4%E6%96%B0%E5%8E%9F%E7%90%86/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -428,7 +514,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2019/03/26/%E5%AF%B9%E4%BA%8Emvvm%E7%9A%84%E7%90%86%E8%A7%A3/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2019/08/04/%E5%85%B3%E4%BA%8Etree-shaking/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/touxaing.png">
@@ -442,7 +528,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2019/03/26/%E5%AF%B9%E4%BA%8Emvvm%E7%9A%84%E7%90%86%E8%A7%A3/" class="post-title-link" itemprop="url">对于mvvm的理解</a>
+            <a href="/2019/08/04/%E5%85%B3%E4%BA%8Etree-shaking/" class="post-title-link" itemprop="url">关于tree-shaking</a>
         </h2>
 
         <div class="post-meta">
@@ -452,7 +538,7 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2019-03-26 00:00:00" itemprop="dateCreated datePublished" datetime="2019-03-26T00:00:00+08:00">2019-03-26</time>
+              <time title="Created: 2019-08-04 00:00:00" itemprop="dateCreated datePublished" datetime="2019-08-04T00:00:00+08:00">2019-08-04</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -460,7 +546,7 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Vue/" itemprop="url" rel="index"><span itemprop="name">Vue</span></a>
+                  <a href="/categories/Webpack/" itemprop="url" rel="index"><span itemprop="name">Webpack</span></a>
                 </span>
             </span>
 
@@ -475,14 +561,25 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h4 id="对于mvvm的理解？"><a href="#对于mvvm的理解？" class="headerlink" title="对于mvvm的理解？"></a>对于mvvm的理解？</h4><p>mvvm就是modle-view-viewmodule。mvvm是一种设计思想。</p>
-<ul>
-<li>modle：模型层，用于处理逻辑和服务器的交互。</li>
-<li>view：视图层，用于将数据渲染在页面上。UI视图。</li>
-<li>view-model：视图模型层，用来连接model和view，是model和view之间的通信桥梁。达到数据驱动视图的效果。</li>
+          <h4 id="介绍一下tree-shaking"><a href="#介绍一下tree-shaking" class="headerlink" title="介绍一下tree-shaking"></a>介绍一下tree-shaking</h4><h5 id="作用："><a href="#作用：" class="headerlink" title="作用："></a><strong>作用：</strong></h5><p>它表示在打包的时候会去除一些无用的代码</p>
+<h5 id="原理："><a href="#原理：" class="headerlink" title="原理："></a><strong>原理</strong>：</h5><ul>
+<li><code>ES6</code>的模块引入是静态分析的，所以在编译时能正确判断到底加载了哪些模块</li>
+<li>分析程序流，判断哪些变量未被使用、引用，进而删除此代码</li>
 </ul>
-<p>mvvm模式简化了界面与业务的依赖，解决了数据频繁更新。mvvm在使用当中，利用双向数据绑定技术，使得model变化时，viewmodel会自动更新，而viewmodel变化时，view也会自动变化。</p>
-
+<h5 id="特点："><a href="#特点：" class="headerlink" title="特点："></a><strong>特点：</strong></h5><ul>
+<li>在生产模式下它是默认开启的，但是由于经过<code>babel</code>编译全部模块被封装成<code>IIFE</code>，它存在副作用无法被<code>tree-shaking</code>掉</li>
+<li>可以在<code>package.json</code>中配置<code>sideEffects</code>来指定哪些文件是有副作用的。它有两种值，一个是布尔类型，如果是<code>false</code>则表示所有文件都没有副作用；如果是一个数组的话，数组里的文件路径表示改文件有副作用</li>
+<li><code>rollup</code>和<code>webpack</code>中对<code>tree-shaking</code>的层度不同，例如对<code>babel</code>转译后的<code>class</code>，如果<code>babel</code>的转译是宽松模式下的话(也就是<code>loose</code>为<code>true</code>)，<code>webpack</code>依旧会认为它有副作用不会<code>tree-shaking</code>掉，而<code>rollup</code>会。这是因为<code>rollup</code>有程序流分析的功能，可以更好的判断代码是否真正会产生副作用。</li>
+</ul>
+<h5 id="原理"><a href="#原理" class="headerlink" title="原理"></a><strong>原理</strong></h5>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/08/04/%E5%85%B3%E4%BA%8Etree-shaking/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -500,7 +597,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span>
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -568,20 +665,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">18</span>
+          <span class="site-state-item-count">30</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

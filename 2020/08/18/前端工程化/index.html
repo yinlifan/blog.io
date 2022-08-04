@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/taikong.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/taikong.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="什么是前端工程化前端工程化是使用软件工程的技术和方法来进行前端的开发流程、技术、工具、经验等规范化、标准化，其主要目的为了提高效率和降低成本，即提高开发过程中的开发效率，减少不必要的重复工作时间。 如何做”前端工程化”前端工程化就是为了让前端开发能够“自成体系”，个人认为主要应该从模块化、组件化、规范化、自动化四个方面思考。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端工程化">
+<meta property="og:url" content="http://example.com/2020/08/18/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/index.html">
+<meta property="og:site_name" content="AFAN">
+<meta property="og:description" content="什么是前端工程化前端工程化是使用软件工程的技术和方法来进行前端的开发流程、技术、工具、经验等规范化、标准化，其主要目的为了提高效率和降低成本，即提高开发过程中的开发效率，减少不必要的重复工作时间。 如何做”前端工程化”前端工程化就是为了让前端开发能够“自成体系”，个人认为主要应该从模块化、组件化、规范化、自动化四个方面思考。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-08-17T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-08-17T16:00:00.000Z">
+<meta property="article:author" content="Lifan Yin">
+<meta property="article:tag" content="JavaScript">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2020/08/18/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>前端工程化 | AFAN</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">AFAN</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">CODE IS POETRY.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/08/18/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/touxaing.png">
+      <meta itemprop="name" content="Lifan Yin">
+      <meta itemprop="description" content="心有猛虎，细嗅蔷薇。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AFAN">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          前端工程化
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-08-18 00:00:00" itemprop="dateCreated datePublished" datetime="2020-08-18T00:00:00+08:00">2020-08-18</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h4 id="什么是前端工程化"><a href="#什么是前端工程化" class="headerlink" title="什么是前端工程化"></a>什么是前端工程化</h4><p><strong>前端工程化</strong>是使用软件工程的技术和方法来进行前端的开发流程、技术、工具、经验等规范化、标准化，其主要目的<strong>为了提高效率和降低成本，即提高开发过程中的开发效率，减少不必要的重复工作时间</strong>。</p>
+<h4 id="如何做”前端工程化”"><a href="#如何做”前端工程化”" class="headerlink" title="如何做”前端工程化”"></a>如何做”前端工程化”</h4><p>前端工程化就是为了让前端开发能够“自成体系”，个人认为主要应该从<strong>模块化</strong>、<strong>组件化</strong>、<strong>规范化</strong>、<strong>自动化</strong>四个方面思考。</p>
+<span id="more"></span>
+<ul>
+<li>模块化（js模块化，css模块化，资源模块化）</li>
+<li>组件化（复用现有的UI结构，样式，行为）</li>
+<li>规范化（目录结构的划分，编码规范化，接口规范化，文档规范化）</li>
+<li>自动化（自动化构建，自动部署，自动化测试）</li>
+</ul>
+<h4 id="1-模块化"><a href="#1-模块化" class="headerlink" title="1.模块化"></a>1.模块化</h4><blockquote>
+<p>简单来说，模块化就是将一个大文件拆分成相互依赖的小文件，再进行统一的拼装和加载。</p>
+</blockquote>
+<ul>
+<li><h5 id="JS的模块化"><a href="#JS的模块化" class="headerlink" title="JS的模块化"></a>JS的模块化</h5><p>在ES6之前，JavaScript一直没有模块系统，这对开发大型复杂的前端工程造成了巨大的障碍。对此社区制定了一些模块加载方案，如CommonJS、AMD和CMD等。</p>
+<p>现在ES6已经在语言层面上规定了模块系统，完全可以取代现有的CommonJS和AMD规范，而且使用起来相当简洁，并且有静态加载的特性。</p>
+<ol>
+<li>用<code>Webpack</code> + <code>Babel</code>将所有模块打包成一个文件同步加载，也可以搭乘多个chunk异步加载；</li>
+<li>用<code>System</code>+<code>Babel</code>主要是分模块异步加载；</li>
+<li>用浏览器的<code>&lt;script type=&quot;module&quot;&gt;</code>加载。</li>
+</ol>
+</li>
+<li><h5 id="css的模块化"><a href="#css的模块化" class="headerlink" title="css的模块化"></a>css的模块化</h5><p>虽然SASS、LESS、Stylus等预处理器实现了CSS的文件拆分，但没有解决CSS模块化的一个重要问题：选择器的全局污染问题。</p>
+<p>按道理，一个模块化的文件应该要隐藏内部作用域，只暴露少量接口给使用者。而按照目前预处理器的方式，导入一个CSS模块后，已存在的样式有被覆盖的风险。虽然重写样式是CSS的一个优势，但这并不利于多人协作。</p>
+<p>为了避免全局选择器的冲突，需要制定CSS命名风格：</p>
+<ul>
+<li>BEM风格</li>
+<li>Bootstrap风格</li>
+<li>…</li>
+</ul>
+<p>但是这毕竟是弱约束。所以很赞同一句话：</p>
+<blockquote>
+<p><em>与其费尽心思地告诉别人要遵守某种规则，以规避某种痛苦，倒不如从工具层面就消灭这种痛苦。</em></p>
+</blockquote>
+<p>从工具层面，社区又创造出Shadow DOM、CSS in JS和CSS Modules三种解决方案。</p>
+<ul>
+<li>Shadow DOM是WebComponents的标准。它能解决全局污染问题，但目前很多浏览器不兼容，对我们来说还很久远；</li>
+<li>CSS in JS是彻底抛弃CSS，使用JS或JSON来写样式。这种方法很激进，不能利用现有的CSS技术，而且处理伪类等问题比较困难；</li>
+<li>CSS Modules仍然使用CSS，只是让JS来管理依赖。它能够最大化地结合CSS生态和JS模块化能力，目前来看是最好的解决方案。Vue的scoped style也算是一种。</li>
+</ul>
+</li>
+<li><h5 id="资源的模块化"><a href="#资源的模块化" class="headerlink" title="资源的模块化"></a>资源的模块化</h5><p>Webpack的强大之处不仅仅在于它统一了JS的各种模块系统，取代了Browserify、RequireJS、SeaJS的工作。更重要的是它的万能模块加载理念，即所有的资源都可以且也应该模块化。</p>
+<p>资源模块化后，优点是：</p>
+<ul>
+<li><strong>依赖关系单一化</strong>。所有CSS和图片等资源的依赖关系统一走JS路线，无需额外处理CSS预处理器的依赖关系，也不需处理代码迁移时的图片合并、字体图片等路径问题；</li>
+<li><strong>资源处理集成化</strong>。现在可以用loader对各种资源做各种事情，比如复杂的vue-loader等等；</li>
+<li><strong>项目结构清晰化</strong>。使用Webpack后，你的项目结构总可以表示成这样的函数： dest &#x3D; webpack(src, config)。</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-组件化"><a href="#2-组件化" class="headerlink" title="2.组件化"></a>2.组件化</h4><p>从UI拆分下来的<strong>每个包含模板(HTML)+样式(CSS)+逻辑(JS)功能完备的结构单元</strong>，我们称之为<strong>组件</strong>。</p>
+<blockquote>
+<p><strong>组件化≠模块化</strong>。模块化只是在文件层面上，对代码或资源的拆分；而组件化是在设计层面上，对UI（用户界面）的拆分。</p>
+</blockquote>
+<p>其实，组件化更重要是一种分治思想。</p>
+<blockquote>
+<p>Keep Simple. Everything can be a component.</p>
+</blockquote>
+<p>页面上所有的东西都是组件。页面是个大型组件，可以拆成若干个中型组件，然后中型组件还可以再拆，拆成若干个小型组件，小型组件也可以再拆，直到拆成DOM元素为止。DOM元素可以看成是浏览器自身的组件，作为组件的基本单元。</p>
+<p>传统前端框架&#x2F;类库的思想是先组织DOM，然后把某些可复用的逻辑封装成组件来操作DOM，是DOM优先；而组件化框架&#x2F;类库的思想是先来构思组件，然后用DOM这种基本单元结合相应逻辑来实现组件，是组件优先。这是两者本质的区别。</p>
+<p>其次，组件化实际上是一种按照模板(HTML)+样式(CSS)+逻辑(JS)三位一体的形式<strong>对面向对象的进一步抽象。</strong></p>
+<p>所以我们除了封装组件本身，还要合理处理组件之间的关系，比如 <strong>（逻辑）继承</strong>、<strong>（样式）扩展</strong>、<strong>（模板）嵌套</strong>和<strong>包含</strong>等，这些关系都可以归为<strong>依赖</strong>。</p>
+<p>目前市面上的组件化框架很多，主要的有Vue、React、Angular。Vue文档中的对比其他框架一文已经讲得很详细了。</p>
+<h4 id="3-规范化"><a href="#3-规范化" class="headerlink" title="3.规范化"></a>3.规范化</h4><p>规范化其实是工程化中很重要的一个部分，项目初期规范制定的好坏会直接影响到后期的开发质量。</p>
+<p>比如：</p>
+<ul>
+<li><p>目录结构的制定</p>
+<p>目录结构的合理设定，能为项目带来很多优点：</p>
+<ul>
+<li>有助于提高项目的逻辑结构合理性；</li>
+<li>对应扩展和合作；</li>
+<li>方便资源的统一定位管理。</li>
+</ul>
+</li>
+<li><p>编码规范</p>
+<p>制定一套良好的编码规范可以增强团队开发协作、提高代码质量。<br> 推荐参考<strong>凹凸实验室</strong>打造的<a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=https://guide.aotu.io/docs/index.html">前端代码规范</a>。</p>
+<p>编码规范包括</p>
+<ul>
+<li><p><strong>HTML规范</strong>。</p>
+<p>基于 W3C、苹果开发者 等官方文档，并结合团队业务和开发过程中总结的规范约定，让页面HTML代码更具语义性。</p>
+</li>
+<li><p><strong>CSS规范</strong>。</p>
+<p>统一规范团队 CSS 代码书写风格和使用 CSS 预编译语言语法风格，提供常用媒体查询语句和浏览器私有属性引用，并从业务层面统一规范常用模块的引用。</p>
+</li>
+<li><p><strong>JS规范</strong>。</p>
+<p>统一规范团队 CSS 代码书写风格和使用 CSS 预编译语言语法风格，提供常用媒体查询语句和浏览器私有属性引用，并从业务层面统一规范常用模块的引用。</p>
+</li>
+<li><p><strong>图片规范</strong>。</p>
+<p>了解各种图片格式特性，根据特性制定图片规范，包括但不限于图片的质量约定、图片引入方式、图片合并处理等，旨在从图片层面优化页面性能。</p>
+</li>
+<li><p><strong>命名规范</strong>。</p>
+<p>从 目录、图片、HTML&#x2F;CSS文件、ClassName 的命名等层面约定规范团队的命名习惯，增强团队代码的可读性。</p>
+</li>
+</ul>
+</li>
+<li><p>前后端接口规范</p>
+<p>“基于 Ajax 带来的 SPA 时代”，这种模式下，前后端的分工非常清晰，前后端的关键协作点是 Ajax 接口，引发一个重要问题：前后端的对接界面双方却关注甚少，没有任何接口约定规范情况下各自撸起袖子就是干，导致我们在产品项目开发过程中，前后端的接口联调对接工作量占比在30%-50%左右，甚至会更高。往往前后端接口联调对接及系统间的联调对接都是整个产品项目研发的软肋。</p>
+<p>接口规范主要初衷就是规范约定先行，尽量避免沟通联调产生的不必要的问题，让大家身心愉快地专注于各自擅长的领域。</p>
+<p>那么，对于这一SPA阶段，前后端分离有几个重要的关注挑战：</p>
+<ul>
+<li><h5 id="职责分离"><a href="#职责分离" class="headerlink" title="职责分离"></a>职责分离</h5><ol>
+<li>前后端仅仅通过异步接口(AJAX&#x2F;JSONP)来编程；</li>
+<li>前后端都各自有自己的开发流程，构建工具，测试集合；</li>
+<li>关注点分离，前后端变得相对独立并松耦合。</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>后端</th>
+<th>前端</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>提供数据</td>
+<td>接收数据，返回数据</td>
+</tr>
+<tr>
+<td>处理业务逻辑</td>
+<td>处理渲染逻辑</td>
+</tr>
+</tbody></table>
+</li>
+<li><h5 id="规范原则"><a href="#规范原则" class="headerlink" title="规范原则"></a>规范原则</h5><ol>
+<li>接口返回数据即显示，前端仅做渲染逻辑处理；</li>
+<li>渲染逻辑禁止跨多个接口调用；</li>
+<li>前端关注交互、渲染逻辑，尽量避免业务逻辑处理的出现；</li>
+<li>请求响应传输数据格式：JSON，JSON数据尽量简单轻量，避免多级JSON的出现；</li>
+</ol>
+</li>
+<li><h5 id="响应格式"><a href="#响应格式" class="headerlink" title="响应格式"></a>响应格式</h5><ol>
+<li>响应基本格式及处理状态值的规范。<ul>
+<li>基本响应格式</li>
+<li>列表响应格式</li>
+</ul>
+</li>
+<li>特殊内容<ul>
+<li>下拉框、复选框、单选框统一由后端逻辑判定选中返回给前端展示；</li>
+<li>关于Boolean类型，JSON数据传输中一律使用1&#x2F;0来标示，1为是&#x2F;True，0为否&#x2F;False</li>
+<li>关于日期类型，JSON数据传输中一律使用字符串，具体日期格式因业务而定；</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p>文档规范</p>
+</li>
+<li><p>组件管理</p>
+</li>
+<li><p>git分支管理</p>
+</li>
+<li><p>commit描述规范</p>
+</li>
+<li><p>视觉图标规范</p>
+</li>
+<li><p>…</p>
+</li>
+</ul>
+<h4 id="4-自动化"><a href="#4-自动化" class="headerlink" title="4.自动化"></a>4.自动化</h4><p>前端工程化的很多脏活累活都应该交给自动化工具来完成。需要秉持的一个理念是:</p>
+<blockquote>
+<p>任何简单机械的重复劳动都应该让机器去完成。</p>
+</blockquote>
+<ul>
+<li>图标合并</li>
+<li>持续集成</li>
+<li>自动化构建</li>
+<li>自动化部署</li>
+<li>自动化测试</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/07/20/JavaScript%E5%87%A0%E7%A7%8D%E7%BB%A7%E6%89%BF%E6%96%B9%E6%B3%95/" rel="prev" title="JavaScript几种继承方法">
+      <i class="fa fa-chevron-left"></i> JavaScript几种继承方法
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/12/29/Vue%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/" rel="next" title="Vue响应式原理">
+      Vue响应式原理 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96"><span class="nav-number">1.</span> <span class="nav-text">什么是前端工程化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%81%9A%E2%80%9D%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96%E2%80%9D"><span class="nav-number">2.</span> <span class="nav-text">如何做”前端工程化”</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E6%A8%A1%E5%9D%97%E5%8C%96"><span class="nav-number">3.</span> <span class="nav-text">1.模块化</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#JS%E7%9A%84%E6%A8%A1%E5%9D%97%E5%8C%96"><span class="nav-number">3.1.</span> <span class="nav-text">JS的模块化</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#css%E7%9A%84%E6%A8%A1%E5%9D%97%E5%8C%96"><span class="nav-number">3.2.</span> <span class="nav-text">css的模块化</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%B5%84%E6%BA%90%E7%9A%84%E6%A8%A1%E5%9D%97%E5%8C%96"><span class="nav-number">3.3.</span> <span class="nav-text">资源的模块化</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E7%BB%84%E4%BB%B6%E5%8C%96"><span class="nav-number">4.</span> <span class="nav-text">2.组件化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E8%A7%84%E8%8C%83%E5%8C%96"><span class="nav-number">5.</span> <span class="nav-text">3.规范化</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%81%8C%E8%B4%A3%E5%88%86%E7%A6%BB"><span class="nav-number">5.1.</span> <span class="nav-text">职责分离</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%A7%84%E8%8C%83%E5%8E%9F%E5%88%99"><span class="nav-number">5.2.</span> <span class="nav-text">规范原则</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%93%8D%E5%BA%94%E6%A0%BC%E5%BC%8F"><span class="nav-number">5.3.</span> <span class="nav-text">响应格式</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E8%87%AA%E5%8A%A8%E5%8C%96"><span class="nav-number">6.</span> <span class="nav-text">4.自动化</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Lifan Yin"
+      src="/images/touxaing.png">
+  <p class="site-author-name" itemprop="name">Lifan Yin</p>
+  <div class="site-description" itemprop="description">心有猛虎，细嗅蔷薇。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lifan Yin</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

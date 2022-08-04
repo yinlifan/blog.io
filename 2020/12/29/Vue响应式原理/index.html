@@ -248,12 +248,13 @@
         <p><a target="_blank" rel="noopener" href="http://zslin.xyz/2019/05/27/vue2/vue2%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/15.png"><img src="http://zslin.xyz/2019/05/27/vue2/vue2%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/15.png" alt="img"></a></p>
 <p>Vue2.x响应式原理：</p>
 <p>vue创建一个实例时，首先会遍历data属性。采用数据劫持结合发布者订阅者的方式。使用es5的object.defindeproperty 方法将他们转化成getter，setter，并在内部追踪相关依赖。在属性被访问和修改时通知变化。也就是observer使用object.defindproerty来监听数据的读写。读取数据时，调用get方法通知dep去收集订阅者（watcher）。添加到道dep的一个属性subs数理。 dep有很多属性，其中就有一个subsadd添加订阅者的方法。修改1数据时，调用set方法，通知dep数据发生了改变。使用dep.notify方法遍历subs数组里面的每个watcher。调用watcher的update（）方法。创建出一个新的dom树，与原来旧的dom树作对比，根据差异性，从而更新视图。</p>
+<span id="more"></span>
 <p><a target="_blank" rel="noopener" href="http://zslin.xyz/2019/05/27/vue2/vue2%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/vue.jpeg"><img src="http://zslin.xyz/2019/05/27/vue2/vue2%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/vue.jpeg" alt="img"></a></p>
-<p>**Object.defineProperty()**，那么它的用法是什么，以及优缺点是什么呢？</p>
+<p>***Object.defineProperty()***，那么它的用法是什么，以及优缺点是什么呢？</p>
 <ul>
 <li>可以检测对象中数据发生的修改</li>
 <li>对于复杂的对象，层级很深的话，是不友好的，需要经行深度监听，这样子就需要递归到底，这也是它的缺点。</li>
-<li>对于一个对象中，如果你新增加属性，删除属性，**Object.defineProperty()**是不能观测到的，那么应该如何解决呢？可以通过<code>Vue.set()</code>和<code>Vue.delete()</code>来实现。</li>
+<li>对于一个对象中，如果你新增加属性，删除属性，***Object.defineProperty()***是不能观测到的，那么应该如何解决呢？可以通过<code>Vue.set()</code>和<code>Vue.delete()</code>来实现。</li>
 </ul>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 模拟 Vue 中的 data 选项 </span></span><br><span class="line"><span class="keyword">let</span> data = &#123;</span><br><span class="line">    <span class="attr">msg</span>: <span class="string">&#x27;hello&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 模拟 Vue 的实例 </span></span><br><span class="line"><span class="keyword">let</span> vm = &#123;&#125;</span><br><span class="line"><span class="comment">// 数据劫持:当访问或者设置 vm 中的成员的时候，做一些干预操作</span></span><br><span class="line"><span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(vm, <span class="string">&#x27;msg&#x27;</span>, &#123;</span><br><span class="line">  <span class="comment">// 可枚举(可遍历)</span></span><br><span class="line">  <span class="attr">enumerable</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="comment">// 可配置(可以使用 delete 删除，可以通过 defineProperty 重新定义) </span></span><br><span class="line">  <span class="attr">configurable</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="comment">// 当获取值的时候执行 </span></span><br><span class="line">  get () &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;get: &#x27;</span>, data.<span class="property">msg</span>)</span><br><span class="line">    <span class="keyword">return</span> data.<span class="property">msg</span> </span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// 当设置值的时候执行 </span></span><br><span class="line">  set (newValue) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;set: &#x27;</span>, newValue) </span><br><span class="line">    <span class="keyword">if</span> (newValue === data.<span class="property">msg</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    data.<span class="property">msg</span> = newValue</span><br><span class="line">    <span class="comment">// 数据更改，更新 DOM 的值 </span></span><br><span class="line">    <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;#app&#x27;</span>).<span class="property">textContent</span> = data.<span class="property">msg</span></span><br><span class="line">  &#125; </span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 测试</span></span><br><span class="line">vm.<span class="property">msg</span> = <span class="string">&#x27;Hello World&#x27;</span> </span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(vm.<span class="property">msg</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
@@ -319,8 +320,8 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/07/08/inline-block%E7%BC%9D%E9%9A%99%E9%97%AE%E9%A2%98/" rel="prev" title="inline-block缝隙问题">
-      <i class="fa fa-chevron-left"></i> inline-block缝隙问题
+    <a href="/2020/08/18/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/" rel="prev" title="前端工程化">
+      <i class="fa fa-chevron-left"></i> 前端工程化
     </a></div>
       <div class="post-nav-item">
     <a href="/2021/07/27/Vue3%E4%B8%ADTreeshaking/" rel="next" title="Vue3中Treeshaking">
@@ -399,20 +400,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">18</span>
+          <span class="site-state-item-count">30</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
