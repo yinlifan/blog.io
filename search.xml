@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>ES5,ES6和ES2015</title>
+    <url>/2019/02/20/ES5-ES6%E5%92%8CES2015/</url>
+    <content><![CDATA[<h4 id="ES5，ES6和ES2015有什么区别？"><a href="#ES5，ES6和ES2015有什么区别？" class="headerlink" title="ES5，ES6和ES2015有什么区别？"></a>ES5，ES6和ES2015有什么区别？</h4><p>Es2015是指2015年发布的新一代js语言标准，es6泛指下一代js语言标准，包含了es2015，es2016，es2017，es2018等。现阶段在绝大部分场景下，es2015默认等同es6。es5泛指上一代语言标准。es2015可以理解为ES5和ES6的时间分解线。</p>
+<h4 id="babel是什么，有什么作用？"><a href="#babel是什么，有什么作用？" class="headerlink" title="babel是什么，有什么作用？"></a>babel是什么，有什么作用？</h4><p>babel是一个es6的转换器，可以将es6代码转为es5代码，以便兼容那些还没支持es6的平台。</p>
+]]></content>
+      <categories>
+        <category>JavaScript</category>
+      </categories>
+      <tags>
+        <tag>ES6</tag>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Rollup优缺点</title>
     <url>/2019/04/03/Rollup%E4%BC%98%E7%BC%BA%E7%82%B9/</url>
     <content><![CDATA[<h4 id="介绍一下Rollup"><a href="#介绍一下Rollup" class="headerlink" title="介绍一下Rollup"></a>介绍一下Rollup</h4><p>Rollup 是一款 ES Modules 打包器。它也可以将项目中散落的细小模块打包为整块代码，从而使得这些划分的模块可以更好地运行在浏览器环境或者 Node.js 环境。</p>
@@ -63,6 +77,47 @@
 </blockquote>
 </li>
 </ol>
+]]></content>
+      <categories>
+        <category>Vue3</category>
+      </categories>
+      <tags>
+        <tag>Vue3</tag>
+        <tag>Vue</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Vue3中Treeshaking</title>
+    <url>/2021/07/27/Vue3%E4%B8%ADTreeshaking/</url>
+    <content><![CDATA[<h4 id="说说Vue-3-0中Treeshaking特性？举例说明一下？"><a href="#说说Vue-3-0中Treeshaking特性？举例说明一下？" class="headerlink" title="说说Vue 3.0中Treeshaking特性？举例说明一下？"></a>说说Vue 3.0中Treeshaking特性？举例说明一下？</h4><p><a href="http://zslin.xyz/2021/07/27/vue3/vue3%E4%B8%ADTreeshaking%E7%89%B9%E6%80%A7/tt.png"><img src="http://zslin.xyz/2021/07/27/vue3/vue3%E4%B8%ADTreeshaking%E7%89%B9%E6%80%A7/tt.png" alt="img"></a></p>
+<h5 id="是什么？"><a href="#是什么？" class="headerlink" title="是什么？"></a>是什么？</h5><p>Tree shaking是一种术语，在打包时将不打包没有用到的代码清除掉，这些代码会成为dead code（死代码）。也就是说，treeshaking在打包时所留下的，是我们用到的代码。</p>
+<ul>
+<li>在vue2中，无论我们使用什么功能，它们最终都会出现在打包后的文件中。因为vue2在项目中是单例的，无法检测到哪些代码在项目中是被用到的。</li>
+<li>vue3引入了treeshaking特性，将全局api进行分块。如果没有使用到某个功能，他们将不会包含在你打包后的文件中。</li>
+</ul>
+<h5 id="如何做？"><a href="#如何做？" class="headerlink" title="如何做？"></a>如何做？</h5><p>Tree shaking是基于es6的模板语法import，exports静态编辑思想确定模块依赖关系的。</p>
+<span id="more"></span>
+<ul>
+<li>treeshaking在编译阶段会判断模块的加载状态。</li>
+<li>判断未使用的相关变量，进行移除。</li>
+</ul>
+<p>举个例子：<br>如果，新创建的项目中，data中的变量1，和变量2被使用了，但是变量3，并没有被使用，那么变量3，会在打包的时候被移除<br>在比如，可以对比一下项目在使用treeShaking打包之后和未使用的情况下进行打包后的大小，<br>data中的数据都被正常使用，methods的方法也被正常使用，component方法和watch方法未使用，然后进行打包<br>答案显而易见，在使用treeShaking后进行打包只会将data和methods这种使用的方法进行打包，而不是打包所有</p>
+<h5 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h5><ul>
+<li>减少程序体积（更小）</li>
+<li>减少程序执行时间（更快）</li>
+<li>便于维护优化项目框架</li>
+</ul>
+<h5 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h5><hr>
+<blockquote>
+<ul>
+<li><a href="https://segmentfault.com/a/1190000038962700">https://segmentfault.com/a/1190000038962700</a></li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li><a href="https://vue3js.cn/interview/vue3/treeshaking.html#%E4%B8%80%E3%80%81%E6%98%AF%E4%BB%80%E4%B9%88">https://vue3js.cn/interview/vue3/treeshaking.html#%E4%B8%80%E3%80%81%E6%98%AF%E4%BB%80%E4%B9%88</a></li>
+</ul>
+</blockquote>
 ]]></content>
       <categories>
         <category>Vue3</category>
@@ -171,35 +226,151 @@
       </tags>
   </entry>
   <entry>
-    <title>Vue3中Treeshaking</title>
-    <url>/2021/07/27/Vue3%E4%B8%ADTreeshaking/</url>
-    <content><![CDATA[<h4 id="说说Vue-3-0中Treeshaking特性？举例说明一下？"><a href="#说说Vue-3-0中Treeshaking特性？举例说明一下？" class="headerlink" title="说说Vue 3.0中Treeshaking特性？举例说明一下？"></a>说说Vue 3.0中Treeshaking特性？举例说明一下？</h4><p><a href="http://zslin.xyz/2021/07/27/vue3/vue3%E4%B8%ADTreeshaking%E7%89%B9%E6%80%A7/tt.png"><img src="http://zslin.xyz/2021/07/27/vue3/vue3%E4%B8%ADTreeshaking%E7%89%B9%E6%80%A7/tt.png" alt="img"></a></p>
-<h5 id="是什么？"><a href="#是什么？" class="headerlink" title="是什么？"></a>是什么？</h5><p>Tree shaking是一种术语，在打包时将不打包没有用到的代码清除掉，这些代码会成为dead code（死代码）。也就是说，treeshaking在打包时所留下的，是我们用到的代码。</p>
-<ul>
-<li>在vue2中，无论我们使用什么功能，它们最终都会出现在打包后的文件中。因为vue2在项目中是单例的，无法检测到哪些代码在项目中是被用到的。</li>
-<li>vue3引入了treeshaking特性，将全局api进行分块。如果没有使用到某个功能，他们将不会包含在你打包后的文件中。</li>
+    <title>Vue3系列面试</title>
+    <url>/2021/08/19/Vue3%E7%B3%BB%E5%88%97%E9%9D%A2%E8%AF%95/</url>
+    <content><![CDATA[<h4 id="Vue3-0的设计目标是什么？做了哪些优化？"><a href="#Vue3-0的设计目标是什么？做了哪些优化？" class="headerlink" title="Vue3.0的设计目标是什么？做了哪些优化？"></a>Vue3.0的设计目标是什么？做了哪些优化？</h4><h5 id="设计目标"><a href="#设计目标" class="headerlink" title="设计目标"></a>设计目标</h5><ul>
+<li>体积更小：<ul>
+<li>vue3移除一些不常用的API，引入tree shaking，将一些无用的模块“剪辑掉”。仅打包需要的模块。使打包体积变小了。</li>
 </ul>
-<h5 id="如何做？"><a href="#如何做？" class="headerlink" title="如何做？"></a>如何做？</h5><p>Tree shaking是基于es6的模板语法import，exports静态编辑思想确定模块依赖关系的。</p>
-<span id="more"></span>
-<ul>
-<li>treeshaking在编译阶段会判断模块的加载状态。</li>
-<li>判断未使用的相关变量，进行移除。</li>
+</li>
+<li>更快：<ul>
+<li>diff算法优化：</li>
+<li>静态提升</li>
+<li>事件缓存机制</li>
+<li>ssr优化</li>
 </ul>
-<p>举个例子：<br>如果，新创建的项目中，data中的变量1，和变量2被使用了，但是变量3，并没有被使用，那么变量3，会在打包的时候被移除<br>在比如，可以对比一下项目在使用treeShaking打包之后和未使用的情况下进行打包后的大小，<br>data中的数据都被正常使用，methods的方法也被正常使用，component方法和watch方法未使用，然后进行打包<br>答案显而易见，在使用treeShaking后进行打包只会将data和methods这种使用的方法进行打包，而不是打包所有</p>
+</li>
+<li>更友好：<ul>
+<li>vue3推出了composition API，大大增加了代码的组织能力和复用能力。</li>
+</ul>
+</li>
+</ul>
+<h5 id="优化方案"><a href="#优化方案" class="headerlink" title="优化方案"></a>优化方案</h5><span id="more"></span>
+<ul>
+<li>源码<ul>
+<li>源码管理，体积更小</li>
+<li>使用ts，提供类型检查</li>
+</ul>
+</li>
+<li>性能<ul>
+<li>体积优化</li>
+<li>编译优化</li>
+<li>数据劫持优化</li>
+</ul>
+</li>
+<li>语法API<ul>
+<li>组合式API，主要提高了代码的组织和复用能力</li>
+</ul>
+</li>
+</ul>
+<h4 id="Vue3-0性能提升主要是通过哪几方面体现的？"><a href="#Vue3-0性能提升主要是通过哪几方面体现的？" class="headerlink" title="Vue3.0性能提升主要是通过哪几方面体现的？"></a>Vue3.0性能提升主要是通过哪几方面体现的？</h4><ul>
+<li>编译阶段<ul>
+<li>diff算法优化：比vue2增加了静态标记，在发生改变的地方做一个flag标记，下次发生改变可以直接找到该地方进行比较。</li>
+<li>静态提升： vue3对不参与更新的元素，会做静态提升，只创建一次，可以复用渲染。免去重复创建节点，优化了运行时的内存。</li>
+<li>事件缓存机制</li>
+<li>SSR优化： 当内容达到一定量的时候，采用服务端渲染。</li>
+</ul>
+</li>
+<li>源码体积<ul>
+<li>相对于vue2来说体积变小了，去除一些不常用API。使用树摇（tree shaking），只打包需要的模块，打包体积变小了</li>
+</ul>
+</li>
+<li>响应式系统<ul>
+<li>vue2采用object.proerty（）劫持整个对象，深度遍历每个属性，给每个属性添加getter，setter，来实现响应式。</li>
+<li>vue3使用了vue3代理对象，可以对整个对象进行监听，不需要深度遍历。</li>
+<li>可以监听整个对象以及属性的修改和删除，可以监听数组的索引和lenght属性。</li>
+</ul>
+</li>
+</ul>
+<h4 id="Vue3-0里为什么要用-Proxy-API-替代-defineProperty-API-？"><a href="#Vue3-0里为什么要用-Proxy-API-替代-defineProperty-API-？" class="headerlink" title="Vue3.0里为什么要用 Proxy API 替代 defineProperty API ？"></a>Vue3.0里为什么要用 Proxy API 替代 defineProperty API ？</h4><ul>
+<li>defineProerty API：<ul>
+<li>检测不到对象属性的添加和删除， 提供了set，和delete方法。</li>
+<li>数组的方法 无法监听到（push，shift）</li>
+<li>需要对每个属性进行监听，如果是嵌套对象的话，需使用深度监听，可能会造成性能问题。</li>
+</ul>
+</li>
+<li>Proxy：<ul>
+<li>object.definproerty 只能遍历对象属性进行劫持，proxy直接监听整个对象。</li>
+<li>返回一个新对象，只需操作新对象就能达到目的。</li>
+<li>proxy有多达13种监听方法，不限于apply，has等，这是object.defineproerty（）不具备的</li>
+<li>可以直接监听数组的变化（push，shift，splice）</li>
+</ul>
+</li>
+</ul>
+<h4 id="Vue3-0-所采用的-Composition-Api-与-Vue2-x-使用的-Options-Api-有什么不同？"><a href="#Vue3-0-所采用的-Composition-Api-与-Vue2-x-使用的-Options-Api-有什么不同？" class="headerlink" title="Vue3.0 所采用的 Composition Api 与 Vue2.x 使用的 Options Api 有什么不同？"></a>Vue3.0 所采用的 Composition Api 与 Vue2.x 使用的 Options Api 有什么不同？</h4><ul>
+<li>Options API:<ul>
+<li>通过定义data，methods，computed等方法和属性，来共同处理页面逻辑，一个功能的实现，需要不同的位置的方法和属性，比较分散。可能会造成组件的难以理解和维护。</li>
+</ul>
+</li>
+<li>Composition API:<ul>
+<li>所有方法和功能都写在setup当中，将一个功能的所有方法，属性放在一起。（高内聚，低耦合）。根据相关逻辑来组织代码，提高代码的可读性和维护性。（当功能增多时，还可使用hook来封装出去）</li>
+<li>组合式API中见不到this的使用，减少this指向不明的问题。</li>
+<li>组合式API几乎都是函数，会有很好的类型判断。</li>
+</ul>
+</li>
+</ul>
+<h4 id="说说Vue-3-0中Treeshaking特性？举例说明一下？"><a href="#说说Vue-3-0中Treeshaking特性？举例说明一下？" class="headerlink" title="说说Vue 3.0中Treeshaking特性？举例说明一下？"></a>说说Vue 3.0中Treeshaking特性？举例说明一下？</h4><h5 id="是什么？"><a href="#是什么？" class="headerlink" title="是什么？"></a>是什么？</h5><p>Tree shaking是一种术语，在打包时不打包没有用到的模块，减小了打包体积。</p>
+<h5 id="如何做？"><a href="#如何做？" class="headerlink" title="如何做？"></a>如何做？</h5><p>Tree shaking是基于es6的 <code>import</code> 和 <code>exports</code> 静态编程思想来确定模块的依赖关系。</p>
+<ul>
+<li>tree shaking会在编译阶段判断模块的加载状态</li>
+<li>判断未使用的变量，进行移除。</li>
+</ul>
 <h5 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h5><ul>
-<li>减少程序体积（更小）</li>
-<li>减少程序执行时间（更快）</li>
+<li>减小打包体积</li>
+<li>减少程序打包的时间</li>
 <li>便于维护优化项目框架</li>
 </ul>
-<h5 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h5><hr>
+<h4 id="用Vue3-0-写过组件吗？如果想实现一个-Modal你会怎么设计？"><a href="#用Vue3-0-写过组件吗？如果想实现一个-Modal你会怎么设计？" class="headerlink" title="用Vue3.0 写过组件吗？如果想实现一个 Modal你会怎么设计？"></a>用Vue3.0 写过组件吗？如果想实现一个 Modal你会怎么设计？</h4><p>首先要考虑，大致实现的思路，根据ui设计图，确定好主体的内容，布局样式，做的那些交互操作，删除，修改等等。定义API方法来进行开发。</p>
+]]></content>
+      <categories>
+        <category>前端面试</category>
+      </categories>
+      <tags>
+        <tag>Vue3</tag>
+        <tag>Vue</tag>
+        <tag>前端面试</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Vue3设计目标及优化</title>
+    <url>/2021/09/06/Vue3%E8%AE%BE%E8%AE%A1%E7%9B%AE%E6%A0%87%E5%8F%8A%E4%BC%98%E5%8C%96/</url>
+    <content><![CDATA[<h4 id="vue3-0的设计目标是什么？做了那些优化？"><a href="#vue3-0的设计目标是什么？做了那些优化？" class="headerlink" title="vue3.0的设计目标是什么？做了那些优化？"></a>vue3.0的设计目标是什么？做了那些优化？</h4><hr>
+<p>设计目标：</p>
+<ul>
+<li>打包体积更小： vue3移除一些不常用的API，将无用的模块“剪辑”掉，仅打包需要的，使打包体积更小了。</li>
+<li>速度更快： diff算法优化，静态提升。</li>
+<li>更灵活的代码组织能力： 推出composition API，大大增加了代码的逻辑组织能力和代码复用能力。</li>
+</ul>
+<p>优化方案：</p>
+<span id="more"></span>
+<ul>
+<li><p>源码</p>
+<ul>
+<li>使用ts语法，源码的优化。</li>
+</ul>
+</li>
+<li><p>性能</p>
+<ul>
+<li>体积，编译，数据劫持优化。</li>
+</ul>
+</li>
+<li><p>语法 API</p>
+<ul>
+<li><p>组合式API，根据相关逻辑组织代码。</p>
+<p><a href="http://zslin.xyz/2021/06/06/vue3/vue3-0%E7%9A%84%E8%AE%BE%E8%AE%A1%E5%8F%8A%E4%BC%98%E5%8C%96/tt.png"><img src="http://zslin.xyz/2021/06/06/vue3/vue3-0%E7%9A%84%E8%AE%BE%E8%AE%A1%E5%8F%8A%E4%BC%98%E5%8C%96/tt.png" alt="img"></a></p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献:"></a>参考文献:</h4><hr>
 <blockquote>
 <ul>
-<li><a href="https://segmentfault.com/a/1190000038962700">https://segmentfault.com/a/1190000038962700</a></li>
+<li><a href="https://juejin.cn/post/6850418112878575629#heading-5">https://juejin.cn/post/6850418112878575629#heading-5</a></li>
 </ul>
 </blockquote>
 <blockquote>
 <ul>
-<li><a href="https://vue3js.cn/interview/vue3/treeshaking.html#%E4%B8%80%E3%80%81%E6%98%AF%E4%BB%80%E4%B9%88">https://vue3js.cn/interview/vue3/treeshaking.html#%E4%B8%80%E3%80%81%E6%98%AF%E4%BB%80%E4%B9%88</a></li>
+<li><a href="https://vue3js.cn/docs/zh">https://vue3js.cn/docs/zh</a></li>
 </ul>
 </blockquote>
 ]]></content>
@@ -358,17 +529,62 @@
       </tags>
   </entry>
   <entry>
-    <title>ES5,ES6和ES2015</title>
-    <url>/2019/02/20/ES5-ES6%E5%92%8CES2015/</url>
-    <content><![CDATA[<h4 id="ES5，ES6和ES2015有什么区别？"><a href="#ES5，ES6和ES2015有什么区别？" class="headerlink" title="ES5，ES6和ES2015有什么区别？"></a>ES5，ES6和ES2015有什么区别？</h4><p>Es2015是指2015年发布的新一代js语言标准，es6泛指下一代js语言标准，包含了es2015，es2016，es2017，es2018等。现阶段在绝大部分场景下，es2015默认等同es6。es5泛指上一代语言标准。es2015可以理解为ES5和ES6的时间分解线。</p>
-<h4 id="babel是什么，有什么作用？"><a href="#babel是什么，有什么作用？" class="headerlink" title="babel是什么，有什么作用？"></a>babel是什么，有什么作用？</h4><p>babel是一个es6的转换器，可以将es6代码转为es5代码，以便兼容那些还没支持es6的平台。</p>
+    <title>Vue路由原理</title>
+    <url>/2019/11/12/Vue%E8%B7%AF%E7%94%B1%E5%8E%9F%E7%90%86/</url>
+    <content><![CDATA[<h4 id="vue路由原理"><a href="#vue路由原理" class="headerlink" title="vue路由原理"></a>vue路由原理</h4><ul>
+<li>hash模式：浏ener器中符号<code>#</code>，后面的字符称之为<code>hash</code>。<ul>
+<li>其中对象中的<code>location.hash</code>储存的是路由的地址，可以赋值改变其URL的地址。而这会触发<code>hashchange</code>事件，通过<code>window.addEventListn</code>监听hash值然后去匹配对应的路由，从而渲染页面的组件。</li>
+</ul>
+</li>
+<li>history：<ul>
+<li>history采用HTML5的新特性，通过<code>pushState</code>和<code>replaceState</code>两个方法来实现url的变化。可以通过<code>popstagte</code>事件监听url的变化，从而对页面进行跳转（渲染）</li>
+</ul>
+</li>
+</ul>
 ]]></content>
       <categories>
-        <category>JavaScript</category>
+        <category>Vue</category>
       </categories>
       <tags>
-        <tag>ES6</tag>
-        <tag>JavaScript</tag>
+        <tag>Vue</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Webpack中的Loader</title>
+    <url>/2019/08/24/Webpack%E4%B8%AD%E7%9A%84Loader/</url>
+    <content><![CDATA[<h4 id="介绍webpack中的loader？"><a href="#介绍webpack中的loader？" class="headerlink" title="介绍webpack中的loader？"></a>介绍webpack中的loader？</h4><p>webpack默认情况下，只支持对js，json文件打包。像css，less，png图片啊这些类型文件，webpack需要采用相对应的loader（模块加载器）进行解析转换。</p>
+<h5 id="loader配置（module-rules）："><a href="#loader配置（module-rules）：" class="headerlink" title="loader配置（module.rules）："></a>loader配置（module.rules）：</h5><ul>
+<li>rules是一个数组的形式，因此我们可以配置多个loader。</li>
+<li>每一个loader对应一个对象形式，属性test为匹配的规则，一般情况下为正则表达式。</li>
+<li>属性use针对匹配到文件类型，调用对应的loader进行处理。</li>
+</ul>
+<h5 id="常见的loader："><a href="#常见的loader：" class="headerlink" title="常见的loader："></a>常见的loader：</h5><span id="more"></span>
+<ul>
+<li>style-loader：将css添加到dom的内联样式标签style中。</li>
+<li>css-loader： 允许css文件通过import和url,引用css文件对应的资源。</li>
+<li>sass-loader &#x2F; less-loader：css预处理器，提高了开发效率。</li>
+<li>babel-loader： 用babel将es6&#x2F;es7 代码转换成es5。</li>
+<li>file-loader： 加载文件资源，如 字体&#x2F;图片 等。</li>
+<li>url-loader：对于图片格式的模块，可以选择性的把图片转成base64格式的字符串，并打包到js中，对小体积的图片比较合适，大图片不合适。</li>
+</ul>
+<h5 id="编写原则"><a href="#编写原则" class="headerlink" title="编写原则:"></a><strong>编写原则:</strong></h5><ul>
+<li>单一原则: 每个 Loader 只做一件事；</li>
+<li>链式调用: Webpack 会按顺序链式调用每个 Loader；</li>
+<li>统一原则: 遵循 Webpack制定的设计规则和结构，输入与输出均为字符串，各个 Loader 完全独立，即插即用；</li>
+</ul>
+<h5 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h5><hr>
+<blockquote>
+<ul>
+<li><a href="https://interview2.poetries.top/docs/simply.html#_2-%E4%BB%8B%E7%BB%8D-loader">https://interview2.poetries.top/docs/simply.html#_2-%E4%BB%8B%E7%BB%8D-loader</a></li>
+</ul>
+</blockquote>
+]]></content>
+      <categories>
+        <category>Webpack</category>
+      </categories>
+      <tags>
+        <tag>Webpack</tag>
+        <tag>Loader</tag>
       </tags>
   </entry>
   <entry>
@@ -418,44 +634,6 @@
       <tags>
         <tag>Webpack</tag>
         <tag>Proxy</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Webpack中的Loader</title>
-    <url>/2019/08/24/Webpack%E4%B8%AD%E7%9A%84Loader/</url>
-    <content><![CDATA[<h4 id="介绍webpack中的loader？"><a href="#介绍webpack中的loader？" class="headerlink" title="介绍webpack中的loader？"></a>介绍webpack中的loader？</h4><p>webpack默认情况下，只支持对js，json文件打包。像css，less，png图片啊这些类型文件，webpack需要采用相对应的loader（模块加载器）进行解析转换。</p>
-<h5 id="loader配置（module-rules）："><a href="#loader配置（module-rules）：" class="headerlink" title="loader配置（module.rules）："></a>loader配置（module.rules）：</h5><ul>
-<li>rules是一个数组的形式，因此我们可以配置多个loader。</li>
-<li>每一个loader对应一个对象形式，属性test为匹配的规则，一般情况下为正则表达式。</li>
-<li>属性use针对匹配到文件类型，调用对应的loader进行处理。</li>
-</ul>
-<h5 id="常见的loader："><a href="#常见的loader：" class="headerlink" title="常见的loader："></a>常见的loader：</h5><span id="more"></span>
-<ul>
-<li>style-loader：将css添加到dom的内联样式标签style中。</li>
-<li>css-loader： 允许css文件通过import和url,引用css文件对应的资源。</li>
-<li>sass-loader &#x2F; less-loader：css预处理器，提高了开发效率。</li>
-<li>babel-loader： 用babel将es6&#x2F;es7 代码转换成es5。</li>
-<li>file-loader： 加载文件资源，如 字体&#x2F;图片 等。</li>
-<li>url-loader：对于图片格式的模块，可以选择性的把图片转成base64格式的字符串，并打包到js中，对小体积的图片比较合适，大图片不合适。</li>
-</ul>
-<h5 id="编写原则"><a href="#编写原则" class="headerlink" title="编写原则:"></a><strong>编写原则:</strong></h5><ul>
-<li>单一原则: 每个 Loader 只做一件事；</li>
-<li>链式调用: Webpack 会按顺序链式调用每个 Loader；</li>
-<li>统一原则: 遵循 Webpack制定的设计规则和结构，输入与输出均为字符串，各个 Loader 完全独立，即插即用；</li>
-</ul>
-<h5 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h5><hr>
-<blockquote>
-<ul>
-<li><a href="https://interview2.poetries.top/docs/simply.html#_2-%E4%BB%8B%E7%BB%8D-loader">https://interview2.poetries.top/docs/simply.html#_2-%E4%BB%8B%E7%BB%8D-loader</a></li>
-</ul>
-</blockquote>
-]]></content>
-      <categories>
-        <category>Webpack</category>
-      </categories>
-      <tags>
-        <tag>Webpack</tag>
-        <tag>Loader</tag>
       </tags>
   </entry>
   <entry>
@@ -880,6 +1058,185 @@
       </tags>
   </entry>
   <entry>
+    <title>前端工程化</title>
+    <url>/2020/08/18/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/</url>
+    <content><![CDATA[<h4 id="什么是前端工程化"><a href="#什么是前端工程化" class="headerlink" title="什么是前端工程化"></a>什么是前端工程化</h4><p><strong>前端工程化</strong>是使用软件工程的技术和方法来进行前端的开发流程、技术、工具、经验等规范化、标准化，其主要目的<strong>为了提高效率和降低成本，即提高开发过程中的开发效率，减少不必要的重复工作时间</strong>。</p>
+<h4 id="如何做”前端工程化”"><a href="#如何做”前端工程化”" class="headerlink" title="如何做”前端工程化”"></a>如何做”前端工程化”</h4><p>前端工程化就是为了让前端开发能够“自成体系”，个人认为主要应该从<strong>模块化</strong>、<strong>组件化</strong>、<strong>规范化</strong>、<strong>自动化</strong>四个方面思考。</p>
+<span id="more"></span>
+<ul>
+<li>模块化（js模块化，css模块化，资源模块化）</li>
+<li>组件化（复用现有的UI结构，样式，行为）</li>
+<li>规范化（目录结构的划分，编码规范化，接口规范化，文档规范化）</li>
+<li>自动化（自动化构建，自动部署，自动化测试）</li>
+</ul>
+<h4 id="1-模块化"><a href="#1-模块化" class="headerlink" title="1.模块化"></a>1.模块化</h4><blockquote>
+<p>简单来说，模块化就是将一个大文件拆分成相互依赖的小文件，再进行统一的拼装和加载。</p>
+</blockquote>
+<ul>
+<li><h5 id="JS的模块化"><a href="#JS的模块化" class="headerlink" title="JS的模块化"></a>JS的模块化</h5><p>在ES6之前，JavaScript一直没有模块系统，这对开发大型复杂的前端工程造成了巨大的障碍。对此社区制定了一些模块加载方案，如CommonJS、AMD和CMD等。</p>
+<p>现在ES6已经在语言层面上规定了模块系统，完全可以取代现有的CommonJS和AMD规范，而且使用起来相当简洁，并且有静态加载的特性。</p>
+<ol>
+<li>用<code>Webpack</code> + <code>Babel</code>将所有模块打包成一个文件同步加载，也可以搭乘多个chunk异步加载；</li>
+<li>用<code>System</code>+<code>Babel</code>主要是分模块异步加载；</li>
+<li>用浏览器的<code>&lt;script type=&quot;module&quot;&gt;</code>加载。</li>
+</ol>
+</li>
+<li><h5 id="css的模块化"><a href="#css的模块化" class="headerlink" title="css的模块化"></a>css的模块化</h5><p>虽然SASS、LESS、Stylus等预处理器实现了CSS的文件拆分，但没有解决CSS模块化的一个重要问题：选择器的全局污染问题。</p>
+<p>按道理，一个模块化的文件应该要隐藏内部作用域，只暴露少量接口给使用者。而按照目前预处理器的方式，导入一个CSS模块后，已存在的样式有被覆盖的风险。虽然重写样式是CSS的一个优势，但这并不利于多人协作。</p>
+<p>为了避免全局选择器的冲突，需要制定CSS命名风格：</p>
+<ul>
+<li>BEM风格</li>
+<li>Bootstrap风格</li>
+<li>…</li>
+</ul>
+<p>但是这毕竟是弱约束。所以很赞同一句话：</p>
+<blockquote>
+<p><em>与其费尽心思地告诉别人要遵守某种规则，以规避某种痛苦，倒不如从工具层面就消灭这种痛苦。</em></p>
+</blockquote>
+<p>从工具层面，社区又创造出Shadow DOM、CSS in JS和CSS Modules三种解决方案。</p>
+<ul>
+<li>Shadow DOM是WebComponents的标准。它能解决全局污染问题，但目前很多浏览器不兼容，对我们来说还很久远；</li>
+<li>CSS in JS是彻底抛弃CSS，使用JS或JSON来写样式。这种方法很激进，不能利用现有的CSS技术，而且处理伪类等问题比较困难；</li>
+<li>CSS Modules仍然使用CSS，只是让JS来管理依赖。它能够最大化地结合CSS生态和JS模块化能力，目前来看是最好的解决方案。Vue的scoped style也算是一种。</li>
+</ul>
+</li>
+<li><h5 id="资源的模块化"><a href="#资源的模块化" class="headerlink" title="资源的模块化"></a>资源的模块化</h5><p>Webpack的强大之处不仅仅在于它统一了JS的各种模块系统，取代了Browserify、RequireJS、SeaJS的工作。更重要的是它的万能模块加载理念，即所有的资源都可以且也应该模块化。</p>
+<p>资源模块化后，优点是：</p>
+<ul>
+<li><strong>依赖关系单一化</strong>。所有CSS和图片等资源的依赖关系统一走JS路线，无需额外处理CSS预处理器的依赖关系，也不需处理代码迁移时的图片合并、字体图片等路径问题；</li>
+<li><strong>资源处理集成化</strong>。现在可以用loader对各种资源做各种事情，比如复杂的vue-loader等等；</li>
+<li><strong>项目结构清晰化</strong>。使用Webpack后，你的项目结构总可以表示成这样的函数： dest &#x3D; webpack(src, config)。</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-组件化"><a href="#2-组件化" class="headerlink" title="2.组件化"></a>2.组件化</h4><p>从UI拆分下来的<strong>每个包含模板(HTML)+样式(CSS)+逻辑(JS)功能完备的结构单元</strong>，我们称之为<strong>组件</strong>。</p>
+<blockquote>
+<p><strong>组件化≠模块化</strong>。模块化只是在文件层面上，对代码或资源的拆分；而组件化是在设计层面上，对UI（用户界面）的拆分。</p>
+</blockquote>
+<p>其实，组件化更重要是一种分治思想。</p>
+<blockquote>
+<p>Keep Simple. Everything can be a component.</p>
+</blockquote>
+<p>页面上所有的东西都是组件。页面是个大型组件，可以拆成若干个中型组件，然后中型组件还可以再拆，拆成若干个小型组件，小型组件也可以再拆，直到拆成DOM元素为止。DOM元素可以看成是浏览器自身的组件，作为组件的基本单元。</p>
+<p>传统前端框架&#x2F;类库的思想是先组织DOM，然后把某些可复用的逻辑封装成组件来操作DOM，是DOM优先；而组件化框架&#x2F;类库的思想是先来构思组件，然后用DOM这种基本单元结合相应逻辑来实现组件，是组件优先。这是两者本质的区别。</p>
+<p>其次，组件化实际上是一种按照模板(HTML)+样式(CSS)+逻辑(JS)三位一体的形式<strong>对面向对象的进一步抽象。</strong></p>
+<p>所以我们除了封装组件本身，还要合理处理组件之间的关系，比如 <strong>（逻辑）继承</strong>、<strong>（样式）扩展</strong>、<strong>（模板）嵌套</strong>和<strong>包含</strong>等，这些关系都可以归为<strong>依赖</strong>。</p>
+<p>目前市面上的组件化框架很多，主要的有Vue、React、Angular。Vue文档中的对比其他框架一文已经讲得很详细了。</p>
+<h4 id="3-规范化"><a href="#3-规范化" class="headerlink" title="3.规范化"></a>3.规范化</h4><p>规范化其实是工程化中很重要的一个部分，项目初期规范制定的好坏会直接影响到后期的开发质量。</p>
+<p>比如：</p>
+<ul>
+<li><p>目录结构的制定</p>
+<p>目录结构的合理设定，能为项目带来很多优点：</p>
+<ul>
+<li>有助于提高项目的逻辑结构合理性；</li>
+<li>对应扩展和合作；</li>
+<li>方便资源的统一定位管理。</li>
+</ul>
+</li>
+<li><p>编码规范</p>
+<p>制定一套良好的编码规范可以增强团队开发协作、提高代码质量。<br> 推荐参考<strong>凹凸实验室</strong>打造的<a href="https://links.jianshu.com/go?to=https://guide.aotu.io/docs/index.html">前端代码规范</a>。</p>
+<p>编码规范包括</p>
+<ul>
+<li><p><strong>HTML规范</strong>。</p>
+<p>基于 W3C、苹果开发者 等官方文档，并结合团队业务和开发过程中总结的规范约定，让页面HTML代码更具语义性。</p>
+</li>
+<li><p><strong>CSS规范</strong>。</p>
+<p>统一规范团队 CSS 代码书写风格和使用 CSS 预编译语言语法风格，提供常用媒体查询语句和浏览器私有属性引用，并从业务层面统一规范常用模块的引用。</p>
+</li>
+<li><p><strong>JS规范</strong>。</p>
+<p>统一规范团队 CSS 代码书写风格和使用 CSS 预编译语言语法风格，提供常用媒体查询语句和浏览器私有属性引用，并从业务层面统一规范常用模块的引用。</p>
+</li>
+<li><p><strong>图片规范</strong>。</p>
+<p>了解各种图片格式特性，根据特性制定图片规范，包括但不限于图片的质量约定、图片引入方式、图片合并处理等，旨在从图片层面优化页面性能。</p>
+</li>
+<li><p><strong>命名规范</strong>。</p>
+<p>从 目录、图片、HTML&#x2F;CSS文件、ClassName 的命名等层面约定规范团队的命名习惯，增强团队代码的可读性。</p>
+</li>
+</ul>
+</li>
+<li><p>前后端接口规范</p>
+<p>“基于 Ajax 带来的 SPA 时代”，这种模式下，前后端的分工非常清晰，前后端的关键协作点是 Ajax 接口，引发一个重要问题：前后端的对接界面双方却关注甚少，没有任何接口约定规范情况下各自撸起袖子就是干，导致我们在产品项目开发过程中，前后端的接口联调对接工作量占比在30%-50%左右，甚至会更高。往往前后端接口联调对接及系统间的联调对接都是整个产品项目研发的软肋。</p>
+<p>接口规范主要初衷就是规范约定先行，尽量避免沟通联调产生的不必要的问题，让大家身心愉快地专注于各自擅长的领域。</p>
+<p>那么，对于这一SPA阶段，前后端分离有几个重要的关注挑战：</p>
+<ul>
+<li><h5 id="职责分离"><a href="#职责分离" class="headerlink" title="职责分离"></a>职责分离</h5><ol>
+<li>前后端仅仅通过异步接口(AJAX&#x2F;JSONP)来编程；</li>
+<li>前后端都各自有自己的开发流程，构建工具，测试集合；</li>
+<li>关注点分离，前后端变得相对独立并松耦合。</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>后端</th>
+<th>前端</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>提供数据</td>
+<td>接收数据，返回数据</td>
+</tr>
+<tr>
+<td>处理业务逻辑</td>
+<td>处理渲染逻辑</td>
+</tr>
+</tbody></table>
+</li>
+<li><h5 id="规范原则"><a href="#规范原则" class="headerlink" title="规范原则"></a>规范原则</h5><ol>
+<li>接口返回数据即显示，前端仅做渲染逻辑处理；</li>
+<li>渲染逻辑禁止跨多个接口调用；</li>
+<li>前端关注交互、渲染逻辑，尽量避免业务逻辑处理的出现；</li>
+<li>请求响应传输数据格式：JSON，JSON数据尽量简单轻量，避免多级JSON的出现；</li>
+</ol>
+</li>
+<li><h5 id="响应格式"><a href="#响应格式" class="headerlink" title="响应格式"></a>响应格式</h5><ol>
+<li>响应基本格式及处理状态值的规范。<ul>
+<li>基本响应格式</li>
+<li>列表响应格式</li>
+</ul>
+</li>
+<li>特殊内容<ul>
+<li>下拉框、复选框、单选框统一由后端逻辑判定选中返回给前端展示；</li>
+<li>关于Boolean类型，JSON数据传输中一律使用1&#x2F;0来标示，1为是&#x2F;True，0为否&#x2F;False</li>
+<li>关于日期类型，JSON数据传输中一律使用字符串，具体日期格式因业务而定；</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p>文档规范</p>
+</li>
+<li><p>组件管理</p>
+</li>
+<li><p>git分支管理</p>
+</li>
+<li><p>commit描述规范</p>
+</li>
+<li><p>视觉图标规范</p>
+</li>
+<li><p>…</p>
+</li>
+</ul>
+<h4 id="4-自动化"><a href="#4-自动化" class="headerlink" title="4.自动化"></a>4.自动化</h4><p>前端工程化的很多脏活累活都应该交给自动化工具来完成。需要秉持的一个理念是:</p>
+<blockquote>
+<p>任何简单机械的重复劳动都应该让机器去完成。</p>
+</blockquote>
+<ul>
+<li>图标合并</li>
+<li>持续集成</li>
+<li>自动化构建</li>
+<li>自动化部署</li>
+<li>自动化测试</li>
+</ul>
+]]></content>
+      <categories>
+        <category>JavaScript</category>
+      </categories>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>浏览器事件循环</title>
     <url>/2019/06/05/%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/</url>
     <content><![CDATA[<h4 id="说说你对事件循环的理解"><a href="#说说你对事件循环的理解" class="headerlink" title="说说你对事件循环的理解"></a>说说你对事件循环的理解</h4><p>event loop过程1：</p>
@@ -1078,57 +1435,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Vue3设计目标及优化</title>
-    <url>/2021/09/06/Vue3%E8%AE%BE%E8%AE%A1%E7%9B%AE%E6%A0%87%E5%8F%8A%E4%BC%98%E5%8C%96/</url>
-    <content><![CDATA[<h4 id="vue3-0的设计目标是什么？做了那些优化？"><a href="#vue3-0的设计目标是什么？做了那些优化？" class="headerlink" title="vue3.0的设计目标是什么？做了那些优化？"></a>vue3.0的设计目标是什么？做了那些优化？</h4><hr>
-<p>设计目标：</p>
-<ul>
-<li>打包体积更小： vue3移除一些不常用的API，将无用的模块“剪辑”掉，仅打包需要的，使打包体积更小了。</li>
-<li>速度更快： diff算法优化，静态提升。</li>
-<li>更灵活的代码组织能力： 推出composition API，大大增加了代码的逻辑组织能力和代码复用能力。</li>
-</ul>
-<p>优化方案：</p>
-<span id="more"></span>
-<ul>
-<li><p>源码</p>
-<ul>
-<li>使用ts语法，源码的优化。</li>
-</ul>
-</li>
-<li><p>性能</p>
-<ul>
-<li>体积，编译，数据劫持优化。</li>
-</ul>
-</li>
-<li><p>语法 API</p>
-<ul>
-<li><p>组合式API，根据相关逻辑组织代码。</p>
-<p><a href="http://zslin.xyz/2021/06/06/vue3/vue3-0%E7%9A%84%E8%AE%BE%E8%AE%A1%E5%8F%8A%E4%BC%98%E5%8C%96/tt.png"><img src="http://zslin.xyz/2021/06/06/vue3/vue3-0%E7%9A%84%E8%AE%BE%E8%AE%A1%E5%8F%8A%E4%BC%98%E5%8C%96/tt.png" alt="img"></a></p>
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献:"></a>参考文献:</h4><hr>
-<blockquote>
-<ul>
-<li><a href="https://juejin.cn/post/6850418112878575629#heading-5">https://juejin.cn/post/6850418112878575629#heading-5</a></li>
-</ul>
-</blockquote>
-<blockquote>
-<ul>
-<li><a href="https://vue3js.cn/docs/zh">https://vue3js.cn/docs/zh</a></li>
-</ul>
-</blockquote>
-]]></content>
-      <categories>
-        <category>Vue3</category>
-      </categories>
-      <tags>
-        <tag>Vue3</tag>
-        <tag>Vue</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>页面布局</title>
     <url>/2019/07/03/%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/</url>
     <content><![CDATA[<h2 id="页面布局"><a href="#页面布局" class="headerlink" title="页面布局"></a>页面布局</h2><h4 id="通栏布局："><a href="#通栏布局：" class="headerlink" title="通栏布局："></a>通栏布局：</h4><p>浏览器左侧固定，右侧自适应。<br>1.flex布局，左侧固定宽，右侧flex：1<br>2.两个盒子分别左浮右浮，右侧盒子减去左侧盒子的宽 100% - 宽<br>3.左侧盒子左浮动，右侧盒子设置 margin-left：左侧盒子的宽</p>
@@ -1145,133 +1451,6 @@
       </categories>
       <tags>
         <tag>css</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Vue3系列面试</title>
-    <url>/2021/08/19/Vue3%E7%B3%BB%E5%88%97%E9%9D%A2%E8%AF%95/</url>
-    <content><![CDATA[<h4 id="Vue3-0的设计目标是什么？做了哪些优化？"><a href="#Vue3-0的设计目标是什么？做了哪些优化？" class="headerlink" title="Vue3.0的设计目标是什么？做了哪些优化？"></a>Vue3.0的设计目标是什么？做了哪些优化？</h4><h5 id="设计目标"><a href="#设计目标" class="headerlink" title="设计目标"></a>设计目标</h5><ul>
-<li>体积更小：<ul>
-<li>vue3移除一些不常用的API，引入tree shaking，将一些无用的模块“剪辑掉”。仅打包需要的模块。使打包体积变小了。</li>
-</ul>
-</li>
-<li>更快：<ul>
-<li>diff算法优化：</li>
-<li>静态提升</li>
-<li>事件缓存机制</li>
-<li>ssr优化</li>
-</ul>
-</li>
-<li>更友好：<ul>
-<li>vue3推出了composition API，大大增加了代码的组织能力和复用能力。</li>
-</ul>
-</li>
-</ul>
-<h5 id="优化方案"><a href="#优化方案" class="headerlink" title="优化方案"></a>优化方案</h5><span id="more"></span>
-<ul>
-<li>源码<ul>
-<li>源码管理，体积更小</li>
-<li>使用ts，提供类型检查</li>
-</ul>
-</li>
-<li>性能<ul>
-<li>体积优化</li>
-<li>编译优化</li>
-<li>数据劫持优化</li>
-</ul>
-</li>
-<li>语法API<ul>
-<li>组合式API，主要提高了代码的组织和复用能力</li>
-</ul>
-</li>
-</ul>
-<h4 id="Vue3-0性能提升主要是通过哪几方面体现的？"><a href="#Vue3-0性能提升主要是通过哪几方面体现的？" class="headerlink" title="Vue3.0性能提升主要是通过哪几方面体现的？"></a>Vue3.0性能提升主要是通过哪几方面体现的？</h4><ul>
-<li>编译阶段<ul>
-<li>diff算法优化：比vue2增加了静态标记，在发生改变的地方做一个flag标记，下次发生改变可以直接找到该地方进行比较。</li>
-<li>静态提升： vue3对不参与更新的元素，会做静态提升，只创建一次，可以复用渲染。免去重复创建节点，优化了运行时的内存。</li>
-<li>事件缓存机制</li>
-<li>SSR优化： 当内容达到一定量的时候，采用服务端渲染。</li>
-</ul>
-</li>
-<li>源码体积<ul>
-<li>相对于vue2来说体积变小了，去除一些不常用API。使用树摇（tree shaking），只打包需要的模块，打包体积变小了</li>
-</ul>
-</li>
-<li>响应式系统<ul>
-<li>vue2采用object.proerty（）劫持整个对象，深度遍历每个属性，给每个属性添加getter，setter，来实现响应式。</li>
-<li>vue3使用了vue3代理对象，可以对整个对象进行监听，不需要深度遍历。</li>
-<li>可以监听整个对象以及属性的修改和删除，可以监听数组的索引和lenght属性。</li>
-</ul>
-</li>
-</ul>
-<h4 id="Vue3-0里为什么要用-Proxy-API-替代-defineProperty-API-？"><a href="#Vue3-0里为什么要用-Proxy-API-替代-defineProperty-API-？" class="headerlink" title="Vue3.0里为什么要用 Proxy API 替代 defineProperty API ？"></a>Vue3.0里为什么要用 Proxy API 替代 defineProperty API ？</h4><ul>
-<li>defineProerty API：<ul>
-<li>检测不到对象属性的添加和删除， 提供了set，和delete方法。</li>
-<li>数组的方法 无法监听到（push，shift）</li>
-<li>需要对每个属性进行监听，如果是嵌套对象的话，需使用深度监听，可能会造成性能问题。</li>
-</ul>
-</li>
-<li>Proxy：<ul>
-<li>object.definproerty 只能遍历对象属性进行劫持，proxy直接监听整个对象。</li>
-<li>返回一个新对象，只需操作新对象就能达到目的。</li>
-<li>proxy有多达13种监听方法，不限于apply，has等，这是object.defineproerty（）不具备的</li>
-<li>可以直接监听数组的变化（push，shift，splice）</li>
-</ul>
-</li>
-</ul>
-<h4 id="Vue3-0-所采用的-Composition-Api-与-Vue2-x-使用的-Options-Api-有什么不同？"><a href="#Vue3-0-所采用的-Composition-Api-与-Vue2-x-使用的-Options-Api-有什么不同？" class="headerlink" title="Vue3.0 所采用的 Composition Api 与 Vue2.x 使用的 Options Api 有什么不同？"></a>Vue3.0 所采用的 Composition Api 与 Vue2.x 使用的 Options Api 有什么不同？</h4><ul>
-<li>Options API:<ul>
-<li>通过定义data，methods，computed等方法和属性，来共同处理页面逻辑，一个功能的实现，需要不同的位置的方法和属性，比较分散。可能会造成组件的难以理解和维护。</li>
-</ul>
-</li>
-<li>Composition API:<ul>
-<li>所有方法和功能都写在setup当中，将一个功能的所有方法，属性放在一起。（高内聚，低耦合）。根据相关逻辑来组织代码，提高代码的可读性和维护性。（当功能增多时，还可使用hook来封装出去）</li>
-<li>组合式API中见不到this的使用，减少this指向不明的问题。</li>
-<li>组合式API几乎都是函数，会有很好的类型判断。</li>
-</ul>
-</li>
-</ul>
-<h4 id="说说Vue-3-0中Treeshaking特性？举例说明一下？"><a href="#说说Vue-3-0中Treeshaking特性？举例说明一下？" class="headerlink" title="说说Vue 3.0中Treeshaking特性？举例说明一下？"></a>说说Vue 3.0中Treeshaking特性？举例说明一下？</h4><h5 id="是什么？"><a href="#是什么？" class="headerlink" title="是什么？"></a>是什么？</h5><p>Tree shaking是一种术语，在打包时不打包没有用到的模块，减小了打包体积。</p>
-<h5 id="如何做？"><a href="#如何做？" class="headerlink" title="如何做？"></a>如何做？</h5><p>Tree shaking是基于es6的 <code>import</code> 和 <code>exports</code> 静态编程思想来确定模块的依赖关系。</p>
-<ul>
-<li>tree shaking会在编译阶段判断模块的加载状态</li>
-<li>判断未使用的变量，进行移除。</li>
-</ul>
-<h5 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h5><ul>
-<li>减小打包体积</li>
-<li>减少程序打包的时间</li>
-<li>便于维护优化项目框架</li>
-</ul>
-<h4 id="用Vue3-0-写过组件吗？如果想实现一个-Modal你会怎么设计？"><a href="#用Vue3-0-写过组件吗？如果想实现一个-Modal你会怎么设计？" class="headerlink" title="用Vue3.0 写过组件吗？如果想实现一个 Modal你会怎么设计？"></a>用Vue3.0 写过组件吗？如果想实现一个 Modal你会怎么设计？</h4><p>首先要考虑，大致实现的思路，根据ui设计图，确定好主体的内容，布局样式，做的那些交互操作，删除，修改等等。定义API方法来进行开发。</p>
-]]></content>
-      <categories>
-        <category>前端面试</category>
-      </categories>
-      <tags>
-        <tag>Vue3</tag>
-        <tag>Vue</tag>
-        <tag>前端面试</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Vue路由原理</title>
-    <url>/2019/11/12/Vue%E8%B7%AF%E7%94%B1%E5%8E%9F%E7%90%86/</url>
-    <content><![CDATA[<h4 id="vue路由原理"><a href="#vue路由原理" class="headerlink" title="vue路由原理"></a>vue路由原理</h4><ul>
-<li>hash模式：浏ener器中符号<code>#</code>，后面的字符称之为<code>hash</code>。<ul>
-<li>其中对象中的<code>location.hash</code>储存的是路由的地址，可以赋值改变其URL的地址。而这会触发<code>hashchange</code>事件，通过<code>window.addEventListn</code>监听hash值然后去匹配对应的路由，从而渲染页面的组件。</li>
-</ul>
-</li>
-<li>history：<ul>
-<li>history采用HTML5的新特性，通过<code>pushState</code>和<code>replaceState</code>两个方法来实现url的变化。可以通过<code>popstagte</code>事件监听url的变化，从而对页面进行跳转（渲染）</li>
-</ul>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>Vue</category>
-      </categories>
-      <tags>
-        <tag>Vue</tag>
       </tags>
   </entry>
   <entry>
@@ -2246,185 +2425,6 @@
       </categories>
       <tags>
         <tag>前端面试</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>前端工程化</title>
-    <url>/2020/08/18/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/</url>
-    <content><![CDATA[<h4 id="什么是前端工程化"><a href="#什么是前端工程化" class="headerlink" title="什么是前端工程化"></a>什么是前端工程化</h4><p><strong>前端工程化</strong>是使用软件工程的技术和方法来进行前端的开发流程、技术、工具、经验等规范化、标准化，其主要目的<strong>为了提高效率和降低成本，即提高开发过程中的开发效率，减少不必要的重复工作时间</strong>。</p>
-<h4 id="如何做”前端工程化”"><a href="#如何做”前端工程化”" class="headerlink" title="如何做”前端工程化”"></a>如何做”前端工程化”</h4><p>前端工程化就是为了让前端开发能够“自成体系”，个人认为主要应该从<strong>模块化</strong>、<strong>组件化</strong>、<strong>规范化</strong>、<strong>自动化</strong>四个方面思考。</p>
-<span id="more"></span>
-<ul>
-<li>模块化（js模块化，css模块化，资源模块化）</li>
-<li>组件化（复用现有的UI结构，样式，行为）</li>
-<li>规范化（目录结构的划分，编码规范化，接口规范化，文档规范化）</li>
-<li>自动化（自动化构建，自动部署，自动化测试）</li>
-</ul>
-<h4 id="1-模块化"><a href="#1-模块化" class="headerlink" title="1.模块化"></a>1.模块化</h4><blockquote>
-<p>简单来说，模块化就是将一个大文件拆分成相互依赖的小文件，再进行统一的拼装和加载。</p>
-</blockquote>
-<ul>
-<li><h5 id="JS的模块化"><a href="#JS的模块化" class="headerlink" title="JS的模块化"></a>JS的模块化</h5><p>在ES6之前，JavaScript一直没有模块系统，这对开发大型复杂的前端工程造成了巨大的障碍。对此社区制定了一些模块加载方案，如CommonJS、AMD和CMD等。</p>
-<p>现在ES6已经在语言层面上规定了模块系统，完全可以取代现有的CommonJS和AMD规范，而且使用起来相当简洁，并且有静态加载的特性。</p>
-<ol>
-<li>用<code>Webpack</code> + <code>Babel</code>将所有模块打包成一个文件同步加载，也可以搭乘多个chunk异步加载；</li>
-<li>用<code>System</code>+<code>Babel</code>主要是分模块异步加载；</li>
-<li>用浏览器的<code>&lt;script type=&quot;module&quot;&gt;</code>加载。</li>
-</ol>
-</li>
-<li><h5 id="css的模块化"><a href="#css的模块化" class="headerlink" title="css的模块化"></a>css的模块化</h5><p>虽然SASS、LESS、Stylus等预处理器实现了CSS的文件拆分，但没有解决CSS模块化的一个重要问题：选择器的全局污染问题。</p>
-<p>按道理，一个模块化的文件应该要隐藏内部作用域，只暴露少量接口给使用者。而按照目前预处理器的方式，导入一个CSS模块后，已存在的样式有被覆盖的风险。虽然重写样式是CSS的一个优势，但这并不利于多人协作。</p>
-<p>为了避免全局选择器的冲突，需要制定CSS命名风格：</p>
-<ul>
-<li>BEM风格</li>
-<li>Bootstrap风格</li>
-<li>…</li>
-</ul>
-<p>但是这毕竟是弱约束。所以很赞同一句话：</p>
-<blockquote>
-<p><em>与其费尽心思地告诉别人要遵守某种规则，以规避某种痛苦，倒不如从工具层面就消灭这种痛苦。</em></p>
-</blockquote>
-<p>从工具层面，社区又创造出Shadow DOM、CSS in JS和CSS Modules三种解决方案。</p>
-<ul>
-<li>Shadow DOM是WebComponents的标准。它能解决全局污染问题，但目前很多浏览器不兼容，对我们来说还很久远；</li>
-<li>CSS in JS是彻底抛弃CSS，使用JS或JSON来写样式。这种方法很激进，不能利用现有的CSS技术，而且处理伪类等问题比较困难；</li>
-<li>CSS Modules仍然使用CSS，只是让JS来管理依赖。它能够最大化地结合CSS生态和JS模块化能力，目前来看是最好的解决方案。Vue的scoped style也算是一种。</li>
-</ul>
-</li>
-<li><h5 id="资源的模块化"><a href="#资源的模块化" class="headerlink" title="资源的模块化"></a>资源的模块化</h5><p>Webpack的强大之处不仅仅在于它统一了JS的各种模块系统，取代了Browserify、RequireJS、SeaJS的工作。更重要的是它的万能模块加载理念，即所有的资源都可以且也应该模块化。</p>
-<p>资源模块化后，优点是：</p>
-<ul>
-<li><strong>依赖关系单一化</strong>。所有CSS和图片等资源的依赖关系统一走JS路线，无需额外处理CSS预处理器的依赖关系，也不需处理代码迁移时的图片合并、字体图片等路径问题；</li>
-<li><strong>资源处理集成化</strong>。现在可以用loader对各种资源做各种事情，比如复杂的vue-loader等等；</li>
-<li><strong>项目结构清晰化</strong>。使用Webpack后，你的项目结构总可以表示成这样的函数： dest &#x3D; webpack(src, config)。</li>
-</ul>
-</li>
-</ul>
-<h4 id="2-组件化"><a href="#2-组件化" class="headerlink" title="2.组件化"></a>2.组件化</h4><p>从UI拆分下来的<strong>每个包含模板(HTML)+样式(CSS)+逻辑(JS)功能完备的结构单元</strong>，我们称之为<strong>组件</strong>。</p>
-<blockquote>
-<p><strong>组件化≠模块化</strong>。模块化只是在文件层面上，对代码或资源的拆分；而组件化是在设计层面上，对UI（用户界面）的拆分。</p>
-</blockquote>
-<p>其实，组件化更重要是一种分治思想。</p>
-<blockquote>
-<p>Keep Simple. Everything can be a component.</p>
-</blockquote>
-<p>页面上所有的东西都是组件。页面是个大型组件，可以拆成若干个中型组件，然后中型组件还可以再拆，拆成若干个小型组件，小型组件也可以再拆，直到拆成DOM元素为止。DOM元素可以看成是浏览器自身的组件，作为组件的基本单元。</p>
-<p>传统前端框架&#x2F;类库的思想是先组织DOM，然后把某些可复用的逻辑封装成组件来操作DOM，是DOM优先；而组件化框架&#x2F;类库的思想是先来构思组件，然后用DOM这种基本单元结合相应逻辑来实现组件，是组件优先。这是两者本质的区别。</p>
-<p>其次，组件化实际上是一种按照模板(HTML)+样式(CSS)+逻辑(JS)三位一体的形式<strong>对面向对象的进一步抽象。</strong></p>
-<p>所以我们除了封装组件本身，还要合理处理组件之间的关系，比如 <strong>（逻辑）继承</strong>、<strong>（样式）扩展</strong>、<strong>（模板）嵌套</strong>和<strong>包含</strong>等，这些关系都可以归为<strong>依赖</strong>。</p>
-<p>目前市面上的组件化框架很多，主要的有Vue、React、Angular。Vue文档中的对比其他框架一文已经讲得很详细了。</p>
-<h4 id="3-规范化"><a href="#3-规范化" class="headerlink" title="3.规范化"></a>3.规范化</h4><p>规范化其实是工程化中很重要的一个部分，项目初期规范制定的好坏会直接影响到后期的开发质量。</p>
-<p>比如：</p>
-<ul>
-<li><p>目录结构的制定</p>
-<p>目录结构的合理设定，能为项目带来很多优点：</p>
-<ul>
-<li>有助于提高项目的逻辑结构合理性；</li>
-<li>对应扩展和合作；</li>
-<li>方便资源的统一定位管理。</li>
-</ul>
-</li>
-<li><p>编码规范</p>
-<p>制定一套良好的编码规范可以增强团队开发协作、提高代码质量。<br> 推荐参考<strong>凹凸实验室</strong>打造的<a href="https://links.jianshu.com/go?to=https://guide.aotu.io/docs/index.html">前端代码规范</a>。</p>
-<p>编码规范包括</p>
-<ul>
-<li><p><strong>HTML规范</strong>。</p>
-<p>基于 W3C、苹果开发者 等官方文档，并结合团队业务和开发过程中总结的规范约定，让页面HTML代码更具语义性。</p>
-</li>
-<li><p><strong>CSS规范</strong>。</p>
-<p>统一规范团队 CSS 代码书写风格和使用 CSS 预编译语言语法风格，提供常用媒体查询语句和浏览器私有属性引用，并从业务层面统一规范常用模块的引用。</p>
-</li>
-<li><p><strong>JS规范</strong>。</p>
-<p>统一规范团队 CSS 代码书写风格和使用 CSS 预编译语言语法风格，提供常用媒体查询语句和浏览器私有属性引用，并从业务层面统一规范常用模块的引用。</p>
-</li>
-<li><p><strong>图片规范</strong>。</p>
-<p>了解各种图片格式特性，根据特性制定图片规范，包括但不限于图片的质量约定、图片引入方式、图片合并处理等，旨在从图片层面优化页面性能。</p>
-</li>
-<li><p><strong>命名规范</strong>。</p>
-<p>从 目录、图片、HTML&#x2F;CSS文件、ClassName 的命名等层面约定规范团队的命名习惯，增强团队代码的可读性。</p>
-</li>
-</ul>
-</li>
-<li><p>前后端接口规范</p>
-<p>“基于 Ajax 带来的 SPA 时代”，这种模式下，前后端的分工非常清晰，前后端的关键协作点是 Ajax 接口，引发一个重要问题：前后端的对接界面双方却关注甚少，没有任何接口约定规范情况下各自撸起袖子就是干，导致我们在产品项目开发过程中，前后端的接口联调对接工作量占比在30%-50%左右，甚至会更高。往往前后端接口联调对接及系统间的联调对接都是整个产品项目研发的软肋。</p>
-<p>接口规范主要初衷就是规范约定先行，尽量避免沟通联调产生的不必要的问题，让大家身心愉快地专注于各自擅长的领域。</p>
-<p>那么，对于这一SPA阶段，前后端分离有几个重要的关注挑战：</p>
-<ul>
-<li><h5 id="职责分离"><a href="#职责分离" class="headerlink" title="职责分离"></a>职责分离</h5><ol>
-<li>前后端仅仅通过异步接口(AJAX&#x2F;JSONP)来编程；</li>
-<li>前后端都各自有自己的开发流程，构建工具，测试集合；</li>
-<li>关注点分离，前后端变得相对独立并松耦合。</li>
-</ol>
-<table>
-<thead>
-<tr>
-<th>后端</th>
-<th>前端</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>提供数据</td>
-<td>接收数据，返回数据</td>
-</tr>
-<tr>
-<td>处理业务逻辑</td>
-<td>处理渲染逻辑</td>
-</tr>
-</tbody></table>
-</li>
-<li><h5 id="规范原则"><a href="#规范原则" class="headerlink" title="规范原则"></a>规范原则</h5><ol>
-<li>接口返回数据即显示，前端仅做渲染逻辑处理；</li>
-<li>渲染逻辑禁止跨多个接口调用；</li>
-<li>前端关注交互、渲染逻辑，尽量避免业务逻辑处理的出现；</li>
-<li>请求响应传输数据格式：JSON，JSON数据尽量简单轻量，避免多级JSON的出现；</li>
-</ol>
-</li>
-<li><h5 id="响应格式"><a href="#响应格式" class="headerlink" title="响应格式"></a>响应格式</h5><ol>
-<li>响应基本格式及处理状态值的规范。<ul>
-<li>基本响应格式</li>
-<li>列表响应格式</li>
-</ul>
-</li>
-<li>特殊内容<ul>
-<li>下拉框、复选框、单选框统一由后端逻辑判定选中返回给前端展示；</li>
-<li>关于Boolean类型，JSON数据传输中一律使用1&#x2F;0来标示，1为是&#x2F;True，0为否&#x2F;False</li>
-<li>关于日期类型，JSON数据传输中一律使用字符串，具体日期格式因业务而定；</li>
-</ul>
-</li>
-</ol>
-</li>
-</ul>
-</li>
-<li><p>文档规范</p>
-</li>
-<li><p>组件管理</p>
-</li>
-<li><p>git分支管理</p>
-</li>
-<li><p>commit描述规范</p>
-</li>
-<li><p>视觉图标规范</p>
-</li>
-<li><p>…</p>
-</li>
-</ul>
-<h4 id="4-自动化"><a href="#4-自动化" class="headerlink" title="4.自动化"></a>4.自动化</h4><p>前端工程化的很多脏活累活都应该交给自动化工具来完成。需要秉持的一个理念是:</p>
-<blockquote>
-<p>任何简单机械的重复劳动都应该让机器去完成。</p>
-</blockquote>
-<ul>
-<li>图标合并</li>
-<li>持续集成</li>
-<li>自动化构建</li>
-<li>自动化部署</li>
-<li>自动化测试</li>
-</ul>
-]]></content>
-      <categories>
-        <category>JavaScript</category>
-      </categories>
-      <tags>
-        <tag>JavaScript</tag>
       </tags>
   </entry>
 </search>
