@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/taikong.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/taikong.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="柯里化是什么柯里化就是把接收多个参数的函数转化成接收单一参数的函数，并且返回一个（可以接收剩余参数的）新函数。 1234function add (a, b) &amp;#123;  return a + b;&amp;#125;add(1, 1) &#x2F;&#x2F; 2  上面代码中，函数add接受两个参数a和b。 柯里化就是将上面的函数拆分成两个函数，每个函数都只接受一个参数。 123456789function add">
+<meta property="og:type" content="article">
+<meta property="og:title" content="柯里化">
+<meta property="og:url" content="http://example.com/2021/10/06/%E6%9F%AF%E9%87%8C%E5%8C%96/index.html">
+<meta property="og:site_name" content="AFAN">
+<meta property="og:description" content="柯里化是什么柯里化就是把接收多个参数的函数转化成接收单一参数的函数，并且返回一个（可以接收剩余参数的）新函数。 1234function add (a, b) &amp;#123;  return a + b;&amp;#125;add(1, 1) &#x2F;&#x2F; 2  上面代码中，函数add接受两个参数a和b。 柯里化就是将上面的函数拆分成两个函数，每个函数都只接受一个参数。 123456789function add">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-10-05T17:10:48.000Z">
+<meta property="article:modified_time" content="2021-10-06T17:10:48.000Z">
+<meta property="article:author" content="Lifan Yin">
+<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="函数式编程">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2021/10/06/%E6%9F%AF%E9%87%8C%E5%8C%96/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>柯里化 | AFAN</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">AFAN</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">CODE IS POETRY.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/10/06/%E6%9F%AF%E9%87%8C%E5%8C%96/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/touxaing.png">
+      <meta itemprop="name" content="Lifan Yin">
+      <meta itemprop="description" content="心有猛虎，细嗅蔷薇。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AFAN">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          柯里化
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-10-06 01:10:48" itemprop="dateCreated datePublished" datetime="2021-10-06T01:10:48+08:00">2021-10-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-10-07 01:10:48" itemprop="dateModified" datetime="2021-10-07T01:10:48+08:00">2021-10-07</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="柯里化"><a href="#柯里化" class="headerlink" title="柯里化"></a>柯里化</h3><h4 id="是什么"><a href="#是什么" class="headerlink" title="是什么"></a>是什么</h4><p>柯里化就是把接收多个参数的函数转化成接收单一参数的函数，并且返回一个（可以接收剩余参数的）新函数。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">add</span> (a, b) &#123;</span><br><span class="line">  <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_">add</span>(<span class="number">1</span>, <span class="number">1</span>) <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
+
+<p>上面代码中，函数<code>add</code>接受两个参数<code>a</code>和<code>b</code>。</p>
+<p>柯里化就是将上面的函数拆分成两个函数，每个函数都只接受一个参数。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">add</span> (a) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">function</span> (<span class="params">b</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> a + b;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 或者采用箭头函数写法</span></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">add</span> = x =&gt; <span class="function"><span class="params">y</span> =&gt;</span> x + y;</span><br><span class="line"><span class="keyword">const</span> f = <span class="title function_">add</span>(<span class="number">1</span>);</span><br><span class="line"><span class="title function_">f</span>(<span class="number">1</span>) <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
+
+<p>上面代码中，函数<code>add</code>只接受一个参数<code>a</code>，返回一个函数<code>f</code>。函数<code>f</code>也只接受一个参数<code>b</code>。</p>
+<span id="more"></span>
+<h5 id="优点："><a href="#优点：" class="headerlink" title="优点："></a>优点：</h5><p>可以延迟计算，也就是调用柯里化函数时传入的参数不是立即调用的，而是只有当满足一定条件时才会（将已经在数组中存储的参数作为参数）执行；参数可以复用，当多次调用同一个函数，并且传递的参数绝大多数是相同的，那么该函数可能是一个很好的柯里化函数。</p>
+<h4 id="如何实现"><a href="#如何实现" class="headerlink" title="如何实现"></a>如何实现</h4><p>1.lodash 库中的 curry 方法就是一个柯里化函数</p>
+<p><a target="_blank" rel="noopener" href="https://www.lodashjs.com/docs/lodash.curry">https://www.lodashjs.com/docs/lodash.curry</a></p>
+<p>2.自己实现一个柯里化函数</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">sum</span>(<span class="params">a,b,c,d</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> a + b + c + d;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> <span class="title function_">curring</span> = (<span class="params">fn:<span class="built_in">Function</span></span>) =&gt; &#123;</span><br><span class="line">        <span class="keyword">const</span> <span class="title function_">exec</span> = (<span class="params">sumArgs:any[] = []</span>) =&gt; &#123;</span><br><span class="line">        <span class="keyword">return</span> sumArgs.<span class="property">length</span> &gt;= fn.<span class="property">length</span> ? <span class="title function_">fn</span>(...sumArgs) </span><br><span class="line">      : <span class="function">(<span class="params">...args</span>) =&gt;</span> <span class="title function_">exec</span>([...sumArgs,...args])</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="title function_">exec</span>()   <span class="comment">//exec()的参数可以是初始化的值，可以是重复传递的参数</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> test = <span class="title function_">curring</span>(sum)(......)</span><br><span class="line"><span class="comment">//&quot;......&quot;指的是传递给sum函数的参数，形式有两种，如1.（1，2，3，4） 2. （1，2）（3）（4）......</span></span><br><span class="line">                        </span><br></pre></td></tr></table></figure>
+
+<h4 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h4><h5 id="1-减少重复不变的参数"><a href="#1-减少重复不变的参数" class="headerlink" title="1.减少重复不变的参数"></a>1.减少重复不变的参数</h5><p>实现url的拼接，如果我们要拼接一个url,即协议+域名+路径，那么重复参数的情况便出现，如协议是http还是https?</p>
+<p>如下</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">splicingUrl</span>(<span class="params">protocol,domain,path</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">`<span class="subst">$&#123;protocol&#125;</span>://<span class="subst">$&#123;domain&#125;</span>/<span class="subst">$&#123;path&#125;</span>`</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_">splicingUrl</span>(http,www.<span class="property">baidu</span>.<span class="property">com</span>,home)</span><br><span class="line"><span class="title function_">splicingUrl</span>(https,taobao.<span class="property">com</span>,datail)</span><br></pre></td></tr></table></figure>
+
+<p>下面通过柯里化实现减少传递重复参数的功能</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">splicingUrl</span>(<span class="params">protocol,domain,path</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">`<span class="subst">$&#123;protocol&#125;</span>://<span class="subst">$&#123;domain&#125;</span>/<span class="subst">$&#123;path&#125;</span>`</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> <span class="title function_">curryPackage</span> = (<span class="params">fn:<span class="built_in">Function</span></span>) =&gt; &#123;</span><br><span class="line">        <span class="keyword">const</span> <span class="title function_">curryFunc</span> = (<span class="params">splicingArgs:any[] = []</span>) =&gt; &#123;</span><br><span class="line">            <span class="keyword">return</span> splicingArgs.<span class="property">length</span> &gt;= fn.<span class="property">length</span> ? <span class="title function_">fn</span>(...splicingArgs) </span><br><span class="line">        : <span class="function">(<span class="params">...args</span>) =&gt;</span> <span class="title function_">curryFunc</span>([...splicingArgs,...args])</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="title function_">curryFunc</span>()</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> newCurry = <span class="title function_">curryPackage</span>(splicingUrl)(<span class="string">&#x27;http&#x27;</span>,<span class="string">&#x27;www.baiducom&#x27;</span>)</span><br><span class="line"><span class="title function_">newCurry</span>(<span class="string">&#x27;home.html&#x27;</span>)   <span class="comment">//http://www.baiducom/home.html</span></span><br><span class="line"><span class="title function_">newCurry</span>(<span class="string">&#x27;photo.html&#x27;</span>)  <span class="comment">//http://www.baiducom/photo.html</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="2-将柯里化之后的callback参数传递给map-x2F-filter等函数"><a href="#2-将柯里化之后的callback参数传递给map-x2F-filter等函数" class="headerlink" title="2.将柯里化之后的callback参数传递给map&#x2F;filter等函数"></a>2.将柯里化之后的callback参数传递给map&#x2F;filter等函数</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> studentsInfo = [&#123;<span class="attr">name</span>:<span class="string">&#x27;tom&#x27;</span>,<span class="attr">age</span>:<span class="number">19</span>&#125;,&#123;<span class="attr">name</span>:<span class="string">&#x27;jarry&#x27;</span>,<span class="attr">age</span>:<span class="number">32</span>&#125;,&#123;<span class="attr">name</span>:<span class="string">&#x27;susan&#x27;</span>,<span class="attr">age</span>:<span class="number">33</span>&#125;]</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">getObj</span>(<span class="params">key,obj</span>)&#123;</span><br><span class="line">    <span class="keyword">return</span> obj[key]</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//将callback进行柯里化</span></span><br><span class="line"><span class="keyword">import</span> _ <span class="keyword">from</span> <span class="string">&#x27;lodash&#x27;</span>;</span><br><span class="line"><span class="keyword">let</span> curryCallback = <span class="title function_">_curry</span>(getObj)</span><br><span class="line"><span class="keyword">let</span> nameArray = studentsInfo.<span class="title function_">map</span>(<span class="title function_">curryCallback</span>(<span class="string">&#x27;name&#x27;</span>));  <span class="comment">// [&#x27;tom&#x27;,&#x27;jarry&#x27;,&#x27;susan&#x27;]</span></span><br><span class="line"><span class="keyword">let</span> agesArray = studentsInfo.<span class="title function_">map</span>(<span class="title function_">curryCallback</span>(<span class="string">&#x27;age&#x27;</span>));   <span class="comment">// [19,32,33]</span></span><br></pre></td></tr></table></figure>
+
+
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+              <a href="/tags/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/" rel="tag"># 函数式编程</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/09/25/Vue3%E5%93%8D%E5%BA%94%E5%BC%8F%E6%94%B9%E8%BF%9B/" rel="prev" title="Vue3响应式改进">
+      <i class="fa fa-chevron-left"></i> Vue3响应式改进
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%AF%E9%87%8C%E5%8C%96"><span class="nav-number">1.</span> <span class="nav-text">柯里化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">1.1.</span> <span class="nav-text">是什么</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BC%98%E7%82%B9%EF%BC%9A"><span class="nav-number">1.1.1.</span> <span class="nav-text">优点：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.2.</span> <span class="nav-text">如何实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">1.3.</span> <span class="nav-text">使用场景</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-%E5%87%8F%E5%B0%91%E9%87%8D%E5%A4%8D%E4%B8%8D%E5%8F%98%E7%9A%84%E5%8F%82%E6%95%B0"><span class="nav-number">1.3.1.</span> <span class="nav-text">1.减少重复不变的参数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-%E5%B0%86%E6%9F%AF%E9%87%8C%E5%8C%96%E4%B9%8B%E5%90%8E%E7%9A%84callback%E5%8F%82%E6%95%B0%E4%BC%A0%E9%80%92%E7%BB%99map-x2F-filter%E7%AD%89%E5%87%BD%E6%95%B0"><span class="nav-number">1.3.2.</span> <span class="nav-text">2.将柯里化之后的callback参数传递给map&#x2F;filter等函数</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Lifan Yin"
+      src="/images/touxaing.png">
+  <p class="site-author-name" itemprop="name">Lifan Yin</p>
+  <div class="site-description" itemprop="description">心有猛虎，细嗅蔷薇。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lifan Yin</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
