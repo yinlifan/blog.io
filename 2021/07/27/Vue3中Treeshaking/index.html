@@ -17,7 +17,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="说说Vue 3.0中Treeshaking特性？举例说明一下？ 是什么？Tree shaking是一种术语，在打包时将不打包没有用到的代码清除掉，这些代码会成为dead code（死代码）。也就是说，treeshaking在打包时所留下的，是我们用到的代码。  在vue2中，无论我们使用什么功能，它们最终都会出现在打包后的文件中。因为vue2在项目中是单例的，无法检测到哪些代码在项目中是被用到的。">
@@ -103,7 +103,7 @@
       <h1 class="site-title">AFAN</h1>
       <span class="logo-line-after"><i></i></span>
     </a>
-      <p class="site-subtitle" itemprop="description">CODE IS POETRY.</p>
+      <p class="site-subtitle" itemprop="description">心有猛虎，细嗅蔷薇</p>
   </div>
 
   <div class="site-nav-right">
@@ -203,7 +203,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/touxaing.png">
       <meta itemprop="name" content="Lifan Yin">
-      <meta itemprop="description" content="心有猛虎，细嗅蔷薇。">
+      <meta itemprop="description" content="CODE IS POETRY.">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -296,8 +296,8 @@
       <i class="fa fa-chevron-left"></i> Vue响应式原理
     </a></div>
       <div class="post-nav-item">
-    <a href="/2021/08/19/Vue3%E7%B3%BB%E5%88%97%E9%9D%A2%E8%AF%95/" rel="next" title="Vue3系列面试">
-      Vue3系列面试 <i class="fa fa-chevron-right"></i>
+    <a href="/2021/08/08/Base64%E7%BC%96%E7%A0%81%E6%A0%BC%E5%BC%8F/" rel="next" title="Base64编码格式">
+      Base64编码格式 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -366,27 +366,27 @@
     <img class="site-author-image" itemprop="image" alt="Lifan Yin"
       src="/images/touxaing.png">
   <p class="site-author-name" itemprop="name">Lifan Yin</p>
-  <div class="site-description" itemprop="description">心有猛虎，细嗅蔷薇。</div>
+  <div class="site-description" itemprop="description">CODE IS POETRY.</div>
 </div>
 <div class="site-state-wrap motion-element">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-count">46</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">13</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-count">24</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

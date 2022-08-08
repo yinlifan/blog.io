@@ -15,6 +15,95 @@
       </tags>
   </entry>
   <entry>
+    <title>Base64编码格式</title>
+    <url>/2021/08/08/Base64%E7%BC%96%E7%A0%81%E6%A0%BC%E5%BC%8F/</url>
+    <content><![CDATA[<h3 id="base64编码格式"><a href="#base64编码格式" class="headerlink" title="base64编码格式"></a>base64编码格式</h3><p><img src="https://cdn.jsdelivr.net/gh/yinlifan/img/20220808103513.png"></p>
+<h4 id="什么是Base64"><a href="#什么是Base64" class="headerlink" title="什么是Base64"></a>什么是Base64</h4><p><strong>Base64</strong> 是一种基于 64 个可打印字符来表示二进制数据的表示方法。由于 2⁶ &#x3D; 64 ，所以每 6 个比特为一个单元，对应某个可打印字符。3 个字节有 24 个比特，对应于 4 个 base64 单元，即 3 个字节可由 4 个可打印字符来表示。</p>
+<span id="more"></span>
+<p><img src="https://cdn.jsdelivr.net/gh/yinlifan/img/20220808104350.png"></p>
+<p><strong>Base64 常用于在处理文本数据的场合，表示、传输、存储一些二进制数据，包括 MIME 的电子邮件及 XML 的一些复杂数据。</strong>在 MIME 格式的电子邮件中，base64 可以用来将二进制的字节序列数据编码成 ASCII 字符序列构成的文本。使用时，在传输编码方式中指定 base64。使用的字符包括大小写拉丁字母各 26 个、数字 10 个、加号 + 和斜杠 &#x2F;，共 64 个字符，等号  &#x3D; 用来作为后缀用途。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/yinlifan/img/20220808104501.png"></p>
+<h4 id="为什么要使用-Base64"><a href="#为什么要使用-Base64" class="headerlink" title="为什么要使用 Base64"></a>为什么要使用 Base64</h4><p>我们知道一个字节可表示的范围是 0 ～ 255（十六进制：0x00 ～ 0xFF）， 其中 ASCII 值的范围为 0 ～ 127（十六进制：0x00 ～ 0x7F）；而超过 ASCII 范围的 128～255（十六进制：0x80 ～ 0xFF）之间的值是不可见字符。</p>
+<blockquote>
+<p>ASCII（American Standard Code for Information Interchange，美国信息交换标准代码）是基于拉丁字母的一套电脑编码系统。它主要用于显示现代英语，而其扩展版本延伸美国标准信息交换码则可以部分支持其他西欧语言，并等同于国际标准 ISO&#x2F;IEC 646。</p>
+</blockquote>
+<p>在 ASCII 码中 0 - 31和 127 是控制字符，共 33 个。以下是其中一部分控制字符：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/yinlifan/img/20220808104806.png"></p>
+<p>其余 95 个，即 32 - 126 是可打印字符，包括数字、大小写字母、常用符号等。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/yinlifan/img/20220808104951.png"></p>
+<p><strong>当不可见字符在网络上传输时，比如说从 A 计算机传到 B 计算机，往往要经过多个路由设备，由于不同的设备对字符的处理方式有一些不同，这样那些不可见字符就有可能被处理错误，这是不利于传输的。</strong> 为了解决这个问题，我们可以先对数据进行编码，比如 base64 编码，变成可见字符，也就是 ASCII 码可表示的可见字符，从而确保数据可靠传输。Base64 的内容是有 0 ～ 9，a ～ z，A ～ Z，+，&#x2F; 组成，正好 64 个字符，这些字符是在 ASCII 可表示的范围内，属于 95 个可见字符的一部分。</p>
+<p><strong>总结一句话：base64编码的初衷是应用在文件传输中，主要是为了将ascii编码的不可字符转换为可见字符。</strong></p>
+<h4 id="base64进阶"><a href="#base64进阶" class="headerlink" title="base64进阶"></a>base64进阶</h4><h5 id="1、基础数据转换为二进制"><a href="#1、基础数据转换为二进制" class="headerlink" title="1、基础数据转换为二进制"></a>1、基础数据转换为二进制</h5><p><a style='color: blue' href='https://www.rapidtables.org/zh-CN/convert/number/ascii-to-binary.html'>文本到二进制转换器</a></p>
+<p>举例：</p>
+<p><strong>文本：</strong></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">我是周正</span><br></pre></td></tr></table></figure>
+
+<p><strong>二进制：</strong></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="number">11100110</span> <span class="number">10001000</span> <span class="number">10010001</span> <span class="number">11100110</span> <span class="number">10011000</span> <span class="number">10101111</span> </span><br><span class="line"><span class="number">11100101</span> <span class="number">10010001</span> <span class="number">10101000</span> <span class="number">11100110</span> <span class="number">10101101</span> <span class="number">10100011</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="2、对二进制数据按6位切割"><a href="#2、对二进制数据按6位切割" class="headerlink" title="2、对二进制数据按6位切割"></a>2、对二进制数据按6位切割</h5><p>首先以6bit为单位进行分隔,并给每个片段头部进行2bit补位 “00”：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 11100110 10001000 10010001 11100110 10011000 10101111 11100101 10010001 10101000 11100110 10101101 10100011</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">cutInPiceBin</span>(<span class="params">list = [], size</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> cutTimes = list.<span class="property">length</span> / size; <span class="comment">// 需要切割的次数</span></span><br><span class="line">    <span class="keyword">let</span> piceQuene = [];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; cutTimes; i++) &#123;</span><br><span class="line">        piceQuene.<span class="title function_">unshift</span>(list.<span class="title function_">splice</span>(size * -<span class="number">1</span>).<span class="title function_">join</span>(<span class="string">&#x27;&#x27;</span>))</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(piceQuene.<span class="title function_">map</span>(<span class="function"><span class="params">item</span> =&gt;</span> <span class="string">`00<span class="subst">$&#123;item&#125;</span>`</span>));</span><br><span class="line">    <span class="keyword">return</span> piceQuene.<span class="title function_">map</span>(<span class="function"><span class="params">item</span> =&gt;</span> <span class="string">`00<span class="subst">$&#123;item&#125;</span>`</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">cutInPiceBin</span>(<span class="string">&#x27;11100110 10001000 10010001 11100110 10011000 10101111 11100101 10010001 10101000 11100110 10101101 10100011&#x27;</span>.<span class="title function_">replace</span>(<span class="regexp">/\s+/g</span>, <span class="string">&quot;&quot;</span>).<span class="title function_">split</span>(<span class="string">&#x27;&#x27;</span>), <span class="number">6</span>)</span><br></pre></td></tr></table></figure>
+
+<p>处理后的数据：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">[</span><br><span class="line">  <span class="string">&#x27;00111001&#x27;</span>, <span class="string">&#x27;00101000&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;00100010&#x27;</span>, <span class="string">&#x27;00010001&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;00111001&#x27;</span>, <span class="string">&#x27;00101001&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;00100010&#x27;</span>, <span class="string">&#x27;00101111&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;00111001&#x27;</span>, <span class="string">&#x27;00011001&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;00000110&#x27;</span>, <span class="string">&#x27;00101000&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;00111001&#x27;</span>, <span class="string">&#x27;00101010&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;00110110&#x27;</span>, <span class="string">&#x27;00100011&#x27;</span></span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p><a style="color: rgb(232, 50, 60);">现在我们发现数据的长度由原来的12*8 bit变为了 16 *8 bit。</a></p>
+<h5 id="3、按照映射表进行编码"><a href="#3、按照映射表进行编码" class="headerlink" title="3、按照映射表进行编码"></a>3、按照映射表进行编码</h5><p>首先转换为10进制表示：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> binBase64 = <span class="title function_">cutInPiceBin</span>(<span class="string">&#x27;11100110 10001000 10010001 11100110 10011000 10101111 11100101 10010001 10101000 11100110 10101101 10100011&#x27;</span>.<span class="title function_">replace</span>(<span class="regexp">/\s+/g</span>, <span class="string">&quot;&quot;</span>).<span class="title function_">split</span>(<span class="string">&#x27;&#x27;</span>), <span class="number">6</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> decBase64 = binBase64.<span class="title function_">map</span>(<span class="function"><span class="params">item</span> =&gt;</span> <span class="built_in">parseInt</span>(item, <span class="number">2</span>))</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;decBase64&#x27;</span>, decBase64);</span><br></pre></td></tr></table></figure>
+
+<p>输出：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">[</span><br><span class="line">  <span class="number">57</span>, <span class="number">40</span>, <span class="number">34</span>, <span class="number">17</span>, <span class="number">57</span>, <span class="number">41</span>,</span><br><span class="line">  <span class="number">34</span>, <span class="number">47</span>, <span class="number">57</span>, <span class="number">25</span>,  <span class="number">6</span>, <span class="number">40</span>,</span><br><span class="line">  <span class="number">57</span>, <span class="number">42</span>, <span class="number">54</span>, <span class="number">35</span></span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p><strong>按照映射表进行编码:</strong></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">5oiR5piv5ZGo5q2j</span><br></pre></td></tr></table></figure>
+
+<h5 id="4、验证一下"><a href="#4、验证一下" class="headerlink" title="4、验证一下"></a>4、验证一下</h5><p><a style='color:blue' href='https://base64.us/'>Base64 在线编码解码 | Base64 加密解密 - Base64.us</a></p>
+<h3 id="Base64在前端中应用"><a href="#Base64在前端中应用" class="headerlink" title="Base64在前端中应用"></a>Base64在前端中应用</h3><blockquote>
+<p>在前端中最常见的使用Base64来处理图片—将图片的url替换成Base64格式的dataUrl。</p>
+</blockquote>
+<h4 id="什么是-Data-URL"><a href="#什么是-Data-URL" class="headerlink" title="什么是 Data URL"></a>什么是 Data URL</h4><blockquote>
+<p><a href="http://en.wikipedia.org/wiki/Data_URL">Data URL</a>给了我们一种很巧妙的将图片“嵌入”到HTML中的方法。跟传统的用<code>img</code>标记将服务器上的图片引用到页面中的方式不一样，在Data URL协议中，图片被转换成<a href="http://en.wikipedia.org/wiki/Base64">base64</a>编码的字符串形式，并存储在URL中，冠以mime-type。本文中，我将介绍如何巧妙的使用Data URL优化网站加载速度和执行效率</p>
+</blockquote>
+<p>图片在网页中的使用方法通常是下面这种利用<code>img</code>标记的形式：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;images/myimage.gif &quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这种方式中，<code>img</code>标记的<code>src</code>属性指定了一个远程服务器上的资源。当网页加载到浏览器中时，浏览器会针对每个外部资源都向服务器发送一次拉取资源请求，占用网络资源。大多数的浏览器都有一个并发请求数不能超过4个的限制。这意味着，如果一个网页里嵌入了过多的外部资源，这些请求会导致整个页面的加载延迟。而使用Data URL技术，图片数据以base64字符串格式嵌入到了页面中，与HTML成为一体，它的形式如下：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"> <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;data:image/gif;base64,R0lGODlhMwAxAIAAAAAAAP///</span></span></span><br><span class="line"><span class="string"><span class="tag">yH5BAAAAAAALAAAAAAzADEAAAK8jI+pBr0PowytzotTtbm/DTqQ6C3hGX</span></span></span><br><span class="line"><span class="string"><span class="tag">ElcraA9jIr66ozVpM3nseUvYP1UEHF0FUUHkNJxhLZfEJNvol06tzwrgd</span></span></span><br><span class="line"><span class="string"><span class="tag">LbXsFZYmSMPnHLB+zNJFbq15+SOf50+6rG7lKOjwV1ibGdhHYRVYVJ9Wn</span></span></span><br><span class="line"><span class="string"><span class="tag">k2HWtLdIWMSH9lfyODZoZTb4xdnpxQSEF9oyOWIqp6gaI9pI1Qo7BijbF</span></span></span><br><span class="line"><span class="string"><span class="tag">ZkoaAtEeiiLeKn72xM7vMZofJy8zJys2UxsCT3kO229LH1tXAAAOw==&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>从上面的base64字符串中你看不出任何跟图片相关的东西，但下面，我们将传统的<code>img</code>写法和现在的Data URL用法左右对比显示，你就能看出它们是完全一样的效果。但实际上它们是不一样的，它们一个是引用了外部资源，一个是使用了Data URL。</p>
+<h6 id="简单来说url大概分为两种"><a href="#简单来说url大概分为两种" class="headerlink" title="简单来说url大概分为两种"></a>简单来说url大概分为两种</h6><ul>
+<li>普通URL（每个URL指向服务器的一个资源，需要发请求获取该资源）</li>
+<li>Data URL(<span style="color: rgb(245, 34, 45);">即前缀为 data: 协议的 URL，其允许内容创建者向文档中嵌入小文件，不进行资源请求</span>)</li>
+</ul>
+<h6 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h6><p>Data URLs 由四个部分组成：前缀 (data:)、指示数据类型的 MIME 类型、如果非文本则为可选的base64标记、数据本身：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="attr">data</span>:[&lt;mediatype&gt;][;base64],&lt;data&gt; </span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h4><ol>
+<li><p><strong>提升性能：</strong> 网页上的每一个图片，都是需要消耗一个 http 请求下载而来的, 图片的下载始终都要向服务器发出请求，要是图片的下载不用向服务器发出请求，base64可以随着 HTML 的下载同时下载到本地.减少https请求。 </p>
+</li>
+<li><p><strong>加密：</strong> 让用户一眼看不出图片内容 , 只能看到编码。 </p>
+</li>
+<li><p><strong>方便引用：</strong>: 在多个文件同时使用某些图片时, 可以把图片转为base64格式的文件, 把样式放在全局中, 比如common.css, 以后在用的时候就可以直接加类名, 二不需要多层找文件路径, 会提升效率。</p>
+</li>
+</ol>
+<h4 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h4><p>Base64转换的缺点是显而易见的：<span style='color: red;'>编码后体积增大</span></p>
+<p>前面我们转化的例子可以看出，转化后又12<em>8bit变为了16</em>8 bit。</p>
+<p>基本转换关系为：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">preBit * <span class="number">8</span> = afterBit * <span class="number">6</span></span><br><span class="line"></span><br><span class="line">- <span class="attr">preBit</span>:   转化前的体积</span><br><span class="line">- <span class="attr">afterBit</span>: 转化后的体积</span><br></pre></td></tr></table></figure>
+
+<p>体积增大了 1&#x2F;3,因为base64只是个编码一些小文本，不适合大文本编码（如视频）。</p>
+]]></content>
+      <categories>
+        <category>Base64</category>
+      </categories>
+      <tags>
+        <tag>Base64</tag>
+        <tag>编码</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>ES6对象新增扩展</title>
     <url>/2018/07/30/ES6%E5%AF%B9%E8%B1%A1%E6%96%B0%E5%A2%9E%E6%89%A9%E5%B1%95/</url>
     <content><![CDATA[<h4 id="ES6对象新增扩展"><a href="#ES6对象新增扩展" class="headerlink" title="ES6对象新增扩展"></a>ES6对象新增扩展</h4><h5 id="属性的简写"><a href="#属性的简写" class="headerlink" title="属性的简写"></a>属性的简写</h5><ul>
@@ -330,6 +419,108 @@
       <tags>
         <tag>Webpack</tag>
         <tag>Rollup</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Vite工程化实践</title>
+    <url>/2022/02/10/Vite%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%AE%9E%E8%B7%B5/</url>
+    <content><![CDATA[<h3 id="Vite工程化实践"><a href="#Vite工程化实践" class="headerlink" title="Vite工程化实践"></a>Vite工程化实践</h3><h4 id="为什么要使用vite"><a href="#为什么要使用vite" class="headerlink" title="为什么要使用vite"></a>为什么要使用vite</h4><p>在浏览器支持ES模块之前，诸如webpack、Rollup等打包工具的出现，确实是极大的改善了前端开发者的开发体验。但是当我们开始构建越来越大型的应用时，需要处理的js代码量也是呈指数级增长，模块和模块之间的依赖往往会使我们的开发工具需要更长的时间（甚至使几分钟）才能启动开发服务器，即使使用HMR，文件的修改后的效果也需要几秒钟才能在浏览器中反映出来。这也会我们要是用vite的原因，提示构建速率来改善开发体验。</p>
+<h4 id="Vite-vs-传统脚手架"><a href="#Vite-vs-传统脚手架" class="headerlink" title="Vite vs 传统脚手架"></a>Vite vs 传统脚手架</h4><p>下面主要是介绍一下<strong>vite</strong>和<strong>webpack</strong>的区别</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Vite</th>
+<th>Webpack</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>启动开发服务器</td>
+<td>利用浏览器的原生ESM加载源码模块，启动时处理一次依赖预构建即可，二次启动秒开，访问时浏览器原生解析依赖</td>
+<td>递归依赖分析、转换代码、编译、打包输出主流浏览器可直接执行的js文件，浏览器访问直接渲染</td>
+</tr>
+<tr>
+<td>构建打包器</td>
+<td>基于ESBuild使用Go编写，构建速度比nodejs快10-100倍</td>
+<td>webpack由javascript编写运行在nodejs环境，运行效率较差</td>
+</tr>
+<tr>
+<td>热更新</td>
+<td>精准更新已修改的ESM模块</td>
+<td>修改文件后需要重新构建文件，且随着应用体积增大而花费更长时间</td>
+</tr>
+<tr>
+<td>生态</td>
+<td>vite生态只能说勉强够用，某些功能可能需要妥协或者自己实现</td>
+<td>Loader和Plugin生态丰富，方案齐全</td>
+</tr>
+<tr>
+<td>生产环境</td>
+<td>Esbuild本身存在一些限制，所以生产环境采用的Rollup</td>
+<td>依托丰富的生态，稳定可靠</td>
+</tr>
+</tbody></table>
+<span id="more"></span>
+<p><span style='color: red;font-size: 900'>总结一下：</span></p>
+<p>webpack启动后会做一堆事情，经历一条很长的编译打包链条，从入口开始需要逐步经历 <span style='color: blue'>语法解析 &#x3D;&gt; 依赖收集 &#x3D;&gt; 代码转译 &#x3D;&gt; 打包合并 &#x3D;&gt; 代码优化</span>,最终将高版本的、离散的源码编译打包成低版本的、高兼容性的产物代码，这可满满都是CPU、IO操做啊！在node运行时下性能必然是有问题。</p>
+<p>而 vite 运行 dev 命令后只做了两件事，<span style='color:blue;'>一是</span>启动了一个用于承载资源服务的server； <span style='color:blue;'>二是</span>使用ESBuild预构建npm依赖包。之后就一直躺着，直到浏览器以http方式发来ESM规范的模块请求时，Vite才开始<strong>“按需编译”</strong>被请求的模块。</p>
+<h4 id="搭建vite项目"><a href="#搭建vite项目" class="headerlink" title="搭建vite项目"></a>搭建vite项目</h4><p>这里官网提供了npm, yarn, pnpm 三种模式</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">npm create vite@latest <span class="comment">// 使用npm</span></span><br><span class="line">yarn create vite <span class="comment">// 使用yarn</span></span><br><span class="line">pnpm create vite <span class="comment">// 使用pnpm</span></span><br></pre></td></tr></table></figure>
+
+<p>这里选择yarn，创建了一个基于vite构建的react项目</p>
+<p><img src="https://cdn.jsdelivr.net/gh/yinlifan/img/20220808134657.png"></p>
+<p>生成的目录结构如下：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">│  .gitignore</span><br><span class="line">│  index.html</span><br><span class="line">│  package.json</span><br><span class="line">│  tsconfig.json</span><br><span class="line">│  tsconfig.node.json</span><br><span class="line">│  vite.config.ts</span><br><span class="line">│</span><br><span class="line">├─public</span><br><span class="line">│      vite.svg</span><br><span class="line">│</span><br><span class="line">└─src</span><br><span class="line">    │  App.css</span><br><span class="line">    │  App.tsx</span><br><span class="line">    │  index.css</span><br><span class="line">    │  main.tsx</span><br><span class="line">    │  vite-env.d.ts</span><br><span class="line">    │</span><br><span class="line">    └─assets</span><br><span class="line">            react.svg</span><br></pre></td></tr></table></figure>
+
+<p>其中index.html为页面的入口文件，main.tsx为系统主入口，vite.config.ts为vite的配置文件。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">yarn install // 安装依赖</span><br><span class="line">yarn dev // 启动项目</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/yinlifan/img/20220808134935.png"></p>
+<p>这里我们根据脚手架启动的项目就已经运行起来了。</p>
+<h4 id="初始化配置"><a href="#初始化配置" class="headerlink" title="初始化配置"></a>初始化配置</h4><p>在项目开始之前，引入项目的所需的react-router、ant design、axios、less or sass并使用git作为版本管理工具。</p>
+<h5 id="vite的按需加载"><a href="#vite的按需加载" class="headerlink" title="vite的按需加载"></a>vite的按需加载</h5><p>vite的按需加载需要vite-plugin-imp来实现按需加载</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">yarn add vite-plugin-imp -dev</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; defineConfig &#125; <span class="keyword">from</span> <span class="string">&#x27;vite&#x27;</span></span><br><span class="line"><span class="keyword">import</span> react <span class="keyword">from</span> <span class="string">&#x27;@vitejs/plugin-react&#x27;</span></span><br><span class="line"><span class="keyword">import</span> vitePluginImp  <span class="keyword">from</span> <span class="string">&#x27;@vitejs/plugin-react&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// https://vitejs.dev/config/</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">defineConfig</span>(&#123;</span><br><span class="line">  <span class="attr">plugins</span>: [</span><br><span class="line">    <span class="title function_">react</span>(),</span><br><span class="line">    <span class="title function_">vitePluginImp</span>(&#123;</span><br><span class="line">      <span class="attr">libName</span>: <span class="string">&quot;antd&quot;</span>,</span><br><span class="line">      <span class="attr">style</span>: <span class="function">(<span class="params">name: string</span>) =&gt;</span> <span class="string">`antd/lib/<span class="subst">$&#123;name&#125;</span>/style/index.less`</span>,</span><br><span class="line">    &#125;)</span><br><span class="line">  ],</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h5 id="配置antd主题颜色"><a href="#配置antd主题颜色" class="headerlink" title="配置antd主题颜色"></a>配置antd主题颜色</h5><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> fs <span class="keyword">from</span> <span class="string">&#x27;fs&#x27;</span></span><br><span class="line"><span class="keyword">import</span> path <span class="keyword">from</span> <span class="string">&#x27;path&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123; getThemeVariables &#125; <span class="keyword">from</span> <span class="string">&#x27;antd/dist/theme&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> lessVarsToJs <span class="keyword">from</span> <span class="string">&#x27;less-vars-to-js&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 解析你的配置</span></span><br><span class="line"><span class="keyword">const</span> antdThemeConfig = <span class="title function_">lessVarsToJs</span>(</span><br><span class="line">  fs.<span class="title function_">readFileSync</span>(path.<span class="title function_">resolve</span>(__dirname, <span class="string">&#x27;src/assets/antdTheme.less&#x27;</span>))</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">defineConfig</span>(&#123;</span><br><span class="line">  <span class="attr">css</span>: &#123;</span><br><span class="line">    <span class="attr">preprocessorOptions</span>: &#123;</span><br><span class="line">      <span class="attr">less</span>: &#123;</span><br><span class="line">        <span class="comment">// 支持内联 JavaScript</span></span><br><span class="line">        <span class="attr">javascriptEnabled</span>: <span class="literal">true</span>,</span><br><span class="line">        <span class="attr">modifyVars</span>: &#123;...<span class="title function_">getThemeVariables</span>(), ...antdThemeConfig&#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h5 id="简写路径配置"><a href="#简写路径配置" class="headerlink" title="简写路径配置"></a>简写路径配置</h5><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="attr">resolve</span>: &#123;</span><br><span class="line">    <span class="attr">alias</span>: &#123;</span><br><span class="line">      <span class="string">&quot;@&quot;</span>: path.<span class="title function_">resolve</span>(__dirname, <span class="string">&#x27;src&#x27;</span>) </span><br><span class="line">    &#125;</span><br><span class="line"> &#125;,</span><br></pre></td></tr></table></figure>
+
+<h5 id="ts的路径解析能力"><a href="#ts的路径解析能力" class="headerlink" title="ts的路径解析能力"></a>ts的路径解析能力</h5><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> tsConfigPaths <span class="keyword">from</span> <span class="string">&#x27;vite-tsconfig-paths&#x27;</span> </span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="attr">plugins</span>: [</span><br><span class="line">    <span class="title function_">tsConfigPaths</span>(),</span><br><span class="line">  ],</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="版本控制"><a href="#版本控制" class="headerlink" title="版本控制"></a>版本控制</h5><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> tsConfigPaths <span class="keyword">from</span> <span class="string">&#x27;vite-plugin-package-version&#x27;</span> </span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="attr">plugins</span>: [</span><br><span class="line">    <span class="title function_">pluginPackageVersion</span>(),</span><br><span class="line">  ],</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="端口配置"><a href="#端口配置" class="headerlink" title="端口配置"></a>端口配置</h5><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">    <span class="attr">server</span>: &#123;</span><br><span class="line">    <span class="attr">port</span>: <span class="number">3000</span>,</span><br><span class="line">    <span class="attr">strictPort</span>: <span class="literal">true</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="vite-config-ts最终配置"><a href="#vite-config-ts最终配置" class="headerlink" title="vite.config.ts最终配置"></a>vite.config.ts最终配置</h5><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> fs <span class="keyword">from</span> <span class="string">&#x27;fs&#x27;</span></span><br><span class="line"><span class="keyword">import</span> path <span class="keyword">from</span> <span class="string">&#x27;path&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123; getThemeVariables &#125; <span class="keyword">from</span> <span class="string">&#x27;antd/dist/theme&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123; defineConfig &#125; <span class="keyword">from</span> <span class="string">&#x27;vite&#x27;</span></span><br><span class="line"><span class="keyword">import</span> react <span class="keyword">from</span> <span class="string">&#x27;@vitejs/plugin-react&#x27;</span></span><br><span class="line"><span class="keyword">import</span> vitePluginImp  <span class="keyword">from</span> <span class="string">&#x27;@vitejs/plugin-react&#x27;</span></span><br><span class="line"><span class="keyword">import</span> tsConfigPaths <span class="keyword">from</span> <span class="string">&#x27;vite-tsconfig-paths&#x27;</span></span><br><span class="line"><span class="keyword">import</span> pluginPackageVersion <span class="keyword">from</span> <span class="string">&#x27;vite-plugin-package-version&#x27;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> lessVarsToJs <span class="keyword">from</span> <span class="string">&#x27;less-vars-to-js&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> antdThemeConfig = <span class="title function_">lessVarsToJs</span>(</span><br><span class="line">  fs.<span class="title function_">readFileSync</span>(path.<span class="title function_">resolve</span>(__dirname, <span class="string">&#x27;src/assets/antdTheme.less&#x27;</span>))</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">// https://vitejs.dev/config/</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">defineConfig</span>(&#123;</span><br><span class="line">  <span class="attr">plugins</span>: [</span><br><span class="line">    <span class="title function_">react</span>(),</span><br><span class="line">    <span class="title function_">tsConfigPaths</span>(),</span><br><span class="line">    <span class="title function_">pluginPackageVersion</span>(),</span><br><span class="line">    <span class="title function_">vitePluginImp</span>(&#123;</span><br><span class="line">      <span class="attr">libName</span>: <span class="string">&quot;antd&quot;</span>,</span><br><span class="line">      <span class="attr">style</span>: <span class="function">(<span class="params">name: string</span>) =&gt;</span> <span class="string">`antd/lib/<span class="subst">$&#123;name&#125;</span>/style/index.less`</span>,</span><br><span class="line">    &#125;)</span><br><span class="line">  ],</span><br><span class="line">  </span><br><span class="line">  <span class="attr">css</span>: &#123;</span><br><span class="line">    <span class="attr">preprocessorOptions</span>: &#123;</span><br><span class="line">      <span class="attr">less</span>: &#123;</span><br><span class="line">        <span class="comment">// 支持内联 JavaScript</span></span><br><span class="line">        <span class="attr">javascriptEnabled</span>: <span class="literal">true</span>,</span><br><span class="line">        <span class="attr">modifyVars</span>: &#123;...<span class="title function_">getThemeVariables</span>(), ...antdThemeConfig&#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="attr">server</span>: &#123;</span><br><span class="line">    <span class="attr">port</span>: <span class="number">3000</span>,</span><br><span class="line">    <span class="attr">strictPort</span>: <span class="literal">true</span>,</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="attr">resolve</span>: &#123;</span><br><span class="line">    <span class="attr">alias</span>: &#123;</span><br><span class="line">      <span class="string">&quot;@&quot;</span>: path.<span class="title function_">resolve</span>(__dirname, <span class="string">&#x27;src&#x27;</span>) </span><br><span class="line">    &#125;</span><br><span class="line"> &#125;,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h5 id="tsconfig-json"><a href="#tsconfig-json" class="headerlink" title="tsconfig.json"></a>tsconfig.json</h5><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;compilerOptions&quot;</span>: &#123;</span><br><span class="line">    <span class="string">&quot;composite&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="string">&quot;module&quot;</span>: <span class="string">&quot;ESNext&quot;</span>,</span><br><span class="line">    <span class="string">&quot;moduleResolution&quot;</span>: <span class="string">&quot;Node&quot;</span>,</span><br><span class="line">    <span class="string">&quot;allowSyntheticDefaultImports&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="string">&quot;baseUrl&quot;</span>: <span class="string">&quot;.&quot;</span>,</span><br><span class="line">    <span class="string">&quot;paths&quot;</span>: &#123;</span><br><span class="line">      <span class="string">&quot;@/*&quot;</span>: [<span class="string">&quot;./src/*&quot;</span>]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">&quot;include&quot;</span>: [<span class="string">&quot;vite.config.ts&quot;</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="添加prettier格式化代码格式"><a href="#添加prettier格式化代码格式" class="headerlink" title="添加prettier格式化代码格式"></a>添加prettier格式化代码格式</h5><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">yarn add prettier --save</span><br></pre></td></tr></table></figure>
+
+<h6 id="增加prettier-config-ts文件"><a href="#增加prettier-config-ts文件" class="headerlink" title="增加prettier.config.ts文件"></a>增加prettier.config.ts文件</h6><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">    <span class="attr">printWidth</span>: <span class="number">80</span>,</span><br><span class="line">    <span class="attr">tabWidth</span>: <span class="number">2</span>,</span><br><span class="line">    <span class="attr">useTabs</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="attr">semi</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="attr">singleQuote</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">quoteProps</span>: <span class="string">&#x27;as-needed&#x27;</span>,</span><br><span class="line">    <span class="attr">jsxSingleQuote</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="attr">trailingComma</span>: <span class="string">&#x27;es5&#x27;</span>,</span><br><span class="line">    <span class="attr">bracketSpacing</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">bracketSameLine</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="attr">arrowParens</span>: <span class="string">&#x27;always&#x27;</span>,</span><br><span class="line">    <span class="attr">htmlWhitespaceSensitivity</span>: <span class="string">&#x27;ignore&#x27;</span>,</span><br><span class="line">    <span class="attr">vueIndentScriptAndStyle</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">endOfLine</span>: <span class="string">&#x27;lf&#x27;</span>,</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="React-Router配置"><a href="#React-Router配置" class="headerlink" title="React Router配置"></a>React Router配置</h5><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="title class_">React</span> <span class="title class_">Router</span>配置<span class="comment">// src/App.tsx</span></span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Suspense</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">BrowserRouter</span>, <span class="title class_">Routes</span>, <span class="title class_">Route</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;react-router-dom&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">ConfigProvider</span>, <span class="title class_">Layout</span>, <span class="title class_">Result</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;antd&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> zhCN <span class="keyword">from</span> <span class="string">&#x27;antd/es/locale/zh_CN&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="variable constant_">ROUTES</span>, &#123; <span class="title class_">IRoute</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;./routes&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">ErrorBoundary</span> <span class="keyword">from</span> <span class="string">&#x27;./components/ErrorBoundary&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&#x27;./App.css&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">FullBack</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span>加载中...<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">App</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;App&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">ConfigProvider</span> <span class="attr">locale</span>=<span class="string">&#123;zhCN&#125;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">BrowserRouter</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">Layout</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">ErrorBoundary</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">              &#123;/* 使用懒加载会导致加载延迟，使用suspense优化体验 */&#125;</span></span><br><span class="line"><span class="language-xml">              <span class="tag">&lt;<span class="name">Suspense</span> <span class="attr">fallback</span>=<span class="string">&#123;</span>&lt;<span class="attr">FullBack</span> /&gt;</span>&#125;&gt;</span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;<span class="name">Routes</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                  &#123;ROUTES?.map((route) =&gt; &#123;</span></span><br><span class="line"><span class="language-xml">                    return (</span></span><br><span class="line"><span class="language-xml">                      <span class="tag">&lt;<span class="name">Route</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                        <span class="attr">key</span>=<span class="string">&#123;route.url&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                        <span class="attr">path</span>=<span class="string">&#123;route.url&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                        <span class="attr">element</span>=<span class="string">&#123;route.Element&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                      /&gt;</span></span></span><br><span class="line"><span class="language-xml">                    );</span></span><br><span class="line"><span class="language-xml">                  &#125;)&#125;</span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">                  <span class="tag">&lt;<span class="name">Route</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                    <span class="attr">path</span>=<span class="string">&quot;*&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                    <span class="attr">element</span>=<span class="string">&#123;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                      &lt;<span class="attr">div</span> <span class="attr">style</span>=<span class="string">&#123;&#123;</span> <span class="attr">marginTop:</span> <span class="attr">80</span> &#125;&#125;&gt;</span></span></span><br><span class="line"><span class="language-xml">                        <span class="tag">&lt;<span class="name">Result</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                          <span class="attr">status</span>=<span class="string">&quot;404&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                          <span class="attr">title</span>=<span class="string">&quot;404&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                          <span class="attr">subTitle</span>=<span class="string">&quot;抱歉，您访问的资源不存在&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                        /&gt;</span></span></span><br><span class="line"><span class="language-xml">                      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                    &#125;</span></span><br><span class="line"><span class="language-xml">                  /&gt;</span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;/<span class="name">Routes</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">              <span class="tag">&lt;/<span class="name">Suspense</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;/<span class="name">ErrorBoundary</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;/<span class="name">Layout</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">BrowserRouter</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">ConfigProvider</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">App</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="comment">// src/routes</span></span><br><span class="line"><span class="keyword">import</span> &#123; lazy &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> interface <span class="title class_">IRoute</span> &#123;</span><br><span class="line">  <span class="attr">path</span>: string;</span><br><span class="line">  <span class="title class_">Element</span>?: <span class="title class_">React</span>.<span class="property">ReactElement</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title class_">Home</span> = <span class="title function_">lazy</span>(<span class="function">() =&gt;</span> <span class="title function_">import</span>(<span class="string">&#x27;./../pages/Home&#x27;</span>));</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title class_">Test</span> = <span class="title function_">lazy</span>(<span class="function">() =&gt;</span> <span class="title function_">import</span>(<span class="string">&#x27;./../pages/Test&#x27;</span>));</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="attr">ROUTES</span>: <span class="title class_">Array</span>&lt;<span class="title class_">IRoute</span> | <span class="literal">undefined</span>&gt; = [</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="attr">path</span>: <span class="string">&#x27;home&#x27;</span>,</span><br><span class="line">    <span class="title class_">Element</span>: <span class="language-xml"><span class="tag">&lt;<span class="name">Home</span> /&gt;</span></span>,</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  &#123;</span><br><span class="line">    <span class="attr">path</span>: <span class="string">&#x27;test&#x27;</span>,</span><br><span class="line">    <span class="title class_">Element</span>: <span class="language-xml"><span class="tag">&lt;<span class="name">Test</span> /&gt;</span></span>,</span><br><span class="line">  &#125;,</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="variable constant_">ROUTES</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="comment">// src/components/ErrorBoundary</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123; <span class="title class_">Component</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Result</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;antd&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">class</span> <span class="title class_">ErrorBoundary</span> <span class="keyword">extends</span> <span class="title class_ inherited__">Component</span>&lt;&#123;</span><br><span class="line">  <span class="attr">children</span>: <span class="title class_">React</span>.<span class="property">ReactNode</span>;</span><br><span class="line">  hasError?: boolean;</span><br><span class="line">&#125;&gt; &#123;</span><br><span class="line">  <span class="keyword">static</span> <span class="title function_">getDerivedStateFromError</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      <span class="attr">hasError</span>: <span class="literal">true</span>,</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">state = &#123; <span class="attr">hasError</span>: <span class="literal">false</span> &#125;;</span><br><span class="line"></span><br><span class="line"><span class="title function_">render</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> &#123; children &#125; = <span class="variable language_">this</span>.<span class="property">props</span>;</span><br><span class="line">  <span class="keyword">const</span> &#123; hasError &#125; = <span class="variable language_">this</span>.<span class="property">state</span>;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">if</span> (hasError) &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="language-xml"><span class="tag">&lt;<span class="name">Result</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">status</span>=<span class="string">&quot;500&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">title</span>=<span class="string">&quot;500&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">subTitle</span>=<span class="string">&quot;抱歉，服务器出错了，请刷新重试&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        /&gt;</span></span></span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> children;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h5 id="请求库函数"><a href="#请求库函数" class="headerlink" title="请求库函数"></a>请求库函数</h5><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">yarn add ahooks --save</span><br></pre></td></tr></table></figure>
+
+<p>ahooks提供了大量的封装好的Hooks使用，其中useRequest更是一个强大的异步数据管理的Hooks，一般情况下的请求场景都是足够使用的。</p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>vite实现了真正的按需加载，我们只需要提供页面加载所需的模块，剩下的就让浏览器去做。对于我们来说，<code>打包</code>不是目的，能够快速的<code>运行</code>才是我们的目的。配置简单，学习成本也比较低，不需要像webpack一样去加载各种loader。</p>
+<hr>
+<h4 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h4><p><a href="https://segmentfault.com/a/1190000040278828">https://segmentfault.com/a/1190000040278828</a></p>
+<p><a href="https://juejin.cn/post/7000182183344209934">https://juejin.cn/post/7000182183344209934</a></p>
+<p><a href="https://cn.vitejs.dev/">https://cn.vitejs.dev/</a></p>
+]]></content>
+      <categories>
+        <category>Vite</category>
+      </categories>
+      <tags>
+        <tag>Vite</tag>
       </tags>
   </entry>
   <entry>
@@ -660,6 +851,74 @@
       </tags>
   </entry>
   <entry>
+    <title>Vue响应式原理</title>
+    <url>/2020/12/29/Vue%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/</url>
+    <content><![CDATA[<p><a href="http://zslin.xyz/2019/05/27/vue2/vue2%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/15.png"><img src="http://zslin.xyz/2019/05/27/vue2/vue2%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/15.png" alt="img"></a></p>
+<p>Vue2.x响应式原理：</p>
+<p>vue创建一个实例时，首先会遍历data属性。采用数据劫持结合发布者订阅者的方式。使用es5的object.defindeproperty 方法将他们转化成getter，setter，并在内部追踪相关依赖。在属性被访问和修改时通知变化。也就是observer使用object.defindproerty来监听数据的读写。读取数据时，调用get方法通知dep去收集订阅者（watcher）。添加到道dep的一个属性subs数理。 dep有很多属性，其中就有一个subsadd添加订阅者的方法。修改1数据时，调用set方法，通知dep数据发生了改变。使用dep.notify方法遍历subs数组里面的每个watcher。调用watcher的update（）方法。创建出一个新的dom树，与原来旧的dom树作对比，根据差异性，从而更新视图。</p>
+<span id="more"></span>
+<p><a href="http://zslin.xyz/2019/05/27/vue2/vue2%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/vue.jpeg"><img src="http://zslin.xyz/2019/05/27/vue2/vue2%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/vue.jpeg" alt="img"></a></p>
+<p>**Object.defineProperty()**，那么它的用法是什么，以及优缺点是什么呢？</p>
+<ul>
+<li>可以检测对象中数据发生的修改</li>
+<li>对于复杂的对象，层级很深的话，是不友好的，需要经行深度监听，这样子就需要递归到底，这也是它的缺点。</li>
+<li>对于一个对象中，如果你新增加属性，删除属性，<strong>Object.defineProperty()</strong> 是不能观测到的，那么应该如何解决呢？可以通过<code>Vue.set()</code>和<code>Vue.delete()</code>来实现。</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 模拟 Vue 中的 data 选项 </span></span><br><span class="line"><span class="keyword">let</span> data = &#123;</span><br><span class="line">    <span class="attr">msg</span>: <span class="string">&#x27;hello&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 模拟 Vue 的实例 </span></span><br><span class="line"><span class="keyword">let</span> vm = &#123;&#125;</span><br><span class="line"><span class="comment">// 数据劫持:当访问或者设置 vm 中的成员的时候，做一些干预操作</span></span><br><span class="line"><span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(vm, <span class="string">&#x27;msg&#x27;</span>, &#123;</span><br><span class="line">  <span class="comment">// 可枚举(可遍历)</span></span><br><span class="line">  <span class="attr">enumerable</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="comment">// 可配置(可以使用 delete 删除，可以通过 defineProperty 重新定义) </span></span><br><span class="line">  <span class="attr">configurable</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="comment">// 当获取值的时候执行 </span></span><br><span class="line">  get () &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;get: &#x27;</span>, data.<span class="property">msg</span>)</span><br><span class="line">    <span class="keyword">return</span> data.<span class="property">msg</span> </span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// 当设置值的时候执行 </span></span><br><span class="line">  set (newValue) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;set: &#x27;</span>, newValue) </span><br><span class="line">    <span class="keyword">if</span> (newValue === data.<span class="property">msg</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    data.<span class="property">msg</span> = newValue</span><br><span class="line">    <span class="comment">// 数据更改，更新 DOM 的值 </span></span><br><span class="line">    <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;#app&#x27;</span>).<span class="property">textContent</span> = data.<span class="property">msg</span></span><br><span class="line">  &#125; </span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 测试</span></span><br><span class="line">vm.<span class="property">msg</span> = <span class="string">&#x27;Hello World&#x27;</span> </span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(vm.<span class="property">msg</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>Vue3.响应式原理：</p>
+<p><code>Vue3.x</code>改用<code>Proxy</code>替代<code>Object.defineProperty</code>。因为<code>Proxy</code>可以直接监听<code>对象和数组</code>的变化，并且有多达13种拦截方法。</p>
+<p>代理，顾名思义，就是在要访问的对象之前增加⼀个中间层，这样就不直接访问对象，⽽是通过中间层做⼀个中转，通过操作代理对象，来实现修改目标对象。</p>
+<p><strong>监测数组的时候可能触发多次get&#x2F;set，那么如何防止触发多次呢？</strong></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 模拟 Vue 中的 data 选项 </span></span><br><span class="line"><span class="keyword">let</span> data = &#123;</span><br><span class="line">  <span class="attr">msg</span>: <span class="string">&#x27;hello&#x27;</span>,</span><br><span class="line">  <span class="attr">count</span>: <span class="number">0</span> </span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 模拟 Vue 实例</span></span><br><span class="line"><span class="keyword">let</span> vm = <span class="keyword">new</span> <span class="title class_">Proxy</span>(data, &#123;</span><br><span class="line">  <span class="comment">// 当访问 vm 的成员会执行</span></span><br><span class="line">  get (target, key) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;get, key: &#x27;</span>, key, target[key])</span><br><span class="line">    <span class="keyword">return</span> target[key]</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// 当设置 vm 的成员会执行</span></span><br><span class="line">  set (target, key, newValue) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;set, key: &#x27;</span>, key, newValue)</span><br><span class="line">    <span class="keyword">if</span> (target[key] === newValue) &#123;</span><br><span class="line">      <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    target[key] = newValue</span><br><span class="line">    <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;#app&#x27;</span>).<span class="property">textContent</span> = target[key]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 测试</span></span><br><span class="line">vm.<span class="property">msg</span> = <span class="string">&#x27;Hello World&#x27;</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(vm.<span class="property">msg</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>总结：</p>
+<ul>
+<li>Vue<ul>
+<li>记录传入的选项，设置 <code>$data/$el</code></li>
+<li>把 <code>data</code> 的成员注入到 <code>Vue</code> 实例</li>
+<li>负责调用 <code>Observer</code> 实现数据响应式处理(数据劫持)</li>
+<li>负责调用 <code>Compiler</code> 编译指令&#x2F;插值表达式等</li>
+</ul>
+</li>
+<li>Observer<ul>
+<li>数据劫持<ul>
+<li>负责把 <code>data</code> 中的成员转换成 <code>getter/setter</code></li>
+<li>负责把多层属性转换成 <code>getter/setter</code></li>
+<li>如果给属性赋值为新对象，把新对象的成员设置为 <code>getter/setter</code></li>
+</ul>
+</li>
+<li>添加 <code>Dep</code> 和 <code>Watcher</code> 的依赖关系</li>
+<li>数据变化发送通知</li>
+</ul>
+</li>
+<li>Compiler<ul>
+<li>负责编译模板，解析指令&#x2F;插值表达式</li>
+<li>负责页面的首次渲染过程</li>
+<li>当数据变化后重新渲染</li>
+</ul>
+</li>
+<li>Dep<ul>
+<li>收集依赖，添加订阅者(<code>watcher</code>)</li>
+<li>通知所有订阅者</li>
+</ul>
+</li>
+<li>Watcher<ul>
+<li>自身实例化的时候往<code>dep</code>对象中添加自己</li>
+<li>当数据变化<code>dep</code>通知所有的 <code>Watcher</code> 实例更新视图</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Vue</category>
+      </categories>
+      <tags>
+        <tag>Vue3</tag>
+        <tag>Vue</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Vue生命周期的理解</title>
     <url>/2019/03/28/Vue%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E7%9A%84%E7%90%86%E8%A7%A3/</url>
     <content><![CDATA[<h4 id="vue生命周期的理解"><a href="#vue生命周期的理解" class="headerlink" title="vue生命周期的理解"></a><strong>vue生命周期的理解</strong></h4><p>vue生命周期主要分为8个阶段：创建前&#x2F;后，载入前&#x2F;后，更新前&#x2F;后，销毁前&#x2F;后。</p>
@@ -755,74 +1014,6 @@
         <category>Vue</category>
       </categories>
       <tags>
-        <tag>Vue</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Vue响应式原理</title>
-    <url>/2020/12/29/Vue%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/</url>
-    <content><![CDATA[<p><a href="http://zslin.xyz/2019/05/27/vue2/vue2%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/15.png"><img src="http://zslin.xyz/2019/05/27/vue2/vue2%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/15.png" alt="img"></a></p>
-<p>Vue2.x响应式原理：</p>
-<p>vue创建一个实例时，首先会遍历data属性。采用数据劫持结合发布者订阅者的方式。使用es5的object.defindeproperty 方法将他们转化成getter，setter，并在内部追踪相关依赖。在属性被访问和修改时通知变化。也就是observer使用object.defindproerty来监听数据的读写。读取数据时，调用get方法通知dep去收集订阅者（watcher）。添加到道dep的一个属性subs数理。 dep有很多属性，其中就有一个subsadd添加订阅者的方法。修改1数据时，调用set方法，通知dep数据发生了改变。使用dep.notify方法遍历subs数组里面的每个watcher。调用watcher的update（）方法。创建出一个新的dom树，与原来旧的dom树作对比，根据差异性，从而更新视图。</p>
-<span id="more"></span>
-<p><a href="http://zslin.xyz/2019/05/27/vue2/vue2%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/vue.jpeg"><img src="http://zslin.xyz/2019/05/27/vue2/vue2%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/vue.jpeg" alt="img"></a></p>
-<p>**Object.defineProperty()**，那么它的用法是什么，以及优缺点是什么呢？</p>
-<ul>
-<li>可以检测对象中数据发生的修改</li>
-<li>对于复杂的对象，层级很深的话，是不友好的，需要经行深度监听，这样子就需要递归到底，这也是它的缺点。</li>
-<li>对于一个对象中，如果你新增加属性，删除属性，<strong>Object.defineProperty()</strong> 是不能观测到的，那么应该如何解决呢？可以通过<code>Vue.set()</code>和<code>Vue.delete()</code>来实现。</li>
-</ul>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 模拟 Vue 中的 data 选项 </span></span><br><span class="line"><span class="keyword">let</span> data = &#123;</span><br><span class="line">    <span class="attr">msg</span>: <span class="string">&#x27;hello&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 模拟 Vue 的实例 </span></span><br><span class="line"><span class="keyword">let</span> vm = &#123;&#125;</span><br><span class="line"><span class="comment">// 数据劫持:当访问或者设置 vm 中的成员的时候，做一些干预操作</span></span><br><span class="line"><span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(vm, <span class="string">&#x27;msg&#x27;</span>, &#123;</span><br><span class="line">  <span class="comment">// 可枚举(可遍历)</span></span><br><span class="line">  <span class="attr">enumerable</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="comment">// 可配置(可以使用 delete 删除，可以通过 defineProperty 重新定义) </span></span><br><span class="line">  <span class="attr">configurable</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="comment">// 当获取值的时候执行 </span></span><br><span class="line">  get () &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;get: &#x27;</span>, data.<span class="property">msg</span>)</span><br><span class="line">    <span class="keyword">return</span> data.<span class="property">msg</span> </span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// 当设置值的时候执行 </span></span><br><span class="line">  set (newValue) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;set: &#x27;</span>, newValue) </span><br><span class="line">    <span class="keyword">if</span> (newValue === data.<span class="property">msg</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    data.<span class="property">msg</span> = newValue</span><br><span class="line">    <span class="comment">// 数据更改，更新 DOM 的值 </span></span><br><span class="line">    <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;#app&#x27;</span>).<span class="property">textContent</span> = data.<span class="property">msg</span></span><br><span class="line">  &#125; </span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 测试</span></span><br><span class="line">vm.<span class="property">msg</span> = <span class="string">&#x27;Hello World&#x27;</span> </span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(vm.<span class="property">msg</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>Vue3.响应式原理：</p>
-<p><code>Vue3.x</code>改用<code>Proxy</code>替代<code>Object.defineProperty</code>。因为<code>Proxy</code>可以直接监听<code>对象和数组</code>的变化，并且有多达13种拦截方法。</p>
-<p>代理，顾名思义，就是在要访问的对象之前增加⼀个中间层，这样就不直接访问对象，⽽是通过中间层做⼀个中转，通过操作代理对象，来实现修改目标对象。</p>
-<p><strong>监测数组的时候可能触发多次get&#x2F;set，那么如何防止触发多次呢？</strong></p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 模拟 Vue 中的 data 选项 </span></span><br><span class="line"><span class="keyword">let</span> data = &#123;</span><br><span class="line">  <span class="attr">msg</span>: <span class="string">&#x27;hello&#x27;</span>,</span><br><span class="line">  <span class="attr">count</span>: <span class="number">0</span> </span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 模拟 Vue 实例</span></span><br><span class="line"><span class="keyword">let</span> vm = <span class="keyword">new</span> <span class="title class_">Proxy</span>(data, &#123;</span><br><span class="line">  <span class="comment">// 当访问 vm 的成员会执行</span></span><br><span class="line">  get (target, key) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;get, key: &#x27;</span>, key, target[key])</span><br><span class="line">    <span class="keyword">return</span> target[key]</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// 当设置 vm 的成员会执行</span></span><br><span class="line">  set (target, key, newValue) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;set, key: &#x27;</span>, key, newValue)</span><br><span class="line">    <span class="keyword">if</span> (target[key] === newValue) &#123;</span><br><span class="line">      <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    target[key] = newValue</span><br><span class="line">    <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;#app&#x27;</span>).<span class="property">textContent</span> = target[key]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 测试</span></span><br><span class="line">vm.<span class="property">msg</span> = <span class="string">&#x27;Hello World&#x27;</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(vm.<span class="property">msg</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>总结：</p>
-<ul>
-<li>Vue<ul>
-<li>记录传入的选项，设置 <code>$data/$el</code></li>
-<li>把 <code>data</code> 的成员注入到 <code>Vue</code> 实例</li>
-<li>负责调用 <code>Observer</code> 实现数据响应式处理(数据劫持)</li>
-<li>负责调用 <code>Compiler</code> 编译指令&#x2F;插值表达式等</li>
-</ul>
-</li>
-<li>Observer<ul>
-<li>数据劫持<ul>
-<li>负责把 <code>data</code> 中的成员转换成 <code>getter/setter</code></li>
-<li>负责把多层属性转换成 <code>getter/setter</code></li>
-<li>如果给属性赋值为新对象，把新对象的成员设置为 <code>getter/setter</code></li>
-</ul>
-</li>
-<li>添加 <code>Dep</code> 和 <code>Watcher</code> 的依赖关系</li>
-<li>数据变化发送通知</li>
-</ul>
-</li>
-<li>Compiler<ul>
-<li>负责编译模板，解析指令&#x2F;插值表达式</li>
-<li>负责页面的首次渲染过程</li>
-<li>当数据变化后重新渲染</li>
-</ul>
-</li>
-<li>Dep<ul>
-<li>收集依赖，添加订阅者(<code>watcher</code>)</li>
-<li>通知所有订阅者</li>
-</ul>
-</li>
-<li>Watcher<ul>
-<li>自身实例化的时候往<code>dep</code>对象中添加自己</li>
-<li>当数据变化<code>dep</code>通知所有的 <code>Watcher</code> 实例更新视图</li>
-</ul>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>Vue</category>
-      </categories>
-      <tags>
-        <tag>Vue3</tag>
         <tag>Vue</tag>
       </tags>
   </entry>
@@ -974,42 +1165,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Webpack构建流程</title>
-    <url>/2019/08/20/Webpack%E6%9E%84%E5%BB%BA%E6%B5%81%E7%A8%8B/</url>
-    <content><![CDATA[<h4 id="介绍一下-webpack-的构建流程"><a href="#介绍一下-webpack-的构建流程" class="headerlink" title="介绍一下 webpack 的构建流程"></a>介绍一下 webpack 的构建流程</h4><h5 id="核心概念"><a href="#核心概念" class="headerlink" title="核心概念"></a><strong>核心概念</strong></h5><ul>
-<li><code>entry</code>：入口配置。webpack从入口开始根据模块间依赖关系递归解析和处理所有资源文件。</li>
-<li><code>output</code>：出口配置。经打包后的文件写入的位置。</li>
-<li><code>loader</code>：模块转换器。纯文件转换。因为webpack默认只认识js，json文件。</li>
-<li><code>plugin</code>：扩展插件。插件可以扩展 Webpack 的功能。</li>
-<li><code>module</code>：模块。除了js范畴内的<code>es module、commonJs、AMD</code>等，<code>css @import、url(...)</code>、图片、字体等在webpack中都被视为模块。</li>
-</ul>
-<h5 id="打包流程"><a href="#打包流程" class="headerlink" title="打包流程"></a>打包流程</h5><span id="more"></span>
-<ul>
-<li>初始化参数：从配置文件和 Shell 语句中读取并合并参数，得出最终的配置参数。</li>
-<li>开始编译：从上一步得到的参数初始化 <code>Compiler</code> 对象，加载所有配置的插件，执行对象的 <code>run</code> 方法开始执行编译。</li>
-<li>确定入口：根scope据配置中的 <code>entry</code> 找出所有的入口文件。</li>
-<li>编译模块：从入口文件出发，调用所有配置的 <code>loader</code> 对模块进行翻译，再找出该模块依赖的模块，这个步骤是递归执行的，直至所有入口依赖的模块文件都经过本步骤的处理。</li>
-<li>完成模块编译：经过第 4 步使用 loader 翻译完所有模块后，得到了每个模块被翻译后的最终内容以及它们之间的依赖关系。</li>
-<li>输出资源：根据入口和模块之间的依赖关系，组装成一个个包含多个模块的 <code>chunk</code>，再把每个 <code>chunk</code> 转换成一个单独的文件加入到输出列表，这一步是可以修改输出内容的最后机会。</li>
-<li>输出完成：在确定好输出内容后，根据配置确定输出的路径和文件名，把文件内容写入到文件系统。</li>
-</ul>
-<p><a href="http://zslin.xyz/2019/03/28/webpack/webpack%E6%9E%84%E5%BB%BA%E6%B5%81%E7%A8%8B/tt.png"><img src="http://zslin.xyz/2019/03/28/webpack/webpack%E6%9E%84%E5%BB%BA%E6%B5%81%E7%A8%8B/tt.png" alt="img"></a></p>
-<p>从配置文件中读取所需要的参数，初始化compiler对象，并且加载所有的插件，执行run方法开始编译。找到entry入口文件。调用loader对模板进行递归解析翻译。等确定每个模块的依赖关系后，将他们组装成一个个包含多个模块的chunk。确定好内容后，根据出口配置将打包后的文件写入到具体位置。</p>
-<h5 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h5><hr>
-<blockquote>
-<ul>
-<li><a href="https://interview2.poetries.top/docs/simply.html#_10-%E7%A7%BB%E5%8A%A8%E7%AB%AF%E4%BC%98%E5%8C%96">https://interview2.poetries.top/docs/simply.html#_10-%E7%A7%BB%E5%8A%A8%E7%AB%AF%E4%BC%98%E5%8C%96</a></li>
-</ul>
-</blockquote>
-]]></content>
-      <categories>
-        <category>Webpack</category>
-      </categories>
-      <tags>
-        <tag>Webpack</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Webpack层面的性能优化</title>
     <url>/2019/08/19/Webpack%E5%B1%82%E9%9D%A2%E7%9A%84%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/</url>
     <content><![CDATA[<h4 id="webpack-层面如何做性能优化"><a href="#webpack-层面如何做性能优化" class="headerlink" title="webpack 层面如何做性能优化"></a>webpack 层面如何做性能优化</h4><h5 id="优化前的准备工作"><a href="#优化前的准备工作" class="headerlink" title="优化前的准备工作"></a>优化前的准备工作</h5><p>准备基于时间的分析工具：我们需要一类插件，来帮助我们统计项目构建过程中在编译阶段的耗时情况。speed-measure-webpack-plugin 分析插件加载的时间<br>使用 webpack-bundle-analyzer 分析产物内容<br>代码优化:</p>
@@ -1115,6 +1270,42 @@
 </ul>
 <p><a href="http://zslin.xyz/2019/04/06/webpack/webpack%E5%B1%82%E9%9D%A2%E5%A6%82%E4%BD%95%E5%81%9A%E4%BC%98%E5%8C%96/tt.png"><img src="http://zslin.xyz/2019/04/06/webpack/webpack%E5%B1%82%E9%9D%A2%E5%A6%82%E4%BD%95%E5%81%9A%E4%BC%98%E5%8C%96/tt.png" alt="img"></a></p>
 <p><a href="http://zslin.xyz/2019/04/06/webpack/webpack%E5%B1%82%E9%9D%A2%E5%A6%82%E4%BD%95%E5%81%9A%E4%BC%98%E5%8C%96/oo.png"><img src="http://zslin.xyz/2019/04/06/webpack/webpack%E5%B1%82%E9%9D%A2%E5%A6%82%E4%BD%95%E5%81%9A%E4%BC%98%E5%8C%96/oo.png" alt="img"></a></p>
+]]></content>
+      <categories>
+        <category>Webpack</category>
+      </categories>
+      <tags>
+        <tag>Webpack</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Webpack构建流程</title>
+    <url>/2019/08/20/Webpack%E6%9E%84%E5%BB%BA%E6%B5%81%E7%A8%8B/</url>
+    <content><![CDATA[<h4 id="介绍一下-webpack-的构建流程"><a href="#介绍一下-webpack-的构建流程" class="headerlink" title="介绍一下 webpack 的构建流程"></a>介绍一下 webpack 的构建流程</h4><h5 id="核心概念"><a href="#核心概念" class="headerlink" title="核心概念"></a><strong>核心概念</strong></h5><ul>
+<li><code>entry</code>：入口配置。webpack从入口开始根据模块间依赖关系递归解析和处理所有资源文件。</li>
+<li><code>output</code>：出口配置。经打包后的文件写入的位置。</li>
+<li><code>loader</code>：模块转换器。纯文件转换。因为webpack默认只认识js，json文件。</li>
+<li><code>plugin</code>：扩展插件。插件可以扩展 Webpack 的功能。</li>
+<li><code>module</code>：模块。除了js范畴内的<code>es module、commonJs、AMD</code>等，<code>css @import、url(...)</code>、图片、字体等在webpack中都被视为模块。</li>
+</ul>
+<h5 id="打包流程"><a href="#打包流程" class="headerlink" title="打包流程"></a>打包流程</h5><span id="more"></span>
+<ul>
+<li>初始化参数：从配置文件和 Shell 语句中读取并合并参数，得出最终的配置参数。</li>
+<li>开始编译：从上一步得到的参数初始化 <code>Compiler</code> 对象，加载所有配置的插件，执行对象的 <code>run</code> 方法开始执行编译。</li>
+<li>确定入口：根scope据配置中的 <code>entry</code> 找出所有的入口文件。</li>
+<li>编译模块：从入口文件出发，调用所有配置的 <code>loader</code> 对模块进行翻译，再找出该模块依赖的模块，这个步骤是递归执行的，直至所有入口依赖的模块文件都经过本步骤的处理。</li>
+<li>完成模块编译：经过第 4 步使用 loader 翻译完所有模块后，得到了每个模块被翻译后的最终内容以及它们之间的依赖关系。</li>
+<li>输出资源：根据入口和模块之间的依赖关系，组装成一个个包含多个模块的 <code>chunk</code>，再把每个 <code>chunk</code> 转换成一个单独的文件加入到输出列表，这一步是可以修改输出内容的最后机会。</li>
+<li>输出完成：在确定好输出内容后，根据配置确定输出的路径和文件名，把文件内容写入到文件系统。</li>
+</ul>
+<p><a href="http://zslin.xyz/2019/03/28/webpack/webpack%E6%9E%84%E5%BB%BA%E6%B5%81%E7%A8%8B/tt.png"><img src="http://zslin.xyz/2019/03/28/webpack/webpack%E6%9E%84%E5%BB%BA%E6%B5%81%E7%A8%8B/tt.png" alt="img"></a></p>
+<p>从配置文件中读取所需要的参数，初始化compiler对象，并且加载所有的插件，执行run方法开始编译。找到entry入口文件。调用loader对模板进行递归解析翻译。等确定每个模块的依赖关系后，将他们组装成一个个包含多个模块的chunk。确定好内容后，根据出口配置将打包后的文件写入到具体位置。</p>
+<h5 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h5><hr>
+<blockquote>
+<ul>
+<li><a href="https://interview2.poetries.top/docs/simply.html#_10-%E7%A7%BB%E5%8A%A8%E7%AB%AF%E4%BC%98%E5%8C%96">https://interview2.poetries.top/docs/simply.html#_10-%E7%A7%BB%E5%8A%A8%E7%AB%AF%E4%BC%98%E5%8C%96</a></li>
+</ul>
+</blockquote>
 ]]></content>
       <categories>
         <category>Webpack</category>
@@ -1304,30 +1495,6 @@
       </tags>
   </entry>
   <entry>
-    <title>介绍babel原理</title>
-    <url>/2019/04/10/%E4%BB%8B%E7%BB%8Dbabel%E5%8E%9F%E7%90%86/</url>
-    <content><![CDATA[<h4 id="介绍一下-webpack-scope-hosting"><a href="#介绍一下-webpack-scope-hosting" class="headerlink" title="介绍一下 webpack scope hosting"></a>介绍一下 webpack scope hosting</h4><p>作用域提升，将分散的模块划分到同一个作用域中，避免了代码的重复引入，有效减少打包后的代码体积和运行时的内存损耗；</p>
-<span id="more"></span>
-
-<h4 id="介绍一下-babel原理"><a href="#介绍一下-babel原理" class="headerlink" title="介绍一下 babel原理"></a>介绍一下 babel原理</h4><blockquote>
-<p><code>babel</code> 的编译过程分为三个阶段：<strong>parsing</strong>、<strong>transforming</strong>、<strong>generating</strong>，以 ES6 编译为 ES5 作为例子：</p>
-</blockquote>
-<ol>
-<li><code>ES6</code> 代码输入；</li>
-<li><code>babylon</code> 进行解析得到 AST；</li>
-<li><code>plugin</code> 用 <code>babel-traverse</code> 对 <code>AST</code>树进行遍历编译，得到新的 <code>AST</code>树；</li>
-<li>用 <code>babel-generator</code> 通过 <code>AST</code>树生成 <code>ES5</code> 代码。</li>
-</ol>
-]]></content>
-      <categories>
-        <category>Webpack</category>
-      </categories>
-      <tags>
-        <tag>Webpack</tag>
-        <tag>babel</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>var、let与const</title>
     <url>/2018/03/28/var%E3%80%81let%E4%B8%8Econst/</url>
     <content><![CDATA[<h4 id="var、let与const"><a href="#var、let与const" class="headerlink" title="var、let与const"></a>var、let与const</h4><h5 id="Var："><a href="#Var：" class="headerlink" title="Var："></a>Var：</h5><p>用var声明的变量既是全局变量，也是顶层变量。</p>
@@ -1409,6 +1576,30 @@
       <tags>
         <tag>ES6</tag>
         <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>介绍babel原理</title>
+    <url>/2019/04/10/%E4%BB%8B%E7%BB%8Dbabel%E5%8E%9F%E7%90%86/</url>
+    <content><![CDATA[<h4 id="介绍一下-webpack-scope-hosting"><a href="#介绍一下-webpack-scope-hosting" class="headerlink" title="介绍一下 webpack scope hosting"></a>介绍一下 webpack scope hosting</h4><p>作用域提升，将分散的模块划分到同一个作用域中，避免了代码的重复引入，有效减少打包后的代码体积和运行时的内存损耗；</p>
+<span id="more"></span>
+
+<h4 id="介绍一下-babel原理"><a href="#介绍一下-babel原理" class="headerlink" title="介绍一下 babel原理"></a>介绍一下 babel原理</h4><blockquote>
+<p><code>babel</code> 的编译过程分为三个阶段：<strong>parsing</strong>、<strong>transforming</strong>、<strong>generating</strong>，以 ES6 编译为 ES5 作为例子：</p>
+</blockquote>
+<ol>
+<li><code>ES6</code> 代码输入；</li>
+<li><code>babylon</code> 进行解析得到 AST；</li>
+<li><code>plugin</code> 用 <code>babel-traverse</code> 对 <code>AST</code>树进行遍历编译，得到新的 <code>AST</code>树；</li>
+<li>用 <code>babel-generator</code> 通过 <code>AST</code>树生成 <code>ES5</code> 代码。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Webpack</category>
+      </categories>
+      <tags>
+        <tag>Webpack</tag>
+        <tag>babel</tag>
       </tags>
   </entry>
   <entry>
@@ -1751,6 +1942,97 @@
       </tags>
   </entry>
   <entry>
+    <title>对于mvvm的理解</title>
+    <url>/2019/03/26/%E5%AF%B9%E4%BA%8Emvvm%E7%9A%84%E7%90%86%E8%A7%A3/</url>
+    <content><![CDATA[<h4 id="对于mvvm的理解？"><a href="#对于mvvm的理解？" class="headerlink" title="对于mvvm的理解？"></a>对于mvvm的理解？</h4><p>mvvm就是modle-view-viewmodule。mvvm是一种设计思想。</p>
+<ul>
+<li>modle：模型层，用于处理逻辑和服务器的交互。</li>
+<li>view：视图层，用于将数据渲染在页面上。UI视图。</li>
+<li>view-model：视图模型层，用来连接model和view，是model和view之间的通信桥梁。达到数据驱动视图的效果。</li>
+</ul>
+<p>mvvm模式简化了界面与业务的依赖，解决了数据频繁更新。mvvm在使用当中，利用双向数据绑定技术，使得model变化时，viewmodel会自动更新，而viewmodel变化时，view也会自动变化。</p>
+]]></content>
+      <categories>
+        <category>Vue</category>
+      </categories>
+      <tags>
+        <tag>Vue</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>搭建npm私有库</title>
+    <url>/2021/11/05/%E6%90%AD%E5%BB%BAnpm%E7%A7%81%E6%9C%89%E5%BA%93/</url>
+    <content><![CDATA[<h3 id="搭建npm私有库"><a href="#搭建npm私有库" class="headerlink" title="搭建npm私有库"></a>搭建npm私有库</h3><h4 id="为什么要搭建npm私有库"><a href="#为什么要搭建npm私有库" class="headerlink" title="为什么要搭建npm私有库"></a>为什么要搭建npm私有库</h4><ol>
+<li><strong>npm</strong>私有库只针对公司内部局域网开放，不对外部公开，具有一定的保密性</li>
+<li>速度比直接在<strong>npm</strong>下载更快，甚至是比淘宝源更快。因为毕竟是在公司局域网</li>
+<li>对于发布和下载<strong>npm</strong>包配置权限管理</li>
+<li>私有库能够将包资源进行缓存，响应的话会加快下载速度</li>
+<li>搭建npm私有库算作对团队的一个技术亮点</li>
+</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/yinlifan/img/20220808145454.png"></p>
+<h3 id="verdaccio"><a href="#verdaccio" class="headerlink" title="verdaccio"></a>verdaccio</h3><p><code>verdaccio</code>是<code>nodejs</code>创建的轻量的私有<code>npm proxy registry</code>, <code>forked</code>于<code>sinopia@1.4.0</code> ,是一个开源的npm私有库的搭建工具，可以搭建一套属于自己公司的npm仓库。</p>
+<ul>
+<li>与yarn、npm和pnpm 100%兼容</li>
+<li>提供docker 和 kubernetes 支持，很容易安装和使用</li>
+<li>发布的包是私有和配置访问权限</li>
+<li><strong>verdaccio</strong> 是需要缓存所有相关项，并且在本地或者私有网络下可以加速安装</li>
+</ul>
+<h4 id="搭建过程"><a href="#搭建过程" class="headerlink" title="搭建过程"></a>搭建过程</h4><span id="more"></span>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">下载之前保证您的node版本&gt;v8.x npm版本&gt;v5.x </span><br><span class="line"><span class="meta prompt_">yarn&gt;</span><span class="language-bash">v1.x pnpm&gt;v2.x ，web应用支持浏览器</span></span><br><span class="line">Chrome，Firefox，Edge和IE11以上</span><br></pre></td></tr></table></figure>
+
+<h4 id="安装verdaccio"><a href="#安装verdaccio" class="headerlink" title="安装verdaccio"></a>安装verdaccio</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">//在cmd输入</span><br><span class="line">npm install -g verdaccio  //npm下载</span><br><span class="line"></span><br><span class="line">yarn global add verdaccio  //yarn下载  用yarn下载的时候 verdaccio运行不起来的时候请换成npm下载</span><br><span class="line"></span><br><span class="line">//或者nrm切换下源地址  要是报权限错误的话，请选择cmd&lt;以管理员身份运行&gt;在输入一次</span><br><span class="line">//或者在cmd输入下面的命令：</span><br><span class="line">npm install -g verdaccio --unsafe-perm  </span><br><span class="line">//--unsafe-perm添加上是为了防止报 gyp ERR! permission denied 的权限问题</span><br><span class="line"></span><br><span class="line">//下载完成后会有红色字体表示：表示没有python的环境，这个时候不需要理会。</span><br><span class="line"></span><br><span class="line">//在cmd输入：verdaccio 执行效果如下：</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/yinlifan/img/20220808150614.png"></p>
+<h4 id="配置信息"><a href="#配置信息" class="headerlink" title="配置信息"></a>配置信息</h4><p>config.yaml文件的配置信息</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash"></span></span><br><span class="line"><span class="language-bash"><span class="comment"># 这是默认的配置文件. 它会允许我们做任何事情,</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">所以不要在生产环境(系统)使用它.</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"></span></span><br><span class="line"><span class="language-bash"><span class="comment"># 在这里可以看见更多的配置示例:</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">https://github.com/verdaccio/verdaccio/tree/master/conf</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"></span></span><br><span class="line"><span class="language-bash"></span><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">包含所有包的目录路径,npm私服包的存放目录以及缓存地址</span></span><br><span class="line">storage: ./storage</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">包含plugins的目录路径,默认插件的文件位置，一般只对docker部署有关系</span></span><br><span class="line">plugins: ./plugins</span><br><span class="line"></span><br><span class="line">web:  #verdaccio的界面</span><br><span class="line">  title: Verdaccio</span><br><span class="line"><span class="meta prompt_">  # </span><span class="language-bash">comment out to <span class="built_in">disable</span> gravatar support 注释掉gravatar禁止使用</span></span><br><span class="line"><span class="meta prompt_">  # </span><span class="language-bash">gravatar: <span class="literal">false</span></span></span><br><span class="line"><span class="meta prompt_">  # </span><span class="language-bash">by default packages are ordercer ascendant (asc|desc)  默认的packages是准备好的两个选择</span></span><br><span class="line"><span class="meta prompt_">  # </span><span class="language-bash">sort_packages: asc</span></span><br><span class="line"><span class="meta prompt_">  # </span><span class="language-bash">convert your UI to the dark side  用户界面是黑夜模式</span></span><br><span class="line"><span class="meta prompt_">  # </span><span class="language-bash">darkMode: <span class="literal">true</span></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">translate your registry, api i18n not available yet  看看下你的注册表，i18n api还不能使用</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">i18n:</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">list of the available translations 查看可以使用的注册列表的地址：https://github.com/verdaccio/ui/tree/master/i18n/translations</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">  web: en-US</span></span><br><span class="line"></span><br><span class="line">auth:  </span><br><span class="line">  htpasswd:</span><br><span class="line">    file: ./htpasswd  #保存用户的账号信息比如用户名，密码等，还没有注册或者登录的话暂时看不到</span><br><span class="line">    # Maximum amount of users allowed to register, defaults to &quot;+inf&quot;.允许注册的最大用户数量，可以是无穷大</span><br><span class="line">    # You can set this to -1 to disable registration. 你可以设置-1去禁止用户通过 npm adduser 去注册</span><br><span class="line">    # max_users: 1000  #默认注册人数最大数量是1000</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">a list of other known repositories we can talk to  我们需要了解其他相关有名的存储库</span></span><br><span class="line">uplinks: #配置上游的npm服务器，主要用于请求的库不存在时可以去到上游服务器去获取，可以多配置下上游链路的链接</span><br><span class="line">  npmjs:</span><br><span class="line">    url: https://registry.npmjs.org/</span><br><span class="line">    agent_options:  #代理的配置项</span><br><span class="line">      keepAlive: true </span><br><span class="line">      maxSockets: 40</span><br><span class="line">      maxFreeSockets: 10</span><br><span class="line"></span><br><span class="line">packages: # 配置模块,access访问下载权限，pushlish包的发布权限</span><br><span class="line">  &#x27;@*/*&#x27;: # 一种是@/表示某下面所属的某项目,关键字匹配</span><br><span class="line">    # scoped packages   配置权限管理</span><br><span class="line">    access: $all # 表示哪一类用户可以对匹配的项目进行安装(install)和查看包的信息</span><br><span class="line">    publish: $authenticated # 表示哪一类用户可以对匹配的项目进行发布(publish)</span><br><span class="line">    unpublish: $authenticated # 表示哪一类用户可以对匹配的项目进行卸载(publish)</span><br><span class="line">    proxy: npmjs # 这里的值是对应于 uplinks 的名称，如果本地不存在，允许去对应的uplinks去拉取</span><br><span class="line"></span><br><span class="line">  &#x27;**&#x27;: # 另一种是*匹配项目名称(名称在package.json中有定义)</span><br><span class="line">    # allow all users (including non-authenticated users) to read and</span><br><span class="line">    # publish all packages</span><br><span class="line">    # 允许所有用户（包括未经身份验证的用户）读取和发布所有包</span><br><span class="line">    # you can specify usernames/groupnames (depending on your auth plugin) 您可以指定用户名/组织名称（取决于验证身份的插件）</span><br><span class="line">    # and three keywords: &quot;$all&quot;, &quot;$anonymous&quot;, &quot;$authenticated&quot; 三个关键字:所有的,匿名的,验证过的  也可以使用具体的用户名或者组织名称(公司私有的名字)和配置的用户表 htpasswd 有关</span><br><span class="line">    access: $all</span><br><span class="line"></span><br><span class="line">    # allow all known users to publish/publish packages 允许所有用户去发布包</span><br><span class="line">    # (anyone can register by default, remember?)  任何人都可以默认注册</span><br><span class="line">    publish: $authenticated</span><br><span class="line">    unpublish: $authenticated</span><br><span class="line"></span><br><span class="line">    # if package is not available locally, proxy requests to &#x27;npmjs&#x27; registry 如果包不允许在本机使用，可以用proxy请求npmjs注册表的代理</span><br><span class="line">    proxy: npmjs</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">You can specify HTTP/1.1 server keep alive <span class="built_in">timeout</span> <span class="keyword">in</span> seconds <span class="keyword">for</span> incoming connections. 传入的指定连接的HTTP/1.1服务器保持活跃状态直到超时，以秒为单位</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">A value of 0 makes the http server behave similarly to Node.js versions prior to 8.0.0, <span class="built_in">which</span> did not have a keep-alive <span class="built_in">timeout</span>.  值为0的时候的服务表现行为和8.0.0之前版本的nodejs链接的时候没有保持活跃状态导致超时</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">WORKAROUND: Through given configuration you can workaround following issue  解决办法：通过已知的配置，你可以解决这些问题: https://github.com/verdaccio/verdaccio/issues/301. Set to 0 <span class="keyword">in</span> <span class="keyword">case</span> 60 is not enough.  如果60不够的话可以设置为0</span></span><br><span class="line">server:</span><br><span class="line">  keepAliveTimeout: 60 </span><br><span class="line"></span><br><span class="line">middlewares:</span><br><span class="line">  audit:</span><br><span class="line">    enabled: true</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="built_in">log</span> settings  设置日志</span></span><br><span class="line">logs:</span><br><span class="line">  - &#123; type: stdout, format: pretty, level: http &#125;</span><br><span class="line"><span class="meta prompt_">  #</span><span class="language-bash">- &#123;<span class="built_in">type</span>: file, path: verdaccio.log, level: info&#125;</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">experiments: 实验性的</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"> <span class="comment"># support for npm token command  支持npm的token令牌</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"> token: <span class="literal">false</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"> <span class="comment"># support for the new v1 search endpoint, functional by incomplete read more on ticket 1732</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"> search: <span class="literal">false</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"> <span class="comment"># disable writing body size to logs, read more on ticket 1912</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"> bytesin_off: <span class="literal">false</span></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">This affect the web and api (not developed yet) 这些会影响web和api(尚未开发的功能)</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">i18n:</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">web: en-US</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">默认是没有的，只能在本机访问，添加后可以通过外网访问</span></span><br><span class="line">listen:0.0.0.0:4873</span><br></pre></td></tr></table></figure>
+
+<h4 id="通过pm2启动verdaccio"><a href="#通过pm2启动verdaccio" class="headerlink" title="通过pm2启动verdaccio"></a>通过pm2启动verdaccio</h4><p>什么是pm2?</p>
+<p>pm2 是一款著名的nodejs进程守护和管理工具，下面我们用pm2来启动verdaccio：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm install -g pm2 //安装pm2</span><br><span class="line"></span><br><span class="line">pm2 start verdaccio //启动verdaccio  </span><br></pre></td></tr></table></figure>
+
+<p>status为online即为成功 如下图所示：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/yinlifan/img/20220808150936.png"></p>
+<p>pm2常见命令</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"> npm install pm2 -g     // 命令行安装 pm2</span><br><span class="line"> pm2 start app.js       // 启动app.js应用程序</span><br><span class="line"> pm2 start app.js -i 4  // 后台运行pm2，启动4个app.js</span><br><span class="line">                        // 也可以把&#x27;max&#x27; 参数传递给 star</span><br><span class="line">                        // 正确的进程数目依赖于Cpu的核心数目</span><br><span class="line"></span><br><span class="line">pm2 start app.js  --watch      // 当文件变化时自动重启应用</span><br><span class="line">pm2 list                       // 列表 PM2 启动的所有的应用程序</span><br><span class="line">pm2 monit                      // 显示每个应用程序的CPU和内存占用情况</span><br><span class="line">pm2 logs                       // 显示所有进程日志</span><br><span class="line">pm2 start app.js --name=&quot;api&quot;  // 启动应用程序并命名为 &quot;api&quot;</span><br><span class="line">pm2 start script.sh            // 启动 bash 脚本</span><br><span class="line">pm2 show [app-name]            // 显示应用程序的所有信息</span><br><span class="line">pm2 logs [app-name]            // 显示指定应用程序的日志</span><br><span class="line">pm2 stop all                   // 停止所有的应用程序</span><br><span class="line">pm2 stop 0                     // 停止 id为 0的指定应用程序</span><br><span class="line">pm2 restart all                // 重启所有应用</span><br><span class="line">pm2 restart 0                  // 重启指定的进程</span><br><span class="line">pm2 delete all                 // 关闭并删除所有应用</span><br><span class="line">pm2 delete 0                   // 删除指定应用程序id为0的</span><br><span class="line">...可以百度查阅下  ^_^</span><br></pre></td></tr></table></figure>
+
+<h4 id="发布npm包的流程"><a href="#发布npm包的流程" class="headerlink" title="发布npm包的流程"></a>发布npm包的流程</h4><p>新建一个文件夹名称为npm-test ，在cmd控制台上输入</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">cd npm-test  </span><br><span class="line">npm init        <span class="comment">//初始化   默认指向index.js文件，所以新建一个index.js文件</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//index.js文件</span></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span>.<span class="property">Say</span> = <span class="keyword">function</span>(<span class="params">name</span>)&#123;</span><br><span class="line">    <span class="keyword">return</span>  (<span class="string">&quot;Hello &quot;</span> + name);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>好了，执行verdaccio命令就可以发布了</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm adduser --registry http://localhost:4873      //添加功能，无账号的添加完毕直接包</span><br><span class="line">npm login --registry=http://localhost:4873        //登录功能，有账号的话可以直接使用这个</span><br><span class="line">npm publish --registry http://localhost:4873      //发布包</span><br></pre></td></tr></table></figure>
+
+<p>可以使用nrm进行管理npm源，来避免手动输入registry</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">nrm add company http://localhost:4873  //company可以换任意名称  url地址  添加功能</span><br><span class="line">nrm use company       //使用company的源地址</span><br><span class="line"></span><br><span class="line">//这样的话简单了结，不用手动输入registry</span><br><span class="line">npm addUser  </span><br><span class="line">npm login</span><br><span class="line">npm publish</span><br><span class="line"></span><br><span class="line">//注意：registry要切换到公司私有服务器地址，如果不是用nrm管理切换，则需要带上私有registry(重复啦!)</span><br></pre></td></tr></table></figure>
+
+<p>此时在<a href="http://localhost:4873/">http://localhost:4873/</a> 页面上进行更新，就会发现你发布的包(包的名称就是文件的名称)。</p>
+<p>接下来，我们来下载刚刚发布的包</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">//注意：registry要切换到公司私有服务器地址，如果不是用nrm管理切换，则需要带上私有registry(再来一遍)</span><br><span class="line">//新建一个文件夹名为  app</span><br><span class="line">cd app</span><br><span class="line">npm install npm-test  //要是没有切换的话，请手动添加 --registry=http://localhost:4873</span><br><span class="line">//成功如图所示</span><br></pre></td></tr></table></figure>
+
+<p>删除发布的包</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm unpublish npm-test --force  //清除发布的包</span><br></pre></td></tr></table></figure>
+
+<h4 id="npm私有库的权限管理"><a href="#npm私有库的权限管理" class="headerlink" title="npm私有库的权限管理"></a>npm私有库的权限管理</h4><p>因为verdaccio默认是人人都可以注册的，所以需要先将注册窗口关闭</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="attr">auth</span>:</span><br><span class="line">  <span class="attr">htpasswd</span>:</span><br><span class="line">    <span class="attr">file</span>: ./htpasswd</span><br><span class="line">    <span class="comment">// 此配置项可以关闭注册功能</span></span><br><span class="line">    <span class="attr">max_users</span>: -<span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<p><code>verdaccio</code> 的认证是基于 <code>verdaccio-htpasswd</code>， 可以通过官方提供的工具来生成 <a href="http://www.htaccesstools.com/htpasswd-ge%E2%80%A6%EF%BC%8C%E5%B0%86%E7%94%9F%E6%88%90%E7%9A%84%E6%AE%B5%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%B7%BB%E5%8A%A0%E5%88%B0">www.htaccesstools.com/htpasswd-ge…，将生成的段字符串添加到</a> <code>htpasswd</code> 中即可，这样的话就可以登录npm私有库	</p>
+<p>之后就需要修改verdaccio文件下的config.yaml的配置：针对不同的包来设置access，publish，unpublish对应的权限组，因为htpasswd是默认的鉴权插件，所以只能写入相应的用户名，all，authenticated，$anonymous</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//小小实例下：</span></span><br><span class="line"><span class="attr">auth</span>:</span><br><span class="line">  <span class="attr">htpasswd</span>:</span><br><span class="line">    <span class="attr">file</span>: ./htpasswd</span><br><span class="line">    <span class="comment">// 此配置项可以关闭注册功能</span></span><br><span class="line">    <span class="attr">max_users</span>: -<span class="number">1</span> </span><br><span class="line">    <span class="attr">duGroup</span>:</span><br><span class="line">    <span class="comment">// 这里可以自定义用户组</span></span><br><span class="line">    <span class="attr">demoPublish</span>: [xiaoming, xiaohong, xiaoli]</span><br><span class="line">    <span class="attr">demoUnpublish</span>: [xiaojun, xiaoming]</span><br><span class="line">    <span class="attr">testPublish</span>: [xiaoming,xiaojun]</span><br><span class="line"></span><br><span class="line"> <span class="attr">packages</span>:</span><br><span class="line">        <span class="string">&#x27;@demo/*&#x27;</span>:</span><br><span class="line">            <span class="attr">access</span>: $all</span><br><span class="line">        <span class="comment">// 针对不同的包，可以指定不同的用户组来满足权限控制</span></span><br><span class="line">            <span class="attr">publish</span>: demoPublish</span><br><span class="line">            <span class="attr">unpublish</span>: demoUnpublish</span><br><span class="line">            <span class="attr">proxy</span>: npmjs</span><br><span class="line">     <span class="string">&#x27;test&#x27;</span>: </span><br><span class="line">            <span class="attr">access</span>: $all</span><br><span class="line">            <span class="attr">publish</span>: testPublish</span><br><span class="line">            <span class="attr">unpublish</span>: demoUnpublish</span><br><span class="line">            <span class="attr">proxy</span>: npmjs</span><br></pre></td></tr></table></figure>
+
+<p>或者通过安装htpasswd-for-sinopia工具来添加账号</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm install htpasswd-for-sinopia -g</span><br><span class="line"></span><br><span class="line">sinopia-adduser   // 在 htpasswd 目录执行</span><br></pre></td></tr></table></figure>
+
+<p>为其他登录的用户生成用户名和密码，之后将用户名和密码写入verdaccio文件夹下的htpasswd文件中，然后就跟上文是一样的步骤。</p>
+<hr>
+<h4 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h4><p><a href="https://verdaccio.org/">https://verdaccio.org/</a></p>
+]]></content>
+      <categories>
+        <category>npm</category>
+      </categories>
+      <tags>
+        <tag>npm</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>构造函数、实例对象和原型对象</title>
     <url>/2019/02/05/%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E3%80%81%E5%AE%9E%E4%BE%8B%E5%AF%B9%E8%B1%A1%E5%92%8C%E5%8E%9F%E5%9E%8B%E5%AF%B9%E8%B1%A1/</url>
     <content><![CDATA[<h4 id="构造函数、实例对象、原型对象"><a href="#构造函数、实例对象、原型对象" class="headerlink" title="构造函数、实例对象、原型对象"></a>构造函数、实例对象、原型对象</h4><p>每创建一个函数，该函数都会自动带有一个prototype属性。该属性是一个指针，指向原型对象。（后期我们可以使用这个原型对象帮助我们在js中实现继承）。</p>
@@ -1770,24 +2052,6 @@
       </categories>
       <tags>
         <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>对于mvvm的理解</title>
-    <url>/2019/03/26/%E5%AF%B9%E4%BA%8Emvvm%E7%9A%84%E7%90%86%E8%A7%A3/</url>
-    <content><![CDATA[<h4 id="对于mvvm的理解？"><a href="#对于mvvm的理解？" class="headerlink" title="对于mvvm的理解？"></a>对于mvvm的理解？</h4><p>mvvm就是modle-view-viewmodule。mvvm是一种设计思想。</p>
-<ul>
-<li>modle：模型层，用于处理逻辑和服务器的交互。</li>
-<li>view：视图层，用于将数据渲染在页面上。UI视图。</li>
-<li>view-model：视图模型层，用来连接model和view，是model和view之间的通信桥梁。达到数据驱动视图的效果。</li>
-</ul>
-<p>mvvm模式简化了界面与业务的依赖，解决了数据频繁更新。mvvm在使用当中，利用双向数据绑定技术，使得model变化时，viewmodel会自动更新，而viewmodel变化时，view也会自动变化。</p>
-]]></content>
-      <categories>
-        <category>Vue</category>
-      </categories>
-      <tags>
-        <tag>Vue</tag>
       </tags>
   </entry>
   <entry>

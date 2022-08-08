@@ -17,15 +17,15 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="心有猛虎，细嗅蔷薇。">
+  <meta name="description" content="CODE IS POETRY.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="AFAN">
 <meta property="og:url" content="http://example.com/page/4/index.html">
 <meta property="og:site_name" content="AFAN">
-<meta property="og:description" content="心有猛虎，细嗅蔷薇。">
+<meta property="og:description" content="CODE IS POETRY.">
 <meta property="og:locale" content="en_US">
 <meta property="article:author" content="Lifan Yin">
 <meta name="twitter:card" content="summary">
@@ -97,7 +97,7 @@
       <h1 class="site-title">AFAN</h1>
       <span class="logo-line-after"><i></i></span>
     </a>
-      <p class="site-subtitle" itemprop="description">CODE IS POETRY.</p>
+      <p class="site-subtitle" itemprop="description">心有猛虎，细嗅蔷薇</p>
   </div>
 
   <div class="site-nav-right">
@@ -191,12 +191,248 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/09/05/React%E6%9D%82%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/touxaing.png">
+      <meta itemprop="name" content="Lifan Yin">
+      <meta itemprop="description" content="CODE IS POETRY.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AFAN">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/09/05/React%E6%9D%82%E8%AE%B0/" class="post-title-link" itemprop="url">React杂记</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-09-05 00:00:00" itemprop="dateCreated datePublished" datetime="2020-09-05T00:00:00+08:00">2020-09-05</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/React/" itemprop="url" rel="index"><span itemprop="name">React</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="React-中-refs-的作用是什么-？"><a href="#React-中-refs-的作用是什么-？" class="headerlink" title="React 中 refs 的作用是什么 ？"></a><strong>React 中 refs 的作用是什么</strong> ？</h4><p>refs是react 提供给我们安全访问dom的一个方法（句柄）。</p>
+<p>可以使用refs属性，在回调函数中第一个参数拿到绑定refs属性的dom值。</p>
+<h4 id="传入-setState-函数的第二个参数的作用是什么？"><a href="#传入-setState-函数的第二个参数的作用是什么？" class="headerlink" title="传入 setState 函数的第二个参数的作用是什么？"></a><strong>传入 setState 函数的第二个参数的作用是什么？</strong></h4><p>setState第一个参数是个对象，第二个参数是个函数。在修改完状态，页面重新渲染的时候。就会触法这个函数。可以用来监听状态是否更新。</p>
+<h4 id="在生命周期中的哪一步你应该发起-AJAX-请求"><a href="#在生命周期中的哪一步你应该发起-AJAX-请求" class="headerlink" title="在生命周期中的哪一步你应该发起 AJAX 请求 ?"></a><strong>在生命周期中的哪一步你应该发起 AJAX 请求</strong> ?</h4><p>在componentDidmount（）生命周期函数中执行。</p>
+<p>原因：</p>
+<p>在react下一代调和算法中，会通过开始或停止来优化性能。这回影响到comonentWillmount触发的次数。触发次数不确定，可能会多次调用componentWillmount（）生命周期方法。如果键ajax请求放到这个生命周期里明显不是一个明智的选择。</p>
+<p>如果将ajax请求放在其他生命周期里，我们不能保证是在挂载完毕后才发出请求。 如果数据在挂载之前就已经完成了，并使用setState将数据添加到组件状态中，对于为挂载的组件则会报错。而在componentDidmount中使用就会避免这个问题。</p>
+<h4 id="shouldComponentUpdate-的作用-？"><a href="#shouldComponentUpdate-的作用-？" class="headerlink" title="shouldComponentUpdate 的作用 ？"></a><strong>shouldComponentUpdate 的作用</strong> ？</h4><p>使用shouldComponentUpdate是优化性能的一个方式。shouldComponentUpdate可以手动的判断组件是否更新渲染，根据组件的是否渲染，来返回一个布尔值。true或者false。从而避免不必要的更新。</p>
+<h4 id="如何告诉-React-它应该编译生产环境版-？"><a href="#如何告诉-React-它应该编译生产环境版-？" class="headerlink" title="如何告诉 React 它应该编译生产环境版 ？"></a><strong>如何告诉 React 它应该编译生产环境版</strong> ？</h4><p>通常情况下我们会使用<code>webpack</code>的<code>DefinePlugin</code>方法来将NODE_ENV变量值设置为<code>production</code>。编译版本中<code>react</code>会忽略<code>proptype</code>验证以及其他的警告信息，同时还会降低代码库的大小。<code>react</code>使用了<code>uglify</code>插件来移除生产环境下不必要的注释等信息。</p>
+<h4 id="概述下-React-中的事件处理逻辑-？"><a href="#概述下-React-中的事件处理逻辑-？" class="headerlink" title="概述下 React 中的事件处理逻辑 ？"></a><strong>概述下 React 中的事件处理逻辑</strong> ？</h4><p>为了解决快于浏览器兼容性的问题，<code>react</code>会将浏览器原生事件封装为合成事件传入设置的事件处理器中。这里的合成时间提供了于原生时间相同的接口，不过他们屏蔽了底层浏览器的细节差异，保证了行为的一致性。另外有意思的是，<code>react</code>并没有直接将事件附着到子元素上，而是以单一事件监听器的方式将所有的事件发送到顶层进行处理。这样<code>react</code>在更新DOM的时候就不许哟啊考虑如何去处理附着在dom上的事件监听器，最终达到优化性能的目的。</p>
+<h4 id="createElement-与-cloneElement-的区别是什么-？"><a href="#createElement-与-cloneElement-的区别是什么-？" class="headerlink" title="createElement 与 cloneElement 的区别是什么 ？"></a><strong>createElement 与 cloneElement 的区别是什么</strong> ？</h4><p><code>createElement</code>函数是JSX编译后使用创建<code>react Element</code>的函数。</p>
+<p><code>cloneElement</code>是用于复制某个元素并传入新的props。</p>
+<h4 id="React-中-keys-的作用是什么？"><a href="#React-中-keys-的作用是什么？" class="headerlink" title="React 中 keys 的作用是什么？"></a><strong>React 中 keys 的作用是什么？</strong></h4><blockquote>
+<p><code>keys</code>是<code>react</code>用于追踪那些列表中元素被修改，被添加或者被移除的辅助标识。</p>
+</blockquote>
+<p>在开发过程中，我们需要保证某个元素的<code>key</code>值在同级元素中具有唯一性。在<code>react diff</code>算法中，react会借助元素<code>key</code>值来判断该元素新创建的还是被移动而来的元素，从而减少不必要的元素重渲染。此外，<code>react</code>还借助<code>key</code>值来判断元素与本地状态的关联关系，因此我们绝不可忽视转换函数中<code>key</code>的重要性。</p>
+<h5 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h5><blockquote>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://interview2.poetries.top/excellent-docs/6-React.html#_1%E3%80%81react-%E4%B8%AD-keys-%E7%9A%84%E4%BD%9C%E7%94%A8%E6%98%AF%E4%BB%80%E4%B9%88">https://interview2.poetries.top/excellent-docs/6-React.html#_1%E3%80%81react-%E4%B8%AD-keys-%E7%9A%84%E4%BD%9C%E7%94%A8%E6%98%AF%E4%BB%80%E4%B9%88</a></li>
+</ul>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/08/18/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/touxaing.png">
+      <meta itemprop="name" content="Lifan Yin">
+      <meta itemprop="description" content="CODE IS POETRY.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AFAN">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/18/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/" class="post-title-link" itemprop="url">前端工程化</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-08-18 00:00:00" itemprop="dateCreated datePublished" datetime="2020-08-18T00:00:00+08:00">2020-08-18</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="什么是前端工程化"><a href="#什么是前端工程化" class="headerlink" title="什么是前端工程化"></a>什么是前端工程化</h4><p><strong>前端工程化</strong>是使用软件工程的技术和方法来进行前端的开发流程、技术、工具、经验等规范化、标准化，其主要目的<strong>为了提高效率和降低成本，即提高开发过程中的开发效率，减少不必要的重复工作时间</strong>。</p>
+<h4 id="如何做”前端工程化”"><a href="#如何做”前端工程化”" class="headerlink" title="如何做”前端工程化”"></a>如何做”前端工程化”</h4><p>前端工程化就是为了让前端开发能够“自成体系”，个人认为主要应该从<strong>模块化</strong>、<strong>组件化</strong>、<strong>规范化</strong>、<strong>自动化</strong>四个方面思考。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/08/18/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/07/20/JavaScript%E5%87%A0%E7%A7%8D%E7%BB%A7%E6%89%BF%E6%96%B9%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/touxaing.png">
+      <meta itemprop="name" content="Lifan Yin">
+      <meta itemprop="description" content="CODE IS POETRY.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AFAN">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/07/20/JavaScript%E5%87%A0%E7%A7%8D%E7%BB%A7%E6%89%BF%E6%96%B9%E6%B3%95/" class="post-title-link" itemprop="url">JavaScript几种继承方法</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-07-20 00:00:00" itemprop="dateCreated datePublished" datetime="2020-07-20T00:00:00+08:00">2020-07-20</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="JavaScript实现继承的几种方法"><a href="#JavaScript实现继承的几种方法" class="headerlink" title="JavaScript实现继承的几种方法"></a>JavaScript实现继承的几种方法</h4><h5 id="1-原型链继承"><a href="#1-原型链继承" class="headerlink" title="1.原型链继承"></a>1.原型链继承</h5><p>构造函数，原型，实例之间的关系：每一个构造函数都有一个原型对象(prototype)，原型对象中有一个指向构造函数的指针()，然而实例对象中包含一个指向原型对象的指针(<em>proto</em>)。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/07/20/JavaScript%E5%87%A0%E7%A7%8D%E7%BB%A7%E6%89%BF%E6%96%B9%E6%B3%95/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2020/07/08/inline-block%E7%BC%9D%E9%9A%99%E9%97%AE%E9%A2%98/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/touxaing.png">
       <meta itemprop="name" content="Lifan Yin">
-      <meta itemprop="description" content="心有猛虎，细嗅蔷薇。">
+      <meta itemprop="description" content="CODE IS POETRY.">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -270,7 +506,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/touxaing.png">
       <meta itemprop="name" content="Lifan Yin">
-      <meta itemprop="description" content="心有猛虎，细嗅蔷薇。">
+      <meta itemprop="description" content="CODE IS POETRY.">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -377,269 +613,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/05/17/%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/touxaing.png">
-      <meta itemprop="name" content="Lifan Yin">
-      <meta itemprop="description" content="心有猛虎，细嗅蔷薇。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="AFAN">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/05/17/%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93/" class="post-title-link" itemprop="url">基础面试总结</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-05-17 01:41:47" itemprop="dateCreated datePublished" datetime="2020-05-17T01:41:47+08:00">2020-05-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-05-18 12:00:00" itemprop="dateModified" datetime="2021-05-18T12:00:00+08:00">2021-05-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95/" itemprop="url" rel="index"><span itemprop="name">前端面试</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="1-说说你对盒子模型的理解"><a href="#1-说说你对盒子模型的理解" class="headerlink" title="1. 说说你对盒子模型的理解"></a>1. 说说你对盒子模型的理解</h4><p>标准盒子模型：</p>
-<ul>
-<li>content（内容）</li>
-<li>margin（外边距） ：盒子与盒子之间的距离。</li>
-<li>padding（内边距）：内容与边框的距离。</li>
-<li>border（边框）</li>
-</ul>
-<p>IE盒子模型（怪异盒模型）</p>
-<ul>
-<li>content</li>
-<li>margin</li>
-</ul>
-<p>开发中往往使用IE盒模型，只需要设置box-sizing：border-box</p>
-<p>盒⼦模型的实际宽度:width+左右padding+左右border</p>
-<p>盒⼦模型的实际高度:height+左右padding+左右border</p>
-<h4 id="2-css选择器有哪些？优先级？哪些属性可以继承？"><a href="#2-css选择器有哪些？优先级？哪些属性可以继承？" class="headerlink" title="2. css选择器有哪些？优先级？哪些属性可以继承？"></a>2. css选择器有哪些？优先级？哪些属性可以继承？</h4><ul>
-<li>id选择器（#box），选择id为box的元素</li>
-<li>类选择器（.one），选择类名为one的所有元素</li>
-<li>标签选择器（div），选择标签为div的所有元素</li>
-<li>后代选择器（#box div），选择id为box元素内部所有的div元素</li>
-<li>通配符选择器(*)</li>
-<li>伪类选择器(a:hover, li:nth-child)</li>
-</ul>
-<p><strong>优先级</strong></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/05/17/%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2019/11/12/Vue%E8%B7%AF%E7%94%B1%E5%8E%9F%E7%90%86/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/touxaing.png">
-      <meta itemprop="name" content="Lifan Yin">
-      <meta itemprop="description" content="心有猛虎，细嗅蔷薇。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="AFAN">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/11/12/Vue%E8%B7%AF%E7%94%B1%E5%8E%9F%E7%90%86/" class="post-title-link" itemprop="url">Vue路由原理</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-11-12 00:00:00" itemprop="dateCreated datePublished" datetime="2019-11-12T00:00:00+08:00">2019-11-12</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Vue/" itemprop="url" rel="index"><span itemprop="name">Vue</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="vue路由原理"><a href="#vue路由原理" class="headerlink" title="vue路由原理"></a>vue路由原理</h4><ul>
-<li>hash模式：浏ener器中符号<code>#</code>，后面的字符称之为<code>hash</code>。<ul>
-<li>其中对象中的<code>location.hash</code>储存的是路由的地址，可以赋值改变其URL的地址。而这会触发<code>hashchange</code>事件，通过<code>window.addEventListn</code>监听hash值然后去匹配对应的路由，从而渲染页面的组件。</li>
-</ul>
-</li>
-<li>history：<ul>
-<li>history采用HTML5的新特性，通过<code>pushState</code>和<code>replaceState</code>两个方法来实现url的变化。可以通过<code>popstagte</code>事件监听url的变化，从而对页面进行跳转（渲染）</li>
-</ul>
-</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2019/10/10/keep-alive%E4%BD%9C%E7%94%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/touxaing.png">
-      <meta itemprop="name" content="Lifan Yin">
-      <meta itemprop="description" content="心有猛虎，细嗅蔷薇。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="AFAN">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/10/10/keep-alive%E4%BD%9C%E7%94%A8/" class="post-title-link" itemprop="url">keep-alive作用</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-10-10 00:00:00" itemprop="dateCreated datePublished" datetime="2019-10-10T00:00:00+08:00">2019-10-10</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Vue/" itemprop="url" rel="index"><span itemprop="name">Vue</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="keep-alive作用是什么呢？"><a href="#keep-alive作用是什么呢？" class="headerlink" title="keep-alive作用是什么呢？"></a>keep-alive作用是什么呢？</h4><blockquote>
-<p>keep-alive可以实现组件缓存，当组件切换时不会对当前组件进行卸载</p>
-</blockquote>
-<ul>
-<li><code>&lt;keep-alive&gt;&lt;/keep-alive&gt;</code>包裹动态组件时，会缓存不活动得组件实例，主要用于保留组件状态或避免重新渲染</li>
-</ul>
-<blockquote>
-<p>比如有一个列表和一个详情，那么用户就会经常执行打开详情&#x3D;》返回列表&#x3D;》打开详情….这样得话列表和详情都是一个频率很高得也买你，那么就可以对列表组件使用<code>&lt;keep-alive&gt;&lt;/keep-alive&gt;</code>进行缓存，这样用户每次返回列表的时候，都能从缓存中快速渲染，而不是重新渲染。</p>
-</blockquote>
-<ul>
-<li>常用的两个属性 <code>include/exclude</code>，允许组件有条件的进行缓存</li>
-<li>两个生命周期<code>activated/deactivated</code>，用来得知当前组件是否处于活跃状态</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -700,27 +677,27 @@
     <img class="site-author-image" itemprop="image" alt="Lifan Yin"
       src="/images/touxaing.png">
   <p class="site-author-name" itemprop="name">Lifan Yin</p>
-  <div class="site-description" itemprop="description">心有猛虎，细嗅蔷薇。</div>
+  <div class="site-description" itemprop="description">CODE IS POETRY.</div>
 </div>
 <div class="site-state-wrap motion-element">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-count">46</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">13</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-count">24</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

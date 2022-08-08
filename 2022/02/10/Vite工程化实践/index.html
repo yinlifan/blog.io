@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/taikong.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/taikong.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Vite工程化实践为什么要使用vite在浏览器支持ES模块之前，诸如webpack、Rollup等打包工具的出现，确实是极大的改善了前端开发者的开发体验。但是当我们开始构建越来越大型的应用时，需要处理的js代码量也是呈指数级增长，模块和模块之间的依赖往往会使我们的开发工具需要更长的时间（甚至使几分钟）才能启动开发服务器，即使使用HMR，文件的修改后的效果也需要几秒钟才能在浏览器中反映出来。这也会我">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vite工程化实践">
+<meta property="og:url" content="http://example.com/2022/02/10/Vite%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%AE%9E%E8%B7%B5/index.html">
+<meta property="og:site_name" content="AFAN">
+<meta property="og:description" content="Vite工程化实践为什么要使用vite在浏览器支持ES模块之前，诸如webpack、Rollup等打包工具的出现，确实是极大的改善了前端开发者的开发体验。但是当我们开始构建越来越大型的应用时，需要处理的js代码量也是呈指数级增长，模块和模块之间的依赖往往会使我们的开发工具需要更长的时间（甚至使几分钟）才能启动开发服务器，即使使用HMR，文件的修改后的效果也需要几秒钟才能在浏览器中反映出来。这也会我">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/yinlifan/img/20220808134657.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/yinlifan/img/20220808134935.png">
+<meta property="article:published_time" content="2022-02-10T06:11:14.000Z">
+<meta property="article:modified_time" content="2022-02-10T06:11:14.000Z">
+<meta property="article:author" content="Lifan Yin">
+<meta property="article:tag" content="Vite">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/yinlifan/img/20220808134657.png">
+
+<link rel="canonical" href="http://example.com/2022/02/10/Vite%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%AE%9E%E8%B7%B5/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Vite工程化实践 | AFAN</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">AFAN</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">心有猛虎，细嗅蔷薇</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/02/10/Vite%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%AE%9E%E8%B7%B5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/touxaing.png">
+      <meta itemprop="name" content="Lifan Yin">
+      <meta itemprop="description" content="CODE IS POETRY.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AFAN">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Vite工程化实践
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-02-10 14:11:14" itemprop="dateCreated datePublished" datetime="2022-02-10T14:11:14+08:00">2022-02-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Vite/" itemprop="url" rel="index"><span itemprop="name">Vite</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="Vite工程化实践"><a href="#Vite工程化实践" class="headerlink" title="Vite工程化实践"></a>Vite工程化实践</h3><h4 id="为什么要使用vite"><a href="#为什么要使用vite" class="headerlink" title="为什么要使用vite"></a>为什么要使用vite</h4><p>在浏览器支持ES模块之前，诸如webpack、Rollup等打包工具的出现，确实是极大的改善了前端开发者的开发体验。但是当我们开始构建越来越大型的应用时，需要处理的js代码量也是呈指数级增长，模块和模块之间的依赖往往会使我们的开发工具需要更长的时间（甚至使几分钟）才能启动开发服务器，即使使用HMR，文件的修改后的效果也需要几秒钟才能在浏览器中反映出来。这也会我们要是用vite的原因，提示构建速率来改善开发体验。</p>
+<h4 id="Vite-vs-传统脚手架"><a href="#Vite-vs-传统脚手架" class="headerlink" title="Vite vs 传统脚手架"></a>Vite vs 传统脚手架</h4><p>下面主要是介绍一下<strong>vite</strong>和<strong>webpack</strong>的区别</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Vite</th>
+<th>Webpack</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>启动开发服务器</td>
+<td>利用浏览器的原生ESM加载源码模块，启动时处理一次依赖预构建即可，二次启动秒开，访问时浏览器原生解析依赖</td>
+<td>递归依赖分析、转换代码、编译、打包输出主流浏览器可直接执行的js文件，浏览器访问直接渲染</td>
+</tr>
+<tr>
+<td>构建打包器</td>
+<td>基于ESBuild使用Go编写，构建速度比nodejs快10-100倍</td>
+<td>webpack由javascript编写运行在nodejs环境，运行效率较差</td>
+</tr>
+<tr>
+<td>热更新</td>
+<td>精准更新已修改的ESM模块</td>
+<td>修改文件后需要重新构建文件，且随着应用体积增大而花费更长时间</td>
+</tr>
+<tr>
+<td>生态</td>
+<td>vite生态只能说勉强够用，某些功能可能需要妥协或者自己实现</td>
+<td>Loader和Plugin生态丰富，方案齐全</td>
+</tr>
+<tr>
+<td>生产环境</td>
+<td>Esbuild本身存在一些限制，所以生产环境采用的Rollup</td>
+<td>依托丰富的生态，稳定可靠</td>
+</tr>
+</tbody></table>
+<span id="more"></span>
+<p><span style='color: red;font-size: 900'>总结一下：</span></p>
+<p>webpack启动后会做一堆事情，经历一条很长的编译打包链条，从入口开始需要逐步经历 <span style='color: blue'>语法解析 &#x3D;&gt; 依赖收集 &#x3D;&gt; 代码转译 &#x3D;&gt; 打包合并 &#x3D;&gt; 代码优化</span>,最终将高版本的、离散的源码编译打包成低版本的、高兼容性的产物代码，这可满满都是CPU、IO操做啊！在node运行时下性能必然是有问题。</p>
+<p>而 vite 运行 dev 命令后只做了两件事，<span style='color:blue;'>一是</span>启动了一个用于承载资源服务的server； <span style='color:blue;'>二是</span>使用ESBuild预构建npm依赖包。之后就一直躺着，直到浏览器以http方式发来ESM规范的模块请求时，Vite才开始<strong>“按需编译”</strong>被请求的模块。</p>
+<h4 id="搭建vite项目"><a href="#搭建vite项目" class="headerlink" title="搭建vite项目"></a>搭建vite项目</h4><p>这里官网提供了npm, yarn, pnpm 三种模式</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm create vite@latest <span class="comment">// 使用npm</span></span><br><span class="line">yarn create vite <span class="comment">// 使用yarn</span></span><br><span class="line">pnpm create vite <span class="comment">// 使用pnpm</span></span><br></pre></td></tr></table></figure>
+
+<p>这里选择yarn，创建了一个基于vite构建的react项目</p>
+<p><img src="https://cdn.jsdelivr.net/gh/yinlifan/img/20220808134657.png"></p>
+<p>生成的目录结构如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">│  .gitignore</span><br><span class="line">│  index.html</span><br><span class="line">│  package.json</span><br><span class="line">│  tsconfig.json</span><br><span class="line">│  tsconfig.node.json</span><br><span class="line">│  vite.config.ts</span><br><span class="line">│</span><br><span class="line">├─public</span><br><span class="line">│      vite.svg</span><br><span class="line">│</span><br><span class="line">└─src</span><br><span class="line">    │  App.css</span><br><span class="line">    │  App.tsx</span><br><span class="line">    │  index.css</span><br><span class="line">    │  main.tsx</span><br><span class="line">    │  vite-env.d.ts</span><br><span class="line">    │</span><br><span class="line">    └─assets</span><br><span class="line">            react.svg</span><br></pre></td></tr></table></figure>
+
+<p>其中index.html为页面的入口文件，main.tsx为系统主入口，vite.config.ts为vite的配置文件。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yarn install // 安装依赖</span><br><span class="line">yarn dev // 启动项目</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/yinlifan/img/20220808134935.png"></p>
+<p>这里我们根据脚手架启动的项目就已经运行起来了。</p>
+<h4 id="初始化配置"><a href="#初始化配置" class="headerlink" title="初始化配置"></a>初始化配置</h4><p>在项目开始之前，引入项目的所需的react-router、ant design、axios、less or sass并使用git作为版本管理工具。</p>
+<h5 id="vite的按需加载"><a href="#vite的按需加载" class="headerlink" title="vite的按需加载"></a>vite的按需加载</h5><p>vite的按需加载需要vite-plugin-imp来实现按需加载</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add vite-plugin-imp -dev</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; defineConfig &#125; <span class="keyword">from</span> <span class="string">&#x27;vite&#x27;</span></span><br><span class="line"><span class="keyword">import</span> react <span class="keyword">from</span> <span class="string">&#x27;@vitejs/plugin-react&#x27;</span></span><br><span class="line"><span class="keyword">import</span> vitePluginImp  <span class="keyword">from</span> <span class="string">&#x27;@vitejs/plugin-react&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// https://vitejs.dev/config/</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">defineConfig</span>(&#123;</span><br><span class="line">  <span class="attr">plugins</span>: [</span><br><span class="line">    <span class="title function_">react</span>(),</span><br><span class="line">    <span class="title function_">vitePluginImp</span>(&#123;</span><br><span class="line">      <span class="attr">libName</span>: <span class="string">&quot;antd&quot;</span>,</span><br><span class="line">      <span class="attr">style</span>: <span class="function">(<span class="params">name: string</span>) =&gt;</span> <span class="string">`antd/lib/<span class="subst">$&#123;name&#125;</span>/style/index.less`</span>,</span><br><span class="line">    &#125;)</span><br><span class="line">  ],</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h5 id="配置antd主题颜色"><a href="#配置antd主题颜色" class="headerlink" title="配置antd主题颜色"></a>配置antd主题颜色</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> fs <span class="keyword">from</span> <span class="string">&#x27;fs&#x27;</span></span><br><span class="line"><span class="keyword">import</span> path <span class="keyword">from</span> <span class="string">&#x27;path&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123; getThemeVariables &#125; <span class="keyword">from</span> <span class="string">&#x27;antd/dist/theme&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> lessVarsToJs <span class="keyword">from</span> <span class="string">&#x27;less-vars-to-js&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 解析你的配置</span></span><br><span class="line"><span class="keyword">const</span> antdThemeConfig = <span class="title function_">lessVarsToJs</span>(</span><br><span class="line">  fs.<span class="title function_">readFileSync</span>(path.<span class="title function_">resolve</span>(__dirname, <span class="string">&#x27;src/assets/antdTheme.less&#x27;</span>))</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">defineConfig</span>(&#123;</span><br><span class="line">  <span class="attr">css</span>: &#123;</span><br><span class="line">    <span class="attr">preprocessorOptions</span>: &#123;</span><br><span class="line">      <span class="attr">less</span>: &#123;</span><br><span class="line">        <span class="comment">// 支持内联 JavaScript</span></span><br><span class="line">        <span class="attr">javascriptEnabled</span>: <span class="literal">true</span>,</span><br><span class="line">        <span class="attr">modifyVars</span>: &#123;...<span class="title function_">getThemeVariables</span>(), ...antdThemeConfig&#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h5 id="简写路径配置"><a href="#简写路径配置" class="headerlink" title="简写路径配置"></a>简写路径配置</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">resolve</span>: &#123;</span><br><span class="line">    <span class="attr">alias</span>: &#123;</span><br><span class="line">      <span class="string">&quot;@&quot;</span>: path.<span class="title function_">resolve</span>(__dirname, <span class="string">&#x27;src&#x27;</span>) </span><br><span class="line">    &#125;</span><br><span class="line"> &#125;,</span><br></pre></td></tr></table></figure>
+
+<h5 id="ts的路径解析能力"><a href="#ts的路径解析能力" class="headerlink" title="ts的路径解析能力"></a>ts的路径解析能力</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tsConfigPaths <span class="keyword">from</span> <span class="string">&#x27;vite-tsconfig-paths&#x27;</span> </span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="attr">plugins</span>: [</span><br><span class="line">    <span class="title function_">tsConfigPaths</span>(),</span><br><span class="line">  ],</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="版本控制"><a href="#版本控制" class="headerlink" title="版本控制"></a>版本控制</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tsConfigPaths <span class="keyword">from</span> <span class="string">&#x27;vite-plugin-package-version&#x27;</span> </span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="attr">plugins</span>: [</span><br><span class="line">    <span class="title function_">pluginPackageVersion</span>(),</span><br><span class="line">  ],</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="端口配置"><a href="#端口配置" class="headerlink" title="端口配置"></a>端口配置</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">    <span class="attr">server</span>: &#123;</span><br><span class="line">    <span class="attr">port</span>: <span class="number">3000</span>,</span><br><span class="line">    <span class="attr">strictPort</span>: <span class="literal">true</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="vite-config-ts最终配置"><a href="#vite-config-ts最终配置" class="headerlink" title="vite.config.ts最终配置"></a>vite.config.ts最终配置</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> fs <span class="keyword">from</span> <span class="string">&#x27;fs&#x27;</span></span><br><span class="line"><span class="keyword">import</span> path <span class="keyword">from</span> <span class="string">&#x27;path&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123; getThemeVariables &#125; <span class="keyword">from</span> <span class="string">&#x27;antd/dist/theme&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123; defineConfig &#125; <span class="keyword">from</span> <span class="string">&#x27;vite&#x27;</span></span><br><span class="line"><span class="keyword">import</span> react <span class="keyword">from</span> <span class="string">&#x27;@vitejs/plugin-react&#x27;</span></span><br><span class="line"><span class="keyword">import</span> vitePluginImp  <span class="keyword">from</span> <span class="string">&#x27;@vitejs/plugin-react&#x27;</span></span><br><span class="line"><span class="keyword">import</span> tsConfigPaths <span class="keyword">from</span> <span class="string">&#x27;vite-tsconfig-paths&#x27;</span></span><br><span class="line"><span class="keyword">import</span> pluginPackageVersion <span class="keyword">from</span> <span class="string">&#x27;vite-plugin-package-version&#x27;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> lessVarsToJs <span class="keyword">from</span> <span class="string">&#x27;less-vars-to-js&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> antdThemeConfig = <span class="title function_">lessVarsToJs</span>(</span><br><span class="line">  fs.<span class="title function_">readFileSync</span>(path.<span class="title function_">resolve</span>(__dirname, <span class="string">&#x27;src/assets/antdTheme.less&#x27;</span>))</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">// https://vitejs.dev/config/</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">defineConfig</span>(&#123;</span><br><span class="line">  <span class="attr">plugins</span>: [</span><br><span class="line">    <span class="title function_">react</span>(),</span><br><span class="line">    <span class="title function_">tsConfigPaths</span>(),</span><br><span class="line">    <span class="title function_">pluginPackageVersion</span>(),</span><br><span class="line">    <span class="title function_">vitePluginImp</span>(&#123;</span><br><span class="line">      <span class="attr">libName</span>: <span class="string">&quot;antd&quot;</span>,</span><br><span class="line">      <span class="attr">style</span>: <span class="function">(<span class="params">name: string</span>) =&gt;</span> <span class="string">`antd/lib/<span class="subst">$&#123;name&#125;</span>/style/index.less`</span>,</span><br><span class="line">    &#125;)</span><br><span class="line">  ],</span><br><span class="line">  </span><br><span class="line">  <span class="attr">css</span>: &#123;</span><br><span class="line">    <span class="attr">preprocessorOptions</span>: &#123;</span><br><span class="line">      <span class="attr">less</span>: &#123;</span><br><span class="line">        <span class="comment">// 支持内联 JavaScript</span></span><br><span class="line">        <span class="attr">javascriptEnabled</span>: <span class="literal">true</span>,</span><br><span class="line">        <span class="attr">modifyVars</span>: &#123;...<span class="title function_">getThemeVariables</span>(), ...antdThemeConfig&#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="attr">server</span>: &#123;</span><br><span class="line">    <span class="attr">port</span>: <span class="number">3000</span>,</span><br><span class="line">    <span class="attr">strictPort</span>: <span class="literal">true</span>,</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="attr">resolve</span>: &#123;</span><br><span class="line">    <span class="attr">alias</span>: &#123;</span><br><span class="line">      <span class="string">&quot;@&quot;</span>: path.<span class="title function_">resolve</span>(__dirname, <span class="string">&#x27;src&#x27;</span>) </span><br><span class="line">    &#125;</span><br><span class="line"> &#125;,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h5 id="tsconfig-json"><a href="#tsconfig-json" class="headerlink" title="tsconfig.json"></a>tsconfig.json</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;compilerOptions&quot;</span>: &#123;</span><br><span class="line">    <span class="string">&quot;composite&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="string">&quot;module&quot;</span>: <span class="string">&quot;ESNext&quot;</span>,</span><br><span class="line">    <span class="string">&quot;moduleResolution&quot;</span>: <span class="string">&quot;Node&quot;</span>,</span><br><span class="line">    <span class="string">&quot;allowSyntheticDefaultImports&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="string">&quot;baseUrl&quot;</span>: <span class="string">&quot;.&quot;</span>,</span><br><span class="line">    <span class="string">&quot;paths&quot;</span>: &#123;</span><br><span class="line">      <span class="string">&quot;@/*&quot;</span>: [<span class="string">&quot;./src/*&quot;</span>]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">&quot;include&quot;</span>: [<span class="string">&quot;vite.config.ts&quot;</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="添加prettier格式化代码格式"><a href="#添加prettier格式化代码格式" class="headerlink" title="添加prettier格式化代码格式"></a>添加prettier格式化代码格式</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add prettier --save</span><br></pre></td></tr></table></figure>
+
+<h6 id="增加prettier-config-ts文件"><a href="#增加prettier-config-ts文件" class="headerlink" title="增加prettier.config.ts文件"></a>增加prettier.config.ts文件</h6><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">    <span class="attr">printWidth</span>: <span class="number">80</span>,</span><br><span class="line">    <span class="attr">tabWidth</span>: <span class="number">2</span>,</span><br><span class="line">    <span class="attr">useTabs</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="attr">semi</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="attr">singleQuote</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">quoteProps</span>: <span class="string">&#x27;as-needed&#x27;</span>,</span><br><span class="line">    <span class="attr">jsxSingleQuote</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="attr">trailingComma</span>: <span class="string">&#x27;es5&#x27;</span>,</span><br><span class="line">    <span class="attr">bracketSpacing</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">bracketSameLine</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="attr">arrowParens</span>: <span class="string">&#x27;always&#x27;</span>,</span><br><span class="line">    <span class="attr">htmlWhitespaceSensitivity</span>: <span class="string">&#x27;ignore&#x27;</span>,</span><br><span class="line">    <span class="attr">vueIndentScriptAndStyle</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">endOfLine</span>: <span class="string">&#x27;lf&#x27;</span>,</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="React-Router配置"><a href="#React-Router配置" class="headerlink" title="React Router配置"></a>React Router配置</h5><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">React</span> <span class="title class_">Router</span>配置<span class="comment">// src/App.tsx</span></span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Suspense</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">BrowserRouter</span>, <span class="title class_">Routes</span>, <span class="title class_">Route</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;react-router-dom&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">ConfigProvider</span>, <span class="title class_">Layout</span>, <span class="title class_">Result</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;antd&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> zhCN <span class="keyword">from</span> <span class="string">&#x27;antd/es/locale/zh_CN&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="variable constant_">ROUTES</span>, &#123; <span class="title class_">IRoute</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;./routes&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">ErrorBoundary</span> <span class="keyword">from</span> <span class="string">&#x27;./components/ErrorBoundary&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&#x27;./App.css&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">FullBack</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span>加载中...<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">App</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;App&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">ConfigProvider</span> <span class="attr">locale</span>=<span class="string">&#123;zhCN&#125;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">BrowserRouter</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">Layout</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">ErrorBoundary</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">              &#123;/* 使用懒加载会导致加载延迟，使用suspense优化体验 */&#125;</span></span><br><span class="line"><span class="language-xml">              <span class="tag">&lt;<span class="name">Suspense</span> <span class="attr">fallback</span>=<span class="string">&#123;</span>&lt;<span class="attr">FullBack</span> /&gt;</span>&#125;&gt;</span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;<span class="name">Routes</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                  &#123;ROUTES?.map((route) =&gt; &#123;</span></span><br><span class="line"><span class="language-xml">                    return (</span></span><br><span class="line"><span class="language-xml">                      <span class="tag">&lt;<span class="name">Route</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                        <span class="attr">key</span>=<span class="string">&#123;route.url&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                        <span class="attr">path</span>=<span class="string">&#123;route.url&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                        <span class="attr">element</span>=<span class="string">&#123;route.Element&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                      /&gt;</span></span></span><br><span class="line"><span class="language-xml">                    );</span></span><br><span class="line"><span class="language-xml">                  &#125;)&#125;</span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">                  <span class="tag">&lt;<span class="name">Route</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                    <span class="attr">path</span>=<span class="string">&quot;*&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                    <span class="attr">element</span>=<span class="string">&#123;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                      &lt;<span class="attr">div</span> <span class="attr">style</span>=<span class="string">&#123;&#123;</span> <span class="attr">marginTop:</span> <span class="attr">80</span> &#125;&#125;&gt;</span></span></span><br><span class="line"><span class="language-xml">                        <span class="tag">&lt;<span class="name">Result</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                          <span class="attr">status</span>=<span class="string">&quot;404&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                          <span class="attr">title</span>=<span class="string">&quot;404&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                          <span class="attr">subTitle</span>=<span class="string">&quot;抱歉，您访问的资源不存在&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                        /&gt;</span></span></span><br><span class="line"><span class="language-xml">                      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                    &#125;</span></span><br><span class="line"><span class="language-xml">                  /&gt;</span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;/<span class="name">Routes</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">              <span class="tag">&lt;/<span class="name">Suspense</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;/<span class="name">ErrorBoundary</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;/<span class="name">Layout</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">BrowserRouter</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">ConfigProvider</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">App</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// src/routes</span></span><br><span class="line"><span class="keyword">import</span> &#123; lazy &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> interface <span class="title class_">IRoute</span> &#123;</span><br><span class="line">  <span class="attr">path</span>: string;</span><br><span class="line">  <span class="title class_">Element</span>?: <span class="title class_">React</span>.<span class="property">ReactElement</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title class_">Home</span> = <span class="title function_">lazy</span>(<span class="function">() =&gt;</span> <span class="title function_">import</span>(<span class="string">&#x27;./../pages/Home&#x27;</span>));</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title class_">Test</span> = <span class="title function_">lazy</span>(<span class="function">() =&gt;</span> <span class="title function_">import</span>(<span class="string">&#x27;./../pages/Test&#x27;</span>));</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="attr">ROUTES</span>: <span class="title class_">Array</span>&lt;<span class="title class_">IRoute</span> | <span class="literal">undefined</span>&gt; = [</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="attr">path</span>: <span class="string">&#x27;home&#x27;</span>,</span><br><span class="line">    <span class="title class_">Element</span>: <span class="language-xml"><span class="tag">&lt;<span class="name">Home</span> /&gt;</span></span>,</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  &#123;</span><br><span class="line">    <span class="attr">path</span>: <span class="string">&#x27;test&#x27;</span>,</span><br><span class="line">    <span class="title class_">Element</span>: <span class="language-xml"><span class="tag">&lt;<span class="name">Test</span> /&gt;</span></span>,</span><br><span class="line">  &#125;,</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="variable constant_">ROUTES</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// src/components/ErrorBoundary</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123; <span class="title class_">Component</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Result</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;antd&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">class</span> <span class="title class_">ErrorBoundary</span> <span class="keyword">extends</span> <span class="title class_ inherited__">Component</span>&lt;&#123;</span><br><span class="line">  <span class="attr">children</span>: <span class="title class_">React</span>.<span class="property">ReactNode</span>;</span><br><span class="line">  hasError?: boolean;</span><br><span class="line">&#125;&gt; &#123;</span><br><span class="line">  <span class="keyword">static</span> <span class="title function_">getDerivedStateFromError</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      <span class="attr">hasError</span>: <span class="literal">true</span>,</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">state = &#123; <span class="attr">hasError</span>: <span class="literal">false</span> &#125;;</span><br><span class="line"></span><br><span class="line"><span class="title function_">render</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> &#123; children &#125; = <span class="variable language_">this</span>.<span class="property">props</span>;</span><br><span class="line">  <span class="keyword">const</span> &#123; hasError &#125; = <span class="variable language_">this</span>.<span class="property">state</span>;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">if</span> (hasError) &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="language-xml"><span class="tag">&lt;<span class="name">Result</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">status</span>=<span class="string">&quot;500&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">title</span>=<span class="string">&quot;500&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">subTitle</span>=<span class="string">&quot;抱歉，服务器出错了，请刷新重试&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        /&gt;</span></span></span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> children;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h5 id="请求库函数"><a href="#请求库函数" class="headerlink" title="请求库函数"></a>请求库函数</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add ahooks --save</span><br></pre></td></tr></table></figure>
+
+<p>ahooks提供了大量的封装好的Hooks使用，其中useRequest更是一个强大的异步数据管理的Hooks，一般情况下的请求场景都是足够使用的。</p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>vite实现了真正的按需加载，我们只需要提供页面加载所需的模块，剩下的就让浏览器去做。对于我们来说，<code>打包</code>不是目的，能够快速的<code>运行</code>才是我们的目的。配置简单，学习成本也比较低，不需要像webpack一样去加载各种loader。</p>
+<hr>
+<h4 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h4><p><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000040278828">https://segmentfault.com/a/1190000040278828</a></p>
+<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/7000182183344209934">https://juejin.cn/post/7000182183344209934</a></p>
+<p><a target="_blank" rel="noopener" href="https://cn.vitejs.dev/">https://cn.vitejs.dev/</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Vite/" rel="tag"># Vite</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/11/05/%E6%90%AD%E5%BB%BAnpm%E7%A7%81%E6%9C%89%E5%BA%93/" rel="prev" title="搭建npm私有库">
+      <i class="fa fa-chevron-left"></i> 搭建npm私有库
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Vite%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%AE%9E%E8%B7%B5"><span class="nav-number">1.</span> <span class="nav-text">Vite工程化实践</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8vite"><span class="nav-number">1.1.</span> <span class="nav-text">为什么要使用vite</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Vite-vs-%E4%BC%A0%E7%BB%9F%E8%84%9A%E6%89%8B%E6%9E%B6"><span class="nav-number">1.2.</span> <span class="nav-text">Vite vs 传统脚手架</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%90%AD%E5%BB%BAvite%E9%A1%B9%E7%9B%AE"><span class="nav-number">1.3.</span> <span class="nav-text">搭建vite项目</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E9%85%8D%E7%BD%AE"><span class="nav-number">1.4.</span> <span class="nav-text">初始化配置</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#vite%E7%9A%84%E6%8C%89%E9%9C%80%E5%8A%A0%E8%BD%BD"><span class="nav-number">1.4.1.</span> <span class="nav-text">vite的按需加载</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%85%8D%E7%BD%AEantd%E4%B8%BB%E9%A2%98%E9%A2%9C%E8%89%B2"><span class="nav-number">1.4.2.</span> <span class="nav-text">配置antd主题颜色</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%AE%80%E5%86%99%E8%B7%AF%E5%BE%84%E9%85%8D%E7%BD%AE"><span class="nav-number">1.4.3.</span> <span class="nav-text">简写路径配置</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ts%E7%9A%84%E8%B7%AF%E5%BE%84%E8%A7%A3%E6%9E%90%E8%83%BD%E5%8A%9B"><span class="nav-number">1.4.4.</span> <span class="nav-text">ts的路径解析能力</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6"><span class="nav-number">1.4.5.</span> <span class="nav-text">版本控制</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%AB%AF%E5%8F%A3%E9%85%8D%E7%BD%AE"><span class="nav-number">1.4.6.</span> <span class="nav-text">端口配置</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#vite-config-ts%E6%9C%80%E7%BB%88%E9%85%8D%E7%BD%AE"><span class="nav-number">1.4.7.</span> <span class="nav-text">vite.config.ts最终配置</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#tsconfig-json"><span class="nav-number">1.4.8.</span> <span class="nav-text">tsconfig.json</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0prettier%E6%A0%BC%E5%BC%8F%E5%8C%96%E4%BB%A3%E7%A0%81%E6%A0%BC%E5%BC%8F"><span class="nav-number">1.4.9.</span> <span class="nav-text">添加prettier格式化代码格式</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%A2%9E%E5%8A%A0prettier-config-ts%E6%96%87%E4%BB%B6"><span class="nav-number">1.4.9.1.</span> <span class="nav-text">增加prettier.config.ts文件</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#React-Router%E9%85%8D%E7%BD%AE"><span class="nav-number">1.4.10.</span> <span class="nav-text">React Router配置</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%AF%B7%E6%B1%82%E5%BA%93%E5%87%BD%E6%95%B0"><span class="nav-number">1.4.11.</span> <span class="nav-text">请求库函数</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">1.5.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="nav-number">1.6.</span> <span class="nav-text">参考文献</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Lifan Yin"
+      src="/images/touxaing.png">
+  <p class="site-author-name" itemprop="name">Lifan Yin</p>
+  <div class="site-description" itemprop="description">CODE IS POETRY.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">46</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lifan Yin</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

@@ -17,15 +17,15 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="心有猛虎，细嗅蔷薇。">
+  <meta name="description" content="CODE IS POETRY.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="AFAN">
 <meta property="og:url" content="http://example.com/index.html">
 <meta property="og:site_name" content="AFAN">
-<meta property="og:description" content="心有猛虎，细嗅蔷薇。">
+<meta property="og:description" content="CODE IS POETRY.">
 <meta property="og:locale" content="en_US">
 <meta property="article:author" content="Lifan Yin">
 <meta name="twitter:card" content="summary">
@@ -97,7 +97,7 @@
       <h1 class="site-title">AFAN</h1>
       <span class="logo-line-after"><i></i></span>
     </a>
-      <p class="site-subtitle" itemprop="description">CODE IS POETRY.</p>
+      <p class="site-subtitle" itemprop="description">心有猛虎，细嗅蔷薇</p>
   </div>
 
   <div class="site-nav-right">
@@ -191,12 +191,210 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/02/10/Vite%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%AE%9E%E8%B7%B5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/touxaing.png">
+      <meta itemprop="name" content="Lifan Yin">
+      <meta itemprop="description" content="CODE IS POETRY.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AFAN">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/02/10/Vite%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%AE%9E%E8%B7%B5/" class="post-title-link" itemprop="url">Vite工程化实践</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-02-10 14:11:14" itemprop="dateCreated datePublished" datetime="2022-02-10T14:11:14+08:00">2022-02-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Vite/" itemprop="url" rel="index"><span itemprop="name">Vite</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="Vite工程化实践"><a href="#Vite工程化实践" class="headerlink" title="Vite工程化实践"></a>Vite工程化实践</h3><h4 id="为什么要使用vite"><a href="#为什么要使用vite" class="headerlink" title="为什么要使用vite"></a>为什么要使用vite</h4><p>在浏览器支持ES模块之前，诸如webpack、Rollup等打包工具的出现，确实是极大的改善了前端开发者的开发体验。但是当我们开始构建越来越大型的应用时，需要处理的js代码量也是呈指数级增长，模块和模块之间的依赖往往会使我们的开发工具需要更长的时间（甚至使几分钟）才能启动开发服务器，即使使用HMR，文件的修改后的效果也需要几秒钟才能在浏览器中反映出来。这也会我们要是用vite的原因，提示构建速率来改善开发体验。</p>
+<h4 id="Vite-vs-传统脚手架"><a href="#Vite-vs-传统脚手架" class="headerlink" title="Vite vs 传统脚手架"></a>Vite vs 传统脚手架</h4><p>下面主要是介绍一下<strong>vite</strong>和<strong>webpack</strong>的区别</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Vite</th>
+<th>Webpack</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>启动开发服务器</td>
+<td>利用浏览器的原生ESM加载源码模块，启动时处理一次依赖预构建即可，二次启动秒开，访问时浏览器原生解析依赖</td>
+<td>递归依赖分析、转换代码、编译、打包输出主流浏览器可直接执行的js文件，浏览器访问直接渲染</td>
+</tr>
+<tr>
+<td>构建打包器</td>
+<td>基于ESBuild使用Go编写，构建速度比nodejs快10-100倍</td>
+<td>webpack由javascript编写运行在nodejs环境，运行效率较差</td>
+</tr>
+<tr>
+<td>热更新</td>
+<td>精准更新已修改的ESM模块</td>
+<td>修改文件后需要重新构建文件，且随着应用体积增大而花费更长时间</td>
+</tr>
+<tr>
+<td>生态</td>
+<td>vite生态只能说勉强够用，某些功能可能需要妥协或者自己实现</td>
+<td>Loader和Plugin生态丰富，方案齐全</td>
+</tr>
+<tr>
+<td>生产环境</td>
+<td>Esbuild本身存在一些限制，所以生产环境采用的Rollup</td>
+<td>依托丰富的生态，稳定可靠</td>
+</tr>
+</tbody></table>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/02/10/Vite%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%AE%9E%E8%B7%B5/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/11/05/%E6%90%AD%E5%BB%BAnpm%E7%A7%81%E6%9C%89%E5%BA%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/touxaing.png">
+      <meta itemprop="name" content="Lifan Yin">
+      <meta itemprop="description" content="CODE IS POETRY.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AFAN">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/11/05/%E6%90%AD%E5%BB%BAnpm%E7%A7%81%E6%9C%89%E5%BA%93/" class="post-title-link" itemprop="url">搭建npm私有库</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-11-05 15:22:28" itemprop="dateCreated datePublished" datetime="2021-11-05T15:22:28+08:00">2021-11-05</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/npm/" itemprop="url" rel="index"><span itemprop="name">npm</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="搭建npm私有库"><a href="#搭建npm私有库" class="headerlink" title="搭建npm私有库"></a>搭建npm私有库</h3><h4 id="为什么要搭建npm私有库"><a href="#为什么要搭建npm私有库" class="headerlink" title="为什么要搭建npm私有库"></a>为什么要搭建npm私有库</h4><ol>
+<li><strong>npm</strong>私有库只针对公司内部局域网开放，不对外部公开，具有一定的保密性</li>
+<li>速度比直接在<strong>npm</strong>下载更快，甚至是比淘宝源更快。因为毕竟是在公司局域网</li>
+<li>对于发布和下载<strong>npm</strong>包配置权限管理</li>
+<li>私有库能够将包资源进行缓存，响应的话会加快下载速度</li>
+<li>搭建npm私有库算作对团队的一个技术亮点</li>
+</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/yinlifan/img/20220808145454.png"></p>
+<h3 id="verdaccio"><a href="#verdaccio" class="headerlink" title="verdaccio"></a>verdaccio</h3><p><code>verdaccio</code>是<code>nodejs</code>创建的轻量的私有<code>npm proxy registry</code>, <code>forked</code>于<code>sinopia@1.4.0</code> ,是一个开源的npm私有库的搭建工具，可以搭建一套属于自己公司的npm仓库。</p>
+<ul>
+<li>与yarn、npm和pnpm 100%兼容</li>
+<li>提供docker 和 kubernetes 支持，很容易安装和使用</li>
+<li>发布的包是私有和配置访问权限</li>
+<li><strong>verdaccio</strong> 是需要缓存所有相关项，并且在本地或者私有网络下可以加速安装</li>
+</ul>
+<h4 id="搭建过程"><a href="#搭建过程" class="headerlink" title="搭建过程"></a>搭建过程</h4>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/11/05/%E6%90%AD%E5%BB%BAnpm%E7%A7%81%E6%9C%89%E5%BA%93/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2021/10/06/%E6%9F%AF%E9%87%8C%E5%8C%96/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/touxaing.png">
       <meta itemprop="name" content="Lifan Yin">
-      <meta itemprop="description" content="心有猛虎，细嗅蔷薇。">
+      <meta itemprop="description" content="CODE IS POETRY.">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -284,7 +482,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/touxaing.png">
       <meta itemprop="name" content="Lifan Yin">
-      <meta itemprop="description" content="心有猛虎，细嗅蔷薇。">
+      <meta itemprop="description" content="CODE IS POETRY.">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -358,7 +556,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/touxaing.png">
       <meta itemprop="name" content="Lifan Yin">
-      <meta itemprop="description" content="心有猛虎，细嗅蔷薇。">
+      <meta itemprop="description" content="CODE IS POETRY.">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -445,169 +643,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/09/06/Vue3%E8%AE%BE%E8%AE%A1%E7%9B%AE%E6%A0%87%E5%8F%8A%E4%BC%98%E5%8C%96/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/touxaing.png">
-      <meta itemprop="name" content="Lifan Yin">
-      <meta itemprop="description" content="心有猛虎，细嗅蔷薇。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="AFAN">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/09/06/Vue3%E8%AE%BE%E8%AE%A1%E7%9B%AE%E6%A0%87%E5%8F%8A%E4%BC%98%E5%8C%96/" class="post-title-link" itemprop="url">Vue3设计目标及优化</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-09-06 00:00:00" itemprop="dateCreated datePublished" datetime="2021-09-06T00:00:00+08:00">2021-09-06</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Vue3/" itemprop="url" rel="index"><span itemprop="name">Vue3</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="vue3-0的设计目标是什么？做了那些优化？"><a href="#vue3-0的设计目标是什么？做了那些优化？" class="headerlink" title="vue3.0的设计目标是什么？做了那些优化？"></a>vue3.0的设计目标是什么？做了那些优化？</h4><p>设计目标：</p>
-<ul>
-<li>打包体积更小： vue3移除一些不常用的API，将无用的模块“剪辑”掉，仅打包需要的，使打包体积更小了。</li>
-<li>速度更快： diff算法优化，静态提升。</li>
-<li>更灵活的代码组织能力： 推出composition API，大大增加了代码的逻辑组织能力和代码复用能力。</li>
-</ul>
-<p>优化方案：</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/09/06/Vue3%E8%AE%BE%E8%AE%A1%E7%9B%AE%E6%A0%87%E5%8F%8A%E4%BC%98%E5%8C%96/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/09/02/Vue3%E4%B8%8EVue2API%E7%9A%84%E5%8C%BA%E5%88%AB/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/touxaing.png">
-      <meta itemprop="name" content="Lifan Yin">
-      <meta itemprop="description" content="心有猛虎，细嗅蔷薇。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="AFAN">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/09/02/Vue3%E4%B8%8EVue2API%E7%9A%84%E5%8C%BA%E5%88%AB/" class="post-title-link" itemprop="url">Vue3与Vue2API的区别</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-09-02 00:00:00" itemprop="dateCreated datePublished" datetime="2021-09-02T00:00:00+08:00">2021-09-02</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Vue3/" itemprop="url" rel="index"><span itemprop="name">Vue3</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="Vue3-0-所采用的-Composition-Api-与-Vue2-x-使用的-Options-Api-有什么不同？"><a href="#Vue3-0-所采用的-Composition-Api-与-Vue2-x-使用的-Options-Api-有什么不同？" class="headerlink" title="Vue3.0 所采用的 Composition Api 与 Vue2.x 使用的 Options Api 有什么不同？"></a>Vue3.0 所采用的 Composition Api 与 Vue2.x 使用的 Options Api 有什么不同？</h4><ol>
-<li><p>options API:</p>
-<p>即选项式API，通过定义methods，data，computed，watch等属性与方法，共同处理页面逻辑。</p>
-<p>一个功能的实现，需要不同的vue配置项，定义属相和方法比较分散。大项目可能包含多个方法，这可能会导致组件难以阅读和理解。</p>
-</li>
-</ol>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/09/02/Vue3%E4%B8%8EVue2API%E7%9A%84%E5%8C%BA%E5%88%AB/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -668,27 +707,27 @@
     <img class="site-author-image" itemprop="image" alt="Lifan Yin"
       src="/images/touxaing.png">
   <p class="site-author-name" itemprop="name">Lifan Yin</p>
-  <div class="site-description" itemprop="description">心有猛虎，细嗅蔷薇。</div>
+  <div class="site-description" itemprop="description">CODE IS POETRY.</div>
 </div>
 <div class="site-state-wrap motion-element">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-count">46</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">13</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-count">24</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
