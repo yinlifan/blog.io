@@ -191,6 +191,168 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/10/20/Redux%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/touxaing.png">
+      <meta itemprop="name" content="Lifan Yin">
+      <meta itemprop="description" content="CODE IS POETRY.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AFAN">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/10/20/Redux%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/" class="post-title-link" itemprop="url">Redux实现原理</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-10-20 18:09:52" itemprop="dateCreated datePublished" datetime="2020-10-20T18:09:52+08:00">2020-10-20</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/React/" itemprop="url" rel="index"><span itemprop="name">React</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="redux实现原理解析"><a href="#redux实现原理解析" class="headerlink" title="redux实现原理解析"></a>redux实现原理解析</h4><h5 id="为什么要用redux？"><a href="#为什么要用redux？" class="headerlink" title="为什么要用redux？"></a>为什么要用redux？</h5><blockquote>
+<p>在react中，数据在组件中是单向流动的，数据从一个方向父组件传给子组件，所以两个非父子之间通信就会相对麻烦，redux的出现就是为了解决state里面的数据问题。</p>
+</blockquote>
+<h5 id="redux设计理念"><a href="#redux设计理念" class="headerlink" title="redux设计理念"></a>redux设计理念</h5><blockquote>
+<p>redux是将整个应用状态存储到一个地方称为store，里面保存着一个状态树store tree，组件可以通过dispatch派发action给store，而不是直接通知其他组件，组件内部通过订阅store中的状态来刷新自己的视图。</p>
+</blockquote>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/10/20/Redux%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/09/06/Redux%E7%BC%BA%E7%82%B9%E4%B8%8E%E4%B8%AD%E9%97%B4%E4%BB%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/touxaing.png">
+      <meta itemprop="name" content="Lifan Yin">
+      <meta itemprop="description" content="CODE IS POETRY.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AFAN">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/09/06/Redux%E7%BC%BA%E7%82%B9%E4%B8%8E%E4%B8%AD%E9%97%B4%E4%BB%B6/" class="post-title-link" itemprop="url">Redux缺点与中间件</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-09-06 18:27:28" itemprop="dateCreated datePublished" datetime="2020-09-06T18:27:28+08:00">2020-09-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Redux/" itemprop="url" rel="index"><span itemprop="name">Redux</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="redux的缺点"><a href="#redux的缺点" class="headerlink" title="redux的缺点"></a>redux的缺点</h4><ul>
+<li>一个组件所需要的数据，必须从父组件传递过来，而不能像flux，直接从store中获取。</li>
+<li>一个组件的数据发生了改变，即使父组件不需要用到这个组件，父组件也会重新render渲染。这样可能会造成效率问题。或者写复杂的shouldComponentUpdate进行判断。</li>
+</ul>
+<h4 id="redux中间件"><a href="#redux中间件" class="headerlink" title="redux中间件"></a>redux中间件</h4><h5 id="什么是redux中间件？"><a href="#什么是redux中间件？" class="headerlink" title="什么是redux中间件？"></a>什么是redux中间件？</h5><p>中间件提供第三方插件的模式，自定义拦截action –reducer 的过程。变为action –middlewares（执行中间件代码）– reducer。这种机制可以让我们改变数据流，实现如异步action，日志输出，异常报告等。</p>
+<h5 id="为什么需要redux中间件？"><a href="#为什么需要redux中间件？" class="headerlink" title="为什么需要redux中间件？"></a>为什么需要redux中间件？</h5><p>默认情况下，redux自身只能处理同步数据流。但是在实际项目开发中，状态的更新，获取，通常是使用异步操作来实现的。</p>
+<ul>
+<li><code>redux-logger</code>：提供日志输出</li>
+<li><code>redux-thunk</code>：处理异步操作</li>
+<li><code>redux-promise</code>：处理异步操作，<code>actionCreator</code>的返回值是<code>promise</code></li>
+</ul>
+<h5 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h5><hr>
+<blockquote>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://interview2.poetries.top/excellent-docs/6-React.html">https://interview2.poetries.top/excellent-docs/6-React.html</a></li>
+</ul>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2020/09/05/React%E6%9D%82%E8%AE%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -353,7 +515,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/07/20/JavaScript%E5%87%A0%E7%A7%8D%E7%BB%A7%E6%89%BF%E6%96%B9%E6%B3%95/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/08/02/Options%E8%AF%B7%E6%B1%82/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/touxaing.png">
@@ -367,7 +529,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/07/20/JavaScript%E5%87%A0%E7%A7%8D%E7%BB%A7%E6%89%BF%E6%96%B9%E6%B3%95/" class="post-title-link" itemprop="url">JavaScript几种继承方法</a>
+            <a href="/2020/08/02/Options%E8%AF%B7%E6%B1%82/" class="post-title-link" itemprop="url">Options请求</a>
         </h2>
 
         <div class="post-meta">
@@ -377,7 +539,7 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2020-07-20 00:00:00" itemprop="dateCreated datePublished" datetime="2020-07-20T00:00:00+08:00">2020-07-20</time>
+              <time title="Created: 2020-08-02 13:47:00" itemprop="dateCreated datePublished" datetime="2020-08-02T13:47:00+08:00">2020-08-02</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -385,7 +547,7 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
+                  <a href="/categories/%E7%BD%91%E7%BB%9C%E9%80%9A%E8%AE%AF/" itemprop="url" rel="index"><span itemprop="name">网络通讯</span></a>
                 </span>
             </span>
 
@@ -400,10 +562,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h4 id="JavaScript实现继承的几种方法"><a href="#JavaScript实现继承的几种方法" class="headerlink" title="JavaScript实现继承的几种方法"></a>JavaScript实现继承的几种方法</h4><h5 id="1-原型链继承"><a href="#1-原型链继承" class="headerlink" title="1.原型链继承"></a>1.原型链继承</h5><p>构造函数，原型，实例之间的关系：每一个构造函数都有一个原型对象(prototype)，原型对象中有一个指向构造函数的指针()，然而实例对象中包含一个指向原型对象的指针(<em>proto</em>)。</p>
+          <h3 id="Options请求-跨域预检"><a href="#Options请求-跨域预检" class="headerlink" title="Options请求(跨域预检)"></a>Options请求(跨域预检)</h3><h6 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h6><blockquote>
+<p>options 请求就是预检请求，可用于检测服务器允许的 http 方法。当发起跨域请求时，由于安全原因，触发一定条件时浏览器会在正式请求之前自动先发起 OPTIONS 请求，即 CORS 预检请求，服务器若接受该跨域请求，浏览器才继续发起正式请求。</p>
+</blockquote>
+<h4 id="什么是-options-请求"><a href="#什么是-options-请求" class="headerlink" title="什么是 options 请求"></a>什么是 options 请求</h4><p>HTTP 的 <strong>OPTIONS</strong> 方法 用于获取目的资源所支持的通信选项。客户端可以对特定的 URL 使用 OPTIONS 方法，也可以对整站（通过将 URL 设置为”*”）使用该方法。(简而言之，就是可以用 options 请求去嗅探某个请求在对应的服务器中都支持哪种请求方法)。</p>
+<p><span style="color: red;"><strong>原因</strong></span></p>
+<p>这是因为在跨域的情况下，在浏览器发起”复杂请求”时主动发起的。跨域共享标准规范要求，对那些可能对服务器数据产生副作用的 HTTP 请求方法（特别是 GET 以外的 HTTP 请求，或者搭配某些 MIME 类型的 POST 请求），浏览器必须首先使用 OPTIONS 方法发起一个预检请求（preflight request），从而获知服务端是否允许该跨域请求。服务器确认允许之后，才发起实际的 HTTP 请求。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2020/07/20/JavaScript%E5%87%A0%E7%A7%8D%E7%BB%A7%E6%89%BF%E6%96%B9%E6%B3%95/#more" rel="contents">
+              <a class="btn" href="/2020/08/02/Options%E8%AF%B7%E6%B1%82/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -423,200 +590,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/07/08/inline-block%E7%BC%9D%E9%9A%99%E9%97%AE%E9%A2%98/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/touxaing.png">
-      <meta itemprop="name" content="Lifan Yin">
-      <meta itemprop="description" content="CODE IS POETRY.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="AFAN">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/07/08/inline-block%E7%BC%9D%E9%9A%99%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">inline-block缝隙问题</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-07-08 00:00:00" itemprop="dateCreated datePublished" datetime="2020-07-08T00:00:00+08:00">2020-07-08</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/css/" itemprop="url" rel="index"><span itemprop="name">css</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="display-inline-block元素之间空隙的产生原因和解决办法？"><a href="#display-inline-block元素之间空隙的产生原因和解决办法？" class="headerlink" title="display:inline-block元素之间空隙的产生原因和解决办法？"></a>display:inline-block元素之间空隙的产生原因和解决办法？</h4><h5 id="空隙产生原因"><a href="#空隙产生原因" class="headerlink" title="空隙产生原因"></a>空隙产生原因</h5><p>元素被当做行内元素进行排版布局的时候，元素之间的空格，换行符，空白会被浏览器处理，根据white-space的默认值 normal，合并多余的空白符。在html代码当中，换行符就会被当做是一处空白，当字体大小font-size不为零的情况下，两个元素之间就会有空隙。这些元素之间的间距会随着字体大小来变化，比如行内元素font-size：16px时，间距为8px。</p>
-<h5 id="解决办法："><a href="#解决办法：" class="headerlink" title="解决办法："></a>解决办法：</h5><ul>
-<li>将所有html标签写在一行 （代码可读性差）</li>
-<li>给inline-block属性元素设置float：left （造成高度塌陷）</li>
-<li>设置inlin-block属性元素font-size为零，需重更新设置子元素大小。</li>
-<li>设置子元素margin-left:-2px。</li>
-<li>给父元素设置display：table。word-sapcing：-1em。（根据实际情况来）</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/07/01/css3%E6%96%B0%E5%A2%9E%E7%89%B9%E6%80%A7/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/touxaing.png">
-      <meta itemprop="name" content="Lifan Yin">
-      <meta itemprop="description" content="CODE IS POETRY.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="AFAN">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/07/01/css3%E6%96%B0%E5%A2%9E%E7%89%B9%E6%80%A7/" class="post-title-link" itemprop="url">css3新增特性</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-07-01 00:00:00" itemprop="dateCreated datePublished" datetime="2020-07-01T00:00:00+08:00">2020-07-01</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/css3/" itemprop="url" rel="index"><span itemprop="name">css3</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="css3新增那些新特性？"><a href="#css3新增那些新特性？" class="headerlink" title="css3新增那些新特性？"></a>css3新增那些新特性？</h4><h5 id="选择器："><a href="#选择器：" class="headerlink" title="选择器："></a>选择器：</h5><ul>
-<li>:first-of-type 选择其父元素第一个子元素</li>
-<li>:last-of-type 选择其父元素最后一个子元素</li>
-<li>:nth-of-type(2) 选择父元素的第二个元素</li>
-<li>:only-child 选择属于父元素的唯一一个子元素</li>
-<li>:last-child 选择属于其父元素的最后一个子元素</li>
-</ul>
-<h5 id="新样式："><a href="#新样式：" class="headerlink" title="新样式："></a>新样式：</h5><ul>
-<li><p>边框 border-radius：创建圆角边框</p>
-</li>
-<li><p>border-shadow：为元素添加阴影</p>
-</li>
-<li><p>border-image：使用图片绘制边框</p>
-</li>
-<li><p>背景 background-clip</p>
-</li>
-<li><p>background-origin</p>
-</li>
-<li><p>background-size</p>
-</li>
-<li><p>background-break</p>
-</li>
-<li><p>文字 word-warp：</p>
-<ul>
-<li>narmal：使用浏览器默认换行</li>
-<li>break-all：允许在单词内换行</li>
-</ul>
-</li>
-<li><p>text-shadow：设置字体的阴影，位置及阴影颜色</p>
-</li>
-<li><p>颜色：增加了新的颜色表示方式</p>
-<ul>
-<li>rgba，rgb为颜色值，a为透明度</li>
-<li>hsla，h色相，s为饱和度，l为高度，a为透明度。</li>
-</ul>
-</li>
-</ul>
-<h4 id="css3动画有那些？"><a href="#css3动画有那些？" class="headerlink" title="css3动画有那些？"></a>css3动画有那些？</h4><p>使用css动画的模块就是指元素从一种样式逐渐过渡为另一种样式的过程。</p>
-<p>常见的动画有 平移，旋转，缩放等等。</p>
-<ul>
-<li>transition 实现渐变动画</li>
-<li>transform 转变动画<ul>
-<li>translate 位移</li>
-<li>skew 倾斜</li>
-<li>rotate：旋转</li>
-<li>scale 缩放</li>
-</ul>
-</li>
-<li>animation 实现自定义动画</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -684,20 +661,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">46</span>
+          <span class="site-state-item-count">51</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-count">14</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">25</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/taikong.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/taikong.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Options请求(跨域预检)概述 options 请求就是预检请求，可用于检测服务器允许的 http 方法。当发起跨域请求时，由于安全原因，触发一定条件时浏览器会在正式请求之前自动先发起 OPTIONS 请求，即 CORS 预检请求，服务器若接受该跨域请求，浏览器才继续发起正式请求。  什么是 options 请求HTTP 的 OPTIONS 方法 用于获取目的资源所支持的通信选项。客户端可以对">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Options请求">
+<meta property="og:url" content="http://example.com/2020/08/02/Options%E8%AF%B7%E6%B1%82/index.html">
+<meta property="og:site_name" content="AFAN">
+<meta property="og:description" content="Options请求(跨域预检)概述 options 请求就是预检请求，可用于检测服务器允许的 http 方法。当发起跨域请求时，由于安全原因，触发一定条件时浏览器会在正式请求之前自动先发起 OPTIONS 请求，即 CORS 预检请求，服务器若接受该跨域请求，浏览器才继续发起正式请求。  什么是 options 请求HTTP 的 OPTIONS 方法 用于获取目的资源所支持的通信选项。客户端可以对">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-08-02T05:47:00.000Z">
+<meta property="article:modified_time" content="2020-08-02T05:47:00.000Z">
+<meta property="article:author" content="Lifan Yin">
+<meta property="article:tag" content="网络通讯">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2020/08/02/Options%E8%AF%B7%E6%B1%82/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Options请求 | AFAN</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">AFAN</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">心有猛虎，细嗅蔷薇</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/08/02/Options%E8%AF%B7%E6%B1%82/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/touxaing.png">
+      <meta itemprop="name" content="Lifan Yin">
+      <meta itemprop="description" content="CODE IS POETRY.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AFAN">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Options请求
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-08-02 13:47:00" itemprop="dateCreated datePublished" datetime="2020-08-02T13:47:00+08:00">2020-08-02</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BD%91%E7%BB%9C%E9%80%9A%E8%AE%AF/" itemprop="url" rel="index"><span itemprop="name">网络通讯</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="Options请求-跨域预检"><a href="#Options请求-跨域预检" class="headerlink" title="Options请求(跨域预检)"></a>Options请求(跨域预检)</h3><h6 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h6><blockquote>
+<p>options 请求就是预检请求，可用于检测服务器允许的 http 方法。当发起跨域请求时，由于安全原因，触发一定条件时浏览器会在正式请求之前自动先发起 OPTIONS 请求，即 CORS 预检请求，服务器若接受该跨域请求，浏览器才继续发起正式请求。</p>
+</blockquote>
+<h4 id="什么是-options-请求"><a href="#什么是-options-请求" class="headerlink" title="什么是 options 请求"></a>什么是 options 请求</h4><p>HTTP 的 <strong>OPTIONS</strong> 方法 用于获取目的资源所支持的通信选项。客户端可以对特定的 URL 使用 OPTIONS 方法，也可以对整站（通过将 URL 设置为”*”）使用该方法。(简而言之，就是可以用 options 请求去嗅探某个请求在对应的服务器中都支持哪种请求方法)。</p>
+<p><span style="color: red;"><strong>原因</strong></span></p>
+<p>这是因为在跨域的情况下，在浏览器发起”复杂请求”时主动发起的。跨域共享标准规范要求，对那些可能对服务器数据产生副作用的 HTTP 请求方法（特别是 GET 以外的 HTTP 请求，或者搭配某些 MIME 类型的 POST 请求），浏览器必须首先使用 OPTIONS 方法发起一个预检请求（preflight request），从而获知服务端是否允许该跨域请求。服务器确认允许之后，才发起实际的 HTTP 请求。</p>
+<span id="more"></span>
+<h4 id="简单请求和复杂请求"><a href="#简单请求和复杂请求" class="headerlink" title="简单请求和复杂请求"></a>简单请求和复杂请求</h4><blockquote>
+<p>某些请求不会触发CORS预检请求，这样的请求一般称为 <strong>“简单请求”</strong> ，而会触发预检的请求则是 <strong>“复杂请求”</strong> 。</p>
+</blockquote>
+<h5 id="简单请求"><a href="#简单请求" class="headerlink" title="简单请求"></a>简单请求</h5><ul>
+<li>请求方式为<code>GET、HEAD、POST</code>时的请求；</li>
+<li>认为设置规范集合之内的首部字段，如<code>Accept/Accept-Language/Content-Language/Content-Type/DPR/Downlink/Save-Data/Viewport-Width/Width</code>;</li>
+<li>Content-Type 的值仅限于下列三者之一,即<code>application/x-www-form-urlencoded、multipart/form-data、text/plain</code>；</li>
+<li>请求中的任意 <code>XMLHttpRequestUpload</code>对象均没有注册任何事件监听器；</li>
+<li>请求中没有使用 <code>ReadableStream</code>对象。</li>
+</ul>
+<h5 id="复杂请求"><a href="#复杂请求" class="headerlink" title="复杂请求"></a>复杂请求</h5><ul>
+<li>PUT&#x2F;DELETE&#x2F;CONNECT&#x2F;OPTIONS&#x2F;TRACE&#x2F;PATCH;</li>
+<li>人为设置了以下集合之外首部字段，即简单请求外的字段;</li>
+<li>Content-Type 的值不属于下列之一，即application&#x2F;x-www-form-urlencoded、multipart&#x2F;form-data、text&#x2F;plain。</li>
+</ul>
+<h4 id="Option关键字段"><a href="#Option关键字段" class="headerlink" title="Option关键字段"></a>Option关键字段</h4><p><span style='color: red'>request header 的关键字段</span></p>
+<table>
+<thead>
+<tr>
+<th>关键字段</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Access-Control-Request-Method</td>
+<td>告知服务器，实际请求将使用POST方法</td>
+</tr>
+<tr>
+<td>Access-Control-Request-Headers</td>
+<td>告知服务器，实际请求将携带的自定义请求首部字段</td>
+</tr>
+</tbody></table>
+<p><span style='color: red'>response header 的关键字段</span></p>
+<table>
+<thead>
+<tr>
+<th>关键字段</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Access-Control-Allow-Methods</td>
+<td>表明服务器允许客户端使用什么方法发起请求</td>
+</tr>
+<tr>
+<td>Access-Control-Allow-Origin</td>
+<td>允许跨域请求的域名，如果要允许所有域名则设置为*</td>
+</tr>
+<tr>
+<td>Access-Control-Allow-Headers</td>
+<td>将实际请求所携带的首部字段告诉服务器</td>
+</tr>
+<tr>
+<td>Access-Control-Max-Age</td>
+<td>指定了预检请求的结果能够被缓存多久</td>
+</tr>
+</tbody></table>
+<h4 id="Options-请求优化"><a href="#Options-请求优化" class="headerlink" title="Options 请求优化"></a>Options 请求优化</h4><blockquote>
+<p>当发起跨域请求时，简单请求只发起一次请求；复杂请求则需要2次，先发起options请求，确认目标资源是否支持跨域，浏览器会根据服务端响应的header自动处理剩余的请求，如果响应支持跨域，则继续发出正常请求；不支持的话，会在控制台显示错误。<br>所以，当触发预检时，跨域请求便会发送2次请求，增加请求次数，同时，也延迟了请求真正发起的时间，会严重地影响性能。</p>
+</blockquote>
+<h4 id="优化options请求的两种方法"><a href="#优化options请求的两种方法" class="headerlink" title="优化options请求的两种方法"></a>优化options请求的两种方法</h4><p><span style='color: red'>方法一</span></p>
+<ul>
+<li>用其它的跨域方式做跨域请求，将复杂请求转为简单请求，比如JSONP等；</li>
+</ul>
+<p><span style='color: red'>方法二</span></p>
+<ul>
+<li>服务器端设置 <code>Access-Control-Max-Age</code> 字段，那么当第一次请求该 URL 时会发出<code>OPTIONS</code>请求，浏览器会根据返回的 Access-Control-Max-Age 字段缓存该请求的 OPTIONS 预检请求的响应结果（具体缓存时间还取决于浏览器的支持的默认最大值，取两者最小值，一般为 10 分钟）。在缓存有效期内，该资源的请求（URL 和 header 字段都相同的情况下）不会再触发预检。（chrome 打开控制台可以看到，当服务器响应 Access-Control-Max-Age 时只有第一次请求会有预检，后面不会了。注意要开启缓存，去掉 disable cache 勾选。）</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%BD%91%E7%BB%9C%E9%80%9A%E8%AE%AF/" rel="tag"># 网络通讯</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/07/20/JavaScript%E5%87%A0%E7%A7%8D%E7%BB%A7%E6%89%BF%E6%96%B9%E6%B3%95/" rel="prev" title="JavaScript几种继承方法">
+      <i class="fa fa-chevron-left"></i> JavaScript几种继承方法
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/08/18/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/" rel="next" title="前端工程化">
+      前端工程化 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Options%E8%AF%B7%E6%B1%82-%E8%B7%A8%E5%9F%9F%E9%A2%84%E6%A3%80"><span class="nav-number">1.</span> <span class="nav-text">Options请求(跨域预检)</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%A6%82%E8%BF%B0"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">概述</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-options-%E8%AF%B7%E6%B1%82"><span class="nav-number">1.1.</span> <span class="nav-text">什么是 options 请求</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AE%80%E5%8D%95%E8%AF%B7%E6%B1%82%E5%92%8C%E5%A4%8D%E6%9D%82%E8%AF%B7%E6%B1%82"><span class="nav-number">1.2.</span> <span class="nav-text">简单请求和复杂请求</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%AE%80%E5%8D%95%E8%AF%B7%E6%B1%82"><span class="nav-number">1.2.1.</span> <span class="nav-text">简单请求</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A4%8D%E6%9D%82%E8%AF%B7%E6%B1%82"><span class="nav-number">1.2.2.</span> <span class="nav-text">复杂请求</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Option%E5%85%B3%E9%94%AE%E5%AD%97%E6%AE%B5"><span class="nav-number">1.3.</span> <span class="nav-text">Option关键字段</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Options-%E8%AF%B7%E6%B1%82%E4%BC%98%E5%8C%96"><span class="nav-number">1.4.</span> <span class="nav-text">Options 请求优化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%98%E5%8C%96options%E8%AF%B7%E6%B1%82%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%96%B9%E6%B3%95"><span class="nav-number">1.5.</span> <span class="nav-text">优化options请求的两种方法</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Lifan Yin"
+      src="/images/touxaing.png">
+  <p class="site-author-name" itemprop="name">Lifan Yin</p>
+  <div class="site-description" itemprop="description">CODE IS POETRY.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">51</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lifan Yin</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

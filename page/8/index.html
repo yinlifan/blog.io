@@ -191,7 +191,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2019/04/03/Rollup%E4%BC%98%E7%BC%BA%E7%82%B9/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2019/06/06/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E6%9C%BA%E5%88%B6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/touxaing.png">
@@ -205,7 +205,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2019/04/03/Rollup%E4%BC%98%E7%BC%BA%E7%82%B9/" class="post-title-link" itemprop="url">Rollup优缺点</a>
+            <a href="/2019/06/06/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E6%9C%BA%E5%88%B6/" class="post-title-link" itemprop="url">浏览器渲染机制</a>
         </h2>
 
         <div class="post-meta">
@@ -215,7 +215,301 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2019-04-03 00:00:00" itemprop="dateCreated datePublished" datetime="2019-04-03T00:00:00+08:00">2019-04-03</time>
+              <time title="Created: 2019-06-06 00:00:00" itemprop="dateCreated datePublished" datetime="2019-06-06T00:00:00+08:00">2019-06-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B5%8F%E8%A7%88%E5%99%A8/" itemprop="url" rel="index"><span itemprop="name">浏览器</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="浏览器渲染机制"><a href="#浏览器渲染机制" class="headerlink" title="浏览器渲染机制"></a>浏览器渲染机制</h4><h5 id="1-渲染机制步骤步骤："><a href="#1-渲染机制步骤步骤：" class="headerlink" title="1.渲染机制步骤步骤："></a>1.渲染机制步骤步骤：</h5><ul>
+<li>处理<code>HTML</code>并构建<code>DOM</code>树</li>
+<li>处理<code>css</code>构建<code>cssdom</code>树</li>
+<li>将<code>DOM</code>与<code>cssdom</code>合并成一个渲染树</li>
+<li>根据渲染树来布局，计算每个节点的位置</li>
+<li>调用<code>GPU</code>绘制，合成图层，显示在屏幕上</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="http://zslin.xyz/2019/06/06/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%A8%A1%E5%9D%97/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E6%9C%BA%E5%88%B6/98.png"><img src="http://zslin.xyz/2019/06/06/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%A8%A1%E5%9D%97/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E6%9C%BA%E5%88%B6/98.png" alt="img"></a></p>
+<p>在构建cssdom树时，会阻塞渲染，直至cssdom树构建完成。并且构建cssdom树是一个十分消耗性能的过程，所以尽量保证层级扁平，减少过度层叠，越是具体的css选择器，执行速度越慢。</p>
+<p>css是阻塞渲染的资源。需要将他尽早，尽快的下载到客户端，以便缩短首次渲染的时间。</p>
+<p>当html解析到script标签时，会暂停构建dom，完成后才会从暂停的地方重新开始。也就是说，如果你想首屏渲染的越快，就越不应该在首屏就加载js文件。并且css也会影响js的执行，只有当解析完样式才会执行js，所以也可以认为这种情况下，css也会暂停构建dom。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/06/06/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E6%9C%BA%E5%88%B6/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2019/06/05/%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/touxaing.png">
+      <meta itemprop="name" content="Lifan Yin">
+      <meta itemprop="description" content="CODE IS POETRY.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AFAN">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/06/05/%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/" class="post-title-link" itemprop="url">浏览器事件循环</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-06-05 00:00:00" itemprop="dateCreated datePublished" datetime="2019-06-05T00:00:00+08:00">2019-06-05</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B5%8F%E8%A7%88%E5%99%A8/" itemprop="url" rel="index"><span itemprop="name">浏览器</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="说说你对事件循环的理解"><a href="#说说你对事件循环的理解" class="headerlink" title="说说你对事件循环的理解"></a>说说你对事件循环的理解</h4><p>event loop过程1：</p>
+<ul>
+<li>同步代码，一行一行在call stack（执行栈）执行</li>
+<li>遇到异步，会先“记录”下，等待时机（定时，网络请求等）</li>
+<li>时机到了，就移动到 Callback Queue （回调队列）</li>
+</ul>
+<p>event loop过程2：</p>
+<ul>
+<li>如Call Stack为空（及代码执行完）Event loop 开始工作</li>
+<li>轮询查找Callback Queue，如有则移动到 Call Stack执行</li>
+<li>然后继续轮询查找（永动机一样）</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="http://zslin.xyz/2019/06/05/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%A8%A1%E5%9D%97/%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/69.png"><img src="http://zslin.xyz/2019/06/05/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%A8%A1%E5%9D%97/%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/69.png" alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="http://zslin.xyz/2019/06/05/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%A8%A1%E5%9D%97/%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/70.png"><img src="http://zslin.xyz/2019/06/05/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%A8%A1%E5%9D%97/%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/70.png" alt="img"></a></p>
+<h5 id="宏任务："><a href="#宏任务：" class="headerlink" title="宏任务："></a>宏任务：</h5><ul>
+<li><p>我们可以将每次执行栈执行的代码当做是一个宏任务（包括每次从事件队列中获取一个事件回调并放到执行栈中执行）</p>
+</li>
+<li><p>每一个宏任务会从头到尾执行完毕，不会执行其他</p>
+<blockquote>
+<p>浏览器为了能够使js内部宏任务与dom任务有序的执行，会在一个宏任务执行结束后，在下一个宏任务执行开始前，对页面进行重新渲染。</p>
+<figure class="highlight brainfuck"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 宏任务</span><span class="literal">--</span>&gt;<span class="comment">渲染</span><span class="literal">--</span>&gt;<span class="comment">宏任务</span><span class="literal">--</span>&gt;<span class="comment">渲染</span><span class="literal">--</span>&gt;<span class="comment">渲染．．</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</blockquote>
+<ul>
+<li>js代码</li>
+<li>setTimeout</li>
+<li>Ajax</li>
+<li>Dom事件</li>
+</ul>
+</li>
+</ul>
+<h5 id="微任务："><a href="#微任务：" class="headerlink" title="微任务："></a>微任务：</h5><ul>
+<li>我们已经知道 宏任务结束后，会执行渲染，然后执行下一个 宏任务。</li>
+<li>而微任务可以理解成在当前 宏任务执行后立即执行的任务。</li>
+<li>也就是说，当宏任务执行完，会在渲染前，将执行期间所产生的所有 微任务都执行完。<ul>
+<li>Promise async&#x2F;</li>
+<li>nextTick（Node.js）</li>
+<li>MutaionObserver</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2019/06/02/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E5%A4%B8%E6%A0%87%E7%AD%BE%E9%A1%B5%E9%80%9A%E8%AE%AF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/touxaing.png">
+      <meta itemprop="name" content="Lifan Yin">
+      <meta itemprop="description" content="CODE IS POETRY.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AFAN">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/06/02/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E5%A4%B8%E6%A0%87%E7%AD%BE%E9%A1%B5%E9%80%9A%E8%AE%AF/" class="post-title-link" itemprop="url">浏览器的夸标签页通讯</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-06-02 00:00:00" itemprop="dateCreated datePublished" datetime="2019-06-02T00:00:00+08:00">2019-06-02</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B5%8F%E8%A7%88%E5%99%A8/" itemprop="url" rel="index"><span itemprop="name">浏览器</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="1-跨标签页通讯"><a href="#1-跨标签页通讯" class="headerlink" title="1.跨标签页通讯"></a>1.跨标签页通讯</h4><blockquote>
+<p>不同标签页面间的通讯，本质与哪里就是去运用一些可以 共享的中间介质，因此比较常用的有以下方法：</p>
+</blockquote>
+<ul>
+<li>通过父页面<code>windowopen()</code>和子页面<code>postmessage</code><ul>
+<li>异步下通过<code>windowopen(&#39;about：blank&#39;)</code>和<code>tablocationhref=&#39;*&#39;</code></li>
+</ul>
+</li>
+<li>同域下共享的<code>localStorage</code>与监听<code>windowonstorage</code><ul>
+<li>重复写入相同的值无法触发</li>
+<li>会受到浏览器隐身模式等限制</li>
+</ul>
+</li>
+<li>共同设置<code>cookie</code>与不断轮询脏检查(<code>setInterval</code>)</li>
+<li>借助服务端或者中间层实现。</li>
+</ul>
+<h4 id="2-浏览器架构"><a href="#2-浏览器架构" class="headerlink" title="2.浏览器架构"></a>2.浏览器架构</h4><ul>
+<li>用户主界面</li>
+<li>主进程</li>
+<li>内核<ul>
+<li>渲染引擎</li>
+<li>JS引擎<ul>
+<li>执行栈</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>事件触发线程<ul>
+<li>消息队列<ul>
+<li>微任务</li>
+<li>宏任务</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>网络异步线程</li>
+<li>定时器线程</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2019/04/12/Webpack%E4%B8%ADProxy%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/touxaing.png">
+      <meta itemprop="name" content="Lifan Yin">
+      <meta itemprop="description" content="CODE IS POETRY.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AFAN">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/04/12/Webpack%E4%B8%ADProxy%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/" class="post-title-link" itemprop="url">Webpack中Proxy工作原理</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-04-12 00:00:00" itemprop="dateCreated datePublished" datetime="2019-04-12T00:00:00+08:00">2019-04-12</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -238,19 +532,14 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h4 id="介绍一下Rollup"><a href="#介绍一下Rollup" class="headerlink" title="介绍一下Rollup"></a>介绍一下Rollup</h4><p>Rollup 是一款 ES Modules 打包器。它也可以将项目中散落的细小模块打包为整块代码，从而使得这些划分的模块可以更好地运行在浏览器环境或者 Node.js 环境。</p>
-<blockquote>
-<p>Rollup 是一款 ES Modules 打包器。它也可以将项目中散落的细小模块打包为整块代码，从而使得这些划分的模块可以更好地运行在浏览器环境或者 Node.js 环境。</p>
-</blockquote>
-<h5 id="Rollup优势："><a href="#Rollup优势：" class="headerlink" title="Rollup优势："></a><strong>Rollup优势：</strong></h5><ul>
-<li>输出结果更加扁平，执行效率更高；</li>
-<li>自动移除未引用代码；</li>
-<li>打包结果依然完全可读</li>
-</ul>
-<h5 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a><strong>缺点</strong></h5>
+          <h4 id="Webpack-Proxy工作原理？为什么能解决跨域？"><a href="#Webpack-Proxy工作原理？为什么能解决跨域？" class="headerlink" title="Webpack Proxy工作原理？为什么能解决跨域？"></a>Webpack Proxy工作原理？为什么能解决跨域？</h4><h5 id="1-是什么"><a href="#1-是什么" class="headerlink" title="1. 是什么"></a><strong>1. 是什么</strong></h5><p><code>webpack proxy</code>，即<code>webpack</code>提供的代理服务</p>
+<p>基本行为就是接收客户端发送的请求后转发给其他服务器</p>
+<p>其目的是为了便于开发者在开发模式下解决跨域问题（浏览器安全策略限制）</p>
+<p>想要实现代理首先需要一个中间服务器，<code>webpack</code>中提供服务器的工具为<code>webpack-dev-server</code></p>
+<h5 id="2-webpack-dev-server"><a href="#2-webpack-dev-server" class="headerlink" title="2. webpack-dev-server"></a><strong>2. webpack-dev-server</strong></h5>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2019/04/03/Rollup%E4%BC%98%E7%BC%BA%E7%82%B9/#more" rel="contents">
+              <a class="btn" href="/2019/04/12/Webpack%E4%B8%ADProxy%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -274,7 +563,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2019/03/28/Vue%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E7%9A%84%E7%90%86%E8%A7%A3/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2019/04/10/%E4%BB%8B%E7%BB%8Dbabel%E5%8E%9F%E7%90%86/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/touxaing.png">
@@ -288,7 +577,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2019/03/28/Vue%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E7%9A%84%E7%90%86%E8%A7%A3/" class="post-title-link" itemprop="url">Vue生命周期的理解</a>
+            <a href="/2019/04/10/%E4%BB%8B%E7%BB%8Dbabel%E5%8E%9F%E7%90%86/" class="post-title-link" itemprop="url">介绍babel原理</a>
         </h2>
 
         <div class="post-meta">
@@ -298,7 +587,7 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2019-03-28 00:00:00" itemprop="dateCreated datePublished" datetime="2019-03-28T00:00:00+08:00">2019-03-28</time>
+              <time title="Created: 2019-04-10 00:00:00" itemprop="dateCreated datePublished" datetime="2019-04-10T00:00:00+08:00">2019-04-10</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -306,7 +595,7 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Vue/" itemprop="url" rel="index"><span itemprop="name">Vue</span></a>
+                  <a href="/categories/Webpack/" itemprop="url" rel="index"><span itemprop="name">Webpack</span></a>
                 </span>
             </span>
 
@@ -321,287 +610,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h4 id="vue生命周期的理解"><a href="#vue生命周期的理解" class="headerlink" title="vue生命周期的理解"></a><strong>vue生命周期的理解</strong></h4><p>vue生命周期主要分为8个阶段：创建前&#x2F;后，载入前&#x2F;后，更新前&#x2F;后，销毁前&#x2F;后。</p>
-<p>vue实例有一个完整的生命周期，也就是从开始创建，初始化数据，编译模板，挂载Dom &#x3D;》 渲染，更新 &#x3D;》渲染，卸载这个过程。</p>
-<table>
-<thead>
-<tr>
-<th align="left">beforeCreate</th>
-<th>组件实例被创建之初，组件的属性生效之前</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">created</td>
-<td>组件实例已经完全创建，属性也绑定，但真实dom还没有生成，$el还不可用</td>
-</tr>
-<tr>
-<td align="left">beforeMount</td>
-<td>在挂载开始之前被调用：相关的 render 函数首次被调用</td>
-</tr>
-<tr>
-<td align="left">mounted</td>
-<td>el 被新创建的 vm.$el 替换，并挂载到实例上去之后调用该钩子</td>
-</tr>
-<tr>
-<td align="left">beforeUpdate</td>
-<td>组件数据更新之前调用，发生在虚拟 DOM 打补丁之前</td>
-</tr>
-<tr>
-<td align="left">update</td>
-<td>组件数据更新之后</td>
-</tr>
-<tr>
-<td align="left">activated</td>
-<td>keep-alive专属，组件被激活时调用</td>
-</tr>
-<tr>
-<td align="left">deactivated</td>
-<td>keep-alive专属，组件被销毁时调用</td>
-</tr>
-<tr>
-<td align="left">beforeDestroy</td>
-<td>组件销毁前调用</td>
-</tr>
-<tr>
-<td align="left">destroyed</td>
-<td>组件销毁后调用</td>
-</tr>
-</tbody></table>
-<p><a target="_blank" rel="noopener" href="http://zslin.xyz/2019/06/27/vue2/vue%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E7%9A%84%E7%90%86%E8%A7%A3/61.png"><img src="http://zslin.xyz/2019/06/27/vue2/vue%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E7%9A%84%E7%90%86%E8%A7%A3/61.png" alt="img"></a></p>
-<p><strong>什么是vue生命周期？</strong></p>
-<ul>
-<li>答： Vue 实例从创建到销毁的过程，就是生命周期。从开始创建、初始化数据、编译模板、挂载Dom→渲染、更新→渲染、销毁等一系列过程，称之为 Vue 的生命周期。</li>
-</ul>
-<p><strong>vue生命周期的作用是什么？</strong></p>
-<ul>
-<li>答：它的生命周期中有多个事件钩子，让我们在控制整个Vue实例的过程时更容易形成好的逻辑。</li>
-</ul>
-<p><strong>vue生命周期总共有几个阶段？</strong></p>
-<ul>
-<li>答：它可以总共分为<code>8</code>个阶段：创建前&#x2F;后、载入前&#x2F;后、更新前&#x2F;后、销毁前&#x2F;销毁后。</li>
-</ul>
-<p><strong>第一次页面加载会触发哪几个钩子？</strong></p>
-<ul>
-<li>答：会触发下面这几个<code>beforeCreate</code>、<code>created</code>、<code>beforeMount</code>、<code>mounted</code> 。</li>
-</ul>
-<p><strong>DOM 渲染在哪个周期中就已经完成？</strong></p>
-<ul>
-<li>答：<code>DOM</code> 渲染在 <code>mounted</code> 中就已经完成了</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2019/03/26/%E5%AF%B9%E4%BA%8Emvvm%E7%9A%84%E7%90%86%E8%A7%A3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/touxaing.png">
-      <meta itemprop="name" content="Lifan Yin">
-      <meta itemprop="description" content="CODE IS POETRY.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="AFAN">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/03/26/%E5%AF%B9%E4%BA%8Emvvm%E7%9A%84%E7%90%86%E8%A7%A3/" class="post-title-link" itemprop="url">对于mvvm的理解</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-03-26 00:00:00" itemprop="dateCreated datePublished" datetime="2019-03-26T00:00:00+08:00">2019-03-26</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Vue/" itemprop="url" rel="index"><span itemprop="name">Vue</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="对于mvvm的理解？"><a href="#对于mvvm的理解？" class="headerlink" title="对于mvvm的理解？"></a>对于mvvm的理解？</h4><p>mvvm就是modle-view-viewmodule。mvvm是一种设计思想。</p>
-<ul>
-<li>modle：模型层，用于处理逻辑和服务器的交互。</li>
-<li>view：视图层，用于将数据渲染在页面上。UI视图。</li>
-<li>view-model：视图模型层，用来连接model和view，是model和view之间的通信桥梁。达到数据驱动视图的效果。</li>
-</ul>
-<p>mvvm模式简化了界面与业务的依赖，解决了数据频繁更新。mvvm在使用当中，利用双向数据绑定技术，使得model变化时，viewmodel会自动更新，而viewmodel变化时，view也会自动变化。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2019/02/20/ES5-ES6%E5%92%8CES2015/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/touxaing.png">
-      <meta itemprop="name" content="Lifan Yin">
-      <meta itemprop="description" content="CODE IS POETRY.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="AFAN">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/02/20/ES5-ES6%E5%92%8CES2015/" class="post-title-link" itemprop="url">ES5,ES6和ES2015</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-02-20 00:00:00" itemprop="dateCreated datePublished" datetime="2019-02-20T00:00:00+08:00">2019-02-20</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="ES5，ES6和ES2015有什么区别？"><a href="#ES5，ES6和ES2015有什么区别？" class="headerlink" title="ES5，ES6和ES2015有什么区别？"></a>ES5，ES6和ES2015有什么区别？</h4><p>Es2015是指2015年发布的新一代js语言标准，es6泛指下一代js语言标准，包含了es2015，es2016，es2017，es2018等。现阶段在绝大部分场景下，es2015默认等同es6。es5泛指上一代语言标准。es2015可以理解为ES5和ES6的时间分解线。</p>
-<h4 id="babel是什么，有什么作用？"><a href="#babel是什么，有什么作用？" class="headerlink" title="babel是什么，有什么作用？"></a>babel是什么，有什么作用？</h4><p>babel是一个es6的转换器，可以将es6代码转为es5代码，以便兼容那些还没支持es6的平台。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2019/02/05/%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E3%80%81%E5%AE%9E%E4%BE%8B%E5%AF%B9%E8%B1%A1%E5%92%8C%E5%8E%9F%E5%9E%8B%E5%AF%B9%E8%B1%A1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/touxaing.png">
-      <meta itemprop="name" content="Lifan Yin">
-      <meta itemprop="description" content="CODE IS POETRY.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="AFAN">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/02/05/%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E3%80%81%E5%AE%9E%E4%BE%8B%E5%AF%B9%E8%B1%A1%E5%92%8C%E5%8E%9F%E5%9E%8B%E5%AF%B9%E8%B1%A1/" class="post-title-link" itemprop="url">构造函数、实例对象和原型对象</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-02-05 15:16:58" itemprop="dateCreated datePublished" datetime="2019-02-05T15:16:58+08:00">2019-02-05</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="构造函数、实例对象、原型对象"><a href="#构造函数、实例对象、原型对象" class="headerlink" title="构造函数、实例对象、原型对象"></a>构造函数、实例对象、原型对象</h4><p>每创建一个函数，该函数都会自动带有一个prototype属性。该属性是一个指针，指向原型对象。（后期我们可以使用这个原型对象帮助我们在js中实现继承）。</p>
-<p>原型对象上默认有一个属性constructor，该属性也是一个指针，指向其相关联的构造函数。</p>
-<p>通过调用构造函数产生的实例对象，都拥有一个内部属性，指向了原型对象。其实例对象能够访问原型对象上的所有属性和方法。</p>
-<p><strong>总结</strong>：三者的关系是，每个构造函数都有一个原型对象，原型对象上包含一个指向构造函数的指针，而实例都包含着一个指向原型对象的内部指针。通俗的说，实例可以通过内部指针访问到原型对象，原型对象可以通过constructor找到构造函数。</p>
+          <h4 id="介绍一下-webpack-scope-hosting"><a href="#介绍一下-webpack-scope-hosting" class="headerlink" title="介绍一下 webpack scope hosting"></a>介绍一下 webpack scope hosting</h4><p>作用域提升，将分散的模块划分到同一个作用域中，避免了代码的重复引入，有效减少打包后的代码体积和运行时的内存损耗；</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2019/02/05/%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E3%80%81%E5%AE%9E%E4%BE%8B%E5%AF%B9%E8%B1%A1%E5%92%8C%E5%8E%9F%E5%9E%8B%E5%AF%B9%E8%B1%A1/#more" rel="contents">
+              <a class="btn" href="/2019/04/10/%E4%BB%8B%E7%BB%8Dbabel%E5%8E%9F%E7%90%86/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -624,7 +636,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -692,20 +704,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">46</span>
+          <span class="site-state-item-count">51</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-count">14</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">25</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
