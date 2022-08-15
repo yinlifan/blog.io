@@ -272,6 +272,7 @@
 <li>后代选择器（#box div），选择id为box元素内部所有的div元素</li>
 <li>通配符选择器(*)</li>
 <li>伪类选择器(a:hover, li:nth-child)</li>
+<li>伪元素选择器（::after, ::before)</li>
 </ul>
 <p><strong>优先级</strong></p>
 <span id="more"></span>
@@ -353,7 +354,7 @@
 <h4 id="9-typeof-与-instanceof-区别"><a href="#9-typeof-与-instanceof-区别" class="headerlink" title="9. typeof 与 instanceof 区别"></a>9. typeof 与 instanceof 区别</h4><p><strong>typeof</strong>：可以正确判断基本数据类型，除了null外（object）。他不能正确判断复杂数据类型，除function外都是object。</p>
 <p><strong>instanceof</strong>：可以正确判断复杂数据类型，其内部机制是根据判断对象的原型链上是否含有该类型，是返回true，不是返回false。不能直接判断基本数据类型。</p>
 <p>可使用原型判断的方式：</p>
-<p>**object.prototype.toString().call()**：判断object类型的，直接调用toString()就可以返回正确类型，其他对象必须使用.call（）方法，才能返回正确的类型信息 。</p>
+<p><strong>object.prototype.toString().call()</strong> ：判断object类型的，直接调用<code>toString()</code>就可以返回正确类型，其他对象必须使用<code>.call（）</code>方法，才能返回正确的类型信息 。</p>
 <h4 id="10-说说你对闭包的理解？闭包使用场景"><a href="#10-说说你对闭包的理解？闭包使用场景" class="headerlink" title="10. 说说你对闭包的理解？闭包使用场景"></a>10. 说说你对闭包的理解？闭包使用场景</h4><p>闭包就是一个有权访问其他函数里的变量及参数。最常见创建闭包的形式就是一个函数内嵌套一个函数。内部函数可以访问外部函数的变量和参数。突破了作用域。</p>
 <p>两个用处：封装私有属性及私有方法。 可以读取函数内部的变量，并且不会被回收。</p>
 <p>闭包的使用场景：</p>
@@ -1165,20 +1166,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">51</span>
+          <span class="site-state-item-count">55</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-count">15</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-count">26</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

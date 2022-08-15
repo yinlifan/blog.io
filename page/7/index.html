@@ -191,6 +191,334 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2019/10/10/keep-alive%E4%BD%9C%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/touxaing.png">
+      <meta itemprop="name" content="Lifan Yin">
+      <meta itemprop="description" content="CODE IS POETRY.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AFAN">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/10/10/keep-alive%E4%BD%9C%E7%94%A8/" class="post-title-link" itemprop="url">keep-alive作用</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-10-10 00:00:00" itemprop="dateCreated datePublished" datetime="2019-10-10T00:00:00+08:00">2019-10-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Vue/" itemprop="url" rel="index"><span itemprop="name">Vue</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="keep-alive作用是什么呢？"><a href="#keep-alive作用是什么呢？" class="headerlink" title="keep-alive作用是什么呢？"></a>keep-alive作用是什么呢？</h4><blockquote>
+<p>keep-alive可以实现组件缓存，当组件切换时不会对当前组件进行卸载</p>
+</blockquote>
+<ul>
+<li><code>&lt;keep-alive&gt;&lt;/keep-alive&gt;</code>包裹动态组件时，会缓存不活动得组件实例，主要用于保留组件状态或避免重新渲染</li>
+</ul>
+<blockquote>
+<p>比如有一个列表和一个详情，那么用户就会经常执行打开详情&#x3D;》返回列表&#x3D;》打开详情….这样得话列表和详情都是一个频率很高得也买你，那么就可以对列表组件使用<code>&lt;keep-alive&gt;&lt;/keep-alive&gt;</code>进行缓存，这样用户每次返回列表的时候，都能从缓存中快速渲染，而不是重新渲染。</p>
+</blockquote>
+<ul>
+<li>常用的两个属性 <code>include/exclude</code>，允许组件有条件的进行缓存</li>
+<li>两个生命周期<code>activated/deactivated</code>，用来得知当前组件是否处于活跃状态</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2019/08/24/Webpack%E4%B8%AD%E7%9A%84Loader/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/touxaing.png">
+      <meta itemprop="name" content="Lifan Yin">
+      <meta itemprop="description" content="CODE IS POETRY.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AFAN">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/08/24/Webpack%E4%B8%AD%E7%9A%84Loader/" class="post-title-link" itemprop="url">Webpack中的Loader</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-08-24 00:00:00" itemprop="dateCreated datePublished" datetime="2019-08-24T00:00:00+08:00">2019-08-24</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Webpack/" itemprop="url" rel="index"><span itemprop="name">Webpack</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="介绍webpack中的loader？"><a href="#介绍webpack中的loader？" class="headerlink" title="介绍webpack中的loader？"></a>介绍webpack中的loader？</h4><p>webpack默认情况下，只支持对js，json文件打包。像css，less，png图片啊这些类型文件，webpack需要采用相对应的loader（模块加载器）进行解析转换。</p>
+<h5 id="loader配置（module-rules）："><a href="#loader配置（module-rules）：" class="headerlink" title="loader配置（module.rules）："></a>loader配置（module.rules）：</h5><ul>
+<li>rules是一个数组的形式，因此我们可以配置多个loader。</li>
+<li>每一个loader对应一个对象形式，属性test为匹配的规则，一般情况下为正则表达式。</li>
+<li>属性use针对匹配到文件类型，调用对应的loader进行处理。</li>
+</ul>
+<h5 id="常见的loader："><a href="#常见的loader：" class="headerlink" title="常见的loader："></a>常见的loader：</h5>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/08/24/Webpack%E4%B8%AD%E7%9A%84Loader/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2019/08/23/Webpack%E4%B8%AD%E7%9A%84Plugin/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/touxaing.png">
+      <meta itemprop="name" content="Lifan Yin">
+      <meta itemprop="description" content="CODE IS POETRY.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AFAN">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/08/23/Webpack%E4%B8%AD%E7%9A%84Plugin/" class="post-title-link" itemprop="url">Webpack中的Plugin</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-08-23 00:00:00" itemprop="dateCreated datePublished" datetime="2019-08-23T00:00:00+08:00">2019-08-23</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Webpack/" itemprop="url" rel="index"><span itemprop="name">Webpack</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="介绍webpack中的plugin？"><a href="#介绍webpack中的plugin？" class="headerlink" title="介绍webpack中的plugin？"></a>介绍webpack中的plugin？</h4><p>plugin是插件，对于webpack本身的扩展，是一个扩展器。</p>
+<p>配置方式：写在plugins属性中传入new实例对象，他是个数组，可以写多个插件。</p>
+<ul>
+<li>UglifyJsPlugin: 压缩、混淆代码；</li>
+<li>CommonsChunkPlugin: 代码分割；</li>
+<li>ProvidePlugin: 自动加载模块；</li>
+<li>html-webpack-plugin: 加载 html 文件，并引入 css &#x2F; js 文件；</li>
+<li>extract-text-webpack-plugin &#x2F; mini-css-extract-plugin: 抽离样式，生成 css 文件； DefinePlugin: 定义全局变量；</li>
+<li>optimize-css-assets-webpack-plugin: CSS 代码去重；</li>
+<li>webpack-bundle-analyzer: 代码分析；</li>
+<li>compression-webpack-plugin: 使用 gzip 压缩 js 和 css；</li>
+<li>happypack: 使用多进程，加速代码构建；</li>
+<li>EnvironmentPlugin: 定义环境变量；</li>
+</ul>
+<h5 id="下面介绍几个常用的插件用法："><a href="#下面介绍几个常用的插件用法：" class="headerlink" title="下面介绍几个常用的插件用法："></a>下面介绍几个常用的插件用法：</h5>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/08/23/Webpack%E4%B8%AD%E7%9A%84Plugin/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2019/08/20/Webpack%E6%9E%84%E5%BB%BA%E6%B5%81%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/touxaing.png">
+      <meta itemprop="name" content="Lifan Yin">
+      <meta itemprop="description" content="CODE IS POETRY.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AFAN">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/08/20/Webpack%E6%9E%84%E5%BB%BA%E6%B5%81%E7%A8%8B/" class="post-title-link" itemprop="url">Webpack构建流程</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-08-20 00:00:00" itemprop="dateCreated datePublished" datetime="2019-08-20T00:00:00+08:00">2019-08-20</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Webpack/" itemprop="url" rel="index"><span itemprop="name">Webpack</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="介绍一下-webpack-的构建流程"><a href="#介绍一下-webpack-的构建流程" class="headerlink" title="介绍一下 webpack 的构建流程"></a>介绍一下 webpack 的构建流程</h4><h5 id="核心概念"><a href="#核心概念" class="headerlink" title="核心概念"></a><strong>核心概念</strong></h5><ul>
+<li><code>entry</code>：入口配置。webpack从入口开始根据模块间依赖关系递归解析和处理所有资源文件。</li>
+<li><code>output</code>：出口配置。经打包后的文件写入的位置。</li>
+<li><code>loader</code>：模块转换器。纯文件转换。因为webpack默认只认识js，json文件。</li>
+<li><code>plugin</code>：扩展插件。插件可以扩展 Webpack 的功能。</li>
+<li><code>module</code>：模块。除了js范畴内的<code>es module、commonJs、AMD</code>等，<code>css @import、url(...)</code>、图片、字体等在webpack中都被视为模块。</li>
+</ul>
+<h5 id="打包流程"><a href="#打包流程" class="headerlink" title="打包流程"></a>打包流程</h5>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/08/20/Webpack%E6%9E%84%E5%BB%BA%E6%B5%81%E7%A8%8B/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2019/08/19/Webpack%E5%B1%82%E9%9D%A2%E7%9A%84%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -247,315 +575,6 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2019/08/19/Webpack%E5%B1%82%E9%9D%A2%E7%9A%84%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2019/08/15/Webpack%E7%83%AD%E6%9B%B4%E6%96%B0%E5%8E%9F%E7%90%86/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/touxaing.png">
-      <meta itemprop="name" content="Lifan Yin">
-      <meta itemprop="description" content="CODE IS POETRY.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="AFAN">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/08/15/Webpack%E7%83%AD%E6%9B%B4%E6%96%B0%E5%8E%9F%E7%90%86/" class="post-title-link" itemprop="url">Webpack热更新原理</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-08-15 00:00:00" itemprop="dateCreated datePublished" datetime="2019-08-15T00:00:00+08:00">2019-08-15</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Webpack/" itemprop="url" rel="index"><span itemprop="name">Webpack</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><a target="_blank" rel="noopener" href="http://zslin.xyz/2019/04/04/webpack/webpack%E7%83%AD%E6%9B%B4%E6%96%B0%E5%8E%9F%E7%90%86/rr.png"><img src="http://zslin.xyz/2019/04/04/webpack/webpack%E7%83%AD%E6%9B%B4%E6%96%B0%E5%8E%9F%E7%90%86/rr.png" alt="img"></a></p>
-<h5 id="HMR-的基本流程图"><a href="#HMR-的基本流程图" class="headerlink" title="HMR 的基本流程图"></a><strong>HMR 的基本流程图</strong></h5><p><a target="_blank" rel="noopener" href="http://zslin.xyz/2019/04/04/webpack/webpack%E7%83%AD%E6%9B%B4%E6%96%B0%E5%8E%9F%E7%90%86/tt.png"><img src="http://zslin.xyz/2019/04/04/webpack/webpack%E7%83%AD%E6%9B%B4%E6%96%B0%E5%8E%9F%E7%90%86/tt.png" alt="img"></a></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2019/08/15/Webpack%E7%83%AD%E6%9B%B4%E6%96%B0%E5%8E%9F%E7%90%86/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2019/08/04/%E5%85%B3%E4%BA%8Etree-shaking/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/touxaing.png">
-      <meta itemprop="name" content="Lifan Yin">
-      <meta itemprop="description" content="CODE IS POETRY.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="AFAN">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/08/04/%E5%85%B3%E4%BA%8Etree-shaking/" class="post-title-link" itemprop="url">关于tree-shaking</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-08-04 00:00:00" itemprop="dateCreated datePublished" datetime="2019-08-04T00:00:00+08:00">2019-08-04</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Webpack/" itemprop="url" rel="index"><span itemprop="name">Webpack</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="介绍一下tree-shaking"><a href="#介绍一下tree-shaking" class="headerlink" title="介绍一下tree-shaking"></a>介绍一下tree-shaking</h4><h5 id="作用："><a href="#作用：" class="headerlink" title="作用："></a><strong>作用：</strong></h5><p>它表示在打包的时候会去除一些无用的代码</p>
-<h5 id="原理："><a href="#原理：" class="headerlink" title="原理："></a><strong>原理</strong>：</h5><ul>
-<li><code>ES6</code>的模块引入是静态分析的，所以在编译时能正确判断到底加载了哪些模块</li>
-<li>分析程序流，判断哪些变量未被使用、引用，进而删除此代码</li>
-</ul>
-<h5 id="特点："><a href="#特点：" class="headerlink" title="特点："></a><strong>特点：</strong></h5><ul>
-<li>在生产模式下它是默认开启的，但是由于经过<code>babel</code>编译全部模块被封装成<code>IIFE</code>，它存在副作用无法被<code>tree-shaking</code>掉</li>
-<li>可以在<code>package.json</code>中配置<code>sideEffects</code>来指定哪些文件是有副作用的。它有两种值，一个是布尔类型，如果是<code>false</code>则表示所有文件都没有副作用；如果是一个数组的话，数组里的文件路径表示改文件有副作用</li>
-<li><code>rollup</code>和<code>webpack</code>中对<code>tree-shaking</code>的层度不同，例如对<code>babel</code>转译后的<code>class</code>，如果<code>babel</code>的转译是宽松模式下的话(也就是<code>loose</code>为<code>true</code>)，<code>webpack</code>依旧会认为它有副作用不会<code>tree-shaking</code>掉，而<code>rollup</code>会。这是因为<code>rollup</code>有程序流分析的功能，可以更好的判断代码是否真正会产生副作用。</li>
-</ul>
-<h5 id="原理"><a href="#原理" class="headerlink" title="原理"></a><strong>原理</strong></h5>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2019/08/04/%E5%85%B3%E4%BA%8Etree-shaking/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2019/07/09/%E5%A4%84%E7%90%86%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%9B%BE%E7%89%87/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/touxaing.png">
-      <meta itemprop="name" content="Lifan Yin">
-      <meta itemprop="description" content="CODE IS POETRY.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="AFAN">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/07/09/%E5%A4%84%E7%90%86%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%9B%BE%E7%89%87/" class="post-title-link" itemprop="url">处理二进制图片</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-07-09 15:59:37" itemprop="dateCreated datePublished" datetime="2019-07-09T15:59:37+08:00">2019-07-09</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="关于后端传给前端图片的二进制流展示问题"><a href="#关于后端传给前端图片的二进制流展示问题" class="headerlink" title="关于后端传给前端图片的二进制流展示问题"></a>关于后端传给前端图片的二进制流展示问题</h3><h4 id="当后端传入的图片二进制流"><a href="#当后端传入的图片二进制流" class="headerlink" title="当后端传入的图片二进制流"></a>当后端传入的图片二进制流</h4><p>前端需要展示，如下图</p>
-<p><img src="https://cdn.jsdelivr.net/gh/yinlifan/img/20220809155801.png"></p>
-<h4 id="接口中处理"><a href="#接口中处理" class="headerlink" title="接口中处理"></a>接口中处理</h4><p>处理后台返回的二进制流图片时，设置返回类型responseType: ‘arraybuffer’</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2019/07/09/%E5%A4%84%E7%90%86%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%9B%BE%E7%89%87/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2019/07/03/%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/touxaing.png">
-      <meta itemprop="name" content="Lifan Yin">
-      <meta itemprop="description" content="CODE IS POETRY.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="AFAN">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/07/03/%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/" class="post-title-link" itemprop="url">页面布局</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-07-03 00:00:00" itemprop="dateCreated datePublished" datetime="2019-07-03T00:00:00+08:00">2019-07-03</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/css/" itemprop="url" rel="index"><span itemprop="name">css</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="页面布局"><a href="#页面布局" class="headerlink" title="页面布局"></a>页面布局</h2><h4 id="通栏布局："><a href="#通栏布局：" class="headerlink" title="通栏布局："></a>通栏布局：</h4><p>浏览器左侧固定，右侧自适应。<br>1.flex布局，左侧固定宽，右侧flex：1<br>2.两个盒子分别左浮右浮，右侧盒子减去左侧盒子的宽 100% - 宽<br>3.左侧盒子左浮动，右侧盒子设置 margin-left：左侧盒子的宽</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2019/07/03/%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -646,20 +665,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">51</span>
+          <span class="site-state-item-count">55</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-count">15</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-count">26</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
